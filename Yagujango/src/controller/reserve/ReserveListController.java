@@ -24,7 +24,7 @@ public class ReserveListController extends HttpServlet {
 		
 		request.setAttribute("st", list);
 		
-		request.getRequestDispatcher("/views/reserve.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/reserve.jsp").forward(request, response);
 		//
 		
 	}
@@ -33,6 +33,6 @@ public class ReserveListController extends HttpServlet {
 		
 		List<Match> matchlist = reserveService.getMatchList();
 		
-		request.getRequestDispatcher("/views/matchinfo.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/matchinfo.jsp").forward(request, response);
 	}
 }
