@@ -1,7 +1,7 @@
 
 public class JinBeom {
 	public static void main(String[] args) {
-		//test2
+		//test3
 		System.out.println("Hello");
 	}
 }
