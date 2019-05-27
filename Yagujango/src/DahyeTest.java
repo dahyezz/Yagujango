@@ -1,7 +1,7 @@
 
 public class DahyeTest {
 	public static void main(String[] args) {
-		//tt
+		//test
 		System.out.println("test");
 	}
 
