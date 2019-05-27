@@ -1,7 +1,7 @@
 package service.impl;
 
 import java.util.List;
-
+ 
 import javax.servlet.http.HttpServletRequest;
 
 import dao.face.Board_1to1Dao;

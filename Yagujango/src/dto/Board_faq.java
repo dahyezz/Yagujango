@@ -8,7 +8,7 @@ public class Board_faq {
 	private String title;
 	private String content;
 	private Date writtendate;
-	
+	 
 	@Override
 	public String toString() {
 		return "Board_faq [boardno=" + boardno + ", title=" + title + ", content=" + content + ", writtendate="

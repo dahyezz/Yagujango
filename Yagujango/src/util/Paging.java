@@ -86,7 +86,7 @@ public class Paging {
 		// 게시글 끝번호
 		endNo = curPage*listCount;
 	}
-
+ 
 	@Override
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="

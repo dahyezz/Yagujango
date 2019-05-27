@@ -9,9 +9,9 @@ import java.util.List;
 
 import dao.face.Board_1to1Dao;
 import dbutil.DBConn;
-import dto.Board_faq;
+import dto.Board_faq; 
 import util.Paging;
-
+ 
 public class Board_1to1DaoImpl implements Board_1to1Dao{
 	
 	private Connection conn = DBConn.getConnection(); 
