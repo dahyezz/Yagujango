@@ -23,7 +23,7 @@ public class ReserveListController extends HttpServlet {
 		List<Stadium> list = reserveService.getList();
 		
 		request.setAttribute("st", list);
-		
+		//
 		request.getRequestDispatcher("/views/reserve.jsp").forward(request, response);
 		
 		
