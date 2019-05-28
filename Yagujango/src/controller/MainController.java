@@ -22,7 +22,8 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Stadium> list = reserveService.getList();
 		
-		req.setAttribute("st", list);
+		//이거 수정
+		req.setAttribute("list", list);
 		
 		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
 	}
