@@ -28,7 +28,8 @@ public class Paging {
 	//	pageCount == 10
 	//	listCount == 10
 	public Paging(int totalCount, int curPage) {
-		this.setTotalCount(totalCount);	
+
+		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 		
 		makePaging();
@@ -167,18 +168,3 @@ public class Paging {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
