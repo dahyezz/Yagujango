@@ -28,6 +28,7 @@ public class Paging {
 	//	pageCount == 10
 	//	listCount == 10
 	public Paging(int totalCount, int curPage) {
+
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 		
@@ -86,7 +87,7 @@ public class Paging {
 		// 게시글 끝번호
 		endNo = curPage*listCount;
 	}
- 
+
 	@Override
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
