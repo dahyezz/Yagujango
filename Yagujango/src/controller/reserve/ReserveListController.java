@@ -22,9 +22,10 @@ public class ReserveListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Stadium> list = reserveService.getList();
 		
-		request.setAttribute("st", list);
+		//이렇게 테스트해보기
+		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/WEB-INF/views/reserve.jsp").forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/views/reserve.jsp").forward(request, response);
 		//
 		
 	}
