@@ -22,7 +22,7 @@ public class MemberListController extends HttpServlet {
 	private ManagerService managerService = new ManagerServiceImpl();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+///yy
 		//회원 목록 조회
 		List list = managerService.getList();
 		
