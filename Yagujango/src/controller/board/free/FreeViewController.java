@@ -23,9 +23,16 @@ public class FreeViewController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Board_Free viewboard = board_FreeService.getBoardno(req);
+		viewboard.setTag(req.getParameter("tag"));
 		
-		board_FreeService.addHit(viewboard);
-		viewboard = board_FreeService.view(viewboard);
+		
+		if("공지".equals(viewboard.getTag())) {
+			board_FreeService.noticeaddhit(viewboard);
+			viewboard = board_FreeService.noticeview(viewboard);
+		}else {
+			board_FreeService.addHit(viewboard);
+			viewboard = board_FreeService.view(viewboard);
+		}
 		
 		
 		req.setAttribute("board", viewboard);

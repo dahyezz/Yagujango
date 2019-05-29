@@ -208,6 +208,88 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 		sql+="UPDATE board_free";
 		sql+=" SET hit = hit + 1";
 		sql+=" WHERE boardno = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, viewboard.getBoardno());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	
+	}
+
+	@Override
+	public void NoticeupHit(Board_Free viewboard) {
+		String sql = "";
+		sql+="UPDATE board_free_notice";
+		sql+=" SET hit = hit + 1";
+		sql+=" WHERE boardno = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, viewboard.getBoardno());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public Board_Free selectNoticeByBoardno(Board_Free viewboard) {
+		String sql = "";
+		sql +="SELECT boardno,tag,title,writer,content,hit,writtendate";
+		sql +=" FROM board_free_notice";
+		sql +=" WHERE boardno = ?";
+		Board_Free board_free = new Board_Free();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, viewboard.getBoardno());
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				board_free.setBoardno(rs.getInt("boardno"));
+				board_free.setTag(rs.getString("tag"));
+				board_free.setTitle(rs.getString("title"));
+				board_free.setWriter(rs.getString("writer"));
+				board_free.setContent(rs.getString("content"));
+				board_free.setHit(rs.getInt("hit"));
+				board_free.setWrittendate(rs.getDate("writtendate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return board_free;
 	}
 
 }

@@ -11,8 +11,7 @@
 .tablediv {
 	
 	text-align: center;
-	margin-left: auto;
-    margin-right: auto;
+
 }
 
 </style>
@@ -33,15 +32,15 @@
 <tbody>
 <c:forEach items="${list}" var="i">
 	<tr>
-		<td>${i.boardno }</td>
-		<td>
-			<c:if test="${i.tag eq '공지' }">
-			[${i.tag }]${i.title }</a>
-			</c:if>
-			<c:if test="${i.tag ne '공지' }">
-			[${i.tag}]<a href="/board/free/view?boardno=${i.boardno}"  >${i.title }</a>
-			</c:if>
-		</td>
+		<c:if test="${i.tag eq '공지' }">
+			<td>공지</td>
+			<td><a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>	
+		</c:if>
+		<c:if test="${i.tag ne '공지' }">
+			<td>${i.boardno }</td>
+			<td>[${i.tag}]<a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>
+		</c:if>
+		
 		<td>${i.writer }</td>
 		<td>${i.hit }</td>
 		<td><fmt:formatDate value="${i.writtendate }" pattern="yyyy-MM-dd" /></td>
