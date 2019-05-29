@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/controller/admin/MemberListController.java=UTF-8
+encoding//src/controller/admin/board_1to1ListController.java=UTF-8
+encoding//src/dao/impl/AdminDaoImpl.java=UTF-8
+encoding//src/dao/impl/MemberDaoImpl.java=UTF-8

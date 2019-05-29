@@ -1,0 +1,18 @@
+package dao.face;
+
+import java.util.List;
+
+import util.Paging;
+
+public interface AdminDao {
+	
+	//관리자 - 회원전체조회
+	public List selectAll(Paging paging);
+
+	//관리자 -회원 테이블 전체 count조회
+	public int selectCntAll();
+	
+	//1:1질문목록 조회
+	public List bselectAll(Paging paging);
+
+}
