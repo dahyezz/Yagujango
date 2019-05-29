@@ -8,4 +8,5 @@ public interface MemberDao {
 
 	public Member selectMemberByUserid(Member member);
 
+
 }
