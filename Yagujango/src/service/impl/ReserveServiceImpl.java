@@ -14,11 +14,6 @@ public class ReserveServiceImpl implements ReserveService{
 	private ReserveDao reserveDao = new ReserveDaoImpl();
 	
 	@Override
-	public List<Stadium> getList() {
-		return reserveDao.selectName();
-	}
-	
-	@Override
 	public Stadium getStadiumcode(HttpServletRequest request) {
 		String param = request.getParameter("stadium_code");
 		int stadiumcode = 0;
@@ -33,7 +28,14 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 	
 	@Override
-	public List<Match> getMatchList() {
-		return reserveDao.selectAllByStadiumcode();
+	public List<Stadium> getList() {
+		return reserveDao.selectAllStaidum();
+	}
+	
+
+	
+	@Override
+	public List<Match> getMatchList(Stadium stadium) {
+		return reserveDao.selectAllByStadiumcode(stadium);
 	}
 }

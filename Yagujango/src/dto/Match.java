@@ -1,18 +1,20 @@
 package dto;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class Match {
 	private int match_code;
-	private DATE match_date;
 	private int hometeam_code;
-	private int awayteam_code;
+	private Date match_date;
+	private String hometeam_name;
+	private String awayteam_name;
 	private String highlight;
 	
 	@Override
 	public String toString() {
-		return "Match [match_code=" + match_code + ", match_date=" + match_date + ", hometeam_code=" + hometeam_code
-				+ ", awayteam_code=" + awayteam_code + ", highlight=" + highlight + "]";
+		return "Match [match_code=" + match_code + ", hometeam_code=" + hometeam_code + ", match_date=" + match_date
+				+ ", hometeam_name=" + hometeam_name + ", awayteam_name=" + awayteam_name + ", highlight=" + highlight
+				+ "]";
 	}
 
 	public int getMatch_code() {
@@ -23,14 +25,6 @@ public class Match {
 		this.match_code = match_code;
 	}
 
-	public DATE getMatch_date() {
-		return match_date;
-	}
-
-	public void setMatch_date(DATE match_date) {
-		this.match_date = match_date;
-	}
-
 	public int getHometeam_code() {
 		return hometeam_code;
 	}
@@ -39,12 +33,28 @@ public class Match {
 		this.hometeam_code = hometeam_code;
 	}
 
-	public int getAwayteam_code() {
-		return awayteam_code;
+	public Date getMatch_date() {
+		return match_date;
 	}
 
-	public void setAwayteam_code(int awayteam_code) {
-		this.awayteam_code = awayteam_code;
+	public void setMatch_date(Date match_date) {
+		this.match_date = match_date;
+	}
+
+	public String getHometeam_name() {
+		return hometeam_name;
+	}
+
+	public void setHometeam_name(String hometeam_name) {
+		this.hometeam_name = hometeam_name;
+	}
+
+	public String getAwayteam_name() {
+		return awayteam_name;
+	}
+
+	public void setAwayteam_name(String awayteam_name) {
+		this.awayteam_name = awayteam_name;
 	}
 
 	public String getHighlight() {
@@ -54,6 +64,10 @@ public class Match {
 	public void setHighlight(String highlight) {
 		this.highlight = highlight;
 	}
+	
+	
+	
+	
 	
 	
 }

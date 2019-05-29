@@ -16,13 +16,12 @@ import service.impl.ReserveServiceImpl;
 @WebServlet("/main")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private ReserveService reserveService = new ReserveServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Stadium> list = reserveService.getList();
-		
-		//이거 수정
 		req.setAttribute("list", list);
 		
 		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
