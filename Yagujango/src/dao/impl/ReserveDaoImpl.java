@@ -19,11 +19,11 @@ public class ReserveDaoImpl implements ReserveDao {
 	private ResultSet rs = null;
 	
 	@Override
-	public List<Stadium> selectName() {
+	public List<Stadium> selectAllStaidum() {
 		String sql = "";
-		sql += "SELECT * FROM stadium";
+		sql += "SELECT stadium_code, stadium_name, stadium_logo, team_name FROM stadium";
 		
-		List list = new ArrayList();
+		List<Stadium> list = new ArrayList<>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -36,6 +36,7 @@ public class ReserveDaoImpl implements ReserveDao {
 				stadium.setStadium_code(rs.getInt("stadium_code"));
 				stadium.setStadium_name(rs.getString("stadium_name"));
 				stadium.setStadium_logo(rs.getString("stadium_logo"));
+				stadium.setTeam_name(rs.getString("team_name"));
 				
 				list.add(stadium);
 			}
@@ -54,13 +55,41 @@ public class ReserveDaoImpl implements ReserveDao {
 	}
 	
 	@Override
-	public List<Match> selectAllByStadiumcode() {
+	public List<Match> selectAllByStadiumcode(Stadium stadium) {
+		
 		String sql = "";
-		sql += "SELECT match.hometeam_code, stadium.stadium_name, match.match_code, match.match_date, match.awayteam_code, match.highlight";
-		sql += " FROM stadium";
-		sql += " INNER JOIN match";
-		sql += " ON stadium.stadium_code = match.hometeam_code";
-		return null;
+//		sql += "SELECT match_code, hometeam_code, to_char(match_date, 'mm.dd') match_date, hometeam_name, awayteam_name";
+		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name";
+		sql += " FROM match";
+		sql += " WHERE hometeam_code = ?";
+		sql += " ORDER BY match_code";
+		
+		List<Match> matchList = new ArrayList<Match>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, stadium.getStadium_code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				Match match = new Match();
+				
+				match.setMatch_code(rs.getInt("match_code"));
+				match.setHometeam_code(rs.getInt("hometeam_code"));
+				match.setMatch_date(rs.getDate("match_date"));
+				match.setHometeam_name(rs.getString("hometeam_name"));
+				match.setAwayteam_name(rs.getString("awayteam_name"));
+				
+				matchList.add(match);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return matchList;
 	}
 
 }

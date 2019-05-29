@@ -33,19 +33,7 @@ $(document).ready(function() {
 		.append("<p style='float:right;margin:-3px'>&#9656;</p>");
 
 });
-// $(function(){
-//   $(".zeta-menu li").hover(function(){
-//     $('ul:first',this).show();
-//   }, function(){
-//     $('ul:first',this).hide();
-//   });
-//   $(".zeta-menu>li:has(ul)>a").each( function() {
-//     $(this).html( $(this).html()+' &or;' );
-//   });
-//   $(".zeta-menu ul li:has(ul)")
-//     .find("a:first")
-//     .append("<p style='float:right;margin:-3px'>&#9656;</p>");
-// });
+
 </script>
 
 <style type="text/css">
@@ -101,10 +89,10 @@ body { margin: 0; }
 </style>
 
 </head>
-<body>
+<body onload="InitializeStaticMenu();">
 
 <div id="headerDiv">
-	<p id="main">야구장고</p>
+	<p id="main"><a href="/main">야구장고</a></p>
 </div>
 
 <div class='zeta-menu-bar'>
@@ -112,7 +100,7 @@ body { margin: 0; }
     <li><a href="#">예약</a>
       <ul>
       	<c:forEach items="${list }" var="i">
-      		<li><a href="/reserve/list?stadium_code=${i.stadium_code }">${i.stadium_name }</a></li>
+      		<li><a href="/reserve/list?stadium_code=${i.stadium_code }">${i.team_name }</a></li>
       	</c:forEach>
       </ul>
      </li>
@@ -122,5 +110,3 @@ body { margin: 0; }
     <li><a href="/member/mypage">마이페이지</a></li> 
   </ul>
 </div>
-
-<hr>
