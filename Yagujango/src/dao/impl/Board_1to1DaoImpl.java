@@ -9,6 +9,7 @@ import java.util.List;
 
 import dao.face.Board_1to1Dao;
 import dbutil.DBConn;
+
 import dto.Board_faq;
 import util.Paging;
 
@@ -47,7 +48,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 				board_faq.setFaq_title( rs.getString("faq_title") );
 				board_faq.setFaq_content( rs.getString("faq_content") );
 				board_faq.setFaq_writtendate( rs.getDate("faq_writtendate") );
-				
+
 				faqList.add(board_faq);
 			}
 
@@ -65,6 +66,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 				
 		return faqList;
 	}
+
 
 	@Override
 	public int selectCntAll() {
@@ -99,3 +101,4 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 	}
 
 }
+

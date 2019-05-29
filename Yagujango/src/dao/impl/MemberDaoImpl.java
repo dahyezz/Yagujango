@@ -4,14 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.face.MemberDao;
 import dbutil.DBConn;
 import dto.Member;
+import util.Paging;
 
 public class MemberDaoImpl implements MemberDao{
 	
-	//DB 관련 객체
+	//DB 愿��젴 媛앹껜
 	private Connection conn = DBConn.getConnection();
 	private PreparedStatement ps;
 	private ResultSet rs;	
@@ -76,5 +79,6 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return member;
 	}
+
 
 }

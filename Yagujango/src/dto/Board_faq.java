@@ -1,8 +1,9 @@
 package dto;
- 
+
 import java.util.Date;
 
 public class Board_faq {
+
 
 	private int faq_boardno;
 	private String faq_title;

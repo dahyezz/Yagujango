@@ -1,3 +1,4 @@
+
 package util;
 
 public class Paging {
@@ -13,7 +14,13 @@ public class Paging {
 	
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
+  
+  // private String name; //master랑 재민씨 충돌난 부분
+	// private String keyword; //master랑 재민씨 충돌난 부분
 	
+  public Paging() {	
+	}
+  
 	// 총 게시글 수만 입력하는 생성자
 	//	curPage == 1
 	//	pageCount == 10
@@ -167,18 +174,4 @@ public class Paging {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
