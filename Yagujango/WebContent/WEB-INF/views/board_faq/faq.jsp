@@ -279,7 +279,7 @@ jQuery(function($){
     </ul>
 </div>
 
-<div id="pagingBox">
+<div id="pagingBox">  
 <c:import url="/WEB-INF/views/layout/faq_paging.jsp" />
 </div>
 

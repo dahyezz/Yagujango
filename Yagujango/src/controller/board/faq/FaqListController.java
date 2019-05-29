@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.face.Board_1to1Service;
 import service.impl.Board_1to1ServiceImpl;
 import util.Paging;
-
+ 
 
 @WebServlet("/board/faq/faqlist")
 public class FaqListController extends HttpServlet {

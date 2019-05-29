@@ -22,7 +22,7 @@
 			<span>&laquo;</span>
 		</li>
 		</c:if>
-
+  
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
 			<a href="/board/list?curPage=${paging.curPage-1 }"><span>&laquo;</span></a>

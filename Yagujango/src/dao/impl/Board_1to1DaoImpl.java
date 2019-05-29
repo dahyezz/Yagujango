@@ -78,7 +78,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			ps = conn.prepareStatement(sql);
 			
 			rs = ps.executeQuery();
-			
+			 
 			while( rs.next() ) {
 				totalCount = rs.getInt(1);
 			}
