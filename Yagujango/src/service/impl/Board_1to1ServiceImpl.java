@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import dao.face.Board_1to1Dao;
 import dao.impl.Board_1to1DaoImpl;
 import service.face.Board_1to1Service;
-import web.util.Paging;
+import util.Paging;
 
 public class Board_1to1ServiceImpl implements Board_1to1Service {
 	
@@ -22,6 +22,8 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 		if( param!=null && !"".equals(param) ) {
 			curPage = Integer.parseInt(param);
 		}
+		
+		int totalCount = board_1to1Dao.selectCntAll();
 		
 		Paging paging = new Paging(curPage);
 		

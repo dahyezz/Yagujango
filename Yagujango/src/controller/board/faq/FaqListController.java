@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.face.Board_1to1Service;
 import service.impl.Board_1to1ServiceImpl;
-import web.util.Paging;
+import util.Paging;
 
 
 @WebServlet("/board/faq/faqlist")
@@ -30,7 +30,7 @@ public class FaqListController extends HttpServlet {
 		
 		List faqList = board_1to1Service.getFaqList(paging);
 		
-		req.setAttribute("list", faqList);
+		req.setAttribute("faqList", faqList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/board_faq/faq.jsp").forward(req, resp);
 	

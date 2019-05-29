@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import web.util.Paging;
+import util.Paging;
 
 public interface Board_1to1Service {
 

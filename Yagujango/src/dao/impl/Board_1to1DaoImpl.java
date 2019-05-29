@@ -10,7 +10,7 @@ import java.util.List;
 import dao.face.Board_1to1Dao;
 import dbutil.DBConn;
 import dto.Board_faq;
-import web.util.Paging;
+import util.Paging;
 
 public class Board_1to1DaoImpl implements Board_1to1Dao{
 	
@@ -24,8 +24,8 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += " 	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT boardno, title, content, writtendate FROM board_faq";
-		sql += " 		ORDER BY boardno DESC";
+		sql += " 		SELECT faq_boardno, faq_title, faq_content, faq_writtendate FROM board_faq";
+		sql += " 		ORDER BY faq_boardno DESC";
 		sql += " 	) B";
 		sql += " 	ORDER BY rnum";
 		sql += " ) BOARD_FAQ";
@@ -43,10 +43,10 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			while( rs.next() ) {
 				Board_faq board_faq = new Board_faq();
 				
-				board_faq.setBoardno( rs.getInt("boardno") );
-				board_faq.setTitle( rs.getString("title") );
-				board_faq.setContent( rs.getString("content") );
-				board_faq.setWrittendate( rs.getDate("writtendate") );
+				board_faq.setFaq_boardno(rs.getInt("faq_boardno"));
+				board_faq.setFaq_title( rs.getString("faq_title") );
+				board_faq.setFaq_content( rs.getString("faq_content") );
+				board_faq.setFaq_writtendate( rs.getDate("faq_writtendate") );
 				
 				faqList.add(board_faq);
 			}
@@ -64,6 +64,38 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		}
 				
 		return faqList;
+	}
+
+	@Override
+	public int selectCntAll() {
+		//전체 게시글 수 조회 쿼리
+		String sql = "";
+		sql+="SELECT count(*)";
+		sql+=" FROM board_faq";
+	
+		int totalCount = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				totalCount = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+				
+		return totalCount;
 	}
 
 }
