@@ -18,4 +18,8 @@ public interface Board_FreeDao {
 	public Board_Free selectBoardByBoardno(Board_Free viewboard);
 
 	public void upHit(Board_Free viewboard);
+
+	public void NoticeupHit(Board_Free viewboard);
+
+	public Board_Free selectNoticeByBoardno(Board_Free viewboard);
 }
