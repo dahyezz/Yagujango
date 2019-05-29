@@ -15,8 +15,8 @@ public class Paging {
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
   
-  // private String name; //master랑 재민씨 충돌난 부분
-	// private String keyword; //master랑 재민씨 충돌난 부분
+	private String name; //master랑 재민씨 충돌난 부분
+	private String keyword; //master랑 재민씨 충돌난 부분
 	
   public Paging() {	
 	}
@@ -94,11 +94,11 @@ public class Paging {
 		endNo = curPage*listCount;
 	}
 
-	@Override  
+	@Override
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", name=" + name + ", keyword=" + keyword + "]";
 	}
 
 	public int getCurPage() {
@@ -172,6 +172,23 @@ public class Paging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 
 }
 
