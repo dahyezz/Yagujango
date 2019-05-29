@@ -146,7 +146,7 @@ a { text-decoration:none }
 			<td>${i.match_date }</td>
 			<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
 				<c:forEach items="${list }" var="j">
-					<c:if test="${j.stadium_code } eq ${i.hometeam_code }">
+					<c:if test="${j.stadium_code eq i.hometeam_code }">
 						<td>${j.stadium_name }</td>
 					</c:if>
 				</c:forEach>
