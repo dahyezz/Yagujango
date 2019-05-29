@@ -1,7 +1,7 @@
 package service.impl;
 
 import java.util.List;
- 
+
 import javax.servlet.http.HttpServletRequest;
 
 import dao.face.Board_1to1Dao;
@@ -22,7 +22,9 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 		if( param!=null && !"".equals(param) ) {
 			curPage = Integer.parseInt(param);
 		}
-		
+
+		int totalCount = board_1to1Dao.selectCntAll();
+
 		Paging paging = new Paging(curPage);
 		
 		return paging;
@@ -34,3 +36,4 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 	}
 
 }
+

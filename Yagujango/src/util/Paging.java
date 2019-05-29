@@ -1,3 +1,4 @@
+
 package util;
 
 public class Paging {
@@ -13,16 +14,13 @@ public class Paging {
 	
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
+  
+  // private String name; //master랑 재민씨 충돌난 부분
+	// private String keyword; //master랑 재민씨 충돌난 부분
 	
-	private String name;
-	private String keyword;
-	
-	
-	public Paging() {
-		
+  public Paging() {	
 	}
-	
-	
+  
 	// 총 게시글 수만 입력하는 생성자
 	//	curPage == 1
 	//	pageCount == 10
@@ -37,7 +35,6 @@ public class Paging {
 	//	pageCount == 10
 	//	listCount == 10
 	public Paging(int totalCount, int curPage) {
-
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
 		
@@ -70,8 +67,8 @@ public class Paging {
 		
 		// 기본값 설정
 		if(curPage == 0)	setCurPage(1);	//기본값으로 첫 페이지(1) 세팅
-		if(pageCount == 0)	setPageCount(10); //한 화면에 보이는 페이지수 기본값(10) 세팅
-		if(listCount == 0)	setListCount(10); //한 화면에 보이는 게시글수 기본값(10) 세팅
+		if(pageCount == 0)	setPageCount(5); //한 화면에 보이는 페이지수 기본값(10) 세팅
+		if(listCount == 0)	setListCount(5); //한 화면에 보이는 게시글수 기본값(10) 세팅
 		
 		// 총 페이지수 계산
 		totalPage = totalCount / listCount;
@@ -97,11 +94,11 @@ public class Paging {
 		endNo = curPage*listCount;
 	}
 
-	@Override
+	@Override  
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + ", name=" + name + ", keyword=" + keyword + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
 	}
 
 	public int getCurPage() {
@@ -176,22 +173,5 @@ public class Paging {
 		this.endNo = endNo;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-	
-
 }
+
