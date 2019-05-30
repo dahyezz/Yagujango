@@ -1,6 +1,7 @@
 package controller.board.free;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Board_Free;
+import dto.Comment;
 import service.face.Board_FreeService;
 import service.impl.Board_FreeServiceImpl;
 
@@ -33,9 +35,13 @@ public class FreeViewController extends HttpServlet {
 			board_FreeService.addHit(viewboard);
 			viewboard = board_FreeService.view(viewboard);
 		}
-		
-		
 		req.setAttribute("board", viewboard);
+		
+		List<Comment> list = board_FreeService.commentlist(viewboard);
+		
+		
+		req.setAttribute("comment", list);
+		
 		req.getRequestDispatcher("/WEB-INF/views/board/free/view.jsp").forward(req, resp);
 		
 	}

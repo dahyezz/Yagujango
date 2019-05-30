@@ -3,6 +3,7 @@ package dao.face;
 import java.util.List;
 
 import dto.Board_Free;
+import dto.Comment;
 import util.Paging;
 
 
@@ -22,4 +23,14 @@ public interface Board_FreeDao {
 	public void NoticeupHit(Board_Free viewboard);
 
 	public Board_Free selectNoticeByBoardno(Board_Free viewboard);
+
+	public void InsertNotice(Board_Free board_free);
+
+	public void Insert(Board_Free board_free);
+
+	public void deleteBoardbyboardno(Board_Free board);
+
+	public void updateBoard_Free(Board_Free board);
+
+	public List<Comment> selectCommentbyboardno(Board_Free viewboard);
 }

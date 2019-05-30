@@ -9,6 +9,7 @@ import java.util.List;
 
 import dao.face.Board_FreeDao;
 import dto.Board_Free;
+import dto.Comment;
 import util.Paging;
 import dbutil.DBConn;
 
@@ -110,8 +111,7 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 
 	@Override
 	public List<Board_Free> selectAllwithNotice(Paging paging) {
-		String name = paging.getName();
-		String keyword = paging.getKeyword();
+
 
 		List<Board_Free> list = new ArrayList<Board_Free>();
 
@@ -290,6 +290,164 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 		}
 
 		return board_free;
+	}
+
+	@Override
+	public void InsertNotice(Board_Free board_free) {
+		String sql = "";
+		sql +="INSERT INTO board_free_notice(boardno,tag,title,writer,content,hit)";
+		sql +=" VALUES(board_free_notice_seq.nextval,?,?,?,?,0)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_free.getTag());
+			ps.setString(2, board_free.getTitle());
+			ps.setString(3, board_free.getWriter());
+			ps.setString(4, board_free.getContent());
+			rs = ps.executeQuery();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void Insert(Board_Free board_free) {
+		String sql = "";
+		sql +="INSERT INTO board_free(boardno,tag,title,writer,content,hit)";
+		sql +=" VALUES(board_free_seq.nextval,?,?,?,?,0)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_free.getTag());
+			ps.setString(2, board_free.getTitle());
+			ps.setString(3, board_free.getWriter());
+			ps.setString(4, board_free.getContent());
+			rs = ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void deleteBoardbyboardno(Board_Free board) {
+		String sql = "";
+		sql += "DELETE FROM board_free";
+		sql += " WHERE boardno=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board.getBoardno());
+			ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	
+		
+	}
+
+	@Override
+	public void updateBoard_Free(Board_Free board) {
+		String sql = "";
+		sql += "UPDATE board_free";
+		sql += " SET title = ?,";
+		sql += " 	content = ?";
+		sql += " WHERE boardno = ?";
+		
+		//DB 객체
+		PreparedStatement ps = null; 
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board.getTitle());
+			ps.setString(2, board.getContent());
+			ps.setInt(3, board.getBoardno());
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public List<Comment> selectCommentbyboardno(Board_Free viewboard) {
+		String sql = "";
+		sql +="SELECT * FROM freecomment";
+		sql +="WHERE boardno=?";
+		sql +="ORDER BY commentno";
+		List<Comment> list = new ArrayList<Comment>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, viewboard.getBoardno());
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Comment comment = new Comment();
+
+				comment.setCommentno(rs.getInt("commentno"));
+				comment.setBoardno(rs.getInt("boardno"));
+				comment.setWriter(rs.getString("userid"));
+				comment.setContent(rs.getString("content"));
+				comment.setWrittendate(rs.getDate("writtendate"));
+
+				list.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 
 }
