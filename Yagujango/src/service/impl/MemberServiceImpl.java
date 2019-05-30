@@ -37,4 +37,18 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectMemberByUserid(member);
 	}
 
+	@Override
+	public boolean idFind(Member member) {
+		if(memberDao.selectCntMemberIdfind(member) >= 1)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public Member getIdfind(Member member) {
+		
+		return memberDao.selectMemberIdfind(member);
+	}
+
 }

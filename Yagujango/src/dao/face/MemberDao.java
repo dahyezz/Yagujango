@@ -8,5 +8,7 @@ public interface MemberDao {
 
 	public Member selectMemberByUserid(Member member);
 
-
+	public int selectCntMemberIdfind(Member member);
+	
+	public Member selectMemberIdfind(Member member);
 }

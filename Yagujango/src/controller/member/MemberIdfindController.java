@@ -1,6 +1,7 @@
 package controller.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,38 +13,34 @@ import dto.Member;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
 
-@WebServlet("/member/login")
-public class MemberLoginController extends HttpServlet {
+@WebServlet("/member/idFind")
+public class MemberIdfindController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private MemberService memberService = new MemberServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/member/idFind.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-		//로그인 정보 얻어오기
-		Member member = memberService.getLoginMember(req);
 		
-		//로그인 인증
-		boolean login = memberService.login(member);
+		Member member = new Member();
 		
-		if(login) {
+		member.setUsername(req.getParameter("username"));
+		member.setEmail(req.getParameter("email"));
+		
+		boolean idFind = memberService.idFind(member);
+		
+		if(idFind) {
 			
-			member = memberService.getMemberByUserid(member);
+			Member mem = memberService.getIdfind(member);
 			
-			//세션 정보 저장
-			req.getSession().setAttribute("login", true);
-			req.getSession().setAttribute("userid", member.getUserid());
-			req.getSession().setAttribute("usernick", member.getUsernick());
-			
+			req.setAttribute("idFind", true);
+			req.setAttribute("member", mem.getUserid());
 		}
-				
-		resp.sendRedirect("/main");
-		
+		req.getRequestDispatcher("/member/idFind_ok.jsp").forward(req, resp);	//뷰 지정
 	}
 }

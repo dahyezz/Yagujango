@@ -29,5 +29,19 @@ public interface MemberService {
 	 * @return Member - 로그인 성공한 회원의 모든 정보
 	 */
 	public Member getMemberByUserid(Member member);
+	
+	/**
+	 * 	아이디와 이메일이 일치하는 아이디 가져옴
+	 * @param member
+	 * @return 조회한 아이디와 이메일이 일치하는 아이디가 있을 때 true
+	 */
+	public boolean idFind(Member member);
+	
+	/**
+	 * 	찾은 아이디 조회
+	 * @param member
+	 * @return 찾은 아이디 조회
+	 */
+	public Member getIdfind(Member member);
 
 }

@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,6 @@ import util.Paging;
 
 public class MemberDaoImpl implements MemberDao{
 	
-	//DB 愿��젴 媛앹껜
 	private Connection conn = DBConn.getConnection();
 	private PreparedStatement ps;
 	private ResultSet rs;	
@@ -71,6 +71,60 @@ public class MemberDaoImpl implements MemberDao{
 				member.setEmail(rs.getString("email"));
 				member.setPenalty(rs.getInt("penalty"));
 				member.setMyteam(rs.getString("myteam"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return member;
+	}
+
+	@Override
+	public int selectCntMemberIdfind(Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM member"; 
+		sql += " WHERE username = ? ";
+		sql += " AND email = ?";
+		
+		int cnt = 0;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getUsername());
+			ps.setString(2, member.getEmail());
+			
+			rs = ps.executeQuery();
+			
+			rs.next();
+			cnt = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public Member selectMemberIdfind(Member member) {
+		
+		String sql = "";
+		sql += "SELECT userid FROM member";
+		sql += " WHERE username = ? ";
+		sql += " AND email = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUsername());
+			ps.setString(2, member.getEmail());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				member.setUserid(rs.getString("userid"));
 			}
 			
 		} catch (SQLException e) {
