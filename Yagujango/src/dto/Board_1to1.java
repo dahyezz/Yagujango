@@ -10,6 +10,7 @@ public class Board_1to1 {
 	private String content;
 	private String writer_comment;
 	private Date writtendate;
+
 	
 	@Override
 	public String toString() {
@@ -48,6 +49,7 @@ public class Board_1to1 {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getWriter_comment() {
 		return writer_comment;
 	}
@@ -59,6 +61,7 @@ public class Board_1to1 {
 	}
 	public void setWrittendate(Date writtendate) {
 		this.writtendate = writtendate;
+
 	}
 	
 

@@ -9,6 +9,8 @@ import java.util.List;
 
 import dao.face.AdminDao;
 import dbutil.DBConn;
+import dto.Board_1to1;
+import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
@@ -22,16 +24,44 @@ public class AdminDaoImpl implements AdminDao{
 	//회원목록조회
 	@Override
 	public List selectAll(Paging paging) {
-		
+		String keyword = paging.getKeyword();
 		//수행할 SQL쿼리
-		String sql= "";
-		sql += "SELECT * FROM member";
+		//게시글 목록 조회쿼리
+		String sql = "";
+		sql += "SELECT * FROM ("; 
+		sql += "	SELECT rownum rnum, B.* FROM ("; 
+		sql += "		SELECT"; 
+		sql += "		userno,"; 
+		sql += "		userid,";
+		sql += "		userpw,";
+		sql += "		username,";
+		sql += "		usernick,"; 
+		sql += "		birth,"; 
+		sql += "		gender,"; 
+		sql += "		phone,"; 
+		sql += "		email,"; 
+		sql += "		penalty,"; 
+		sql += "		myteam"; 
+		sql += "		FROM member"; 
+		if(keyword!=null&&!"".equals(keyword)) {
+			sql += "		WHERE userid LIKE '%"+keyword+"%'"; 
+		}
+		sql += "		ORDER BY userno DESC"; 
+		sql += "	) B"; 
+		sql += "	ORDER BY rnum"; 
+		sql += " )"; 
+		sql += " WHERE rnum BETWEEN ? AND ?";
 		
 		//수행결과를 담을 리스트
 		List list = new ArrayList();
 		
 		try {
 			ps=conn.prepareStatement(sql);//수행객체 얻기
+			
+//			ps.setString(1, keyword);
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+			
 			rs=ps.executeQuery(); //sql수행결과 얻기
 			
 			//sql수행결과 처리
@@ -56,24 +86,26 @@ public class AdminDaoImpl implements AdminDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+			
 		return list;
 	}
 	
 	//회원목록조회
 	@Override
-	public int selectCntAll() {
+	public int selectCntAll(String keyword) {
 
 		//전체 게시글 수 조회 쿼리
 		String sql = "";
-		sql += "SELECT count(*)";
-		sql += " FROM member";
+		sql += "SELECT count(*) FROM member";
+		sql += " WHERE userid LIKE '%'||?||'%' ";
 		
 		int totalCount = 0;
 		try {
 			
 			ps=conn.prepareStatement(sql);
+			
+			ps.setString(1, keyword);
+			
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
@@ -103,13 +135,57 @@ public class AdminDaoImpl implements AdminDao{
 		
 		//수행할 SQL쿼리
 		String sql= "";
-		sql += "SELECT * FROM ";
+		sql += "SELECT * FROM board_1to1";
 		
 		//수행결과를 담을 리스트
 		List blist = new ArrayList();
 		
 		try {
 			ps=conn.prepareStatement(sql);//수행객체 얻기
+			rs=ps.executeQuery(); //sql수행결과 얻기
+			
+			//sql수행결과 처리
+			while(rs.next()) {
+				Board_1to1 board_1to1 = new Board_1to1();
+				
+				board_1to1.setBoardno(rs.getInt("boardno"));
+				board_1to1.setWriter_userid(rs.getInt("writer_userid"));
+				board_1to1.setWriter_email(rs.getString("writer_email"));
+				board_1to1.setTitle(rs.getString("title"));
+				board_1to1.setContent(rs.getString("content"));
+				board_1to1.setWriter_comment(rs.getString("writer_comment"));
+
+				blist.add(board_1to1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return blist;
+	}
+	
+	//블랙리스트조회
+
+	@Override
+	public List blackselectAll(Paging paging) {
+		
+		//수행할 SQL쿼리
+		String sql= "";
+		sql += "select * FROM member A, mem_blacklist B";
+		sql += " WHERE A.userid = B.userid";
+		sql += " AND B.username = A.username and B.email = A.email and B.phone = A.phone ";
+		
+		//수행결과를 담을 리스트
+		List list = new ArrayList();
+		
+		try {
+			
+			Mem_blacklist mem_blacklist = new Mem_blacklist();
+			
+			ps=conn.prepareStatement(sql);//수행객체 얻기
+			
 			rs=ps.executeQuery(); //sql수행결과 얻기
 			
 			//sql수행결과 처리
@@ -128,15 +204,23 @@ public class AdminDaoImpl implements AdminDao{
 				mem.setPenalty(rs.getInt("penalty"));
 				mem.setMyteam(rs.getString("myteam"));
 
-				blist.add(mem);
+				list.add(mem);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
-		
-		return blist;
+		return list;
+
 	}
 
 }
