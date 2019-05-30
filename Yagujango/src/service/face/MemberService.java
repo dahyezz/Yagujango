@@ -36,7 +36,7 @@ public interface MemberService {
 	 * @return 조회한 아이디와 이메일이 일치하는 아이디가 있을 때 true
 	 */
 	public boolean idFind(Member member);
-	
+	 
 	/**
 	 * 	찾은 아이디 조회
 	 * @param member

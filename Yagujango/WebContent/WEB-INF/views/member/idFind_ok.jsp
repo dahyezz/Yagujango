@@ -9,4 +9,4 @@
 
 <c:if test="${idFind }">
 	사용자의 아이디는 ${member.userid } 입니다.
-</c:if>
+</c:if> 

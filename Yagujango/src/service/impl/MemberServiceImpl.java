@@ -49,6 +49,6 @@ public class MemberServiceImpl implements MemberService{
 	public Member getIdfind(Member member) {
 		
 		return memberDao.selectMemberIdfind(member);
-	}
+	} 
 
 }

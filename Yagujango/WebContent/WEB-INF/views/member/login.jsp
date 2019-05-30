@@ -14,7 +14,7 @@ function idFindPopup(){
 function pwFindPopup(){
 	window.open('/member/pwFind','비밀번호 찾기','width=300, height=300, left=600, top=200');
 }
-</script>
+</script> 
 
 
 <h1>로그인 페이지</h1>

@@ -56,7 +56,7 @@ $(document).ready(function(){
 </form>
 </div>
 
-<div id="result"></div>
+<div id="result"></div> 
 
 </body>
 </html>
