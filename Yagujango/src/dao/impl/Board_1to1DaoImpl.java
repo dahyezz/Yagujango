@@ -9,7 +9,7 @@ import java.util.List;
 
 import dao.face.Board_1to1Dao;
 import dbutil.DBConn;
-
+import dto.Board_1to1;
 import dto.Board_faq;
 import util.Paging;
 
@@ -100,5 +100,77 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		return totalCount;
 	}
 
+
+	@Override
+	public int selectBoardno() {
+		
+		String sql = "";
+		sql += "SELECT board_1to1_seq.nextval";
+		sql += " FROM dual";
+		
+		int boardno = 0;
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			//결과 담기
+			while(rs.next()) {
+				boardno = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return boardno;
+	}
+
+
+	@Override
+	public void insert(Board_1to1 board_1to1) {
+		String sql = "";
+		sql += "INSERT INTO board_1to1(BOARDNO,WRITER_USERID,WRITER_EMAIL,TITLE,CONTENT, WRITER_COMMENT) ";
+		sql += " VALUES (?, ?, ?, ?, ?)";
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, board_1to1.getBoardno());
+			ps.setInt(2, board_1to1.getWriter_userid());
+			ps.setString(3, board_1to1.getWriter_email());
+			ps.setString(4, board_1to1.getTitle());
+			ps.setString(5, board_1to1.getContent());
+			ps.setString(6, board_1to1.getWriter_comment());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+
+	
+	
+	
 }
 
