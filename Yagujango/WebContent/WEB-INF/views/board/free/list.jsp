@@ -15,8 +15,17 @@
 }
 
 </style>
+
 </head>
 <body>
+<c:import url="/WEB-INF/views/layout/header.jsp" />
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btnWrite").click(function() {
+		location.href="/board/free/write";
+	})
+});
+</script>
 <div class="tablediv">
 <table class="table table-striped table-hover table-condensed">
 <thead>
@@ -30,7 +39,7 @@
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${list}" var="i">
+<c:forEach items="${board_freelist}" var="i">
 	<tr>
 		<c:if test="${i.tag eq '공지' }">
 			<td>공지</td>
@@ -38,7 +47,10 @@
 		</c:if>
 		<c:if test="${i.tag ne '공지' }">
 			<td>${i.boardno }</td>
-			<td>[${i.tag}]<a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>
+			<td>
+			<a href="/board/free/list?name=tag&keyword=${i.tag}"  >[${i.tag}]</a>
+			<a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a>
+			</td>
 		</c:if>
 		
 		<td>${i.writer }</td>
@@ -49,5 +61,7 @@
 </tbody>
 </table>
 </div>
+<button id="btnWrite">글 쓰기</button>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

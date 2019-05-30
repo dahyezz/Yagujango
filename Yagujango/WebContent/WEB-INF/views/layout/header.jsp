@@ -34,6 +34,8 @@ $(document).ready(function() {
 
 });
 
+
+
 </script>
 
 <style type="text/css">
@@ -43,6 +45,10 @@ $(document).ready(function() {
 	font-weight: 800;
 	font-size: 40px;
 	text-align: center;
+}
+
+#sitename {
+	text-decoration:none;
 }
 
 body { margin: 0; }
@@ -92,19 +98,19 @@ body { margin: 0; }
 <body onload="InitializeStaticMenu();">
 
 <div id="headerDiv">
-	<p id="main"><a href="/main">야구장고</a></p>
+	<p id="main"><a id="sitename" href="/main">야구장고</a></p>
 </div>
 
 <div class='zeta-menu-bar'>
   <ul class="zeta-menu">
-    <li><a href="#">예약</a>
+    <li><a href="#">예매하기</a>
       <ul>
       	<c:forEach items="${list }" var="i">
       		<li><a href="/reserve/list?stadium_code=${i.stadium_code }">${i.team_name }</a></li>
       	</c:forEach>
       </ul>
      </li>
-    <li><a href="/board/seat/faqlist">좌석뷰 게시판</a></li>
+    <li><a href="/board/seat/list">좌석뷰 게시판</a></li>
     <li><a href="/board/free/list">자유 게시판</a></li>
     <li><a href="/board/faq/faqlist">문의 게시판</a></li> 
     <li><a href="/member/mypage">마이페이지</a></li> 

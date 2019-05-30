@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Board_Free;
+import dto.Comment;
 import util.Paging;
 
 public interface Board_FreeService {
@@ -27,5 +28,13 @@ public interface Board_FreeService {
 	public Board_Free noticeview(Board_Free viewboard);
 	
 	public String uploadfile(HttpServletRequest req);
+
+	public void write(HttpServletRequest req);
+
+	public void deleteboard_free(Board_Free board);
+
+	public void update(HttpServletRequest req);
+
+	public List<Comment> commentlist(Board_Free viewboard);
 
 }

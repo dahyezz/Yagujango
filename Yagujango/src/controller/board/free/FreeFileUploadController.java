@@ -24,7 +24,7 @@ public class FreeFileUploadController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String url = "/upload/";
+		String url = "http://localhost:8088/upload/";
 		url += board_FreeService.uploadfile(req);
 		
 		

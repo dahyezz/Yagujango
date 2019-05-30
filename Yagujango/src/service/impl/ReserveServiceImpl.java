@@ -32,10 +32,32 @@ public class ReserveServiceImpl implements ReserveService{
 		return reserveDao.selectAllStaidum();
 	}
 	
-
-	
 	@Override
 	public List<Match> getMatchList(Stadium stadium) {
 		return reserveDao.selectAllByStadiumcode(stadium);
+	}
+
+	@Override
+	public Match getMatchCode(HttpServletRequest request) {
+		String param = request.getParameter("match_code");
+		int match_code = 0;
+		if( param != null && !"".equals(param)) {
+			match_code = Integer.parseInt(param);
+		}
+		
+		Match match = new Match();
+		match.setMatch_code(match_code);
+		
+		return match;
+	}
+
+	@Override
+	public Match getMatchInfo(Match match) {
+		return reserveDao.selectMatchByMatchCode(match);
+	}
+
+	@Override
+	public Stadium getStadiumInfo(Match match) {
+		return reserveDao.selectStadiumByHometeamCode(match);
 	}
 }

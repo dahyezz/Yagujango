@@ -67,8 +67,8 @@ public class Paging {
 		
 		// 기본값 설정
 		if(curPage == 0)	setCurPage(1);	//기본값으로 첫 페이지(1) 세팅
-		if(pageCount == 0)	setPageCount(5); //한 화면에 보이는 페이지수 기본값(10) 세팅
-		if(listCount == 0)	setListCount(5); //한 화면에 보이는 게시글수 기본값(10) 세팅
+		if(pageCount == 0)	setPageCount(10); //한 화면에 보이는 페이지수 기본값(10) 세팅
+		if(listCount == 0)	setListCount(10); //한 화면에 보이는 게시글수 기본값(10) 세팅
 		
 		// 총 페이지수 계산
 		totalPage = totalCount / listCount;
