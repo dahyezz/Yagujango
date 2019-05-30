@@ -11,5 +11,7 @@ public interface Board_1to1Service {
 
 	List getFaqList(Paging paging);
 
+	void write(HttpServletRequest req);
+
 }
 

@@ -4,28 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
-<script type="text/javascript">
 
-$(document).ready(function() {
-	
-	$("#btn1:1Write").click(function() {
-		location.href="/board/1:1write";
-	});
-	
-	$("#btnSearch").click(function() {
-		location.href="/board/faq/faqlist?search="+$("#search").val();
-	});
-});
-</script>
 
 
 <style type="text/css">
@@ -103,15 +86,6 @@ Body {
 
 	
 .faq .q a {
-/* 	display:block;text-align:left;  */
-/* 	background:url("q_icon.png") no-repeat 0 0; */
-/* 	padding:0 0 0 35px; */
-/* 	font-size:18px; */
-/* 	color:#5e5e5e; */
-/* 	font-weight:bold; */
-/* 	line-height: 27px; */
-/* 	cursor:pointer; */
-/* 	margin: 10px 0; !important */
 	display: block;
     padding: 0 15px 0 100px;
     line-height: 55px;
@@ -152,6 +126,20 @@ Body {
 
 <script type="text/javascript">
 
+$(document).ready(function() {
+	
+	$("#btn1:1Write").click(function() {
+		location.href="/board/1:1write";
+	});
+	
+	$("#btnSearch").click(function() {
+		location.href="/board/faq/faqlist?search="+$("#search").val();
+	});
+});
+</script>
+
+<script type="text/javascript">
+
 jQuery(function($){
     // Frequently Asked Question
     var article = $('.faq>.faqBody>.article');
@@ -186,8 +174,7 @@ jQuery(function($){
 });
 
 </script>
-</head>
-<body>
+
 <table class="t1">
 	<tr>
 		<th style="font-size: 60px;">FAQ</th>
@@ -199,7 +186,6 @@ jQuery(function($){
 <div class="search">
 	<input class="form-control" type="text" id="search" placeholder="검색어를 입력해 주세요"/>
 	<button id="btnSearch" class="btn">검색</button>
-
 </div>
 
 <div class="faq">
@@ -292,5 +278,7 @@ jQuery(function($){
 		</tr>
 
 </table>
-</body>
-</html>
+
+
+
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
