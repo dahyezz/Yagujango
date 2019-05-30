@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Mem_blacklist;
 import util.Paging;
 
 public interface AdminService {
@@ -28,6 +29,9 @@ public interface AdminService {
 	 */
 
 	public List bgetList(Paging paging);
+
+	public List blackgetList(Paging paging);
+
 	
 	
 

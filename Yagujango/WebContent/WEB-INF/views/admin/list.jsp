@@ -11,7 +11,12 @@ $(document).ready(function() {
 	
 	//글쓰기 버튼 누르면 이동
 	$("#btnList").click(function() {
-		location.href="";
+		location.href="/admin/blacklist";
+	});
+	
+	//글쓰기 버튼 누르면 이동
+	$("#btnSearch").click(function() {
+ 		location.href="/admin/list?keyword="+$("#keyword").val();
 	});
 	
 });
@@ -21,25 +26,36 @@ $(document).ready(function() {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의내역 확인</title>
+<title>회원목록</title>
+<style type="text/css">
+.tablediv {
+	
+	text-align: center;
+
+}
+</style>
 </head>
 <body>
 
-<h1>1:1 문의내역 확인</h1>
+<h1>회원</h1>
 <hr>
 
-<button id="List" class="btn btn-list">회원리스트</button>
-
+<button id="btnList" class="btn btn-blacklist">블랙리스트</button>
+<div class="tablediv">
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
-		<th style="width: 10%;">접수번호</th>
+		<th style="width: 5%;">번호</th>
 		<th style="width: 10%;">아이디</th>
-		<th style="width: 30%;">제목</th>		
-		<th style="width: 10%;">문의일시</th>
-		<th style="width: 10%;">처리유무</th>
-
-
+		<th style="width: 10%;">비밀번호</th>		
+		<th style="width: 10%;">이름</th>
+		<th style="width: 10%;">닉네임</th>
+		<th style="width: 10%;">생년월일</th>
+		<th style="width: 10%;">성별</th>
+		<th style="width: 10%;">번호</th>
+		<th style="width: 10%;">이메일</th>
+		<th style="width: 5%;">경고</th>
+		<th style="width: 15%;">마이팀</th>
 	</tr>
 </thead>
 <c:forEach items="${mlist}" var="m">
@@ -59,7 +75,12 @@ $(document).ready(function() {
 	</tr>
 </c:forEach>
 </table>
+</div>
 
+<div class="form-inline text-center">
+	<input class="form-control" type="text" id="keyword" />
+	<button id="btnSearch" class="btn">검색</button>
+</div> 
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

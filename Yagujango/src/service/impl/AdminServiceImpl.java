@@ -8,6 +8,7 @@ import dao.face.AdminDao;
 import dao.face.MemberDao;
 import dao.impl.AdminDaoImpl;
 import dao.impl.MemberDaoImpl;
+import dto.Mem_blacklist;
 import service.face.AdminService;
 import util.Paging;
 
@@ -31,11 +32,16 @@ public class AdminServiceImpl implements AdminService{
 			curPage = Integer.parseInt(param);
 		}
 		
+		//검색어
+		String keyword = (String)req.getParameter("keyword");
+		
 		//전체 게시글 수
-		int totalCount = adminDao.selectCntAll();
+		int totalCount = adminDao.selectCntAll(keyword);
 		
 		//페이징 객체 생성
 		Paging paging = new Paging(totalCount, curPage);
+		paging.setKeyword(keyword);
+		System.out.println(paging);
 		
 		return paging;	
 	}
@@ -46,6 +52,12 @@ public class AdminServiceImpl implements AdminService{
 			
 		return adminDao.bselectAll(paging);
 
+	}
+
+	@Override
+	public List blackgetList(Paging paging) {
+
+		return adminDao.blackselectAll(paging);
 	}
 
 }

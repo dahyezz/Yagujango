@@ -11,7 +11,12 @@ $(document).ready(function() {
 	
 	//글쓰기 버튼 누르면 이동
 	$("#btnList").click(function() {
-		location.href="/board/mem_blacklist";
+		location.href="/admin/list";
+	});
+	
+	//글쓰기 버튼 누르면 이동
+	$("#btnBoardList").click(function() {
+		location.href="/admin/board_1to1";
 	});
 	
 });
@@ -22,14 +27,22 @@ $(document).ready(function() {
 <head>
 <meta charset="UTF-8">
 <title>회원목록</title>
+<style type="text/css">
+.tablediv {
+	
+	text-align: center;
+
+}
+</style>
 </head>
 <body>
 
 <h1>회원</h1>
 <hr>
 
-<button id="btnList" class="btn btn-blacklist">블랙리스트</button>
-
+<button id="btnList" class="btn btn-blacklist">회원리스트</button>
+<button id="btnBoardList" class="btn btn-blacklist">1:1문의</button>
+<div class="tablediv">
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
@@ -46,7 +59,7 @@ $(document).ready(function() {
 		<th style="width: 15%;">마이팀</th>
 	</tr>
 </thead>
-<c:forEach items="${mlist}" var="m">
+<c:forEach items="${blacklist}" var="m">
 	<tr>
 		<td>${m.userno }</td>
 		<td>${m.userid }</td>
@@ -63,7 +76,7 @@ $(document).ready(function() {
 	</tr>
 </c:forEach>
 </table>
-
+</div>
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

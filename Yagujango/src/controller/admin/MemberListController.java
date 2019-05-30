@@ -30,19 +30,19 @@ public class MemberListController extends HttpServlet {
 		//�씠嫄� �닔�젙
 		req.setAttribute("list", list);
 		//요청파라미터에서 curPage 얻어오기
-				Paging paging = adminService.getCurPage(req);
-				
-				//Model로 Paging 객체 넣기
-				req.setAttribute("paging", paging);
-				
-				//회원목록조회
-				List mlist = adminService.getList(paging);
-				
-				//model로 결과 넣기
-				req.setAttribute("mlist", mlist);
-				
-				//view지정
-				req.getRequestDispatcher("/WEB-INF/views/member/list.jsp").forward(req, resp);
+		Paging paging = adminService.getCurPage(req);
+		
+		//Model로 Paging 객체 넣기
+		req.setAttribute("paging", paging);
+		
+		//회원목록조회
+		List mlist = adminService.getList(paging);
+		
+		//model로 결과 넣기
+		req.setAttribute("mlist", mlist);
+		
+		//view지정
+		req.getRequestDispatcher("/WEB-INF/views/admin/list.jsp").forward(req, resp);
 		
 	}
 

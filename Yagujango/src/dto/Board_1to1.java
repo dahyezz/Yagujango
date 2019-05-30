@@ -6,13 +6,13 @@ public class Board_1to1 {
 	private String writer_email;
 	private String title;
 	private String content;
-	private String comment;
+	private String writer_comment;
 	
 	
 	@Override
 	public String toString() {
 		return "Board_1to1 [boardno=" + boardno + ", writer_userid=" + writer_userid + ", writer_email=" + writer_email
-				+ ", title=" + title + ", content=" + content + ", comment=" + comment + "]";
+				+ ", title=" + title + ", content=" + content + ", writer_comment=" + writer_comment + "]";
 	}
 
 
@@ -66,13 +66,13 @@ public class Board_1to1 {
 	}
 
 
-	public String getComment() {
-		return comment;
+	public String getWriter_comment() {
+		return writer_comment;
 	}
 
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setWriter_comment(String comment) {
+		this.writer_comment = comment;
 	}
 	
 

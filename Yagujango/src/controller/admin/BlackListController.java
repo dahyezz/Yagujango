@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Mem_blacklist;
 import dto.Stadium;
 import service.face.AdminService;
 import service.face.ReserveService;
@@ -16,15 +17,13 @@ import service.impl.AdminServiceImpl;
 import service.impl.ReserveServiceImpl;
 import util.Paging;
 
-//1:1 질문목록보기
-
-@WebServlet("/admin/board_1to1")
-public class board_1to1ListController extends HttpServlet {
+@WebServlet("/admin/blacklist")
+public class BlackListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
 	private AdminService adminService = new AdminServiceImpl();
 	private ReserveService reserveService = new ReserveServiceImpl();
-	
+       
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		List<Stadium> list = reserveService.getList();
@@ -38,16 +37,17 @@ public class board_1to1ListController extends HttpServlet {
 		//Model로 Paging 객체 넣기
 		req.setAttribute("paging", paging);
 		
-		//1:1 답변목록조회
-		List blist = adminService.bgetList(paging);
 		
+		//블랙리스트조회
+		List blacklist = adminService.blackgetList(paging);
+		for(int i=0; i<blacklist.size();i++)
+			
+	//		System.out.println(blacklist.get(i));
 		//model로 결과 넣기
-		req.setAttribute("blist", blist);
+		req.setAttribute("blacklist", blacklist);
 		
 		//view지정
-		req.getRequestDispatcher("/WEB-INF/views/admin/board_1to1_list.jsp").forward(req, resp);
-		
-		
+		req.getRequestDispatcher("/WEB-INF/views/admin/blacklist.jsp").forward(req, resp);
 	}
 
 }
