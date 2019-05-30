@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -18,6 +19,7 @@ import dao.face.Board_FreeDao;
 import dao.impl.Board_FreeDaoImpl;
 import dto.Board_Free;
 import dto.Board_file;
+import dto.Comment;
 import service.face.Board_FreeService;
 import util.Paging;
 
@@ -189,6 +191,50 @@ public class Board_FreeServiceImpl implements Board_FreeService{
 				}
 		
 		return url;
+	}
+	@Override
+	public void write(HttpServletRequest req) {
+		try {
+			req.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Board_Free board_free = new Board_Free();
+		HttpSession session = req.getSession();
+		board_free.setTag(req.getParameter("tag"));
+		board_free.setTitle(req.getParameter("title"));
+		board_free.setContent(req.getParameter("content"));
+		board_free.setWriter((String)session.getAttribute("usernick"));
+		//테스트
+//		System.out.println(board_free);
+		if("공지".equals(board_free.getTag())) {
+			board_FreeDao.InsertNotice(board_free);
+		}else {
+			board_FreeDao.Insert(board_free);
+		}
+		
+	}
+	@Override
+	public void deleteboard_free(Board_Free board) {
+		board_FreeDao.deleteBoardbyboardno(board);
+		
+	}
+	@Override
+	public void update(HttpServletRequest req) {
+		Board_Free board = new Board_Free();
+		String param = req.getParameter("boardno");
+		int boardno = Integer.parseInt(param);
+		board.setBoardno(boardno);
+		board.setTitle(req.getParameter("title"));
+		board.setContent(req.getParameter("content"));
+		
+		board_FreeDao.updateBoard_Free(board);
+		
+	}
+	@Override
+	public List<Comment> commentlist(Board_Free viewboard) {
+		return board_FreeDao.selectCommentbyboardno(viewboard);
 	}
 
 }

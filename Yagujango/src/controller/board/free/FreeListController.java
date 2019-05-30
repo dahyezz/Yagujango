@@ -40,7 +40,7 @@ public class FreeListController extends HttpServlet {
 		//MODEL로 Paging 객체 넣기
 		req.setAttribute("paging", paging);
 		//MODEL로 조회 결과 넣기
-		req.setAttribute("list", list);
+		req.setAttribute("board_freelist", list);
 		
 		//VIEW지정
 		req.getRequestDispatcher("/WEB-INF/views/board/free/list.jsp").forward(req, resp);
