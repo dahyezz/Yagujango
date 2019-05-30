@@ -34,5 +34,31 @@ public interface ReserveService {
 	 * @return Match - 해당 팀의 경기 일정 리스트
 	 */
 	public List<Match> getMatchList(Stadium stadium);
+
+	/**
+	 * 요청파라미터에서 match_code 파싱
+	 * 		예매 목록에서 '예매하기' 버튼 클릭시 넘겨줌
+	 * 
+	 * @param request - 요청 파라미터
+	 * @return Match - match_code
+	 */
+	public Match getMatchCode(HttpServletRequest request);
+
+	/**
+	 * match_code에 해당하는 경기 정보 가져오기
+	 * 
+	 * @param match - 알아오려는 경기의 match_code
+	 * @return Match - 모든 경기 정보
+	 */
+	public Match getMatchInfo(Match match);
+
+	/**
+	 * 해당 경기의 구장 정보 얻어오기
+	 * 		예매- 좌석선택페이지에서 보여줘야함
+	 * 
+	 * @param match
+	 * @return
+	 */
+	public Stadium getStadiumInfo(Match match);
 	
 }

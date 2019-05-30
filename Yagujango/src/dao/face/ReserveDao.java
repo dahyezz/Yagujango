@@ -22,4 +22,8 @@ public interface ReserveDao {
 	 */
 	List<Match> selectAllByStadiumcode(Stadium stadium);
 
+	Match selectMatchByMatchCode(Match match);
+
+	Stadium selectStadiumByHometeamCode(Match match);
+
 }
