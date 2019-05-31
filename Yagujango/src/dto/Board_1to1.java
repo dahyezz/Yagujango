@@ -29,11 +29,9 @@ public class Board_1to1 {
 		this.boardno = boardno;
 	}
 
-
 	public String getWriter_userid() {
 		return writer_userid;
 	}
-
 
 	public void setWriter_userid(String writer_userid) {
 		this.writer_userid = writer_userid;

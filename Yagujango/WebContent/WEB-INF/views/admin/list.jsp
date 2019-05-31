@@ -15,6 +15,11 @@ $(document).ready(function() {
 	});
 	
 	//글쓰기 버튼 누르면 이동
+	$("#btnmList").click(function() {
+		location.href="/admin/board_1to1";
+	});
+	
+	//글쓰기 버튼 누르면 이동
 	$("#btnSearch").click(function() {
  		location.href="/admin/list?keyword="+$("#keyword").val();
 	});
@@ -22,9 +27,6 @@ $(document).ready(function() {
 });
 </script>
 
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
 <title>회원목록</title>
 <style type="text/css">
@@ -34,13 +36,13 @@ $(document).ready(function() {
 
 }
 </style>
-</head>
-<body>
 
 <h1>회원</h1>
 <hr>
 
 <button id="btnList" class="btn btn-blacklist">블랙리스트</button>
+<button id="btnmList" class="btn btn-blacklist">1:1문의확인</button>
+
 <div class="tablediv">
 <table class="table table-striped table-hover table-condensed">
 <thead>
