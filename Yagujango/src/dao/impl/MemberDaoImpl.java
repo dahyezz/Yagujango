@@ -36,8 +36,9 @@ public class MemberDaoImpl implements MemberDao{
 			
 			rs = ps.executeQuery();
 			
-			rs.next();
-			cnt = rs.getInt(1);
+			while(rs.next()) {
+				cnt=rs.getInt(1);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,9 +98,9 @@ public class MemberDaoImpl implements MemberDao{
 			
 			rs = ps.executeQuery();
 			
-			rs.next();
-			cnt = rs.getInt(1);
-			
+			while(rs.next()) {
+				cnt=rs.getInt(1);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -125,6 +126,65 @@ public class MemberDaoImpl implements MemberDao{
 			
 			while(rs.next()) {
 				member.setUserid(rs.getString("userid"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return member; 
+	}
+
+	@Override
+	public int selectCntMemberPwfind(Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM member"; 
+		sql += " WHERE username = ? ";
+		sql += " AND email = ?";
+		sql += " AND userid = ?";
+		
+		int cnt = 0;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUsername());
+			ps.setString(2, member.getEmail());
+			ps.setString(3, member.getUserid());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				cnt=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public Member selectMemberPwfind(Member member) {
+		
+		String sql = "";
+		sql += "SELECT userpw FROM member";
+		sql += " WHERE username = ? ";
+		sql += " AND email = ?";
+		sql += " AND userid = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUsername());
+			ps.setString(2, member.getEmail());
+			ps.setString(3, member.getUserid());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				member.setUserpw(rs.getString("userpw"));
 			}
 			
 		} catch (SQLException e) {
