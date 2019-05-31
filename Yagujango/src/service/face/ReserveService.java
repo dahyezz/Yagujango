@@ -5,7 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Match;
+import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 
 public interface ReserveService {
 
@@ -60,5 +62,27 @@ public interface ReserveService {
 	 * @return
 	 */
 	public Stadium getStadiumInfo(Match match);
+
+	/**
+	 * 해당 경기의 잔여좌석 리스트 얻어오기
+	 * 
+	 * @param match - match_code
+	 * @return Seat - 해당 경기의 잔여좌석
+	 */
+	public List<Seat> getSeatInfo(Match match);
+
+	/**
+	 * 해당 경기의 예매 현황 리스트
+	 * 
+	 * @param match
+	 * @return Tiket - 해당 경기의 티켓 리스트
+	 */
+	public List<Ticket> getReserveStatus(Match match);
+
+	
+	public List<String> getSeatBlock();
+
+	public List<Integer> getSeatNumber();
+
 	
 }

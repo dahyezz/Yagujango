@@ -20,7 +20,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 	private ResultSet rs = null;
 
 	@Override
-	public List faqSelectAll(Paging paging) {
+	public List<Board_faq> faqSelectAll(Paging paging) {
 
 		String sql = "";
 		sql += "SELECT * FROM (";
@@ -32,7 +32,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		sql += " ) BOARD_FAQ";
 		sql += " WHERE rnum BETWEEN ? AND ?";
 		
-		List faqList = new ArrayList();
+		List<Board_faq> faqList = new ArrayList<Board_faq>();
 		try {
 			ps = conn.prepareStatement(sql);
 			

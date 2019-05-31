@@ -18,14 +18,14 @@
 		<!-- 이전 페이지 -->
 		<!-- 첫 페이지라면 버튼 동작 안 되게 만들기 -->
 		<c:if test="${paging.curPage eq 1 }">
-		<li class="disabled">
-			<span>&laquo;</span>
-		</li>
+			<li class="disabled">
+				<span>&laquo;</span>
+			</li>
 		</c:if>
   
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/board/list?curPage=${paging.curPage-1 }"><span>&laquo;</span></a>
+			<a href="/board/faq/faqlist?curPage=${paging.curPage-1 }"><span>&laquo;</span></a>
 	    </li>
 	    </c:if>
 
@@ -34,9 +34,9 @@
 
 
 		<!-- 페이징 리스트 -->
-		<c:forEach
-	     begin="${paging.startPage }" end="${paging.endPage }"
-	     var="i">
+		<c:forEach 
+		begin="${paging.startPage }" end="${paging.endPage }"
+		var="i">
 	
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i}">

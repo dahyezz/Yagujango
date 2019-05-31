@@ -10,7 +10,7 @@ public class Board_1to1 {
 	private String content;
 	private String writer_comment;
 	private Date writtendate;
-
+	
 	
 	@Override
 	public String toString() {
@@ -18,51 +18,77 @@ public class Board_1to1 {
 				+ ", title=" + title + ", content=" + content + ", writer_comment=" + writer_comment + ", writtendate="
 				+ writtendate + "]";
 	}
-	
+
+
 	public int getBoardno() {
 		return boardno;
 	}
+
+
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
 	}
+
 	public String getWriter_userid() {
 		return writer_userid;
 	}
+
 	public void setWriter_userid(String writer_userid) {
 		this.writer_userid = writer_userid;
 	}
+
+
 	public String getWriter_email() {
 		return writer_email;
 	}
+
+
 	public void setWriter_email(String writer_email) {
 		this.writer_email = writer_email;
 	}
+
+
 	public String getTitle() {
 		return title;
 	}
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
 	public String getContent() {
 		return content;
 	}
+
+
 	public void setContent(String content) {
 		this.content = content;
 	}
 
+
 	public String getWriter_comment() {
 		return writer_comment;
 	}
+
+
 	public void setWriter_comment(String writer_comment) {
 		this.writer_comment = writer_comment;
 	}
+
+
 	public Date getWrittendate() {
 		return writtendate;
 	}
+
+
 	public void setWrittendate(Date writtendate) {
 		this.writtendate = writtendate;
-
 	}
+
+	
+
 	
 
 

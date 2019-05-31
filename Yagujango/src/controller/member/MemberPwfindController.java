@@ -1,7 +1,6 @@
 package controller.member;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,15 +12,15 @@ import dto.Member;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
 
-@WebServlet("/member/idFind")
-public class MemberIdfindController extends HttpServlet {
+@WebServlet("/member/pwFind")
+public class MemberPwfindController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private MemberService memberService = new MemberServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/member/idFind.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/member/pwFind.jsp").forward(req, resp);
 	} 
 	
 	@Override
@@ -34,17 +33,18 @@ public class MemberIdfindController extends HttpServlet {
 		
 		member.setUsername(req.getParameter("username"));
 		member.setEmail(req.getParameter("email"));
+		member.setUserid(req.getParameter("userid"));
 		
-		boolean idFind = memberService.idFind(member);
+		boolean pwFind = memberService.pwFind(member);
 		
-		if(idFind) {
+		if(pwFind) {
 			
-			Member mem = memberService.getIdfind(member);
+			Member mem = memberService.getPwfind(member);
 			
-			req.setAttribute("idFind", true);
-			req.setAttribute("userid", mem.getUserid());
+			req.setAttribute("pwFind", true);
+			req.setAttribute("userpw", mem.getUserpw());
 			
-			req.getRequestDispatcher("/WEB-INF/views/member/idFind_ok.jsp").forward(req, resp);	//뷰 지정
+			req.getRequestDispatcher("/WEB-INF/views/member/pwFind_ok.jsp").forward(req, resp);	//뷰 지정
 		}
 	}
 }

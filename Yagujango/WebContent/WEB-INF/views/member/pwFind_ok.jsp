@@ -4,11 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div>
-<c:if test="${empty idFind }">
-	이름과 이메일이 일치하는 아이디가 없습니다.
+<c:if test="${empty pwFind }">
+	이름과 이메일과 아이디가 일치하는 비밀번호가 없습니다.
 </c:if>
 
-<c:if test="${idFind }">
-	사용자의 아이디는 ${userid } 입니다.
+<c:if test="${pwFind }">
+	사용자의 비밀번호는 ${userpw } 입니다.
 </c:if>
 </div> 

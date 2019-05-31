@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import dao.face.ReserveDao;
 import dao.impl.ReserveDaoImpl;
 import dto.Match;
+import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 import service.face.ReserveService;
 
 public class ReserveServiceImpl implements ReserveService{
@@ -59,5 +61,27 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public Stadium getStadiumInfo(Match match) {
 		return reserveDao.selectStadiumByHometeamCode(match);
+	}
+
+	@Override
+	public List<Seat> getSeatInfo(Match match) {
+		
+		return reserveDao.selectEmptySeatByMatchCode(match);
+	}
+
+	@Override
+	public List<Ticket> getReserveStatus(Match match) {
+		return reserveDao.selectAllTicketByMatchCode(match);
+	}
+
+	
+	@Override
+	public List<String> getSeatBlock() {
+		return reserveDao.selectSeatBlock();
+	}
+	
+	@Override
+	public List<Integer> getSeatNumber() {
+		return reserveDao.selectSeatNumber();
 	}
 }

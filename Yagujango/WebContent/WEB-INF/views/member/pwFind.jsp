@@ -7,23 +7,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
+<title>비밀번호 찾기</title>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#btnIdfind").click(function(){
+	$("#btnPwfind").click(function(){
 		
 		//id가 username, email인 객체를 변수에 저장
 		var Username=$("#username").val();
 		var Email=$("#email").val();
+		var Userid=$("#userid").val();
 		
 		//요청 url
-		var url="/member/idFind_ok.jsp";
+		var url="/member/pwFind_ok.jsp";
 		
 		//요청파라미터
-		var data={username:Username, email:Email};
+		var data={username:Username, email:Email, userid:Userid};
 		
 		//변수의 value가 공백이면 alert창 띄우고 return false를 함
 		if(Username ==""){
@@ -32,6 +33,10 @@ $(document).ready(function(){
 		}
 		if(Email ==""){
 			alert("이메일을 입력하세요");
+			return;
+		}
+		if(Userid ==""){
+			alert("아이디를 입력하세요");
 			return;
 		}
 		
@@ -46,13 +51,15 @@ $(document).ready(function(){
 </head>
 <body>
 
-<form action="/member/idFind" method="post">
+<form action="/member/pwFind" method="post">
 	<label for="username">이름</label><br>
 	<input type="text" id="username" name="username" /><br>
 	<label for="email">이메일</label><br>
-	<input type="text" id="email" name="email" /><br><br>
+	<input type="text" id="email" name="email" /><br>
+	<label for="userid">아이디</label><br>
+	<input type="text" id="userid" name="userid" /><br><br>
 	
-	<button id="btnIdfind">아이디 찾기</button>
+	<button id="btnPwfind">비밀번호 찾기</button>
 </form>
 
 <div id="result"></div> 
