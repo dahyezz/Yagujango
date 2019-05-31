@@ -12,7 +12,7 @@ import dbutil.DBConn;
 import dto.Board_1to1;
 import dto.Board_faq;
 import util.Paging;
-//test
+
 public class Board_1to1DaoImpl implements Board_1to1Dao{
 	
 	private Connection conn = DBConn.getConnection(); 

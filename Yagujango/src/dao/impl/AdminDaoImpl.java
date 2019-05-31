@@ -14,10 +14,7 @@ import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
-//commit test
 public class AdminDaoImpl implements AdminDao{
-
-
 	
 	//DB 愿��젴 媛앹껜
 	private Connection conn = DBConn.getConnection();

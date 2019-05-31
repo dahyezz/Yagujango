@@ -15,7 +15,7 @@ $(document).ready(function() {
 	//작성버튼 동작
 	$("#btnWrite").click(function() {
 		$("form").submit();
-		alert( "등록완료" );
+		alert( "1:1문의 접수완료" );
 	});
 	
 	//취소버튼 동작
@@ -26,17 +26,16 @@ $(document).ready(function() {
 </script> 
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$('#emailSelection').change(function() {
-		$("#emailSelection option:selected").each(function (){
-			if($(this).val()=='1'){
-				$("#email2").val('');
-				$("#email2").attr("disabled",text());
-			}else {
-				$("#email2").val($(this).text());
-				$("#email2").attr("disabled",true);
+$(function(){	
+	$(document).ready(function(){
+		$('select[name=emailSelection]').change(function() {
+			if($(this).val()=="1"){
+				$('#email2').val("");
+			} else {
+				$('#email2').val($(this).val());
+				$("#email2").attr("readonly", true);
 			}
-		})
+		});
 	});
 });
 
@@ -57,10 +56,30 @@ Body {
     border-bottom: 3px solid #000000;
 }
 .text-center { 
-	line-height: 25px;
+    position: relative;
+    left: 1000px;
+	line-height: 40px;
 	font-size: 15px;
-	width: 100px; 
+	width: 100%; 
 }
+.witerBody {
+    padding-right: 100px;
+    padding-left: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    
+}
+
+
+
+.btn btn-info {
+
+    display: inline block;
+
+}
+
+	
+
 
 </style>
 
@@ -85,15 +104,19 @@ Body {
 					<th class="info" style="font-size: 13px;">답변 받을 이메일</th>
 					<th style="color: blue; font-size: 12px;">(필수)</th>
 					<td>
-						<input type="text" name="email1" id="email1" class="box"/>@
-						<input type="text" name="email2" id="email2" class="box" disabled value="naver.com"/>
+						<input type="text" name="email1" id="email1" class="box" class=""/>@
+						<input type="text" name="email2" id="email2" class="box" class="" disabled value="메일을 선택해주세요"/>
 						<select name="emailSelection" class="emailSelection">
-							<option value="1" selected="selected">직접입력</option>
+							<option value="1" selected="selected">메일을 선택해주세요</option>
 							<option value="naver.com">naver.com</option>
 							<option value="gmail.com">gmail.com</option>
 							<option value="hanmail.net">hanmail.net</option>
+							<option value="hatmail.net">hatmail.net</option>
 							<option value="nate.com">nate.com</option>
-
+							<option value="yahoo.co.kr">yahoo.co.kr</option>
+							<option value="dreamwiz.com">dreamwiz.com</option>
+							<option value="korea.com">korea.com</option>
+							<option value="paran.com">paran.com</option>
 						</select>
 					</td>
 				</tr>
@@ -121,7 +144,8 @@ Body {
 		</form>
 	</div>
 	
-	<div class="text-center">	
+	
+	<div class="text-center" id="text-center">	
 		<button type="button" id="btnWrite" class="btn btn-info">1:1 문의접수</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>

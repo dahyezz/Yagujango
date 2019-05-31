@@ -6,10 +6,17 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-
-
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btn1to1Write").click(function() {
+		location.href="/board/1:1write";
+	});
+	
+	$("#btnSearch").click(function() {
+		location.href="/board/faq/faqlist?search="+$("#search").val();
+	}); 
+});
+</script>
 
 <style type="text/css">
 
@@ -36,14 +43,6 @@ Body {
     border-right: none;
 	padding: 0px 20px;
 }
-
-.btn {
-	line-height: 25px;
-    font-size: 15px;
-	width: 70px; 
-}
-
-
 
 
 .search {
@@ -105,7 +104,7 @@ Body {
 	border-top: 1px solid #bdbdbd;
 	margin:5px 0 0 0;
 }
-.t2 { 
+#btnBox { 
 	display:block;
 	text-align:center; 
 	background:#CCC;
@@ -120,57 +119,37 @@ Body {
 
 }
 
-
+#btn1to1Write {
+    position: relative;
+    left: 580px;
+	line-height: 40px;
+	font-size: 15px;
+	width: 100%; 
+}
 
 </style>
 
 <script type="text/javascript">
-
-$(document).ready(function() {
-	
-	$("#btn1:1Write").click(function() {
-		location.href="/board/1:1write";
-	});
-	
-	$("#btnSearch").click(function() {
-		location.href="/board/faq/faqlist?search="+$("#search").val();
-	});
-});
-</script>
-
-<script type="text/javascript">
-
 jQuery(function($){
-    // Frequently Asked Question
-    var article = $('.faq>.faqBody>.article');
-    article.addClass('hide');
-    article.find('.a').hide();
-    article.eq(0).removeClass('hide');
-    article.eq(0).find('.a').show();
-    $('.faq>.faqBody>.article>.q>a').click(function(){
-        var myArticle = $(this).parents('.article:first');
-        if(myArticle.hasClass('hide')){
-            article.addClass('hide').removeClass('show');
-            article.find('.a').slideUp(100);
-            myArticle.removeClass('hide').addClass('show');
-            myArticle.find('.a').slideDown(100);
-        } else {
-            myArticle.removeClass('show').addClass('hide');
-            myArticle.find('.a').slideUp(100);
-        }
-        return false;
-    });
-    
-    $('.faq>.faqHeader>.showAll').click(function(){
-        var hidden = $('.faq>.faqBody>.article.hide').length;
-        if(hidden > 0){
-            article.removeClass('hide').addClass('show');
-            article.find('.a').slideDown(100);
-        } else {
-            article.removeClass('show').addClass('hide');
-            article.find('.a').slideUp(100);
-        }
-    });
+	// Frequently Asked Question
+	var article = $('.faq>.faqBody>.article');
+	article.addClass('hide');
+	article.find('.a').hide();
+	article.eq(0).removeClass('hide');
+	article.eq(0).find('.a').show();
+	$('.faq>.faqBody>.article>.q>a').click(function(){
+		var myArticle = $(this).parents('.article:first');
+		if(myArticle.hasClass('hide')){
+			article.addClass('hide').removeClass('show');
+			article.find('.a').slideUp(100);
+			myArticle.removeClass('hide').addClass('show');
+			myArticle.find('.a').slideDown(100);
+		} else {
+			myArticle.removeClass('show').addClass('hide');
+			myArticle.find('.a').slideUp(100);
+		}
+		return false;
+	});
 });
 
 </script>
@@ -213,7 +192,7 @@ jQuery(function($){
 				&nbsp;&nbsp;&nbsp;&nbsp;1. 예매취소를 원하시는 경우에는(yagujanggo@gmail.com)로 메일주시면 취소가 가능합니다. <br>
 				&nbsp;&nbsp;&nbsp;&nbsp;2. 취소시에는 일정 금액을 제외하고 환불이 가능합니다.<br>
         </li>
-        
+         
         <li class="article" id="a4">
             <p class="q"><a href="#a4">Q.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단체관람 관련 문의는?</a></p>
             <p class="a" style="background: #CCC">
@@ -246,13 +225,73 @@ jQuery(function($){
         </li>
         
 		<li class="article" id="a8">
-            <p class="q"><a href="#a8">Q.경기 중 응원단상에서 진행되는 이벤트가 궁금해요</a></p>
+            <p class="q"><a href="#a8">Q.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;경기 중 응원단상에서 진행되는 이벤트가 궁금해요</a></p>
             <p class="a" style="background: #CCC">
             	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
             	&nbsp;&nbsp;&nbsp;&nbsp;준비중입니다.</p>
         </li>
         
 		<li class="article" id="a9">
+            <p class="q"><a href="#a9">Q.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;각구단 공통 이벤트가 궁금해요</a></p>
+            <p class="a" style="background: #CCC">
+            	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;1. 스페셜 유니폼 착용<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;2. 선수 사인회<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;3. 치어리더 포토 타임<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;4. 응원단상 이벤트(가족대상)<br></p>
+        </li>
+        
+        		<li class="article" id="a9">
+            <p class="q"><a href="#a9">Q.각구단 공통 이벤트가 궁금해요</a></p>
+            <p class="a" style="background: #CCC">
+            	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;1. 스페셜 유니폼 착용<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;2. 선수 사인회<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;3. 치어리더 포토 타임<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;4. 응원단상 이벤트(가족대상)<br></p>
+        </li>
+        
+        		<li class="article" id="a9">
+            <p class="q"><a href="#a9">Q.각구단 공통 이벤트가 궁금해요</a></p>
+            <p class="a" style="background: #CCC">
+            	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;1. 스페셜 유니폼 착용<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;2. 선수 사인회<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;3. 치어리더 포토 타임<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;4. 응원단상 이벤트(가족대상)<br></p>
+        </li>
+        
+        		<li class="article" id="a9">
+            <p class="q"><a href="#a9">Q.각구단 공통 이벤트가 궁금해요</a></p>
+            <p class="a" style="background: #CCC">
+            	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;1. 스페셜 유니폼 착용<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;2. 선수 사인회<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;3. 치어리더 포토 타임<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;4. 응원단상 이벤트(가족대상)<br></p>
+        </li>
+        
+        		<li class="article" id="a9">
+            <p class="q"><a href="#a9">Q.각구단 공통 이벤트가 궁금해요</a></p>
+            <p class="a" style="background: #CCC">
+            	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;1. 스페셜 유니폼 착용<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;2. 선수 사인회<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;3. 치어리더 포토 타임<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;4. 응원단상 이벤트(가족대상)<br></p>
+        </li>
+        
+        		<li class="article" id="a9">
+            <p class="q"><a href="#a9">Q.각구단 공통 이벤트가 궁금해요</a></p>
+            <p class="a" style="background: #CCC">
+            	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;1. 스페셜 유니폼 착용<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;2. 선수 사인회<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;3. 치어리더 포토 타임<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;4. 응원단상 이벤트(가족대상)<br></p>
+        </li>
+        
+        		<li class="article" id="a9">
             <p class="q"><a href="#a9">Q.각구단 공통 이벤트가 궁금해요</a></p>
             <p class="a" style="background: #CCC">
             	&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
@@ -266,18 +305,19 @@ jQuery(function($){
 </div>
 
 <div id="pagingBox">  
-<c:import url="/WEB-INF/views/layout/faq_paging.jsp" />
+	<c:import url="/WEB-INF/views/layout/faq_paging.jsp" />
 </div>
 
-<table class="t2">
+<table id="btnBox">
 		<tr>
 			<th>원하시는 답변을 찾지 못하셨다면, 옆에 1:1문의하여주세요.</th>
 			<th>
-				<button class="faqWrite" id="btn1:1Write">1:1문의하기</button>
+				<button id="btn1to1Write">1:1문의하기</button>
 			</th>
 		</tr>
 
 </table>
+
 
 
 
