@@ -47,10 +47,10 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 			board_1to1.setBoardno(boardno);
 			
 			if(board_1to1.getTitle()!=null || "".equals(board_1to1.getTitle())) {
-				board_1to1.setTitle("(제목없음)");
+				board_1to1.setTitle("(�젣紐⑹뾾�쓬)");
 
-				//작성자id 처리
-				board_1to1.setWriter_userid((int) req.getSession().getAttribute("writer_userid"));
+				//�옉�꽦�옄id 泥섎━
+				board_1to1.setWriter_userid((String) req.getSession().getAttribute("writer_userid"));
 			}
 
 			board_1to1Dao.insert(board_1to1);

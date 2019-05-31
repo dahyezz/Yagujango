@@ -22,10 +22,6 @@ $(document).ready(function() {
 });
 </script>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <title>회원목록</title>
 <style type="text/css">
 .tablediv {
@@ -34,8 +30,6 @@ $(document).ready(function() {
 
 }
 </style>
-</head>
-<body>
 
 <h1>회원</h1>
 <hr>

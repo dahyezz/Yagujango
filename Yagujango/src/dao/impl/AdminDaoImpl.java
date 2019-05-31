@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dao.face.AdminDao;
@@ -51,6 +52,7 @@ public class AdminDaoImpl implements AdminDao{
 		sql += "	ORDER BY rnum"; 
 		sql += " )"; 
 		sql += " WHERE rnum BETWEEN ? AND ?";
+		sql += " ORDER BY userno";
 		
 		//수행결과를 담을 리스트
 		List list = new ArrayList();
@@ -149,11 +151,12 @@ public class AdminDaoImpl implements AdminDao{
 				Board_1to1 board_1to1 = new Board_1to1();
 				
 				board_1to1.setBoardno(rs.getInt("boardno"));
-				board_1to1.setWriter_userid(rs.getInt("writer_userid"));
+				board_1to1.setWriter_userid(rs.getString("writer_userid"));
 				board_1to1.setWriter_email(rs.getString("writer_email"));
 				board_1to1.setTitle(rs.getString("title"));
 				board_1to1.setContent(rs.getString("content"));
 				board_1to1.setWriter_comment(rs.getString("writer_comment"));
+				board_1to1.setWrittendate(rs.getDate("writtendate"));
 
 				blist.add(board_1to1);
 			}
@@ -223,4 +226,44 @@ public class AdminDaoImpl implements AdminDao{
 
 	}
 
+	@Override
+	public Board_1to1 selectBoard_1to1ByBoardno(Board_1to1 viewBoard) {
+		
+		//게시글 조회 쿼리
+		String sql = "";
+		sql += "SELECT boardno, writer_userid, writer_email, title, content, writer_comment, writtendate FROM board_1to1";
+		sql += " WHERE boardno = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, viewBoard.getBoardno());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				viewBoard.setBoardno( rs.getInt("boardno"));
+				viewBoard.setWriter_userid( rs.getString("writer_userid"));
+				viewBoard.setWriter_email( rs.getString("writer_eamil"));
+				viewBoard.setTitle( rs.getString("title"));
+				viewBoard.setContent( rs.getString("content"));
+				viewBoard.setWriter_comment( rs.getString("writer_comment"));
+				viewBoard.setWrittendate( rs.getDate("writtendate"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//자원해제
+			try{
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	}
+		return viewBoard;
+}
 }

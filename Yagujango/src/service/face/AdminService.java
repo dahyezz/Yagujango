@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Board_1to1;
 import dto.Mem_blacklist;
 import util.Paging;
 
@@ -29,8 +30,27 @@ public interface AdminService {
 	 */
 
 	public List bgetList(Paging paging);
+	
+	/**
+	 * @param
+	 * @return 블랙리스트조회
+	 */
 
 	public List blackgetList(Paging paging);
+	
+	/**
+	 * 요청파라미터에서 boardno를 파싱한다.
+	 * @param req - 요청정보객체
+	 * @return Board_1to1 - boardno를 입력한 객체
+	 */
+	public Board_1to1 getBoardno(HttpServletRequest req);
+	/**
+	 * 1:1문의 상세보기
+	 * @param viewBoard - 상세보기할 boardno를 가진 객체
+	 * @return Board_1to1 - 상세보기할 게시글 조회 결과
+	 */
+	public Board_1to1 view(Board_1to1 viewBoard);
+	
 
 	
 	

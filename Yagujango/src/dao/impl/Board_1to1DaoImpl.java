@@ -56,7 +56,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			e.printStackTrace();
 		} finally {
 			try {
-				// 자원 해제
+				// �옄�썝 �빐�젣
 				if(rs!=null)	rs.close();
 				if(ps!=null)	ps.close();
 			} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 
 	@Override
 	public int selectCntAll() {
-		//전체 게시글 수 조회 쿼리
+		//�쟾泥� 寃뚯떆湲� �닔 議고쉶 荑쇰━
 		String sql = "";
 		sql+="SELECT count(*)";
 		sql+=" FROM board_faq";
@@ -89,7 +89,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			e.printStackTrace();
 		} finally {
 			try {
-				// 자원 해제
+				// �옄�썝 �빐�젣
 				if(rs!=null)	rs.close();
 				if(ps!=null)	ps.close();
 			} catch (SQLException e) {
@@ -111,11 +111,11 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		int boardno = 0;
 		
 		try {
-			//DB작업
+			//DB�옉�뾽
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
-			//결과 담기
+			//寃곌낵 �떞湲�
 			while(rs.next()) {
 				boardno = rs.getInt(1);
 			}
@@ -124,7 +124,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			e.printStackTrace();
 		} finally {
 			try {
-				//DB객체 닫기
+				//DB媛앹껜 �떕湲�
 				if(rs!=null)	rs.close();
 				if(ps!=null)	ps.close();
 				
@@ -144,11 +144,11 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		sql += " VALUES (?, ?, ?, ?, ?)";
 		
 		try {
-			//DB작업
+			//DB�옉�뾽
 			ps = conn.prepareStatement(sql);
 			
 			ps.setInt(1, board_1to1.getBoardno());
-			ps.setInt(2, board_1to1.getWriter_userid());
+			ps.setString(2, board_1to1.getWriter_userid());
 			ps.setString(3, board_1to1.getWriter_email());
 			ps.setString(4, board_1to1.getTitle());
 			ps.setString(5, board_1to1.getContent());
@@ -160,7 +160,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			e.printStackTrace();
 		} finally {
 			try {
-				//DB객체 닫기
+				//DB媛앹껜 �떕湲�
 				if(ps!=null)	ps.close();
 				
 			} catch (SQLException e) {

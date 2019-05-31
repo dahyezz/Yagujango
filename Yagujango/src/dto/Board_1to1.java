@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Board_1to1 {
 	private int boardno;
-	private int writer_userid;
+	private String writer_userid;
 	private String writer_email;
 	private String title;
 	private String content;
@@ -25,10 +25,10 @@ public class Board_1to1 {
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
 	}
-	public int getWriter_userid() {
+	public String getWriter_userid() {
 		return writer_userid;
 	}
-	public void setWriter_userid(int writer_userid) {
+	public void setWriter_userid(String writer_userid) {
 		this.writer_userid = writer_userid;
 	}
 	public String getWriter_email() {
