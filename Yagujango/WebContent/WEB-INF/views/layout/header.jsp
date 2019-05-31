@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
 	$(".zeta-menu li").hover(function(){
 		$('ul:first',this).show();
 	}, function(){
@@ -51,12 +51,15 @@ $(document).ready(function() {
 	text-decoration:none;
 }
 
-body { margin: 0; }
+body { 
+	margin: 0;
+}
 .zeta-menu-bar {
 	text-align: center;
 	background: #8C8C8C;
 	display: inline-block;
 	width: 100%;
+ 	position:relative;z-index:2
 }
 .zeta-menu { 
 	margin: 0;
@@ -95,7 +98,7 @@ body { margin: 0; }
 </style>
 
 </head>
-<body onload="InitializeStaticMenu();">
+<body>
 
 <div id="headerDiv">
 	<p id="main"><a id="sitename" href="/main">야구장고</a></p>
@@ -105,10 +108,17 @@ body { margin: 0; }
   <ul class="zeta-menu">
     <li><a href="#">예매하기</a>
       <ul>
-      	<c:forEach items="${list }" var="i">
-      		<li><a href="/reserve/list?stadium_code=${i.stadium_code }">${i.team_name }</a></li>
-      	</c:forEach>
-      	<li><a href="/reserve/inform">예매안내</a></li>
+    		<li><a href="/reserve/list?stadium_code=1">KIA</a></li>
+    		<li><a href="/reserve/list?stadium_code=2">KT</a></li>
+    		<li><a href="/reserve/list?stadium_code=3">LG</a></li>
+	    	<li><a href="/reserve/list?stadium_code=4">NC</a></li>
+		    <li><a href="/reserve/list?stadium_code=5">SK</a></li>
+		    <li><a href="/reserve/list?stadium_code=6">두산</a></li>
+		    <li><a href="/reserve/list?stadium_code=7">롯데</a></li>
+		    <li><a href="/reserve/list?stadium_code=8">삼성</a></li>
+		    <li><a href="/reserve/list?stadium_code=9">키움</a></li>
+		    <li><a href="/reserve/list?stadium_code=10">한화</a></li>
+		    <li><a href="/reserve/inform">예매안내</a></li>
       </ul>
      </li>
     <li><a href="/board/seat/list">좌석뷰 게시판</a></li>
