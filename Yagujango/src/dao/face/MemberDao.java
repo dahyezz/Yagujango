@@ -11,4 +11,8 @@ public interface MemberDao {
 	public int selectCntMemberIdfind(Member member);
 	
 	public Member selectMemberIdfind(Member member); 
+	
+	public int selectCntMemberPwfind(Member member);
+	
+	public Member selectMemberPwfind(Member member);
 }

@@ -31,9 +31,9 @@ public interface MemberService {
 	public Member getMemberByUserid(Member member);
 	
 	/**
-	 * 	아이디와 이메일이 일치하는 아이디 가져옴
+	 * 	이름과 이메일이 일치하는 아이디 가져옴
 	 * @param member
-	 * @return 조회한 아이디와 이메일이 일치하는 아이디가 있을 때 true
+	 * @return 조회한 이름과 이메일이 일치하는 아이디가 있을 때 true
 	 */
 	public boolean idFind(Member member);
 	 
@@ -43,5 +43,19 @@ public interface MemberService {
 	 * @return 찾은 아이디 조회
 	 */
 	public Member getIdfind(Member member);
+	
+	/**
+	 * 	이름과 이메일과 아이디가 일치하는 비밀번호 가져옴
+	 * @param member
+	 * @return 조회한 이름과 이메일과 아이디가 일치하는 비밀번호가 있을 때 true
+	 */
+	public boolean pwFind(Member member);
+	 
+	/**
+	 * 	찾은 비밀번호 조회
+	 * @param member
+	 * @return 찾은 비밀번호 조회
+	 */
+	public Member getPwfind(Member member);
 
 }
