@@ -14,7 +14,10 @@ import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
+//commit test
 public class AdminDaoImpl implements AdminDao{
+
+
 	
 	//DB 愿��젴 媛앹껜
 	private Connection conn = DBConn.getConnection();
@@ -149,7 +152,7 @@ public class AdminDaoImpl implements AdminDao{
 				Board_1to1 board_1to1 = new Board_1to1();
 				
 				board_1to1.setBoardno(rs.getInt("boardno"));
-				board_1to1.setWriter_userid(rs.getInt("writer_userid"));
+				board_1to1.setWriter_userid(rs.getString("writer_userid"));
 				board_1to1.setWriter_email(rs.getString("writer_email"));
 				board_1to1.setTitle(rs.getString("title"));
 				board_1to1.setContent(rs.getString("content"));
@@ -165,6 +168,7 @@ public class AdminDaoImpl implements AdminDao{
 		
 		return blist;
 	}
+	
 	
 	//블랙리스트조회
 
