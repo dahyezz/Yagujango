@@ -18,7 +18,7 @@ public class OneToOneWriteController extends HttpServlet {
 	
 	Board_1to1Service board_1to1Service = new Board_1to1ServiceImpl();
 	
-	@Override
+	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		if( req.getSession().getAttribute("login") == null ) {
