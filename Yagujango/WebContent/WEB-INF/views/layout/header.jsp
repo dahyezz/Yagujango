@@ -108,6 +108,7 @@ body { margin: 0; }
       	<c:forEach items="${list }" var="i">
       		<li><a href="/reserve/list?stadium_code=${i.stadium_code }">${i.team_name }</a></li>
       	</c:forEach>
+      	<li><a href="/reserve/inform">예매안내</a></li>
       </ul>
      </li>
     <li><a href="/board/seat/list">좌석뷰 게시판</a></li>

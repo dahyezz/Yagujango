@@ -66,8 +66,8 @@ function InitializeStaticMenu() {
 }
 
 //팝업창 띄우기
-function selectSeat() {
-	window.open("http://localhost:8088/reserve/seat?match_code=95","예매", "width=1000, height=600");
+function selectSeat(matchcode) {
+	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=600");
 }
 
 </script>
@@ -76,6 +76,7 @@ function selectSeat() {
 /* 메뉴 네비게이션바 */
 #STATICMENU { 
 	margin: 0pt;
+	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
 	left: 0px;
@@ -118,17 +119,10 @@ table {
 a { text-decoration:none }
 </style>
 
-<!-- <body onload="InitializeStaticMenu();"> -->
-<!-- 구장코드 시퀀스 -->
-<%-- <c:forEach items="${matchList }" var="i"> --%>
-<%-- 	<input type="hidden" id="match${i.hometeam_code }" value="${i.hometeam_code }"/> --%>
-<%-- </c:forEach> --%>
-
 <div id="STATICMENU">
 	<table class="table statictable">
 		<c:forEach items="${list }" var="i">
 			<tr>
-<%-- 				<th><a href="#'${i.stadium_code }'" onclick="If_matchInfo(${i.stadium_code});" >${i.stadium_name } [${i.team_name }]</a></th> --%>
 				<th><a href="/reserve/list?stadium_code=${i.stadium_code }" >${i.stadium_name } [${i.team_name }]</a></th>
 			</tr>
 		</c:forEach>
@@ -136,7 +130,7 @@ a { text-decoration:none }
 </div>
 
 
-<input type="button" value="예매하기" onClick="selectSeat()" />
+
 <!-- 구장별 경기목록 -->
 <div id="matchList" class="matchList">
 	<table class="table" style="text-align:center;">
@@ -155,7 +149,7 @@ a { text-decoration:none }
 					<td>${j.stadium_name }</td>
 				</c:if>
 			</c:forEach>
-			<td><button>예매하기</button></td>
+			<td><input type="button" value="예매하기" onClick="selectSeat(${i.match_code})" /></td>
 		</tr>
 		</c:forEach>
 	</table>
