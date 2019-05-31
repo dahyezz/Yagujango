@@ -7,35 +7,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
-// $(document).ready(function() {
-// 	$("#matchList").hide();
-// 	InitializeStaticMenu();
-// });
-
-// function If_matchInfo(seq) {
-// 	var matchSeq = $("#match" + seq).val();
-// // 	alert(matchSeq);
-	
-// 	// 구장별 경기목록보여주기
-// 	$("#matchList").show();
-	
-// 	// 구장별 경기목록 DB에서 가져오기
-// 	$.ajax( {
-// 		type:"post",
-// 		url:"/reserve/list",
-// 		data: {"matchSeq": matchSeq},
-// 		success:function test(data) {
-// 			console.log("ajax성공");
-// 			alert("ajax성공");
-// 			$("#matchDate").text(data.matchDate);
-// 		},
-// 		error:function error() {
-// 			console.log("error");
-// 			alert("error");
-// 		}
-// 	});
-// }
-
 // reserve 페이지에서만 네비게이션바 작동
 $(document).ready(function() {
 	InitializeStaticMenu();
@@ -69,11 +40,9 @@ function InitializeStaticMenu() {
 	RefreshStaticMenu();
 }
 
-//팝업창 띄우기
-function selectSeat(matchcode) {
-	window.open("http://localhost:8088/reserve/seat?match_code=" + matchcode, "예매", "width=1000, height=600");
 
-}
+	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=600");
+
 
 
 </script>
@@ -83,6 +52,7 @@ function selectSeat(matchcode) {
 #STATICMENU {
 	width: 200px;
 	margin: 0pt;
+	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
 	left: 0px;
@@ -125,16 +95,11 @@ table {
 a { text-decoration:none }
 </style>
 
-<!-- 구장코드 시퀀스 -->
-<%-- <c:forEach items="${matchList }" var="i"> --%>
-<%-- 	<input type="hidden" id="match${i.hometeam_code }" value="${i.hometeam_code }"/> --%>
-<%-- </c:forEach> --%>
 
 <div id="STATICMENU">
 	<table class="table statictable">
 		<c:forEach items="${list }" var="i">
 			<tr>
-<%-- 				<th><a href="#'${i.stadium_code }'" onclick="If_matchInfo(${i.stadium_code});" >${i.stadium_name } [${i.team_name }]</a></th> --%>
 				<th><a href="/reserve/list?stadium_code=${i.stadium_code }" >${i.stadium_name } [${i.team_name }]</a></th>
 			</tr>
 		</c:forEach>
@@ -142,8 +107,6 @@ a { text-decoration:none }
 </div>
 
 
-
-<!-- <input type="button" value="예매하기" onClick="selectSeat()" /> -->
 <!-- 구장별 경기목록 -->
 <div id="matchList" class="matchList">
 	<table class="table" style="text-align:center;">
@@ -162,7 +125,9 @@ a { text-decoration:none }
 					<td>${j.stadium_name }</td>
 				</c:if>
 			</c:forEach>
+
 			<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+
 		</tr>
 		</c:forEach>
 	</table>

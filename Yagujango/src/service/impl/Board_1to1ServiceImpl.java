@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import dao.face.Board_1to1Dao;
 import dao.impl.Board_1to1DaoImpl;
 import dto.Board_1to1;
+import dto.Board_faq;
 import service.face.Board_1to1Service;
 import util.Paging;
 
@@ -32,14 +33,13 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 	}
 
 	@Override
-	public List getFaqList(Paging paging) {
+	public List<Board_faq> getFaqList(Paging paging) {
 		return board_1to1Dao.faqSelectAll(paging);
 	}
 
 	@Override
 	public void write(HttpServletRequest req) {
-		
-		
+
 		Board_1to1 board_1to1 = new Board_1to1();
 		int boardno = board_1to1Dao.selectBoardno();
 		
@@ -50,7 +50,7 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 				board_1to1.setTitle("(제목없음)");
 
 				//작성자id 처리
-				board_1to1.setWriter_userid((int) req.getSession().getAttribute("writer_userid"));
+				board_1to1.setWriter_userid((String) req.getSession().getAttribute("writer_userid"));
 			}
 
 			board_1to1Dao.insert(board_1to1);
