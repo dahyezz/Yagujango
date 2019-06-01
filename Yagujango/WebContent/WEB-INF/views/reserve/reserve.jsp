@@ -40,9 +40,9 @@ function InitializeStaticMenu() {
 	RefreshStaticMenu();
 }
 
-
+function selectSeat(matchcode){
 	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=600");
-
+}
 
 
 </script>

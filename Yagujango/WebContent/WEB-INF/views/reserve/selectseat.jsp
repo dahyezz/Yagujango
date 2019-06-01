@@ -10,16 +10,16 @@
 <title>티켓 예매_좌석 선택</title>
 
 <script type="text/javascript">
-// function checkReserve(){
-// 	console.log("dhsk")
-// 	//그 seat_code가 ticket에 있는 seat_code면 disabled
-// 	//아니면 그냥 둠
+function checkReserve(seat_block){
+	console.log("dhsk")
+	//그 seat_code가 ticket에 있는 seat_code면 disabled
+	//아니면 그냥 둠
 	
-// // 	for(int i=0; i<ticket.size; i++){
-// // 		if(i.seat_code == seat_code)
+// 	for(int i=0; i<ticket.size; i++){
+// 		if(i.seat_code == seat_code)
 			
-// // 	}
-// }
+// 	}
+}
 </script>
 
 <style type="text/css">
@@ -44,7 +44,7 @@
 <!-- 좌석 버튼 만들어 주는 곳 -->
 <c:forEach items="${seatBlock }" var="i">
 	<c:forEach items="${seatNumber }" var="j">
-			<input type="checkbox" name="seat" value="${i }${j }" />
+			<input type="checkbox" name="seat" value="${i }${j }" disabled="checkReserve(${i }${j })" />
 	</c:forEach>
 </c:forEach>
 
