@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
@@ -40,9 +41,11 @@ function InitializeStaticMenu() {
 	RefreshStaticMenu();
 }
 
+
 function selectSeat(matchcode){
 	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=600");
 }
+
 
 
 </script>
@@ -80,11 +83,35 @@ table {
 .table th:last-child, td:last-child{
  	border-right: 0;
 }
+/* 네비게이션바 테이블 */
+
+/* match 테이블 */
+.matchtable {
+	border-collapse: collapse;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	width:1100px;
+}
+.matchtable th, td{
+ 	border: 1px solid #ddd;
+ 	padding: 10px;
+ 	text-align:center;
+}
+.matchtable th:hover{
+	background: #D5D5D5;
+}
+.matchtable th:first-child, td:first-child{
+ 	border-left: 0;
+}
+.matchtable th:last-child, td:last-child{
+ 	border-right: 0;
+}
+/* match 테이블 */
 
 .matchList {
-	text-align:center;
+	text-align:left;
 	padding:100px;
-	width:100%;
+	width:50%;
 	margin: 0 200px;
 }
 .statictable{
@@ -109,7 +136,9 @@ a { text-decoration:none }
 
 <!-- 구장별 경기목록 -->
 <div id="matchList" class="matchList">
-	<table class="table" style="text-align:center;">
+<!-- 7월  -->
+<c:set value="1" var="month"/> <!-- 테이블 위 '월'을 한번만 출력하기 위한 변수 -->
+	<table class="matchtable" style="text-align:center;">
 		<tr>
 			<th>일시</th>
 			<th>경기(홈 vs 원정)</th>
@@ -117,22 +146,88 @@ a { text-decoration:none }
 			<th>예매</th>
 		</tr>
 		<c:forEach items="${matchList }" var="i">
-		<tr>		
-			<td>${i.match_date }</td>
-			<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
-			<c:forEach items="${list }" var="j">
-				<c:if test="${j.stadium_code eq i.hometeam_code }">
-					<td>${j.stadium_name }</td>
-				</c:if>
-			</c:forEach>
-
-			<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
-
+			<c:if test="${i.match_date >= '2019-07-01' && i.match_date < '2019-08-01'}">
+				<c:if test="${month == '1'}">
+					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
+				<tr>
+					<td>${i.match_date }</td>
+					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
+					<c:forEach items="${list }" var="j">
+						<c:if test="${j.stadium_code eq i.hometeam_code }">
+							<td>${j.stadium_name }</td>
+						</c:if>
+					</c:forEach>
+					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+				</tr>
+				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 't'값 바꾸기 (화면에 출력안되게)-->
+			</c:if>
+		</c:forEach>
+	</table>
+	<br><br><br><br>
+	
+	
+	
+	<!-- 8월 -->
+	<input type="hidden" value ="${month = 1}"/>
+	<table class="matchtable" style="text-align:center;">
+		<tr>
+			<th>일시</th>
+			<th>경기(홈 vs 원정)</th>
+			<th>장소</th>
+			<th>예매</th>
 		</tr>
+		<c:forEach items="${matchList }" var="i">
+			<c:if test="${i.match_date >= '2019-08-01' && i.match_date < '2019-09-01'}">
+				<c:if test="${month == '1'}">
+					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
+				<tr>
+					<td>${i.match_date }</td>
+					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
+					<c:forEach items="${list }" var="j">
+						<c:if test="${j.stadium_code eq i.hometeam_code }">
+							<td>${j.stadium_name }</td>
+						</c:if>
+					</c:forEach>
+					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+				</tr>
+				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 't'값 바꾸기 (화면에 출력안되게)-->
+			</c:if>
+		</c:forEach>
+	</table>
+	<br><br><br><br>
+	
+	
+	
+	<!-- 9월 -->
+	<input type="hidden" value ="${month = 1}"/>
+	<table class="matchtable" style="text-align:center;">
+		<tr>
+			<th>일시</th>
+			<th>경기(홈 vs 원정)</th>
+			<th>장소</th>
+			<th>예매</th>
+		</tr>
+		<c:forEach items="${matchList }" var="i">
+			<c:if test="${i.match_date >= '2019-09-01' && i.match_date < '2019-10-01'}">
+				<c:if test="${month == '1'}">
+					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
+				<tr>
+					<td>${i.match_date }</td>
+					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
+					<c:forEach items="${list }" var="j">
+						<c:if test="${j.stadium_code eq i.hometeam_code }">
+							<td>${j.stadium_name }</td>
+						</c:if>
+					</c:forEach>
+					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+				</tr>
+				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 't'값 바꾸기 (화면에 출력안되게)-->
+			</c:if>
 		</c:forEach>
 	</table>
 </div>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

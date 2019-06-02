@@ -125,7 +125,7 @@ function checkReserve(seat_block){
 <!-- 	</tr> -->
 <!-- </table> -->
 
-<label><a href="/reserve/receive">NEXT</a></label>
+<label><a href="/reserve/receive?match_code=${match.match_code }">NEXT</a></label>
 
 </body>
 </html>

@@ -64,7 +64,7 @@ public class ReserveDaoImpl implements ReserveDao {
 		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name";
 		sql += " FROM match";
 		sql += " WHERE hometeam_code = ?";
-		sql += " AND match_date BETWEEN sysdate AND '20190801'";
+//		sql += " AND match_date BETWEEN sysdate AND '20190801'";
 		sql += " ORDER BY match_code";
 		
 		List<Match> matchList = new ArrayList<Match>();
@@ -307,6 +307,43 @@ public class ReserveDaoImpl implements ReserveDao {
 		}
 		
 		return seatnumberList;
+	}
+
+	@Override
+	public Ticket selectSeatInfo(Match match) {
+		String sql = "";
+		sql += "SELECT ticket.ticket_code, ticket.match_code, seat.seat_code, seat.seat_block, seat.seat_number, seat.price";
+		sql += " FROM ticket";
+		sql += " INNER JOIN seat";
+		sql += " ON ticket.seat_code = seat.seat_code AND ticket.match_code = ?";
+		
+		Ticket ticket = new Ticket();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, match.getMatch_code());
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				ticket.setTicket_code(rs.getInt("ticket_code"));
+				ticket.setMatch_code(rs.getInt("match_code"));
+				ticket.setSeat_code(rs.getInt("seat_code"));
+				ticket.setSeat_block(rs.getString("seat_block"));
+				ticket.setSeat_number(rs.getInt("seat_number"));
+				ticket.setPrice(rs.getInt("price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return ticket;
 	}
 
 }
