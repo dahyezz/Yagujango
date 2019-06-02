@@ -10,21 +10,45 @@
 <title>티켓 예매_좌석 선택</title>
 
 <script type="text/javascript">
-// function checkReserve(){
-// 	console.log("dhsk")
-// 	//그 seat_code가 ticket에 있는 seat_code면 disabled
-// 	//아니면 그냥 둠
+function checkReserve(seat_block){
+	console.log("dhsk")
+	//그 seat_code가 ticket에 있는 seat_code면 disabled
+	//아니면 그냥 둠
 	
-// // 	for(int i=0; i<ticket.size; i++){
-// // 		if(i.seat_code == seat_code)
+// 	for(int i=0; i<ticket.size; i++){
+// 		if(i.seat_code == seat_code)
 			
-// // 	}
-// }
+// 	}
+}
 </script>
 
 <style type="text/css">
 #topbar {
 	text-align: right;
+	margin: 0;
+}
+.seatBtn {
+	margin: 10px;
+	padding: 0;
+	width: 600px;
+	height: 400px;
+	float: left;
+}
+
+.seatInfo {
+	width: 350px;
+	height: 400px;
+	margin: 0;
+	float: right;
+}
+
+.seatPrice {
+	float: left;
+	margin: 20px;
+}
+.restSeat {
+	float: left;
+	margin: 20px;
 }
 
 </style>
@@ -37,14 +61,13 @@
 <h1>티켓 예매</h1>
 <hr>
 <p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p>
+<%-- <p>${match.hometeam_name } vs ${match.awayteam_name } ${match.match_date }</p> --%>
 
-
-<div>
-
+<div class="seatBtn">
 <!-- 좌석 버튼 만들어 주는 곳 -->
 <c:forEach items="${seatBlock }" var="i">
 	<c:forEach items="${seatNumber }" var="j">
-			<input type="checkbox" name="seat" value="${i }${j }" />
+			<input type="checkbox" name="seat" value="${i }${j }" disabled="checkReserve(${i }${j })" />
 	</c:forEach>
 </c:forEach>
 
@@ -63,21 +86,44 @@
 	</script>
 </c:forEach>
  -->
+</div>
+
+<div class="seatInfo">
+
+	<div class="seatPrice">
+		<h3>등급별 가격</h3>
+			<p>A블럭 - 24,000원</p>
+			<p>B블럭 - 21,000원</p>
+			<p>C블럭 - 18,000원</p>
+			<p>D블럭 - 15,000원</p>
+			<p>E블럭 - 12,000원</p>
+	</div>
+	
+	<div class="restSeat">
+		<h3>남은 좌석</h3>
+			<p>A블럭 00석</p>
+			<p>B블럭 00석</p>
+			<p>C블럭 00석</p>
+			<p>D블럭 00석</p>
+			<p>E블럭 00석</p>		
+	</div>
+	
+	
 
 </div>
 
-<table>
-	<tr>
-		<th>홈팀</th>
-		<th>어웨이</th>
-		<th>경기일</th>
-	</tr>
-	<tr>
-		<th>${match.hometeam_name }</th>
-		<th>${match.awayteam_name }</th>
-		<th>${match.match_date }</th>
-	</tr>
-</table>
+<!-- <table> -->
+<!-- 	<tr> -->
+<!-- 		<th>홈팀</th> -->
+<!-- 		<th>어웨이</th> -->
+<!-- 		<th>경기일</th> -->
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<%-- 		<th>${match.hometeam_name }</th> --%>
+<%-- 		<th>${match.awayteam_name }</th> --%>
+<%-- 		<th>${match.match_date }</th> --%>
+<!-- 	</tr> -->
+<!-- </table> -->
 
 <label><a href="/reserve/receive?match_code=${match.match_code }">NEXT</a></label>
 
