@@ -1,6 +1,6 @@
 package dto;
 
-public class Ticket {
+public class Ticket extends Seat {
 	
 	private int ticket_code;
 	private int match_code;

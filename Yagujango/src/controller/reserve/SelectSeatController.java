@@ -26,7 +26,7 @@ public class SelectSeatController extends HttpServlet {
 
 		Match match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
-//		System.out.println(match); //TEST
+		System.out.println(match); //TEST
 		
 		request.setAttribute("match", match);
 		

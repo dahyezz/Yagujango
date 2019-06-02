@@ -84,4 +84,9 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Integer> getSeatNumber() {
 		return reserveDao.selectSeatNumber();
 	}
+
+	@Override
+	public Ticket getSeatInfoByTicket(Match match) {
+		return reserveDao.selectSeatInfo(match);
+	}
 }
