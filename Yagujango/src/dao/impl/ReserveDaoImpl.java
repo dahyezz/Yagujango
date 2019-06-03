@@ -348,6 +348,8 @@ public class ReserveDaoImpl implements ReserveDao {
 		
 		return ticket;
 	}
+	
+
 
 	@Override
 	public void insertReserve(Reserve receive) {

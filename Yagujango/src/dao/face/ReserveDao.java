@@ -53,8 +53,10 @@ public interface ReserveDao {
 
 	Ticket selectSeatInfo(Match match);
 
+
 	void insertReserve(Reserve receive);
 
 	Member getUserNo(String userid);
+
 
 }

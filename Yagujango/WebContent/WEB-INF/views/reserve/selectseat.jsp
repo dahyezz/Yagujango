@@ -9,17 +9,64 @@
 <meta charset="UTF-8">
 <title>티켓 예매_좌석 선택</title>
 
+<!-- jQuery 2.2.4 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+
 <script type="text/javascript">
-function checkReserve(seat_block){
-	console.log("dhsk")
-	//그 seat_code가 ticket에 있는 seat_code면 disabled
-	//아니면 그냥 둠
+$(document).ready(function() {
+
+	var selectseat = [];
 	
-// 	for(int i=0; i<ticket.size; i++){
-// 		if(i.seat_code == seat_code)
+	//체크 박스 선택시
+	$("input:checkbox").on('click', function(){
+		var lists = [];
+		$("input:checkbox[name='seat']:checked").each(function(i){
+			lists.push($(this).val());
 			
-// 	}
+		});
+		
+
+		selectseat = lists;
+// 		console.log(lists)
+		var layout = document.getElementById("result");
+		layout.innerHTML = selectseat;
+// 		console.log(map);
+
+	});
+	
+// 	$("#selectsuccess").click(function(){
+// 		var $form = $("<form>")
+// 		.attr("action","/reserve/seat")
+// 		.attr("method", "POST")
+// 		.append(
+// 				$("<input>")
+// 						.attr("type", "hidden")
+// 						.attr("name", "selectseat")
+// 						.attr("value", selectseat)
+// 		);
+// 		$(document.body).append($form);
+// 		$form.submit();
+// 	})
+
+
+});
+
+function select() {
+	//전송 폼
+// 		var $form = $("<form>")
+// 				.attr("action","/reserve/seat")
+// 				.attr("method", "POST")
+// 				.append(
+// 						$("<input>")
+// 								.attr("type", "hidden")
+// 								.attr("name", "selectseat")
+// 								.attr("value", selectseat)
+// 				);
+// 		$(document.body).append($form);
+// 		$form.submit();
 }
+
 </script>
 
 <style type="text/css">
@@ -44,17 +91,26 @@ function checkReserve(seat_block){
 
 .seatPrice {
 	float: left;
-	margin: 20px;
+	margin: 20px 20px 0;
 }
 .restSeat {
 	float: left;
-	margin: 20px;
+	margin: 20px 20px 0;
+}
+
+.selectSeat {
+	float: left;
+	margin: 0 20px;
+}
+
+a {
+	text-decoration: none;
 }
 
 </style>
 
 </head>
-<body style="background: #ccc">
+<body style="background: #D5D5D5">
 
 
 
@@ -67,25 +123,31 @@ function checkReserve(seat_block){
 <!-- 좌석 버튼 만들어 주는 곳 -->
 <c:forEach items="${seatBlock }" var="i">
 	<c:forEach items="${seatNumber }" var="j">
-			<input type="checkbox" name="seat" value="${i }${j }" disabled="checkReserve(${i }${j })" />
+			<input type="checkbox" name="seat" id="seatId" value="${i }블럭 ${j }석"  />
 	</c:forEach>
+	<br>
 </c:forEach>
 
+
+
+
+
 <!-- disabled 되게 -->
-<!-- 
-<c:forEach items="${seat }" var="i">
+<c:forEach items="${seatAvailable }" var="i">
 	<script>
-		var checked = document.getElmentsByName("seat");
+		var select = eval("document.selectform");
+		var checked = document.getElementsByName("seat");
 		
-		for(var i=0; i<seat.length; i++){
-			if(checked[i].value == ${i.seat_block}${i.seat_number}){
-				checked[i].disabled = false;
-			}
+		console.log("0--");
+		for(var i=0; i<select.seat.length; i++){
+// 			if(checked[i].value == ${i.seat_block}${i.seat_number}){
+// 				checked[i].disabled = true;
+// 			}
+			console.log(checked[i].value);
 		}
-		
 	</script>
 </c:forEach>
- -->
+ 
 </div>
 
 <div class="seatInfo">
@@ -101,31 +163,26 @@ function checkReserve(seat_block){
 	
 	<div class="restSeat">
 		<h3>남은 좌석</h3>
-			<p>A블럭 00석</p>
-			<p>B블럭 00석</p>
-			<p>C블럭 00석</p>
-			<p>D블럭 00석</p>
-			<p>E블럭 00석</p>		
+				<p>A블럭 ${seatCount[0] }석</p>
+				<p>B블럭 ${seatCount[1] }석</p>
+				<p>C블럭 ${seatCount[2] }석</p>
+				<p>D블럭 ${seatCount[3] }석</p>
+				<p>E블럭 ${seatCount[4] }석</p>	
+	</div>
+	
+	<div class="selectSeat">
+		<h3>선택좌석</h3>
+			<p id="result">
+			</p>
 	</div>
 	
 	
 
 </div>
 
-<!-- <table> -->
-<!-- 	<tr> -->
-<!-- 		<th>홈팀</th> -->
-<!-- 		<th>어웨이</th> -->
-<!-- 		<th>경기일</th> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<%-- 		<th>${match.hometeam_name }</th> --%>
-<%-- 		<th>${match.awayteam_name }</th> --%>
-<%-- 		<th>${match.match_date }</th> --%>
-<!-- 	</tr> -->
-<!-- </table> -->
-
-<label><a href="/reserve/receive?match_code=${match.match_code }">NEXT</a></label>
+<div style="float: right; margin-top: 50px; margin-right:100px;">
+	<label><a id="selectsuccess" href="/reserve/receive?match_code=${match.match_code }" >NEXT▷</a></label>
+</div>
 
 </body>
 </html>

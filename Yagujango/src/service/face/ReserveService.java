@@ -88,9 +88,21 @@ public interface ReserveService {
 
 	public Ticket getSeatInfoByTicket(Match match);
 
+
+	/**
+	 * 예매 가능한 좌석을 블럭별로 카운트
+	 * 
+	 * @param match
+	 * @return
+	 */
+	public List<Integer> getSeatCount(Match match);
+
+
+
 	public void insertReserve(Reserve receive);
 	
 	public Member getUserNo(String userid);
 
 	public Date StringToDate(String payment_date);
+
 }
