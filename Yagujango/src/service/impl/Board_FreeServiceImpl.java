@@ -35,12 +35,17 @@ public class Board_FreeServiceImpl implements Board_FreeService{
 		int curPage = 0;
 		if (param != null && !"".equals(param)) {
 			curPage = Integer.parseInt(param);
-		}
+		} 
 		Paging paging = new Paging();
 		paging.setName(name);
 		paging.setKeyword(keyword);
 		int totalCount = board_FreeDao.selectCntAll(paging);
-		
+		if (name == null && keyword == null) {
+			totalCount = totalCount+3;
+		}if ("tag".equals(name) && "공지".equals(keyword)) {
+			totalCount = board_FreeDao.selectCntNotice();
+		}
+			
 		paging = new Paging(totalCount, curPage);
 		
 		paging.setName(name);
@@ -235,6 +240,20 @@ public class Board_FreeServiceImpl implements Board_FreeService{
 	@Override
 	public List<Comment> commentlist(Board_Free viewboard) {
 		return board_FreeDao.selectCommentbyboardno(viewboard);
+	}
+	@Override
+	public void insertcomment(Comment comment) {
+		board_FreeDao.CommentInsert(comment);
+		
+	}
+	@Override
+	public void deletecomment(Comment comment) {
+		board_FreeDao.CommentDelete(comment);
+	}
+	@Override
+	public List<Board_Free> getNoticeList(Paging paging) {
+		
+		return board_FreeDao.selectNoticeAll(paging);
 	}
 
 }

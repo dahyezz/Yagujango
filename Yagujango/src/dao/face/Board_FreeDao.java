@@ -12,7 +12,11 @@ public interface Board_FreeDao {
 
 	public int selectCntAll(Paging paging);
 	
+	public int selectCntNotice();
+	
 	public List<Board_Free> selectAll(Paging paging);
+	
+	public List<Board_Free> selectNoticeAll(Paging paging);
 	
 	public List<Board_Free> selectAllwithNotice(Paging paging);
 
@@ -33,4 +37,12 @@ public interface Board_FreeDao {
 	public void updateBoard_Free(Board_Free board);
 
 	public List<Comment> selectCommentbyboardno(Board_Free viewboard);
+
+	public void CommentInsert(Comment comment);
+
+	public void CommentDelete(Comment comment);
+
+
+
+
 }

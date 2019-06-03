@@ -33,10 +33,15 @@ public class FreeListController extends HttpServlet {
 		
 		if(paging.getKeyword() == null && paging.getName() == null ) {
 			list = board_FreeService.getListwithNotice(paging);
-		}else {
+		}else if("공지".equals(paging.getKeyword()) && "tag".equals(paging.getName())) {
+			list = board_FreeService.getNoticeList(paging);
+		}else{
 			list = board_FreeService.getList(paging);
 		}
 		
+
+		req.setAttribute("name", paging.getName());
+		req.setAttribute("keyword", paging.getKeyword());
 		//MODEL로 Paging 객체 넣기
 		req.setAttribute("paging", paging);
 		//MODEL로 조회 결과 넣기

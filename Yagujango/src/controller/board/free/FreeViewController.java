@@ -1,6 +1,7 @@
 package controller.board.free;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ public class FreeViewController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Board_Free viewboard = board_FreeService.getBoardno(req);
 		viewboard.setTag(req.getParameter("tag"));
-		
+		List<Comment> list =  new ArrayList<Comment>();
 		
 		if("공지".equals(viewboard.getTag())) {
 			board_FreeService.noticeaddhit(viewboard);
@@ -37,7 +38,7 @@ public class FreeViewController extends HttpServlet {
 		}
 		req.setAttribute("board", viewboard);
 		
-		List<Comment> list = board_FreeService.commentlist(viewboard);
+		list = board_FreeService.commentlist(viewboard);
 		
 		
 		req.setAttribute("comment", list);

@@ -416,8 +416,8 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 	public List<Comment> selectCommentbyboardno(Board_Free viewboard) {
 		String sql = "";
 		sql +="SELECT * FROM freecomment";
-		sql +="WHERE boardno=?";
-		sql +="ORDER BY commentno";
+		sql +=" WHERE boardno=?";
+		sql +=" ORDER BY commentno";
 		List<Comment> list = new ArrayList<Comment>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -448,6 +448,142 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void CommentInsert(Comment comment) {
+		String sql = "";
+		sql +="INSERT INTO freecomment(commentno, boardno, userid,content)";
+		sql +=" VALUES (freecomment_seq.nextval,?,?,?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, comment.getBoardno());
+			ps.setString(2, comment.getWriter());
+			ps.setString(3, comment.getContent());
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void CommentDelete(Comment comment) {
+		String sql = "";
+		sql += "DELETE FROM freecomment";
+		sql += " WHERE commentno=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, comment.getCommentno());
+			ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public List<Board_Free> selectNoticeAll(Paging paging) {
+		List<Board_Free> list = new ArrayList<Board_Free>();
+//		SELECT * FROM (
+//	    SELECT rownum rnum, B.* FROM (
+//	        SELECT boardno, tag, title, writer, content, hit, writtendate FROM board_free_notice
+//	        ORDER BY boardno DESC
+//	        ) B
+//	    ORDER BY rnum
+//	) BOARD
+//	WHERE rnum BETWEEN 1 AND 10
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += " 	SELECT rownum rnum, B.* FROM (";
+		sql += " 	 	SELECT boardno, tag, title, writer, content, hit, writtendate FROM board_free_notice";
+		sql += "  		ORDER BY boardno DESC";
+		sql += "	 	) B";
+		sql += "	 ORDER BY rnum";
+		sql += " ) BOARD";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Board_Free board_free = new Board_Free();
+
+				board_free.setBoardno(rs.getInt("boardno"));
+				board_free.setTag(rs.getString("tag"));
+				board_free.setTitle(rs.getString("title"));
+				board_free.setWriter(rs.getString("writer"));
+				board_free.setContent(rs.getString("content"));
+				board_free.setHit(rs.getInt("hit"));
+				board_free.setWrittendate(rs.getDate("writtendate"));
+
+				list.add(board_free);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
+
+	@Override
+	public int selectCntNotice() {
+		String sql = "";
+		sql += "SELECT count(*)";
+		sql += " FROM board_free_notice";
+		int totalCount = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return totalCount;
 	}
 
 }
