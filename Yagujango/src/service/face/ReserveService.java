@@ -1,10 +1,13 @@
 package service.face;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Match;
+import dto.Member;
+import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
@@ -85,6 +88,7 @@ public interface ReserveService {
 
 	public Ticket getSeatInfoByTicket(Match match);
 
+
 	/**
 	 * 예매 가능한 좌석을 블럭별로 카운트
 	 * 
@@ -93,5 +97,12 @@ public interface ReserveService {
 	 */
 	public List<Integer> getSeatCount(Match match);
 
+
+
+	public void insertReserve(Reserve receive);
+	
+	public Member getUserNo(String userid);
+
+	public Date StringToDate(String payment_date);
 
 }

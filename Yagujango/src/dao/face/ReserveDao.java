@@ -3,6 +3,8 @@ package dao.face;
 import java.util.List;
 
 import dto.Match;
+import dto.Member;
+import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
@@ -50,6 +52,11 @@ public interface ReserveDao {
 	List<Integer> selectSeatNumber();
 
 	Ticket selectSeatInfo(Match match);
+
+
+	void insertReserve(Reserve receive);
+
+	Member getUserNo(String userid);
 
 
 }

@@ -245,7 +245,7 @@ public class AdminDaoImpl implements AdminDao{
 			while( rs.next() ) {
 				viewBoard.setBoardno( rs.getInt("boardno"));
 				viewBoard.setWriter_userid( rs.getString("writer_userid"));
-				viewBoard.setWriter_email( rs.getString("writer_eamil"));
+				viewBoard.setWriter_email( rs.getString("writer_email"));
 				viewBoard.setTitle( rs.getString("title"));
 				viewBoard.setContent( rs.getString("content"));
 				viewBoard.setWriter_comment( rs.getString("writer_comment"));
@@ -267,4 +267,39 @@ public class AdminDaoImpl implements AdminDao{
 	}
 		return viewBoard;
 }
+
+	@Override
+	public void update(Board_1to1 board_1to1) {
+
+		//다음 게시글 번호 조회 쿼리
+		String sql = "";
+		sql += "UPDATE board_1to1";
+		sql += " SET title = ?,";
+		sql += " 	 content = ?";
+		sql += " WHERE boardno = ?";
+		
+		//DB 객체
+		PreparedStatement ps = null;
+		
+		try {
+			//DB 작업
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_1to1.getTitle());
+			ps.setString(2, board_1to1.getContent());
+			ps.setInt(3, board_1to1.getBoardno());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//자원해제
+			try{
+				//DB객체 담기
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
 }

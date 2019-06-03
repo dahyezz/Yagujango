@@ -11,7 +11,7 @@ $(document).ready(function() {
 	
 	//글쓰기 버튼 누르면 이동
 	$("#btnList").click(function() {
- 		$(location).attr("href","/admin/board_1to1");
+ 		$(location).attr("href","/admin/list");
 	});
 	
 });
@@ -41,16 +41,14 @@ $(document).ready(function() {
 	<tr>
 		<td>${b.boardno }</td>
 		<td>${b.writer_userid }</td>
-		<td>${b.title }</td>
+		<td><a href="/admin/board_1to1view?boardno=${b.boardno}">${b.title }</a></td>
 		<td>${b.writtendate }</td>		
 		<td>${b.writer_comment }</td>
 		<td><fmt:formatDate value="${b.writtendate }" pattern="yyyy-MM-dd" /></td>
 
-
 	</tr>
 </c:forEach>
 </table>
-
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

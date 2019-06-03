@@ -1,8 +1,10 @@
 package service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import dao.face.Board_1to1Dao;
 import dao.impl.Board_1to1DaoImpl;
@@ -17,7 +19,8 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 
 	@Override
 	public Paging getCurPage(HttpServletRequest req) {
-		
+		String name = req.getParameter("name");
+		String keyword = req.getParameter("keyword");
 		String param = req.getParameter("cutPage");
 		
 		int curPage = 0;
@@ -27,7 +30,9 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 
 		int totalCount = board_1to1Dao.selectCntAll();
 
-		Paging paging = new Paging(curPage);
+		Paging paging = new Paging(totalCount, curPage);
+		paging.setName(name);
+		paging.setKeyword(keyword);
 		
 		return paging;
 	}
@@ -39,24 +44,23 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 
 	@Override
 	public void write(HttpServletRequest req) {
-
+		try {
+			req.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		Board_1to1 board_1to1 = new Board_1to1();
-		int boardno = board_1to1Dao.selectBoardno();
+		HttpSession session = req.getSession();
 		
-		if(board_1to1 != null) {
-			board_1to1.setBoardno(boardno);
+		board_1to1.setWriter_email(req.getParameter("writer_email"));
+		board_1to1.setTitle(req.getParameter("title"));
+		board_1to1.setContent(req.getParameter("content"));
+		board_1to1.setWriter_comment(req.getParameter("writer_comment"));
+		board_1to1.setWriter_userid((String)session.getAttribute("writer_userid"));
+		
+		board_1to1Dao.insert(board_1to1);
+		
 			
-			if(board_1to1.getTitle()!=null || "".equals(board_1to1.getTitle())) {
-				board_1to1.setTitle("(�젣紐⑹뾾�쓬)");
-
-
-				//작성자id 처리
-				board_1to1.setWriter_userid((String) req.getSession().getAttribute("writer_userid"));
-			}
-
-			board_1to1Dao.insert(board_1to1);
-		
-		}	
 	}
 }
 

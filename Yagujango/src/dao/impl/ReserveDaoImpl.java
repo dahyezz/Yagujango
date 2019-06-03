@@ -1,5 +1,6 @@
 package dao.impl;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,8 @@ import java.util.List;
 import dao.face.ReserveDao;
 import dbutil.DBConn;
 import dto.Match;
+import dto.Member;
+import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
@@ -347,5 +350,60 @@ public class ReserveDaoImpl implements ReserveDao {
 	}
 	
 
+
+	@Override
+	public void insertReserve(Reserve receive) {
+		String sql = "";
+		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date, ticket_quantity, how_receive)";
+		sql += " VALUES (reserve_seq.nextval, ?, ?, ?, null, 1, ?)";
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, receive.getTicket_code());
+			ps.setInt(2, receive.getUserno());
+			ps.setString(3, receive.getPayment());
+//			ps.setDate(4, (Date) receive.getPayment_date());
+			ps.setString(4, receive.getHow_receive());
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public Member getUserNo(String userid) {
+		String sql = "";
+		sql += "SELECT userno";
+		sql += " FROM member";
+		sql += " WHERE userid = ?";
+		
+		Member member = new Member();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userid.toString());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				member.setUserno(rs.getInt("userno"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return member;	
+	}
 
 }

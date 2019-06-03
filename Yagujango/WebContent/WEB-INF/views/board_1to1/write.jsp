@@ -63,13 +63,12 @@ Body {
 	width: 100%; 
 }
 .witerBody {
-    padding-right: 100px;
-    padding-left: 100px;
+    padding-right: 162px;
+    padding-left: 155px;
     padding-top: 30px;
     padding-bottom: 30px;
     
 }
-
 
 
 .btn btn-info {
@@ -101,7 +100,7 @@ Body {
 		
 			<table class="table 1">
 				<tr>
-					<th class="info" style="font-size: 13px;">답변 받을 이메일</th>
+					<th class="witer_info" style="font-size: 13px;">답변 받을 이메일</th>
 					<th style="color: blue; font-size: 12px;">(필수)</th>
 					<td>
 						<input type="text" name="email1" id="email1" class="box" class=""/>@
@@ -127,13 +126,13 @@ Body {
 			<table class="table 2">
 
 				<tr>
-					<th class="info" style="font-size: 13px;">제목</th>
+					<th class="witer_info" style="font-size: 13px;">제목</th>
 					<th style="color: blue; font-size: 12px;">(필수)</th>
 					<td><input type="text" name="title" style="width:100%"/></td>
 				</tr>
 				
-				<tr>
-					<th class="info" style="font-size: 13px;">내용</th>
+				<tr> 
+					<th class="witer_info" style="font-size: 13px;">내용</th>
 					<th style="color: blue; font-size: 12px;">(필수)</th>
 					<td colspan="2">
 						<textarea id="content" name="content" rows="10" cols="100" ></textarea>
