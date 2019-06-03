@@ -26,10 +26,10 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 		sql += "SELECT * FROM (";
 		sql += " 	SELECT rownum rnum, B.* FROM (";
 		sql += " 		SELECT faq_boardno, faq_title, faq_content, faq_writtendate FROM board_faq";
-		sql += " 		ORDER BY faq_boardno DESC";
+		sql += " 		ORDER BY faq_boardno";
 		sql += " 	) B";
 		sql += " 	ORDER BY rnum";
-		sql += " ) BOARD_FAQ";
+		sql += " ) BOARD_FAQ";		
 		sql += " WHERE rnum BETWEEN ? AND ?";
 		
 		List<Board_faq> faqList = new ArrayList<Board_faq>();
@@ -44,10 +44,10 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			while( rs.next() ) {
 				Board_faq board_faq = new Board_faq();
 				
-				board_faq.setFaq_boardno(rs.getInt("faq_boardno"));
+//				board_faq.setFaq_boardno(rs.getInt("faq_boardno"));
 				board_faq.setFaq_title( rs.getString("faq_title") );
 				board_faq.setFaq_content( rs.getString("faq_content") );
-				board_faq.setFaq_writtendate( rs.getDate("faq_writtendate") );
+//				board_faq.setFaq_writtendate( rs.getDate("faq_writtendate") );
 
 				faqList.add(board_faq);
 			}
@@ -70,7 +70,6 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 
 	@Override
 	public int selectCntAll() {
-		//�쟾泥� 寃뚯떆湲� �닔 議고쉶 荑쇰━
 		String sql = "";
 		sql+="SELECT count(*)";
 		sql+=" FROM board_faq";
@@ -102,49 +101,12 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 
 
 	@Override
-	public int selectBoardno() {
-		
-		String sql = "";
-		sql += "SELECT board_1to1_seq.nextval";
-		sql += " FROM dual";
-		
-		int boardno = 0;
-		
-		try {
-			//DB�옉�뾽
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			//寃곌낵 �떞湲�
-			while(rs.next()) {
-				boardno = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				//DB媛앹껜 �떕湲�
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return boardno;
-	}
-
-
-	@Override
 	public void insert(Board_1to1 board_1to1) {
 		String sql = "";
-		sql += "INSERT INTO board_1to1(BOARDNO,WRITER_USERID,WRITER_EMAIL,TITLE,CONTENT, WRITER_COMMENT) ";
-		sql += " VALUES (?, ?, ?, ?, ?)";
+		sql += "INSERT INTO board_1to1(BOARDNO,WRITER_EMAIL,TITLE,CONTENT) ";
+		sql += " VALUES (board_faq_seq.nextval,?, ?, ?)";
 		
 		try {
-			//DB�옉�뾽
 			ps = conn.prepareStatement(sql);
 			
 			ps.setInt(1, board_1to1.getBoardno());
