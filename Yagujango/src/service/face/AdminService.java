@@ -12,44 +12,50 @@ public interface AdminService {
 	
 	/**
 	 * @param
-	 * @return È¸¿ø¸ñ·ÏÁ¶È¸
+	 * @return È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	 */
 	public List getList(Paging paging);
 	
 	/**
-	 * ¿äÃ»ÆÄ¶ó¹ÌÅÍ¿¡¼­ curPage¸¦ ÆÄ½ÌÇÑ´Ù.
+	 * ï¿½ï¿½Ã»ï¿½Ä¶ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ curPageï¿½ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 	 * 
-	 * @param req - ¿äÃ»Á¤º¸°´Ã¼
-	 * @return Paging - ÆäÀÌÂ¡ °è»êÀÌ ¿Ï·áµÈ °´Ã¼
+	 * @param req - ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼
+	 * @return Paging - ï¿½ï¿½ï¿½ï¿½Â¡ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½Ã¼
 	 */
 	public Paging getCurPage(HttpServletRequest req);
 	
 	/**
 	 * @param
-	 * @return °Ô½ÃÆÇ¸®½ºÆ®Á¶È¸
+	 * @return ï¿½Ô½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½È¸
 	 */
 
 	public List bgetList(Paging paging);
 	
 	/**
 	 * @param
-	 * @return ºí·¢¸®½ºÆ®Á¶È¸
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½È¸
 	 */
 
 	public List blackgetList(Paging paging);
 	
 	/**
-	 * ¿äÃ»ÆÄ¶ó¹ÌÅÍ¿¡¼­ boardno¸¦ ÆÄ½ÌÇÑ´Ù.
-	 * @param req - ¿äÃ»Á¤º¸°´Ã¼
-	 * @return Board_1to1 - boardno¸¦ ÀÔ·ÂÇÑ °´Ã¼
+	 * ï¿½ï¿½Ã»ï¿½Ä¶ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ boardnoï¿½ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
+	 * @param req - ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼
+	 * @return Board_1to1 - boardnoï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	 */
 	public Board_1to1 getBoardno(HttpServletRequest req);
 	/**
-	 * 1:1¹®ÀÇ »ó¼¼º¸±â
-	 * @param viewBoard - »ó¼¼º¸±âÇÒ boardno¸¦ °¡Áø °´Ã¼
-	 * @return Board_1to1 - »ó¼¼º¸±âÇÒ °Ô½Ã±Û Á¶È¸ °á°ú
+	 * 1:1ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½
+	 * @param viewBoard - ï¿½ó¼¼ºï¿½ï¿½ï¿½ï¿½ï¿½ boardnoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
+	 * @return Board_1to1 - ï¿½ó¼¼ºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸ ï¿½ï¿½ï¿½
 	 */
 	public Board_1to1 view(Board_1to1 viewBoard);
+	
+	/**
+	 * ê²Œì‹œê¸€ ì‘ì„±
+	 * @param req - ìš”ì²­ ì •ë³´ ê°ì²´
+	 */
+	public void write(HttpServletRequest req);
 	
 
 	

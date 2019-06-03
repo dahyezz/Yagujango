@@ -8,22 +8,28 @@ import util.Paging;
 
 public interface AdminDao {
 	
-	//°ü¸®ÀÚ - È¸¿øÀüÃ¼Á¶È¸
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - È¸ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½È¸
 	public List selectAll(Paging paging);
 
-	//°ü¸®ÀÚ -È¸¿ø Å×ÀÌºí ÀüÃ¼ countÁ¶È¸
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½Ã¼ countï¿½ï¿½È¸
 	public int selectCntAll(String keyword);
 	
-	//1:1Áú¹®¸ñ·Ï Á¶È¸
+	//1:1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public List bselectAll(Paging paging);
 
 	public List blackselectAll(Paging paging);
 	
 	/**
-	 * 1:1¹®ÀÇ »ó¼¼º¸±â
-	 * @param viewBoard - Á¶È¸ ´ë»ó
-	 * @return Board_1to1 - »ó¼¼º¸±âÇÒ °Ô½Ã±Û Á¶È¸ °á°ú
+	 * 1:1ï¿½ï¿½ï¿½ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½
+	 * @param viewBoard - ï¿½ï¿½È¸ ï¿½ï¿½ï¿½
+	 * @return Board_1to1 - ï¿½ó¼¼ºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸ ï¿½ï¿½ï¿½
 	 */
 	public Board_1to1 selectBoard_1to1ByBoardno(Board_1to1 viewBoard);
+	/**
+	 * ê²Œì‹œê¸€ ìˆ˜ì • 
+	 * 
+	 * @param board_1to1 - ìˆ˜ì •í•  ë‚´ìš©ì„ ë‹´ì€ ê°ì²´
+	 */
+	public void update(Board_1to1 board_1to1);
 
 }
