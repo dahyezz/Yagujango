@@ -1,5 +1,8 @@
 package service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import dao.face.ReserveDao;
 import dao.impl.ReserveDaoImpl;
 import dto.Match;
+import dto.Member;
+import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
@@ -89,4 +94,27 @@ public class ReserveServiceImpl implements ReserveService{
 	public Ticket getSeatInfoByTicket(Match match) {
 		return reserveDao.selectSeatInfo(match);
 	}
+
+	@Override
+	public void insertReserve(Reserve receive) {
+		reserveDao.insertReserve(receive);
+	}
+
+	@Override
+	public Member getUserNo(String userid) {
+		return reserveDao.getUserNo(userid);
+	}
+
+	@Override
+	public Date StringToDate(String payment_date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date to = null;
+		try {
+			to = transFormat.parse(payment_date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return to;
+	}
+
 }

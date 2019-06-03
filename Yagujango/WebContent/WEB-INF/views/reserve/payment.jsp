@@ -10,7 +10,20 @@
 <meta charset="UTF-8">
 <title>티켓 예매_결제방법 선택</title>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 <script type="text/javascript">
+	function cancle() {
+		alert("결제를 취소하시겠습니까?")
+//  		$('#selectreceive').submit();
+	}
+	
+	function payment() {
+		alert("결제 하시겠습니까?")
+ 		$('#selectpayment').submit();
+	}
+
+
 </script>
 
 <style type="text/css">
@@ -19,7 +32,7 @@
 	text-align: right;
 }
 
-#receive {
+#payment {
 	margin-left:30px;
 	margin-top:43px;
 	margin-bottom:100px;
@@ -74,9 +87,15 @@ a { text-decoration:none }
 <p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p>
 
 
-<div id="receive">
-	<form>
+<div id="payment">
+	<form id="selectpayment" name="selectpayment" action="/reserve/payment" method="post">
   	<h3>결제 방법</h3><br>
+  		<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
+  		<input type="hidden" name="ticket_code" id="ticket_code" value="${seatinfo.ticket_code }"/>
+  		<input type="hidden" name="price" id="price" value="${seatinfo.price }"/>
+  		<input type="hidden" name="match_date" id="match_date" value="${match.match_date }"/>
+  		<input type="hidden" name="receive" id="receive" value="${receive }"/>
+  		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
 	  	<label id='cash'><input type='radio' name='payment' id='cash' value='cash' />무통장 입금</label><p>
 	  	<label id='card'><input type='radio' name='payment' id='card' value='card' />신용 카드</label>
 	</form>
@@ -105,12 +124,12 @@ a { text-decoration:none }
 		<th>취소기한</th>
 		
 		<fmt:formatDate value="${match.match_date }" var="currentDate" pattern="yyyyMMdd"/> <!-- 현재 날짜 '-'뺀 형식으로 바꾸기  -->
-		<fmt:formatDate value="${match.match_date }" var="day" pattern="dd"/>
 		<fmt:parseNumber value="${currentDate + 7 }" var="numberDate" integerOnly="true"/> <!-- 현재날짜 숫자로 바꿔 +7  -->
 		
 		<fmt:parseDate value="${numberDate }" var="endDate" pattern="yyyyMMdd"/> <!-- 숫자로 바꾼 날짜를 날짜형식으로 변환 -->
 
 		<td><fmt:formatDate value="${endDate }" pattern="yyyy-MM-dd (E요일)"/></td> <!-- 원래 형식으로 변환 -->
+		
 	</tr>
 </table>
 <table class="table">
@@ -120,7 +139,8 @@ a { text-decoration:none }
 	</tr>
 </table>
 <div style="float:right; margin-top:50px; margin-right:100px;">
-	<label><a href="/reserve/receive?match_code=${match.match_code }">◁PREV</a></label>
+	<label><button onclick="cancle()">결제취소</button></label>
+	<label><button onclick="payment()">결제하기</button></label>
 </div>
 </body>
 </html>
