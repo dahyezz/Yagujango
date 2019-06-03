@@ -31,6 +31,7 @@ public class SelectReceiveController extends HttpServlet {
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
 		
+		
 		Ticket seatinfo = reserveService.getSeatInfoByTicket(match); // ticket 예매정보확인(My예매내역)
 		System.out.println(seatinfo); // TEST
 		request.setAttribute("seatinfo", seatinfo);

@@ -15,7 +15,6 @@
 
 <script type="text/javascript">
 	function receive() {
-		alert("작동!")
  		$('#selectreceive').submit();
 	}
 
@@ -83,8 +82,9 @@ a { text-decoration:none }
 
 
 <div id="receive">
-	<form id="selectreceive" name="aa" action="/reserve/payment?match_code=${match.match_code }" method="get">
+	<form id="selectreceive" name="selectreceive" action="/reserve/payment" method="get">
   	<h3>수령 방법</h3><br>
+  		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
 	  	<label id='bacode'><input type='radio' name='receive' id='bacode' value='bacode' />바코드발급</label><p>
 	  	<label id='place'><input type='radio' name='receive' id='place' value='place' />현장발권</label>
 	</form>
@@ -113,7 +113,6 @@ a { text-decoration:none }
 		<th>취소기한</th>
 		
 		<fmt:formatDate value="${match.match_date }" var="currentDate" pattern="yyyyMMdd"/> <!-- 현재 날짜 '-'뺀 형식으로 바꾸기  -->
-		<fmt:formatDate value="${match.match_date }" var="day" pattern="dd"/>
 		<fmt:parseNumber value="${currentDate + 7 }" var="numberDate" integerOnly="true"/> <!-- 현재날짜 숫자로 바꿔 +7  -->
 		
 		<fmt:parseDate value="${numberDate }" var="endDate" pattern="yyyyMMdd"/> <!-- 숫자로 바꾼 날짜를 날짜형식으로 변환 -->
@@ -129,8 +128,7 @@ a { text-decoration:none }
 </table>
 <div style="float:right; margin-top:50px; margin-right:100px;">
 	<label><a href="/reserve/seat?match_code=${match.match_code }">◁PREV</a></label>&nbsp;&nbsp;&nbsp;
-<%-- 	<label><a href="/reserve/payment?match_code=${match.match_code }" onclick="receive()">NEXT▷</a></label> --%>
-	<button onclick="receive()">NEXT▷</button>
+	<label><button onclick="receive()">NEXT▷</button></label>
 </div>
 
 </body>
