@@ -37,4 +37,10 @@ public interface Board_FreeService {
 
 	public List<Comment> commentlist(Board_Free viewboard);
 
+	public void insertcomment(Comment comment);
+
+	public void deletecomment(Comment comment);
+
+	public List<Board_Free> getNoticeList(Paging paging);
+
 }
