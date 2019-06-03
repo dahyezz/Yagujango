@@ -26,6 +26,6 @@ function pwFindPopup(){
 
 <a href="javascript:idFindPopup();">아이디 찾기</a>
 <a href="javascript:pwFindPopup();">비밀번호 찾기</a>
-<a href="/member/join">회원가입</a>
+<a href="/member/joinTerms">회원가입</a>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

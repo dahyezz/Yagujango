@@ -194,5 +194,44 @@ public class MemberDaoImpl implements MemberDao{
 		return member; 
 	}
 
+	@Override
+	public void insert(Member member) {
+		
+		String sql = "";
+		sql+="INSERT INTO member(userno,userid,userpw,username,usernick,birth,gender,phone,email,myteam)";
+		sql+=" VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserid());
+			ps.setString(2, member.getUserpw());
+			ps.setString(3, member.getUsername());
+			ps.setString(4, member.getUsernick());
+			ps.setDate(5, (Date) member.getBirth());
+			ps.setString(6, member.getGender());
+			ps.setString(7, member.getPhone());
+			ps.setString(8, member.getEmail());
+			ps.setString(9, member.getMyteam());
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public int selectCntByBlacklist(Member member) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

@@ -64,5 +64,24 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.selectMemberPwfind(member);
 	} 
+	
+	@Override
+	public boolean join(Member member) {
+		
+		//기존에 존재하는 아이디 인지 확인하고 회원가입 처리
+		if( memberDao.selectCntMemberByUserid(member) > 0 ) {
+			return false; //기존에 존재함, 회원가입 실패
+		}
+		
+		//회원가입(데이터베이스 삽입)
+		memberDao.insert(member);
+		
+		//회원가입 성공 여부 판단
+		if( memberDao.selectCntMemberByUserid(member) > 0 ) {
+			return true; //회원가입 성공
+		} else {
+			return false; //회원가입 실패
+		}
+	}
 
 }
