@@ -58,4 +58,10 @@ public interface MemberService {
 	 */
 	public Member getPwfind(Member member);
 
+	/**
+	 * 	회원가입
+	 * @param member
+	 * @return true/false
+	 */
+	public boolean join(Member member);
 }
