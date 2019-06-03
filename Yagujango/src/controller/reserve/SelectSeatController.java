@@ -21,20 +21,25 @@ public class SelectSeatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ReserveService reserveService = new ReserveServiceImpl();
+	private Match match = new Match();
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Match match = reserveService.getMatchCode(request);
+		match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
-		System.out.println(match); //TEST
+//		System.out.println(match); //TEST
 		
 		request.setAttribute("match", match);
 		
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
 		
-		List<Seat> seat = reserveService.getSeatInfo(match); // 예매 가능한 좌석
-		request.setAttribute("seat", seat);
+		List<Seat> seatAvailable = reserveService.getSeatInfo(match); // 예매 가능한 좌석
+		request.setAttribute("seat", seatAvailable);
+		
+		List<Integer> seatCount = reserveService.getSeatCount(match); //예매 가능한 좌석 카운트
+//		System.out.println(seatCount); //TEST
+		request.setAttribute("seatCount", seatCount);
 		
 		List<Ticket> ticket = reserveService.getReserveStatus(match); //예매현황
 		request.setAttribute("ticket", ticket);
@@ -45,11 +50,17 @@ public class SelectSeatController extends HttpServlet {
 		List<Integer> seatNumber = reserveService.getSeatNumber();
 		request.setAttribute("seatNumber", seatNumber);
 		
+
+		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/selectseat.jsp").forward(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		String selectseat = request.getParameter("selectseat");
+		System.out.println(selectseat);
+		
+		response.sendRedirect("/reserve/receive?match_code="+match.getMatch_code());
 	}
 }

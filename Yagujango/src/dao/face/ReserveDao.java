@@ -51,4 +51,5 @@ public interface ReserveDao {
 
 	Ticket selectSeatInfo(Match match);
 
+
 }

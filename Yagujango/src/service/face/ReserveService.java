@@ -84,4 +84,14 @@ public interface ReserveService {
 	public List<Integer> getSeatNumber();
 
 	public Ticket getSeatInfoByTicket(Match match);
+
+	/**
+	 * 예매 가능한 좌석을 블럭별로 카운트
+	 * 
+	 * @param match
+	 * @return
+	 */
+	public List<Integer> getSeatCount(Match match);
+
+
 }

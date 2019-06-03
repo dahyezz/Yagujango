@@ -1,5 +1,6 @@
 package service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,4 +90,35 @@ public class ReserveServiceImpl implements ReserveService{
 	public Ticket getSeatInfoByTicket(Match match) {
 		return reserveDao.selectSeatInfo(match);
 	}
+	
+	@Override
+	public List<Integer> getSeatCount(Match match) {
+		List<Seat> seatcount = reserveDao.selectEmptySeatByMatchCode(match);
+		
+		List<Integer> seatCountList = new ArrayList<Integer>();
+		int[] seatCountArray = new int[5];
+		
+		for(Seat e : seatcount) {
+			
+			if(e.getSeat_block().equals("A")) {
+				seatCountArray[0]++;
+			} else if(e.getSeat_block().equals("B")) {
+				seatCountArray[1]++;
+			} else if(e.getSeat_block().equals("C")) {
+				seatCountArray[2]++;
+			} else if(e.getSeat_block().equals("D")) {
+				seatCountArray[3]++;
+			} else if(e.getSeat_block().equals("E")) {
+				seatCountArray[4]++;
+			}
+			
+		}
+		
+		for(int i=0; i<seatCountArray.length;i++)
+			seatCountList.add(seatCountArray[i]);
+		
+		return seatCountList;
+	}
+	
+	
 }
