@@ -35,12 +35,16 @@ public interface Board_FreeDao {
 	public void deleteBoardbyboardno(Board_Free board);
 
 	public void updateBoard_Free(Board_Free board);
+	
+	public void updateBoard_Free_Notice(Board_Free board);
 
 	public List<Comment> selectCommentbyboardno(Board_Free viewboard);
 
 	public void CommentInsert(Comment comment);
 
 	public void CommentDelete(Comment comment);
+
+	
 
 
 
