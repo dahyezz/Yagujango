@@ -11,6 +11,7 @@ import java.util.List;
 import dao.face.AdminDao;
 import dbutil.DBConn;
 import dto.Board_1to1;
+import dto.Board_1to1_answer;
 import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
@@ -269,35 +270,65 @@ public class AdminDaoImpl implements AdminDao{
 }
 
 	@Override
-	public void update(Board_1to1 board_1to1) {
-
+	public int selectBoardno() {
 		//다음 게시글 번호 조회 쿼리
 		String sql = "";
-		sql += "UPDATE board_1to1";
-		sql += " SET title = ?,";
-		sql += " 	 content = ?";
-		sql += " WHERE boardno = ?";
+		sql += "SELECT board_1to1_answer_seq.nextval";
+		sql += " FROM dual";
 		
-		//DB 객체
-		PreparedStatement ps = null;
+		//게시글번호
+		int boardno = 0;
 		
 		try {
-			//DB 작업
+			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, board_1to1.getTitle());
-			ps.setString(2, board_1to1.getContent());
-			ps.setInt(3, board_1to1.getBoardno());
+			rs = ps.executeQuery();
 			
+			//결과 담기
+			while(rs.next()) {
+				boardno = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//게시글 번호 반환
+		return boardno;
+	}
+
+
+	@Override
+	public void insert(Board_1to1_answer board_1to1_answer) {
+
+		String sql = "";
+		sql +="INSERT INTO board_1to1_answer(answerno, boardno,writer_userid,content)";
+		sql +=" VALUES(board_1to1_answer_seq.nextval,?,?,?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, board_1to1_answer.getBoardno());
+			ps.setString(2, board_1to1_answer.getWriter_userid());
+			ps.setString(3, board_1to1_answer.getContent());
+
 			ps.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			//자원해제
-			try{
-				//DB객체 담기
-				if(ps!=null)	ps.close();
-			} catch (SQLException e) {
+			try {
+				if (ps != null)		ps.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}	

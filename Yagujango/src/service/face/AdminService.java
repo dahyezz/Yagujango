@@ -39,13 +39,13 @@ public interface AdminService {
 	public List blackgetList(Paging paging);
 	
 	/**
-	 * ��û�Ķ���Ϳ��� boardno�� �Ľ��Ѵ�.
-	 * @param req - ��û������ü
-	 * @return Board_1to1 - boardno�� �Է��� ��ü
+	 * 요청파라미터에서 boardno를 파싱한다.
+	 * @param req -요청정보객체
+	 * @return Board_1to1 - boardno를 입력한 객체
 	 */
 	public Board_1to1 getBoardno(HttpServletRequest req);
 	/**
-	 * 1:1���� �󼼺���
+	 * 1:1게시글 조회
 	 * @param viewBoard - �󼼺����� boardno�� ���� ��ü
 	 * @return Board_1to1 - �󼼺����� �Խñ� ��ȸ ���
 	 */

@@ -1,12 +1,14 @@
 package service.impl;
 
 import java.io.File;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -97,118 +99,28 @@ public class AdminServiceImpl implements AdminService{
 	//답변작성
 	@Override
 	public void write(HttpServletRequest req) {
-		Board_1to1_answer board_1to1_answer = null;
-		
-		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-		
-		if(!isMultipart) {
-			return;
-			
-		} else {
 
-			//디스크팩토리
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-
-			//메모리처리 사이즈
-			factory.setSizeThreshold(1 * 1024 * 1024); //1MB
-
-			//임시 저장소
-			File repository=new File(req.getServletContext().getRealPath("tmp"));
-			factory.setRepository(repository);
-			
-			//업로드 객체 생성
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			
-			//용량 제한 설정 : 10MB
-			upload.setFileSizeMax(10 * 1024 * 1024);
-			
-			//form-data 추출 
-			List<FileItem> items = null;
-			try {
-				items = upload.parseRequest(req);
-				
-			} catch (FileUploadException e) {
-				e.printStackTrace();
-			}
-			
-			//파싱된 데이터 처리 반복자
-			Iterator<FileItem> iter = items.iterator();
-			
-			//요청정보 처리
-			while( iter.hasNext() ) {
-				FileItem item = iter.next();
-				
-				// 빈 파일 처리
-				if( item.getSize() <= 0 )	continue;
-				
-				// 빈 파일이 아닐 경우
-				if( item.isFormField() ) {
-					
-					try {
-						
-						//제목 처리
-						if( "title".equals( item.getFieldName() ) ) {
-							board_1to1_answer.setTitle( item.getString("utf-8") );
-						}
-						
-						//본문 처리
-						if( "content".equals( item.getFieldName() ) ) {
-							board_1to1_answer.setContent( item.getString("utf-8") );
-						}
-						
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-					}
-					
-					//작성자id 처리
-					board_1to1_answer.setWriter_userid((String) req.getSession().getAttribute("wirter_userid"));
-					
-				} else {
-					UUID uuid = UUID.randomUUID();
-					System.out.println(uuid);
-					
-					String u = uuid.toString().split("-")[4];
-					System.out.println(u);
-					// -----------------
-					
-					//로컬 저장소 파일
-					String stored = item.getName() + "_" + u;
-					File up = new File(
-						req.getServletContext().getRealPath("upload")
-						, stored);
-				
-					
-					try {
-						// 실제 업로드
-						item.write(up);
-						
-						// 임시 파일 삭제
-						item.delete();
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					} // try end
-				} //if end
-			} //while end
-		} //if(!isMultipart) end
-		
-
-//		int boardno = adminDao.selectBoardno();
-		
-//		if(board_1to1_answer != null) {
-//			board_1to1_answer.setBoardno(boardno);
-//			
-//			if(board_1to1_answer.getTitle()==null || "".equals(board_1to1_answer.getTitle())) {
-//				board_1to1_answer.setTitle("(제목없음)");
-//
-//				//작성자id 처리
-//				board_1to1_answer.setWriter_userid((String) req.getSession().getAttribute("write_userid"));
-//			}
-//
-//			adminDao.insert(board_1to1_answer);
+		try {
+			req.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
+		Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+		HttpSession session = req.getSession();
+				
+		//write 폼 전달 값
+		board_1to1_answer.setBoardno(Integer.parseInt(req.getParameter("boardno")));
+		board_1to1_answer.setContent(req.getParameter("content"));
+		
+		//session 값
+		board_1to1_answer.setWriter_userid((String)session.getAttribute("userid"));
+		
+		System.out.println(board_1to1_answer);
+
+		adminDao.insert(board_1to1_answer);
+		
 
 
-
-
+	}
+	
 }
