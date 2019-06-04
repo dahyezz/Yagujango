@@ -85,8 +85,8 @@ a { text-decoration:none }
 	<form id="selectreceive" name="selectreceive" action="/reserve/payment" method="get">
   	<h3>수령 방법</h3><br>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
-	  	<label id='bacode'><input type='radio' name='receive' id='bacode' value='bacode' />바코드발급</label><p>
-	  	<label id='place'><input type='radio' name='receive' id='place' value='place' />현장발권</label>
+	  	<label id='bacode'><input type='radio' name='receive' id='bacode' value='바코드발급' />바코드발급</label><p>
+	  	<label id='place'><input type='radio' name='receive' id='place' value='현장발권' />현장발권</label>
 	</form>
 </div>
 
@@ -99,11 +99,21 @@ a { text-decoration:none }
 	</tr>
 	<tr>
 		<th>선택좌석</th>
-		<td>${seatinfo.seat_block }블럭 ${seatinfo.seat_number }번</td>
+		<td>
+		<c:forEach items="${seatinfo }" var="i">
+			${i.seat_block }블럭 ${i.seat_number }석<br>
+		</c:forEach>
+		</td>
 	</tr>
 	<tr>
 		<th>티켓금액</th>
-		<td>${seatinfo.price }원</td>
+		<td>
+		<c:set var = "total" value ="0"/>
+		<c:forEach items="${seatinfo }" var="i" varStatus="status">
+			<c:set var = "total" value="${total + i.price }"/>
+		</c:forEach>
+		${total }원
+		</td>
 	</tr>
 	<tr>
 		<th>수수료</th>
@@ -123,10 +133,16 @@ a { text-decoration:none }
 <table class="table">
 	<tr>
 		<th>총 결제금액</th>
-		<th>${seatinfo.price }원</th>
+		<th>
+		<c:set var = "total" value ="0"/>
+		<c:forEach items="${seatinfo }" var="i" varStatus="status">
+			<c:set var = "total" value="${total + i.price }"/>
+		</c:forEach>
+		${total }원
+		</th>
 	</tr>
 </table>
-<div style="float:right; margin-top:50px; margin-right:100px;">
+<div style="float:right; margin-top:20px; margin-right:100px;">
 	<label><a href="/reserve/seat?match_code=${match.match_code }">◁PREV</a></label>&nbsp;&nbsp;&nbsp;
 	<label><button onclick="receive()">NEXT▷</button></label>
 </div>
