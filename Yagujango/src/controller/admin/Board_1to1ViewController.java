@@ -25,17 +25,7 @@ public class Board_1to1ViewController extends HttpServlet {
 	private ReserveService reserveService = new ReserveServiceImpl();
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		List<Stadium> list = reserveService.getList();
-		
-		//�씠嫄� �닔�젙
-		req.setAttribute("list", list);
-		
-		//요청파라미터에서 curPage 얻어오기
-		Paging paging = adminService.getCurPage(req);
-		
-		//Model로 Paging 객체 넣기
-		req.setAttribute("paging", paging);
+	
 		
 		//게시글 번호 파싱
 		Board_1to1 viewBoard = adminService.getBoardno(req);

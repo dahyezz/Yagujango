@@ -26,22 +26,19 @@ public class Board_1to1WriteController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		List<Stadium> list = reserveService.getList();
+		if( req.getSession().getAttribute("login") == null ) {
+			resp.sendRedirect("/main");
+			return;
+		}
 		
-		//�씠嫄� �닔�젙
-		req.setAttribute("list", list);
+		//게시글 번호 파싱
+		Board_1to1 viewBoard = adminService.getBoardno(req);
 		
-		//요청파라미터에서 curPage 얻어오기
-		Paging paging = adminService.getCurPage(req);
+		//게시글 조회
+		viewBoard = adminService.view(viewBoard);
 		
-		//Model로 Paging 객체 넣기
-		req.setAttribute("paging", paging);
-		
-//		//로그인 되어있지 않으면 리다이렉트 
-//		if( req.getSession().getAttribute("login") == null ) {
-//			resp.sendRedirect("/admin/list");
-//			return;
-//		}
+		//model로 게시글 전달
+		req.setAttribute("viewBoard", viewBoard);
 		
 		//VIEW 지정
 		req.getRequestDispatcher("/WEB-INF/views/admin/board_1to1_write.jsp").forward(req, resp);
@@ -53,6 +50,7 @@ public class Board_1to1WriteController extends HttpServlet {
 		// 작성글 삽입
 		adminService.write(req);
 		
+		//목록으로 리다이렉션
 		resp.sendRedirect("/admin/board_1to1");
 		
 	}

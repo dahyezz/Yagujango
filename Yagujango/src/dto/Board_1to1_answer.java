@@ -4,19 +4,24 @@ import java.util.Date;
 
 public class Board_1to1_answer {
 	
+	private int answerno;
 	private int boardno;
 	private String writer_userid;
-	private String writer_email;
-	private String title;
 	private String content;
 	private Date writtendate;
-	
+
 	@Override
 	public String toString() {
-		return "Board_1to1_answer [boardno=" + boardno + ", writer_userid=" + writer_userid + ", writer_email="
-				+ writer_email + ", title=" + title + ", content=" + content + ", writtendate=" + writtendate + "]";
+		return "Board_1to1_answer [answerno=" + answerno + ", boardno=" + boardno + ", writer_userid=" + writer_userid
+				+ ", content=" + content + ", writtendate=" + writtendate + "]";
 	}
-	
+
+	public int getAnswerno() {
+		return answerno;
+	}
+	public void setAnswerno(int answerno) {
+		this.answerno = answerno;
+	}
 	public int getBoardno() {
 		return boardno;
 	}
@@ -28,18 +33,6 @@ public class Board_1to1_answer {
 	}
 	public void setWriter_userid(String writer_userid) {
 		this.writer_userid = writer_userid;
-	}
-	public String getWriter_email() {
-		return writer_email;
-	}
-	public void setWriter_email(String writer_email) {
-		this.writer_email = writer_email;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	public String getContent() {
 		return content;
@@ -53,7 +46,5 @@ public class Board_1to1_answer {
 	public void setWrittendate(Date writtendate) {
 		this.writtendate = writtendate;
 	}
-	
-	
 
 }

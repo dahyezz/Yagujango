@@ -3,6 +3,7 @@ package dao.face;
 import java.util.List;
 
 import dto.Board_1to1;
+import dto.Board_1to1_answer;
 import dto.Mem_blacklist;
 import util.Paging;
 
@@ -25,11 +26,19 @@ public interface AdminDao {
 	 * @return Board_1to1 - �󼼺����� �Խñ� ��ȸ ���
 	 */
 	public Board_1to1 selectBoard_1to1ByBoardno(Board_1to1 viewBoard);
+
 	/**
-	 * 게시글 수정 
+	 * 다음 게시글 번호 반환
+	 * 	게시글 테이블과 첨부파일 테이블에 들어갈 게시글 번호를 미리 추출
 	 * 
-	 * @param board_1to1 - 수정할 내용을 담은 객체
+	 * @return int
 	 */
-	public void update(Board_1to1 board_1to1);
+	public int selectBoardno();
+	/**
+	 * 게시글 입력
+	 * 
+	 * @param board - 삽입될 게시글 내용
+	 */
+	public void insert(Board_1to1_answer board_1to1_answer);
 
 }
