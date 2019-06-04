@@ -110,8 +110,4 @@ public class Member {
 	public void setMyteam(String myteam) {
 		this.myteam = myteam;
 	}
-	
-	
-	
-
 }
