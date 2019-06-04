@@ -51,7 +51,7 @@ public interface ReserveDao {
 
 	List<Integer> selectSeatNumber();
 
-	Ticket selectSeatInfo(Match match);
+	List<Ticket> selectSeatInfo(Match match);
 
 
 	void insertReserve(Reserve receive);

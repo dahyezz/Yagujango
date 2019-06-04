@@ -231,10 +231,15 @@ public class Board_FreeServiceImpl implements Board_FreeService{
 		String param = req.getParameter("boardno");
 		int boardno = Integer.parseInt(param);
 		board.setBoardno(boardno);
+		board.setTag(req.getParameter("tag"));
 		board.setTitle(req.getParameter("title"));
 		board.setContent(req.getParameter("content"));
 		
-		board_FreeDao.updateBoard_Free(board);
+		if("공지".equals(board.getTag())) {
+			board_FreeDao.updateBoard_Free_Notice(board);
+		}else {
+			board_FreeDao.updateBoard_Free(board);
+		}
 		
 	}
 	@Override

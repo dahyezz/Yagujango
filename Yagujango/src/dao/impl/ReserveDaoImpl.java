@@ -313,27 +313,28 @@ public class ReserveDaoImpl implements ReserveDao {
 	}
 
 	@Override
-	public Ticket selectSeatInfo(Match match) {
+	public List<Ticket> selectSeatInfo(Match match) {
 		String sql = "";
 		sql += "SELECT ticket.ticket_code, ticket.match_code, seat.seat_code, seat.seat_block, seat.seat_number, seat.price";
 		sql += " FROM ticket";
 		sql += " INNER JOIN seat";
 		sql += " ON ticket.seat_code = seat.seat_code AND ticket.match_code = ?";
 		
-		Ticket ticket = new Ticket();
-		
+		List<Ticket> ticketList = new ArrayList<Ticket>();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, match.getMatch_code());
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
+				Ticket ticket = new Ticket();
 				ticket.setTicket_code(rs.getInt("ticket_code"));
 				ticket.setMatch_code(rs.getInt("match_code"));
 				ticket.setSeat_code(rs.getInt("seat_code"));
 				ticket.setSeat_block(rs.getString("seat_block"));
 				ticket.setSeat_number(rs.getInt("seat_number"));
 				ticket.setPrice(rs.getInt("price"));
+				ticketList.add(ticket);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -346,7 +347,7 @@ public class ReserveDaoImpl implements ReserveDao {
 			}
 		}
 		
-		return ticket;
+		return ticketList;
 	}
 	
 
@@ -355,15 +356,15 @@ public class ReserveDaoImpl implements ReserveDao {
 	public void insertReserve(Reserve receive) {
 		String sql = "";
 		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date, ticket_quantity, how_receive)";
-		sql += " VALUES (reserve_seq.nextval, ?, ?, ?, null, 1, ?)";
+		sql += " VALUES (reserve_seq.nextval, ?, ?, ?, ?, 1, ?)";
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, receive.getTicket_code());
 			ps.setInt(2, receive.getUserno());
 			ps.setString(3, receive.getPayment());
-//			ps.setDate(4, (Date) receive.getPayment_date());
-			ps.setString(4, receive.getHow_receive());
+			ps.setDate(4, (Date) receive.getPayment_date());
+			ps.setString(5, receive.getHow_receive());
 
 			ps.executeUpdate();
 			

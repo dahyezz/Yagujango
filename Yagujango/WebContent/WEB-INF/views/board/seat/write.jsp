@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -41,7 +40,7 @@ function sendFile(file, editor) {
 	    $.ajax({ // ajax를 통해 파일 업로드 처리
 	        data : data,
 	        type : "POST",
-	        url : "/board/free/fileupload",
+	        url : "/board/seat/fileupload",
 	        cache : false,
 	        contentType : false,
 	        enctype: 'multipart/form-data',
@@ -52,30 +51,54 @@ function sendFile(file, editor) {
 	        }
 	    });
 	}
+function postForm() {
+    $('textarea[name="content"]').val($('#summernote').summernote('code'));
+}
+
+
 </script>
 </head>
 <body>
-<form action="/board/free/update" method="post">
-<input type="hidden" name="boardno" value="${board.boardno }" />
-
-<table class="table table-bordered">
+<form action="/board/seat/write" method="post" onsubmit="postForm()">
+<table>
 <tr><td class="info">아이디</td><td>${userid }</td></tr>
-<tr><td class="info">닉네임</td><td>${usernick }</td></tr>
-<tr><td class="info">태그</td><td>
-							<select name="tag">
-    								<option>잡담</option>
-    								<option>질문</option>
-   									<option>후기</option>
-  <c:if test="${userid eq 'admin'}"><option>공지</option></c:if>
-							</select></td></tr>
-<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="${board.title }"/></td></tr>
-<tr><td class="info" colspan="2">본문</td></tr>
+<tr><td class="info">구장명</td><td>
+						<select name="stadium_name">
+							<option>광주 KIA챔피언스필드</option>
+							<option>수원 케이티위즈파크</option>
+							<option>잠실</option>
+							<option>창원NC파크</option>
+							<option>인천SK 행복드림</option>
+							<option>부산 사직</option>
+							<option>대구 삼성라이온즈파크</option>
+							<option>고척스카이돔</option>
+							<option>한화생명 EaglesPark</option>
+						</select>
+					</td></tr>
+<tr><td class="info">블록</td><td>
+						<select name="seat_block">
+							<option>A</option>
+							<option>B</option>
+							<option>C</option>
+							<option>D</option>
+							<option>E</option>
+						</select>
+					</td></tr>
+<tr><td class="info">좌석번호</td><td>
+						<select name="seat_number">
+							<c:forEach begin="1" end="100" var="i">
+								<option>${i}</option>
+							</c:forEach>
+						</select>
+					</td></tr>
 <tr><td colspan="2">
-	
-	<textarea id="summernote" name="content">${board.content }</textarea>
+	<textarea name="content" style="display: none;"></textarea>
+	<div id="summernote"></div>
 </td></tr>
 </table>
-<button>수정</button>
+<button type="submit">작성</button>
+
 </form>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

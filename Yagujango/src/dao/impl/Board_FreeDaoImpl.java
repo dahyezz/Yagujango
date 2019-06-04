@@ -381,19 +381,20 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 	public void updateBoard_Free(Board_Free board) {
 		String sql = "";
 		sql += "UPDATE board_free";
-		sql += " SET title = ?,";
+		sql += " SET tag =?,";
+		sql += " 	title = ?,";
 		sql += " 	content = ?";
 		sql += " WHERE boardno = ?";
 		
-		//DB 객체
-		PreparedStatement ps = null; 
+
 		
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, board.getTitle());
-			ps.setString(2, board.getContent());
-			ps.setInt(3, board.getBoardno());
+			ps.setString(1, board.getTag());
+			ps.setString(2, board.getTitle());
+			ps.setString(3, board.getContent());
+			ps.setInt(4, board.getBoardno());
 
 			ps.executeUpdate();
 			
@@ -584,6 +585,40 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 		}
 
 		return totalCount;
+	}
+
+	@Override
+	public void updateBoard_Free_Notice(Board_Free board) {
+		String sql = "";
+		sql += "UPDATE board_free_notice";
+		sql += " SET title = ?,";
+		sql += " 	content = ?";
+		sql += " WHERE boardno = ?";
+		
+
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board.getTitle());
+			ps.setString(2, board.getContent());
+			ps.setInt(3, board.getBoardno());
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

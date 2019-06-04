@@ -1,6 +1,7 @@
 package controller.reserve;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Match;
+import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
 import service.face.ReserveService;
@@ -30,10 +32,10 @@ public class SelectReceiveController extends HttpServlet {
 		
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
-		
-		
-		Ticket seatinfo = reserveService.getSeatInfoByTicket(match); // ticket 예매정보확인(My예매내역)
-//		System.out.println(seatinfo); // TEST
+
+		List<Ticket> seatinfo = reserveService.getSeatInfoByTicket(match); // ticket 예매정보확인(My예매내역)
+		System.out.println(seatinfo); // TEST
+
 		request.setAttribute("seatinfo", seatinfo);
 
 		request.getRequestDispatcher("/WEB-INF/views/reserve/receive.jsp").forward(request, response);

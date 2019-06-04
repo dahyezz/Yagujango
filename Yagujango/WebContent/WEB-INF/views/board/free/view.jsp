@@ -17,7 +17,7 @@ $(document).ready(function() {
 		location.href="/board/free/list";
 	})
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "/board/free/update?boardno=${board.boardno }");
+		$(location).attr("href", "/board/free/update?boardno=${board.boardno }&tag=${board.tag}");
 	});
 	$("#btncommentinsert").click(function(){
 		

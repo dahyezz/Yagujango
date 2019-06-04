@@ -20,11 +20,11 @@ public class FreeWriteController extends HttpServlet {
 	Board_FreeService board_FreeService = new Board_FreeServiceImpl();
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			//로그인 되어있지 않으면 리다이렉트 
-//			if( req.getSession().getAttribute("login") == null ) {
-//				resp.sendRedirect("/main");
-//				return;
-//			}
+//			로그인 되어있지 않으면 리다이렉트 
+			if( req.getSession().getAttribute("login") == null ) {
+				resp.sendRedirect("/main");
+				return;
+			}
 			req.getRequestDispatcher("/WEB-INF/views/board/free/write.jsp").forward(req, resp);
 		}
 	@Override
