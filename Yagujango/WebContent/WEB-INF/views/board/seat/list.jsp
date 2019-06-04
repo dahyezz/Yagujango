@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <style type="text/css">
 .tablediv {
 	padding: 0 5% 0 5%;
@@ -25,9 +24,7 @@ table thead {
     color: #369;
     border-bottom: 3px solid #036;
 }
-table .notice {
-	background:#ccc;
-}
+
 .content {
 	text-align:left;
 }
@@ -46,14 +43,13 @@ table .notice {
 }
 
 </style>
-
 </head>
 <body>
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-		location.href="/board/free/write";
+		location.href="/board/seat/write";
 	})
 });
 //맨 위 체크박스 클릭시 모두 체크/해제
@@ -89,7 +85,7 @@ function checklist(){
 			indexid = true;
 		}
 	}
-	
+
 	var agree = confirm("삭제 하시겠습니까?");
 	if(agree){
 		//<form action="/board/listdelete" method="get">
@@ -127,33 +123,19 @@ function checklist(){
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${board_freelist}" var="i">
-	<c:if test="${i.tag eq '공지' }">
-		<tr class="notice">
-			<c:if test="${usernick eq '관리자'}"><td></td></c:if>
-			<td><a href="/board/free/list?name=tag&keyword=${i.tag}">공지</a></td>
-			<td class="content"><a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>	
-			<td>${i.writer }</td>
-			<td>${i.hit }</td>
-			<td><fmt:formatDate value="${i.writtendate }" pattern="yyyy-MM-dd" /></td>
-		<tr>
-	</c:if>
-	<c:if test="${i.tag ne '공지' }">
+<c:forEach items="${board_seatlist}" var="i">
+	
 		<tr>
 			<c:if test="${usernick eq '관리자'}">
 			<td><input name="rowCheck" type="checkbox" value="${i.boardno}" /></td>
 			</c:if>
-			<td>${i.boardno }</td>
-			<td class="content">
-			<a href="/board/free/list?name=tag&keyword=${i.tag}"  >[${i.tag}]</a>
-			<a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a>
-			</td>
+			<td>${i.boardno}</td>
+			<td class="content">${i.stadium_name} 구장 ${i.seat_block }열 ${i.seat_number }번 좌석</td>
 			<td>${i.writer }</td>
 			<td>${i.hit }</td>
-			<td><fmt:formatDate value="${i.writtendate }" pattern="yyyy-MM-dd" /></td>
+			<td>${i.writtendate }</td>
 		</tr>
-	</c:if>
-		
+
 </c:forEach>
 </tbody>
 </table>
@@ -162,7 +144,7 @@ function checklist(){
 </c:if>
 </div>
 <div class="paging">
-<c:import url="/WEB-INF/views/layout/free_paging.jsp" />
+
 
 </div>
 <div class="search">
@@ -181,5 +163,7 @@ function checklist(){
 <button id="btnWrite">글 쓰기</button>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+</body>
+</html>
 </body>
 </html>
