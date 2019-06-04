@@ -26,7 +26,7 @@ public class OneToOneWriteController extends HttpServlet {
 			return;
 		}
 		
-		req.getRequestDispatcher("/WEB-INF/views/board_1to1/write.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/board/1to1/write.jsp").forward(req, resp);
 	
 	}
 

@@ -28,16 +28,21 @@ public class FaqListController extends HttpServlet {
 		Paging paging = board_1to1Service.getCurPage(req);
 		
 		List<Board_faq> faqList = new ArrayList<Board_faq>();
-		
-		faqList = board_1to1Service.getFaqList(paging);
+
+		if(paging.getKeyword() == null && paging.getName() == null ) {
+			faqList = board_1to1Service.getFaqList(paging);	
+		}
+		 
+		req.setAttribute("name", paging.getName());
+		req.setAttribute("keyword", paging.getKeyword());
 		
 		req.setAttribute("paging", paging);
 
 		req.setAttribute("faqList", faqList);
-
+		System.out.println(paging);
 		
-		req.getRequestDispatcher("/WEB-INF/views/board_faq/faq.jsp").forward(req, resp);
-	
+		req.getRequestDispatcher("/WEB-INF/views/board/faq/faq.jsp").forward(req, resp);
+	 
 	} 
 
 }
