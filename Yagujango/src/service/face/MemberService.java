@@ -2,6 +2,7 @@ package service.face;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Mem_blacklist;
 import dto.Member;
 
 public interface MemberService {
@@ -64,4 +65,18 @@ public interface MemberService {
 	 * @return true/false
 	 */
 	public boolean join(Member member);
+	
+	/**
+	 * 	아이디 중복 체크
+	 * @param member
+	 * @return 아이디 중복 시 true
+	 */
+	public boolean idOverlap(Member member);
+	
+	/**
+	 * 	회원가입 시 블랙리스트였는지 체크
+	 * @param mem_blacklist
+	 * @return 블랙리스트 DB에 있을 시 true
+	 */
+	public boolean blacklistCheck(Member member);
 }

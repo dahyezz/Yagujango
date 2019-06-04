@@ -1,6 +1,9 @@
 package controller.member;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,13 +32,34 @@ public class MemberJoinController extends HttpServlet {
 		//요청파라미터 한글 처리 인코딩 설정 (UTF-8)
 		req.setCharacterEncoding("utf-8");
 		
-		//Service를 통한 요청파라미터처리
-		Member member = memberService.getLoginMember(req);
+		Member member = new Member();
 		
-		//Service를 통한 회원가입(데이터베이스 삽입)
-		memberService.join(member);
+		member.setUserid(req.getParameter("userid"));
+		member.setUserpw(req.getParameter("userpw"));
+		member.setUsernick(req.getParameter("usernick"));
+		member.setUsername(req.getParameter("username"));
+		try {
+			member.setBirth(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birth")));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+//		member.setBirth(req.getParameter("birth"));
+		member.setGender(req.getParameter("gender"));
+		member.setPhone(req.getParameter("phone"));
+		member.setEmail(req.getParameter("email"));
+		member.setMyteam(req.getParameter("myteam"));
 		
-		//메인화면으로 리다이렉트
-		resp.sendRedirect("/main");
+		boolean idOverlap=memberService.idOverlap(member);
+		boolean blacklistCheck=memberService.blacklistCheck(member);
+		
+		if(idOverlap) {
+			req.setAttribute("idOverlap", true);
+			
+			if(blacklistCheck){
+				memberService.join(member);
+			}
+			
+			resp.sendRedirect("/main");
+		}
 	}
 }

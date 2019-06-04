@@ -10,6 +10,7 @@ import java.util.List;
 
 import dao.face.MemberDao;
 import dbutil.DBConn;
+import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
@@ -228,10 +229,56 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public int selectCntByBlacklist(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectCntMemberIdOverlap(Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM member"; 
+		sql += " WHERE userid = ? ";
+		
+		int cnt = 0;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getUserid());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				cnt=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
 	}
 
+	@Override
+	public int selectCntByBlacklist(Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM mem_blacklist"; 
+		sql += " WHERE username = ? ";
+		sql += " AND phone = ?";
+		
+		int cnt = 0;
 
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getUsername());
+			ps.setString(2, member.getPhone());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				cnt=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
+	}
 }

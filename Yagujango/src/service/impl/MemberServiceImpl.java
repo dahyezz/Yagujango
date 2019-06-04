@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import dao.face.MemberDao;
 import dao.impl.MemberDaoImpl;
+import dto.Mem_blacklist;
 import dto.Member;
 import service.face.MemberService;
 
@@ -68,11 +69,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public boolean join(Member member) {
 		
-		//기존에 존재하는 아이디 인지 확인하고 회원가입 처리
-		if( memberDao.selectCntMemberByUserid(member) > 0 ) {
-			return false; //기존에 존재함, 회원가입 실패
-		}
-		
 		//회원가입(데이터베이스 삽입)
 		memberDao.insert(member);
 		
@@ -82,6 +78,24 @@ public class MemberServiceImpl implements MemberService{
 		} else {
 			return false; //회원가입 실패
 		}
+	}
+
+	@Override
+	public boolean idOverlap(Member member) {
+		
+		if(memberDao.selectCntMemberIdOverlap(member) >= 1)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean blacklistCheck(Member member) {
+		
+		if(memberDao.selectCntByBlacklist(member) >= 1)
+			return true;
+		else
+			return false;
 	}
 
 }

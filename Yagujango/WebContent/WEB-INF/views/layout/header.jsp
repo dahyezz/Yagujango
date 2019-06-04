@@ -119,7 +119,7 @@ body {
 	</c:if>
 	<c:if test="${empty login }">
 		<a href="/member/login">로그인</a>&nbsp;&nbsp;
-		<a href="/member/join">회원가입</a>	
+		<a href="/member/joinTerms">회원가입</a>	
 	</c:if>
 </div>
 

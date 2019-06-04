@@ -1,5 +1,6 @@
 package dao.face;
 
+import dto.Mem_blacklist;
 import dto.Member;
 
 public interface MemberDao {
@@ -25,6 +26,9 @@ public interface MemberDao {
 	//회원가입 - 유저 정보 삽입
 	public void insert(Member member);
 	
+	//회원가입 - 아이디 중복 확인
+	public int selectCntMemberIdOverlap(Member member);
+	
 	//회원가입 - 회원가입 시 블랙리스트였는지 count
-	int selectCntByBlacklist(Member member);
+	public int selectCntByBlacklist(Member member);
 }
