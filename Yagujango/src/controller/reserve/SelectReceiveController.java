@@ -26,15 +26,16 @@ public class SelectReceiveController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Match match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
-		System.out.println(match); //TEST
+//		System.out.println(match); //TEST
 		
 		request.setAttribute("match", match);
 		
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
-		
+
 		List<Ticket> seatinfo = reserveService.getSeatInfoByTicket(match); // ticket 예매정보확인(My예매내역)
 		System.out.println(seatinfo); // TEST
+
 		request.setAttribute("seatinfo", seatinfo);
 
 		request.getRequestDispatcher("/WEB-INF/views/reserve/receive.jsp").forward(request, response);

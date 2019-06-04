@@ -67,7 +67,7 @@ public class ReserveDaoImpl implements ReserveDao {
 		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name";
 		sql += " FROM match";
 		sql += " WHERE hometeam_code = ?";
-//		sql += " AND match_date BETWEEN sysdate AND '20190801'";
+//		sql += " AND match_date >= sysdate";
 		sql += " ORDER BY match_code";
 		
 		List<Match> matchList = new ArrayList<Match>();
@@ -405,6 +405,62 @@ public class ReserveDaoImpl implements ReserveDao {
 		}
 		
 		return member;	
+	}
+	
+	@Override
+	public int selectSeatcodeBySeatInfo(String seat_block, int seat_number) {
+		
+		String sql = "";
+		sql += "SELECT seat_code FROM seat";
+		sql += " WHERE seat_block = ?";
+		sql += " AND seat_number = ?";
+		
+		int seat_code = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, seat_block);
+			ps.setInt(2, seat_number);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				seat_code = rs.getInt("seat_code");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return seat_code;	
+	}
+	
+	@Override
+	public void insertTicket(Match match, int seat_code) {
+		
+		String sql = "";
+		sql += "INSERT INTO ticket (ticket_code, match_code, seat_code)";
+		sql += " VALUES (ticket_seq.nextval, ?, ?)";
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, match.getMatch_code());
+			ps.setInt(2, seat_code);
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

@@ -105,4 +105,12 @@ public interface ReserveService {
 
 	public Date StringToDate(String payment_date);
 
+	/**
+	 * 선택한 티켓 ticket Table에 insert
+	 * 
+	 * @param match - 해당 경기의 match_code
+	 * @param selectseat - 선택한 좌석들(문자열)
+	 */
+	public void addTicket(Match match, String selectseat);
+
 }

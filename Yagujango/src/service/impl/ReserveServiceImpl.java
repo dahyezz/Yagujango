@@ -157,5 +157,22 @@ public class ReserveServiceImpl implements ReserveService{
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         return sDate;
 	}
+	
+	@Override
+	public void addTicket(Match match, String selectseat) {
+		
+		String[] seatList = selectseat.split(",");
 
+		for(String e : seatList) {
+			String seat_block = e.substring(0,1);
+			String seatnumber = e.substring(e.lastIndexOf("_")+1);
+			int seat_number = Integer.parseInt(seatnumber);
+			
+			//seat_code 알아오기
+			int seat_code = reserveDao.selectSeatcodeBySeatInfo(seat_block, seat_number);
+//			System.out.println("seat_code : " + seat_code); //TEST
+			reserveDao.insertTicket(match, seat_code);
+		}
+	
+	}
 }
