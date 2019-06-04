@@ -27,14 +27,17 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 		if( param!=null && !"".equals(param) ) {
 			curPage = Integer.parseInt(param);
 		}
-
-		int totalCount = board_1to1Dao.selectCntAll();
-
-		Paging paging = new Paging(totalCount, curPage);
+		
+		Paging paging = new Paging();
 		paging.setName(name);
 		paging.setKeyword(keyword);
-		
+		int totalCount = board_1to1Dao.selectCntAll(paging);
+
+		paging = new Paging(totalCount, curPage);
+		paging.setName(name);
+		paging.setKeyword(keyword);
 		return paging;
+
 	}
 
 	@Override
