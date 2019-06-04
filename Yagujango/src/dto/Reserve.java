@@ -30,8 +30,8 @@ public class Reserve {
 		return ticket_code;
 	}
 
-	public void setTicket_code(int ticket_code) {
-		this.ticket_code = ticket_code;
+	public void setTicket_code(int ticket_code2) {
+		this.ticket_code = ticket_code2;
 	}
 
 	public int getUserno() {
@@ -73,4 +73,6 @@ public class Reserve {
 	public void setHow_receive(String how_receive) {
 		this.how_receive = how_receive;
 	}
+
+	
 }

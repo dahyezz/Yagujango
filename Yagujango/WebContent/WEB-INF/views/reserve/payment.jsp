@@ -15,12 +15,13 @@
 <script type="text/javascript">
 	function cancle() {
 		alert("결제를 취소하시겠습니까?")
-//  		$('#selectreceive').submit();
+		close();
 	}
 	
 	function payment() {
 		alert("결제 하시겠습니까?")
  		$('#selectpayment').submit();
+// 		close();
 	}
 
 
@@ -91,13 +92,15 @@ a { text-decoration:none }
 	<form id="selectpayment" name="selectpayment" action="/reserve/payment" method="post">
   	<h3>결제 방법</h3><br>
   		<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
-  		<input type="hidden" name="ticket_code" id="ticket_code" value="${seatinfo.ticket_code }"/>
-  		<input type="hidden" name="price" id="price" value="${seatinfo.price }"/>
+  		<c:forEach items="${seatinfo }" var="i" varStatus="status">
+			<input type="hidden" name="ticket_code" id="ticket_code" value="${i.ticket_code }"/>
+	  		<input type="hidden" name="price" id="price" value="${i.price }"/>
+		</c:forEach>
   		<input type="hidden" name="match_date" id="match_date" value="${match.match_date }"/>
   		<input type="hidden" name="receive" id="receive" value="${receive }"/>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
-	  	<label id='cash'><input type='radio' name='payment' id='cash' value='cash' />무통장 입금</label><p>
-	  	<label id='card'><input type='radio' name='payment' id='card' value='card' />신용 카드</label>
+	  	<label id='cash'><input type='radio' name='payment' id='cash' value='무통장입금' />무통장 입금</label><p>
+	  	<label id='card'><input type='radio' name='payment' id='card' value='신용카드' />신용 카드</label>
 	</form>
 </div>
 
@@ -110,11 +113,21 @@ a { text-decoration:none }
 	</tr>
 	<tr>
 		<th>선택좌석</th>
-		<td>${seatinfo.seat_block }블럭 ${seatinfo.seat_number }번</td>
+		<td>
+		<c:forEach items="${seatinfo }" var="i">
+			${i.seat_block }블럭 ${i.seat_number }석<br>
+		</c:forEach>
+		</td>
 	</tr>
 	<tr>
 		<th>티켓금액</th>
-		<td>${seatinfo.price }원</td>
+		<td>
+		<c:set var = "total" value ="0"/>
+		<c:forEach items="${seatinfo }" var="i" varStatus="status">
+			<c:set var = "total" value="${total + i.price }"/>
+		</c:forEach>
+		${total }원
+		</td>
 	</tr>
 	<tr>
 		<th>수수료</th>
@@ -135,7 +148,13 @@ a { text-decoration:none }
 <table class="table">
 	<tr>
 		<th>총 결제금액</th>
-		<th>${seatinfo.price }원</th>
+		<th>
+		<c:set var = "total" value ="0"/>
+		<c:forEach items="${seatinfo }" var="i" varStatus="status">
+			<c:set var = "total" value="${total + i.price }"/>
+		</c:forEach>
+		${total }원
+		</th>
 	</tr>
 </table>
 <div style="float:right; margin-top:50px; margin-right:100px;">
