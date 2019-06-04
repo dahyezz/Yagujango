@@ -14,58 +14,75 @@
 
 
 <script type="text/javascript">
+var selectseat = [];
+var seat;
+var seat_block;
+var seat_number;
 $(document).ready(function() {
-
-	var selectseat = [];
 	
+	var layout = document.getElementById("result");
+
 	//체크 박스 선택시
 	$("input:checkbox").on('click', function(){
-		var lists = [];
-		$("input:checkbox[name='seat']:checked").each(function(i){
-			lists.push($(this).val());
-			
-		});
 		
+		if($(this).prop('checked')){
+			selectseat.push($(this).val());
+			seat = $(this).val();
+		
+			var seatArray = seat.split("_");
+			seat_block = seatArray[0];
+			seat_number = seatArray[1];
+			
+			layout.innerHTML += "<p id="+seat+" style='margin: 0; padding: 0;'>"+seat_block+"블럭 "+seat_number+"석</p>";
+			
+			// 스타일 지정하기 위해서 class 추가
+			$(this).addClass("selected");
+			
+		} else {
+// 			console.log("체크해제") //TEST
+			seat = $(this).val(); //체크 해제된 좌석
+			$(this).removeClass("selected");
+			$(this).addClass("unselected");
+			
+			selectseat.splice($.inArray(seat, selectseat),1); //selectseat에서 해당 좌석 삭제
+			
+			var deleteseat = document.getElementById(seat);
+			deleteseat.remove();
+		}
+		
+// 		$("input:checkbox[name='seat']:checked").each(function(i){
+// 			lists.push($(this).val());
+// 			seat = $(this).val();
+		
+// 			var seatArray = seat.split("_");
+// 			seat_block = seatArray[0];
+// 			seat_number = seatArray[1];
+			
+// 		});
 
-		selectseat = lists;
-// 		console.log(lists)
-		var layout = document.getElementById("result");
-		layout.innerHTML = selectseat;
-// 		console.log(map);
-
+// 		console.log(selectseat); //_TEST
 	});
 	
-// 	$("#selectsuccess").click(function(){
-// 		var $form = $("<form>")
-// 		.attr("action","/reserve/seat")
-// 		.attr("method", "POST")
-// 		.append(
-// 				$("<input>")
-// 						.attr("type", "hidden")
-// 						.attr("name", "selectseat")
-// 						.attr("value", selectseat)
-// 		);
-// 		$(document.body).append($form);
-// 		$form.submit();
-// 	})
+	$("#selectsuccess").click(function(){
+// 		console.log("clicked"); //TEST
+// 		console.log(selectseat);
+		var $form = $("<form>")
+		.attr("action","/reserve/seat")
+		.attr("method", "POST")
+		.append(
+				$("<input>")
+						.attr("type", "hidden")
+						.attr("name", "selectseat")
+						.attr("value", selectseat)
+		);
+		$(document.body).append($form);
+		$form.submit();
+	});
 
 
 });
 
-function select() {
-	//전송 폼
-// 		var $form = $("<form>")
-// 				.attr("action","/reserve/seat")
-// 				.attr("method", "POST")
-// 				.append(
-// 						$("<input>")
-// 								.attr("type", "hidden")
-// 								.attr("name", "selectseat")
-// 								.attr("value", selectseat)
-// 				);
-// 		$(document.body).append($form);
-// 		$form.submit();
-}
+
 
 </script>
 
@@ -107,6 +124,28 @@ a {
 	text-decoration: none;
 }
 
+.selected {
+	display: inline-block;
+	border: 2px solid #ccc;
+	cursur: pointer;
+	background-color: blue;;
+}
+
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	
+}
+
+input[type="checkbox"]:checked {
+/*   background-position: 0 -15px; */
+ 	background-color: blue; 
+}
+
+
 </style>
 
 </head>
@@ -123,11 +162,10 @@ a {
 <!-- 좌석 버튼 만들어 주는 곳 -->
 <c:forEach items="${seatBlock }" var="i">
 	<c:forEach items="${seatNumber }" var="j">
-			<input type="checkbox" name="seat" id="seatId" value="${i }블럭 ${j }석"  />
+			<input type="checkbox" name="seatChk" id="seatId" value="${i }_${j }"  />
 	</c:forEach>
 	<br>
 </c:forEach>
-
 
 
 
@@ -181,7 +219,8 @@ a {
 </div>
 
 <div style="float: right; margin-top: 50px; margin-right:100px;">
-	<label><a id="selectsuccess" href="/reserve/receive?match_code=${match.match_code }" >NEXT▷</a></label>
+<%-- 	<label><a id="selectsuccess" href="/reserve/receive?match_code=${match.match_code }" >NEXT▷</a></label> --%>
+	<label><a id="selectsuccess" >NEXT▷</a></label>	
 </div>
 
 </body>

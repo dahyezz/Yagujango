@@ -58,5 +58,9 @@ public interface ReserveDao {
 
 	Member getUserNo(String userid);
 
+	int selectSeatcodeBySeatInfo(String seat_block, int seat_number);
+
+	void insertTicket(Match match, int seat_code);
+
 
 }
