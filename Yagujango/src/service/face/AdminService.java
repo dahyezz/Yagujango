@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Board_1to1;
+import dto.Board_1to1_answer;
 import dto.Mem_blacklist;
 import util.Paging;
 
@@ -55,8 +56,25 @@ public interface AdminService {
 	 * 게시글 작성
 	 * @param req - 요청 정보 객체
 	 */
-	public void write(HttpServletRequest req);
+	public void write(Board_1to1_answer board_1to1_answer,HttpServletRequest req);
 	
+	//답변완료목록리스트
+	public List agetList(Paging paging);
+	
+	/**
+	 * 요청파라미터에서 answerno를 파싱한다.
+	 * @param req -요청정보객체
+	 * @return Board_1to1_answer - answerno를 입력한 객체
+	 */
+	public Board_1to1_answer AgetBoardno(HttpServletRequest req);
+
+	public Board_1to1_answer Aview(Board_1to1_answer answerBoard);
+	/**
+	 * 게시글 삭제
+	 * 
+	 * @param board_1to1- 삭제할 게시글 번호를 가진 객체
+	 */
+	public void delete(Board_1to1 board_1to1);
 
 	
 	
