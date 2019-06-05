@@ -60,7 +60,7 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
 		sql += "		SELECT boardno, stadium_name,seat_block,seat_number,";
-		sql += " 			content, writer, hit, writtendate,filename FROM board_seat ";
+		sql += " 			content, writer, hit, writtendate,fileurl FROM board_seat ";
 		if (name != null && !"".equals(name) && keyword != null && !"".equals(keyword)) {
 			sql += " WHERE " + name + " LIKE '%" + keyword + "%'";
 		}
@@ -87,7 +87,7 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 				board_seat.setWriter(rs.getString("writer"));
 				board_seat.setHit(rs.getInt("hit"));
 				board_seat.setWrittendate(rs.getDate("writtendate"));
-				board_seat.setFilename(rs.getString("filename"));
+				board_seat.setFileurl(rs.getString("fileurl"));
 				
 				
 				list.add(board_seat);
@@ -114,7 +114,7 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 
 		String sql = "";
 		sql += "INSERT INTO board_seat(";
-		sql += " boardno, stadium_name,seat_block,seat_number,content,writer, hit,filename)" ;
+		sql += " boardno, stadium_name,seat_block,seat_number,content,writer, hit,fileurl)" ;
 		sql += " VALUES (BOARD_SEAT_SEQ.nextval,?,?,?,?,?,0,?)";
 
 		try {
@@ -124,7 +124,7 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 			ps.setInt(3, board_seat.getSeat_number());
 			ps.setString(4, board_seat.getContent());
 			ps.setString(5, board_seat.getWriter());
-			ps.setString(6, board_seat.getFilename());
+			ps.setString(6, board_seat.getFileurl());
 			rs = ps.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();

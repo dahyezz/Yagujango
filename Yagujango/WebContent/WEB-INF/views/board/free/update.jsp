@@ -49,6 +49,8 @@ function sendFile(file, editor) {
 	        success : function(url) { // 처리가 성공할 경우
            		 // 에디터에 이미지 출력   
 	        	$("#summernote").summernote('insertImage', url);
+	        
+	        	
 	        }
 	    });
 	}

@@ -15,4 +15,6 @@ public interface Board_SeatService {
 
 	public void write(HttpServletRequest req);
 
+	public String uploadfile(HttpServletRequest req);
+
 }

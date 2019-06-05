@@ -76,7 +76,10 @@ $(document).ready(function() {
 });
 
 </script>
-<style type="text/css">
+<style type="text/css">						
+.button-center {
+	text-align: center;
+}
 .tablediv {
 	padding: 0 5% 0 5%;
 }
@@ -126,36 +129,19 @@ table{
 </table>
 
 
-<div class="text-center">	
+<div class="button-center">	
 <button id="btnList" class="btn btn-primary">목록</button>
 <c:if test="${usernick eq board.writer && login eq true || usernick eq '관리자'}">
 <button id="btnUpdate" class="btn btn-primary">수정</button>
 <button id="btnDelete" class="btn btn-primary">삭제</button>
 </c:if>
+<br><br><br>
 </div>
 
 <c:if test="${'공지' ne board.tag}">
+<hr>
 <div id="commentdiv">
-<table class="table table-striped table-hover table-condensed">
-	<tr class="info">
-		<td>작성자</td>
-		<td colspan="5">내용</td>
-		<td>작성일</td>
-		<td></td>
-	
-	</tr>
-	<c:forEach var="j" items="${comment }">
-	<tr>
-		<td>${j.writer }</td>
-		<td colspan="5">${j.content }</td>
-		<td>${j.writtendate}</td>
-		<c:if test="${j.writer eq usernick }">
-		<!-- 해당 행의 commentno 정보 td에 등록 -->
-		<td data-commentno="${j.commentno }"><a class="deleteanchor">삭제</a></td>
-		</c:if>
-	</tr>
-	</c:forEach>
-</table>
+	<c:import url="/WEB-INF/views/board/free/comment.jsp" />
 </div>
 <input type="text" id="commentcontent">
 <button type="button" id="btncommentinsert">작성</button>
