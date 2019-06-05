@@ -14,8 +14,9 @@
 
 <script type="text/javascript">
 	function cancle() {
+		$('#deleteseat').submit();
 		alert("결제를 취소하시겠습니까?")
-		close();
+// 		close();
 	}
 	
 	function payment() {
@@ -91,7 +92,8 @@ a { text-decoration:none }
 <div id="payment">
 	<form id="selectpayment" name="selectpayment" action="/reserve/payment" method="post">
   	<h3>결제 방법</h3><br>
-  		<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
+  		<input type="hidden" name="deleteparam" id="deleteparam" value="insert"/>
+  		<input type="hidden" name="userno" id="userno" value="${memberno }"/>
   		<c:forEach items="${seatinfo }" var="i" varStatus="status">
 			<input type="hidden" name="ticket_code" id="ticket_code" value="${i.ticket_code }"/>
 	  		<input type="hidden" name="price" id="price" value="${i.price }"/>
@@ -103,6 +105,12 @@ a { text-decoration:none }
 	  	<label id='card'><input type='radio' name='payment' id='card' value='신용카드' />신용 카드</label>
 	</form>
 </div>
+
+<form id="deleteseat" name="deleteseat" action="/reserve/payment" method="post">
+		<input type="hidden" name="deleteparam" id="deleteparam" value="delete"/>
+  	  	<input type="hidden" name="ticket_code" id="ticket_code" value="${ticketcode }"/>
+		<input type="hidden" name="count" id="count" value="${count }"/>
+</form>
 
 <strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
 <!-- <h3>My 예매정보</h3> -->

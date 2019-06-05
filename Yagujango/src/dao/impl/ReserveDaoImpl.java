@@ -463,6 +463,7 @@ public class ReserveDaoImpl implements ReserveDao {
 		}
 	}
 	
+
 	@Override
 	public int selectNewTicketCode(Match match, int seat_code) {
 		
@@ -534,6 +535,7 @@ public class ReserveDaoImpl implements ReserveDao {
 		}
 		
 		return reservedSeatList;
+
 	}
 
 }

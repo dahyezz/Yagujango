@@ -64,7 +64,11 @@ public interface ReserveDao {
 
 	int selectNewTicketCode(Match match, int seat_code);
 
+
+	void deletetSeatInfoByTicket(int ticketcode);
+
 	List<Seat> getReservedSeatListByMatchCode(Match match);
+
 
 
 }

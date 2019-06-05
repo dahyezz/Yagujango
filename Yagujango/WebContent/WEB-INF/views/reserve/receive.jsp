@@ -18,6 +18,9 @@
  		$('#selectreceive').submit();
 	}
 
+	function seat() {
+		$('#selectseat').submit();
+	}
 </script>
 
 <style type="text/css">
@@ -84,9 +87,21 @@ a { text-decoration:none }
 <div id="receive">
 	<form id="selectreceive" name="selectreceive" action="/reserve/payment" method="get">
   	<h3>수령 방법</h3><br>
+  		<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
+  		<input type="hidden" name="ticket_code" id="ticket_code" value="${param.ticket_code }"/>
+		<input type="hidden" name="count" id="count" value="${param.count }"/>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
 	  	<label id='bacode'><input type='radio' name='receive' id='bacode' value='바코드발급' />바코드발급</label><p>
 	  	<label id='place'><input type='radio' name='receive' id='place' value='현장발권' />현장발권</label>
+	</form>
+</div>
+
+<div id="seat">
+	<form id="selectseat" name="selectseat" action="/reserve/receive" method="post">
+		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
+		<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
+		<input type="hidden" name="ticket_code" id="ticket_code" value="${param.ticket_code }"/>
+		<input type="hidden" name="count" id="count" value="${param.count }"/>
 	</form>
 </div>
 
@@ -113,6 +128,7 @@ a { text-decoration:none }
 			<c:set var = "total" value="${total + i.price }"/>
 		</c:forEach>
 		${total }원
+		
 		</td>
 	</tr>
 	<tr>
@@ -143,7 +159,8 @@ a { text-decoration:none }
 	</tr>
 </table>
 <div style="float:right; margin-top:20px; margin-right:100px;">
-	<label><a href="/reserve/seat?match_code=${match.match_code }">◁PREV</a></label>&nbsp;&nbsp;&nbsp;
+<%-- 	<label><a href="/reserve/seat?match_code=${match.match_code }">◁PREV</a></label>&nbsp;&nbsp;&nbsp; --%>
+	<label><button onclick="seat()">◁PREV</button></label>&nbsp;&nbsp;&nbsp;
 	<label><button onclick="receive()">NEXT▷</button></label>
 </div>
 
