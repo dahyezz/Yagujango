@@ -64,8 +64,6 @@ $(document).ready(function() {
 	});
 	
 	$("#selectsuccess").click(function(){
-// 		console.log("clicked"); //TEST
-// 		console.log(selectseat);
 		var $form = $("<form>")
 		.attr("action","/reserve/seat")
 		.attr("method", "POST")
@@ -92,11 +90,31 @@ $(document).ready(function() {
 	margin: 0;
 }
 .seatBtn {
-	margin: 10px;
+	overflow: scroll;
+
+	margin: 0 10px;
 	padding: 0;
 	width: 600px;
-	height: 400px;
+	height: 450px;
 	float: left;
+}
+
+.seatUpper {
+	padding: 0;
+	margin: 0;
+	width: 600px;
+	height: 60px;
+	background-color: green;
+	float: left;
+}
+
+#ground {
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+	color: white;
+	text-align: center;
+	
 }
 
 .seatInfo {
@@ -146,6 +164,7 @@ input[type="checkbox"]:checked {
 }
 
 
+
 </style>
 
 </head>
@@ -158,8 +177,12 @@ input[type="checkbox"]:checked {
 <p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p>
 <%-- <p>${match.hometeam_name } vs ${match.awayteam_name } ${match.match_date }</p> --%>
 
-<div class="seatBtn">
 <!-- 좌석 버튼 만들어 주는 곳 -->
+<div class="seatBtn">
+<div class="seatUpper">
+	<p id="ground" >GROUND</p>
+</div>
+
 <c:forEach items="${seatBlock }" var="i">
 	<c:forEach items="${seatNumber }" var="j">
 			<input type="checkbox" name="seatChk" id="seatId" value="${i }_${j }"  />
@@ -171,21 +194,24 @@ input[type="checkbox"]:checked {
 
 
 <!-- disabled 되게 -->
-<c:forEach items="${seatAvailable }" var="i">
-	<script>
-		var select = eval("document.selectform");
-		var checked = document.getElementsByName("seat");
+<!--  
+<c:forEach items="${resvdSeatList }" var="i">
+	<script >
+	
+// 		var checked = document.getElementsByName("seatChk");
 		
-		console.log("0--");
-		for(var i=0; i<select.seat.length; i++){
-// 			if(checked[i].value == ${i.seat_block}${i.seat_number}){
-// 				checked[i].disabled = true;
+// 		for(var j=0; j<checked.length; j++){
+// 			var $seat = $('#${i.seat_block+"_"+i.seat_number }');
+			
+// 			if(checked[j].value.equals(seat)){
+// 				console.log(seat)
 // 			}
-			console.log(checked[i].value);
-		}
+// // 			console.log(checked[j].value);
+// 		}
 	</script>
 </c:forEach>
- 
+ -->
+
 </div>
 
 <div class="seatInfo">
@@ -213,8 +239,6 @@ input[type="checkbox"]:checked {
 			<p id="result">
 			</p>
 	</div>
-	
-	
 
 </div>
 
