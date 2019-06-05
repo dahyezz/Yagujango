@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import dao.face.MemberDao;
 import dao.impl.MemberDaoImpl;
-import dto.Mem_blacklist;
 import dto.Member;
 import service.face.MemberService;
 
@@ -84,18 +83,18 @@ public class MemberServiceImpl implements MemberService{
 	public boolean idOverlap(Member member) {
 		
 		if(memberDao.selectCntMemberIdOverlap(member) >= 1)
-			return true;
-		else
 			return false;
+		else
+			return true;
 	}
 
 	@Override
 	public boolean blacklistCheck(Member member) {
 		
 		if(memberDao.selectCntByBlacklist(member) >= 1)
-			return true;
-		else
 			return false;
+		else
+			return true;
 	}
 
 }

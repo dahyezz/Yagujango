@@ -2,7 +2,6 @@ package service.face;
 
 import javax.servlet.http.HttpServletRequest;
 
-import dto.Mem_blacklist;
 import dto.Member;
 
 public interface MemberService {

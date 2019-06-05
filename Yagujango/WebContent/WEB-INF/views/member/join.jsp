@@ -53,8 +53,12 @@ function inputCheck(obj){
 $(document).ready(function(){
 	
 	$("#idOverlap").click(function(){
-		if($(idOverlap)=true){
-			
+		if($(idOverlap)){
+			alert("사용 가능한 아이디 입니다");
+		} else{
+			alert("이미 사용중인 아이디 입니다");
+			$("#userid").value="";
+			$("#userid").focus();
 		}
 	});
 });
@@ -77,7 +81,7 @@ th{
 	<tr><th>아이디</th></tr>
 	<tr>
 		<td><input type="text" name="userid" /></td>
-		<td><button id="idOverlap">아이디 중복 확인</button></td>
+		<td><input type=button id="idOverlap" value="아이디 중복 확인"/></td>
 	</tr>
 	
 	<tr><th>비밀번호</th></tr>
@@ -85,6 +89,11 @@ th{
 		<td><input type="password" name="userpw" /></td>
 		<td>
 		<img src="/img/pwLock.png" width="50px" height="50px">
+		<c:choose>
+			<c:when test="${param.sel eq 1 }">1을 선택하셨습니다</c:when>
+			<c:when test="${param.sel eq 2 }">2을 선택하셨습니다</c:when>
+			<c:when test="${param.sel eq 3 }">3을 선택하셨습니다</c:when>
+		</c:choose>
 		</td>
 	</tr>	
 	

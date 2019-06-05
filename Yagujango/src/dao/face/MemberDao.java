@@ -1,6 +1,5 @@
 package dao.face;
 
-import dto.Mem_blacklist;
 import dto.Member;
 
 public interface MemberDao {
