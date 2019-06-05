@@ -50,6 +50,13 @@ public class SelectSeatController extends HttpServlet {
 		List<Integer> seatNumber = reserveService.getSeatNumber();
 		request.setAttribute("seatNumber", seatNumber);
 		
+		// ------ TEST -----------
+		//	좌석 disabled 되는지 check
+		List<Seat> resvdSeatList = reserveService.getResevedSeatList(match);
+//		System.out.println(resvdSeatList);
+		request.setAttribute("resvdSeatList", resvdSeatList);
+		
+		// -----------------------
 
 		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/selectseat.jsp").forward(request, response);
@@ -61,8 +68,16 @@ public class SelectSeatController extends HttpServlet {
 		String selectseat = request.getParameter("selectseat");
 //		System.out.println(selectseat); //TEST 
 		
-		reserveService.addTicket(match, selectseat);
-
-		response.sendRedirect("/reserve/receive?match_code="+match.getMatch_code());
+		
+		List<Integer> newTicketList = reserveService.addTicket(match, selectseat);
+	
+//		for(Integer e : newTicketList) {
+//			System.out.println(e);
+//		}
+//		System.out.println("newTicketList Size : " + newTicketList.size());
+//		System.out.println("first : " + newTicketList.get(0));
+		
+		response.sendRedirect("/reserve/receive?match_code="+match.getMatch_code()+"&ticket_code="
+										+newTicketList.get(0)+"&count="+newTicketList.size());
 	}
 }

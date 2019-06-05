@@ -462,5 +462,78 @@ public class ReserveDaoImpl implements ReserveDao {
 			}
 		}
 	}
+	
+	@Override
+	public int selectNewTicketCode(Match match, int seat_code) {
+		
+		String sql = "";
+		sql += "SELECT ticket_code ";
+		sql += " FROM ticket";
+		sql += " WHERE match_code = ?";
+		sql += " AND seat_code = ?";
+		
+		int ticket_code = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, match.getMatch_code());
+			ps.setInt(2, seat_code);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				ticket_code = rs.getInt("ticket_code");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ticket_code;	
+	}
+	@Override
+	public List<Seat> getReservedSeatListByMatchCode(Match match) {
+		
+		String sql = "";
+		sql += "SELECT seat_code, seat_block, seat_number";
+		sql += " FROM seat";
+		sql += " WHERE seat_code IN (";
+		sql += "                 SELECT seat_code";
+		sql += "                 FROM ticket";
+		sql += "                 WHERE match_code=?";
+		sql += "                 )";
+		sql += " ORDER BY seat_code";
+		
+		List<Seat> reservedSeatList = new ArrayList<Seat>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, match.getMatch_code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Seat seat = new Seat();
+				
+				seat.setSeat_code(rs.getInt("seat_code"));
+				seat.setSeat_block(rs.getString("seat_block"));
+				seat.setSeat_number(rs.getInt("seat_number"));
+
+				reservedSeatList.add(seat);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return reservedSeatList;
+	}
 
 }

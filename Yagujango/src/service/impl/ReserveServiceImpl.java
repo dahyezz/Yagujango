@@ -159,10 +159,11 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 	
 	@Override
-	public void addTicket(Match match, String selectseat) {
+	public List<Integer>  addTicket(Match match, String selectseat) {
 		
 		String[] seatList = selectseat.split(",");
-
+		List<Integer> newTicketList = new ArrayList<Integer>();
+		
 		for(String e : seatList) {
 			String seat_block = e.substring(0,1);
 			String seatnumber = e.substring(e.lastIndexOf("_")+1);
@@ -171,8 +172,19 @@ public class ReserveServiceImpl implements ReserveService{
 			//seat_code 알아오기
 			int seat_code = reserveDao.selectSeatcodeBySeatInfo(seat_block, seat_number);
 //			System.out.println("seat_code : " + seat_code); //TEST
-			reserveDao.insertTicket(match, seat_code);
+			reserveDao.insertTicket(match, seat_code); 
+			
+			int ticket_code = reserveDao.selectNewTicketCode(match, seat_code);
+//			System.out.println(ticket_code);
+			newTicketList.add(ticket_code);
 		}
+		
+		return newTicketList;
 	
+	}
+	
+	@Override
+	public List<Seat> getResevedSeatList(Match match) {
+		return reserveDao.getReservedSeatListByMatchCode(match);
 	}
 }
