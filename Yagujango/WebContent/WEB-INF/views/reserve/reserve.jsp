@@ -190,7 +190,7 @@ a { text-decoration:none }
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<td><input type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 't'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>

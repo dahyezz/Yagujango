@@ -12,7 +12,6 @@
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-
 <script type="text/javascript">
 var selectseat = [];
 var seat;
@@ -50,17 +49,6 @@ $(document).ready(function() {
 			deleteseat.remove();
 		}
 		
-// 		$("input:checkbox[name='seat']:checked").each(function(i){
-// 			lists.push($(this).val());
-// 			seat = $(this).val();
-		
-// 			var seatArray = seat.split("_");
-// 			seat_block = seatArray[0];
-// 			seat_number = seatArray[1];
-			
-// 		});
-
-// 		console.log(selectseat); //_TEST
 	});
 	
 	$("#selectsuccess").click(function(){
@@ -189,28 +177,6 @@ input[type="checkbox"]:checked {
 	</c:forEach>
 	<br>
 </c:forEach>
-
-
-
-
-<!-- disabled 되게 -->
-<!--  
-<c:forEach items="${resvdSeatList }" var="i">
-	<script >
-	
-// 		var checked = document.getElementsByName("seatChk");
-		
-// 		for(var j=0; j<checked.length; j++){
-// 			var $seat = $('#${i.seat_block+"_"+i.seat_number }');
-			
-// 			if(checked[j].value.equals(seat)){
-// 				console.log(seat)
-// 			}
-// // 			console.log(checked[j].value);
-// 		}
-	</script>
-</c:forEach>
- -->
 
 </div>
 
