@@ -113,6 +113,10 @@ body {
 <body>
 
 <div class="loginstatus">
+	<c:if test="${userid eq 'admin' }">
+		<div style="float: left;"><a href="/admin/list">관리자</a></div>
+	</c:if>
+
 	<c:if test="${login }">
 		<a href="/member/logout">로그아웃</a>&nbsp;&nbsp;
 		<a href="/member/modify">회원정보</a>	

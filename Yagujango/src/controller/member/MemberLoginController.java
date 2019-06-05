@@ -40,10 +40,13 @@ public class MemberLoginController extends HttpServlet {
 			req.getSession().setAttribute("login", true);
 			req.getSession().setAttribute("userid", member.getUserid());
 			req.getSession().setAttribute("usernick", member.getUsernick());
-			
+	
 		}
-				
-		resp.sendRedirect("/main");
+		
+		if(member.getUserid().equals("admin"))
+			resp.sendRedirect("/admin/list");
+		else
+			resp.sendRedirect("/main");
 		
 	}
 }
