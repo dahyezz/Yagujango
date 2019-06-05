@@ -62,5 +62,9 @@ public interface ReserveDao {
 
 	void insertTicket(Match match, int seat_code);
 
+	int selectNewTicketCode(Match match, int seat_code);
+
+	void deletetSeatInfoByTicket(int ticketcode);
+
 
 }

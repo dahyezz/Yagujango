@@ -57,12 +57,17 @@ public class SelectSeatController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String selectseat = request.getParameter("selectseat");
-//		System.out.println(selectseat); //TEST 
-		
-		reserveService.addTicket(match, selectseat);
-
-		response.sendRedirect("/reserve/receive?match_code="+match.getMatch_code());
+//	      System.out.println(selectseat); //TEST 
+      
+      
+		List<Integer> newTicketList = reserveService.addTicket(match, selectseat);
+//	      for(Integer e : newTicketList) {
+//	         System.out.println(e);
+//	      }
+//	      System.out.println("newTicketList Size : " + newTicketList.size());
+//	      System.out.println("first : " + newTicketList.get(0));
+  
+		response.sendRedirect("/reserve/receive?match_code="+match.getMatch_code()+"&ticket_code="+newTicketList.get(0)+"&count="+newTicketList.size());
 	}
 }

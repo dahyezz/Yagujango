@@ -25,13 +25,16 @@ public class ReservationController extends HttpServlet {
 	private ReserveService reserveService = new ReserveServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 세션 객체 얻기
-		HttpSession session = request.getSession();
-		// userno 가져오기
-		String userid = (String) session.getAttribute("userid");
-		Member memberno = new Member();
-		memberno = reserveService.getUserNo(userid);
+		String memberno = request.getParameter("userno");
+		System.out.println("payment : " + memberno);
 		request.setAttribute("memberno", memberno);
+		
+		String ticketcd = request.getParameter("ticket_code");
+		String cnt = request.getParameter("count");
+		int ticketcode = Integer.parseInt(ticketcd);
+		int count = Integer.parseInt(cnt);
+		request.setAttribute("ticketcode", ticketcode);
+		request.setAttribute("count", count);
 		
 		String receive = request.getParameter("receive"); // 수령방법 받아오기
 		request.setAttribute("receive", receive);
@@ -54,34 +57,43 @@ public class ReservationController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String ticket_code = Arrays.toString(Arrayticket);
-//		System.out.println(ticketcode);
-//		int[] ticket_code = new int[Arrayticket.length];
+		String deleteparam = request.getParameter("deleteparam");
+		System.out.println(deleteparam);
+		String ticketcd = request.getParameter("ticket_code");
+		String cnt = request.getParameter("count");
 		
-//		for(int i = 0; i < Arrayticket.length; i++) {
-//			ticket_code[i] = Integer.parseInt(Arrayticket[i]);
-//		}
-//		System.out.println(ticket_code);
+		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
+		if(deleteparam == "delete") {
+			int ticketcod = Integer.parseInt(ticketcd);
+			int count = Integer.parseInt(cnt);
+			
+			for(int i = ticketcod; i < ticketcod+count; i++) {
+				reserveService.deletetSeatInfoByTicket(i);
+			}
+		}
+		/////////////////////////////////////////////////////
 		
-		
-		String memberno = request.getParameter("userno");
-		String ticketcode = request.getParameter("ticket_code");
-
-		String payment = request.getParameter("payment");
-		String payment_date = request.getParameter("match_date");
-		String receive = request.getParameter("receive");
-		
-		int ticket_code = Integer.parseInt(ticketcode);
-		int userno = Integer.parseInt(memberno);
-		
-		Reserve reserve = new Reserve();
-		reserve.setTicket_code(ticket_code);
-		reserve.setPayment(payment);
-		reserve.setUserno(userno);
-		reserve.setPayment_date(reserveService.StringToDate(payment_date)); // String date를 java.sql.date로 바꾸기
-		reserve.setHow_receive(receive);
-		
-		reserveService.insertReserve(reserve);
+		if(deleteparam == "insert") {
+			String memberno = request.getParameter("userno");
+			System.out.println("paymentpost : " + memberno);
+			String ticketcode = request.getParameter("ticket_code");
+	
+			String payment = request.getParameter("payment");
+			String payment_date = request.getParameter("match_date");
+			String receive = request.getParameter("receive");
+			
+			int ticket_code = Integer.parseInt(ticketcode);
+			int userno = Integer.parseInt(memberno);
+			
+			Reserve reserve = new Reserve();
+			reserve.setTicket_code(ticket_code);
+			reserve.setPayment(payment);
+			reserve.setUserno(userno);
+			reserve.setPayment_date(reserveService.StringToDate(payment_date)); // String date를 java.sql.date로 바꾸기
+			reserve.setHow_receive(receive);
+			
+			reserveService.insertReserve(reserve);
+		}
 		
 	}
 }

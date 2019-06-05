@@ -111,6 +111,9 @@ public interface ReserveService {
 	 * @param match - 해당 경기의 match_code
 	 * @param selectseat - 선택한 좌석들(문자열)
 	 */
-	public void addTicket(Match match, String selectseat);
+	public List<Integer> addTicket(Match match, String selectseat);
+
+	public void deletetSeatInfoByTicket(int i);
+
 
 }

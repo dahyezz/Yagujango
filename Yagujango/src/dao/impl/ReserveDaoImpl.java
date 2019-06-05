@@ -462,5 +462,52 @@ public class ReserveDaoImpl implements ReserveDao {
 			}
 		}
 	}
+	
+   @Override
+   public int selectNewTicketCode(Match match, int seat_code) {
+      
+      String sql = "";
+      sql += "SELECT ticket_code ";
+      sql += " FROM ticket";
+      sql += " WHERE match_code = ?";
+      sql += " AND seat_code = ?";
+      
+      int ticket_code = 0;
+      
+      try {
+         ps = conn.prepareStatement(sql);
+         ps.setInt(1, match.getMatch_code());
+         ps.setInt(2, seat_code);
+         
+         rs = ps.executeQuery();
+         
+         while(rs.next()) {
+            ticket_code = rs.getInt("ticket_code");
+         }
+         
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+      
+      return ticket_code;
+   }
+
+	@Override
+	public void deletetSeatInfoByTicket(int ticketcode) {
+	      String sql = "";
+	      sql += "DELETE FROM ticket";
+	      sql += " WHERE ticket_code=?";
+	      
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, ticketcode);
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		
+	}
 
 }
