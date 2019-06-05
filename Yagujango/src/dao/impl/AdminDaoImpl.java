@@ -333,4 +333,105 @@ public class AdminDaoImpl implements AdminDao{
 			}
 		}	
 	}
+	
+	//답변완료목록리스트
+	@Override
+	public List aselectAll(Paging paging) {
+		//수행할 SQL쿼리
+		String sql= "";
+		sql += "SELECT * FROM board_1to1_answer";
+		
+		//수행결과를 담을 리스트
+		List alist = new ArrayList();
+		
+		try {
+			ps=conn.prepareStatement(sql);//수행객체 얻기
+			rs=ps.executeQuery(); //sql수행결과 얻기
+			
+			//sql수행결과 처리
+			while(rs.next()) {
+				Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+				
+				board_1to1_answer.setAnswerno(rs.getInt("answerno"));
+				board_1to1_answer.setBoardno(rs.getInt("boardno"));
+				board_1to1_answer.setWriter_userid(rs.getString("writer_userid"));
+				board_1to1_answer.setContent(rs.getString("content"));
+				board_1to1_answer.setWrittendate(rs.getDate("writtendate"));
+
+				alist.add(board_1to1_answer);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+		return alist;
+	
+	}
+
+	@Override
+	public Board_1to1_answer selectBoard_answerByBoardno(Board_1to1_answer answerBoard) {
+		//게시글 조회 쿼리
+		String sql = "";
+		sql += "SELECT answerno, boardno, writer_userid, content, writtendate FROM board_1to1_answer";
+		sql += " WHERE answerno = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, answerBoard.getAnswerno());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				answerBoard.setAnswerno( rs.getInt("answerno"));
+				answerBoard.setBoardno( rs.getInt("boardno"));
+				answerBoard.setWriter_userid( rs.getString("writer_userid"));
+				answerBoard.setContent( rs.getString("content"));
+				answerBoard.setWrittendate( rs.getDate("writtendate"));	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//자원해제
+			try{
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+	}
+		return answerBoard;	
+	}
+
+	@Override
+	public void delete(Board_1to1 board_1to1) {
+
+		String sql = "";
+		sql += "DELETE board_1to1";
+		sql += " WHERE boardno = ?";
+		
+		//DB객체
+		PreparedStatement ps = null;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, board_1to1.getBoardno());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 담기
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

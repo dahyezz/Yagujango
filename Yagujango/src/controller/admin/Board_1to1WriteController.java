@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Board_1to1;
+import dto.Board_1to1_answer;
 import dto.Stadium;
 import service.face.AdminService;
 import service.face.ReserveService;
@@ -46,9 +47,18 @@ public class Board_1to1WriteController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		//게시글 번호 파싱
+		Board_1to1 viewBoard = adminService.getBoardno(req);
+		
+		//게시글 조회
+		viewBoard = adminService.view(viewBoard);
+		
+		Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+		board_1to1_answer.setWriter_userid(viewBoard.getWriter_userid());
+		
 		// 작성글 삽입
-		adminService.write(req);
+		adminService.write(board_1to1_answer,req);
 		
 		//목록으로 리다이렉션
 		resp.sendRedirect("/admin/board_1to1");

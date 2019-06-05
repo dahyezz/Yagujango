@@ -98,22 +98,23 @@ public class AdminServiceImpl implements AdminService{
 
 	//답변작성
 	@Override
-	public void write(HttpServletRequest req) {
+	public void write(Board_1to1_answer board_1to1_answer,HttpServletRequest req) {
 
 		try {
 			req.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
-		HttpSession session = req.getSession();
+		//Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+		//HttpSession session = req.getSession();
 				
 		//write 폼 전달 값
 		board_1to1_answer.setBoardno(Integer.parseInt(req.getParameter("boardno")));
 		board_1to1_answer.setContent(req.getParameter("content"));
-		
+		//board_1to1_answer.setWriter_userid(req.getParameter("writer_userid"));
+
 		//session 값
-		board_1to1_answer.setWriter_userid((String)session.getAttribute("userid"));
+	//	board_1to1_answer.setWriter_userid((String)session.getAttribute("userid"));
 		
 		System.out.println(board_1to1_answer);
 
@@ -121,6 +122,45 @@ public class AdminServiceImpl implements AdminService{
 		
 
 
+	}
+
+	@Override
+	public List agetList(Paging paging) {
+		//답변완료목록리스트
+				
+		return adminDao.aselectAll(paging);
+
+	}
+
+	//답변완료 VIEW
+	@Override
+	public Board_1to1_answer AgetBoardno(HttpServletRequest req) {
+		String param = req.getParameter("answerno");
+		int answerno = 0;
+		if(param!=null && !"".equals(param)) {
+			answerno = Integer.parseInt(param);
+		}
+		
+		//Board_1to1 ��ü ����
+		Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+		board_1to1_answer.setAnswerno(answerno);
+		
+		return board_1to1_answer;
+	}
+
+	//답변완료 VIEW
+	@Override
+	public Board_1to1_answer Aview(Board_1to1_answer answerBoard) {
+	
+		return adminDao.selectBoard_answerByBoardno(answerBoard);
+
+	}
+
+	@Override
+	public void delete(Board_1to1 board_1to1) {
+
+		adminDao.delete(board_1to1);
+		
 	}
 	
 }

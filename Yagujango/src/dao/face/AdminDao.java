@@ -41,4 +41,16 @@ public interface AdminDao {
 	 */
 	public void insert(Board_1to1_answer board_1to1_answer);
 
+	//답변완료목록리스트
+	public List aselectAll(Paging paging);
+
+	//답변완료 view
+	public Board_1to1_answer selectBoard_answerByBoardno(Board_1to1_answer answerBoard);
+	/**
+	 * 게시글 삭제
+	 * 
+	 * @param board_1to1 - 삭제할 게시글번호를 담은 객체
+	 */
+	public void delete(Board_1to1 board_1to1);
+
 }
