@@ -538,4 +538,22 @@ public class ReserveDaoImpl implements ReserveDao {
 
 	}
 
+	@Override
+	public void deletetSeatInfoByTicket(int ticketcode) {
+		
+		String sql = "";
+		sql += "DELETE FROM ticket";
+		sql += " WHERE ticket_code = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, ticketcode);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
