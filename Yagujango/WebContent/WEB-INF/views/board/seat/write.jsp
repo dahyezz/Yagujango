@@ -18,6 +18,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 <script type="text/javascript">
+var fileurl = "";
 $(document).ready(function() {
     $('#summernote').summernote({
             height: 300,                 // set editor height
@@ -25,6 +26,18 @@ $(document).ready(function() {
             maxHeight: null,             // set maximum height of editor
             focus: true,				 // set focus to editable area after initializing summernote
 			lang: 'ko-KR',
+			toolbar: [
+		        ['style', ['style']],
+		        ['font', ['bold', 'italic', 'underline', 'clear']],
+		        ['fontname', ['fontname']],
+		        ['color', ['color']],
+		        ['para', ['ul', 'ol', 'paragraph']],
+		        ['height', ['height']],
+		        ['table', ['table']],
+		        ['insert', ['media', 'link', 'hr', 'picture']],
+		        ['view', ['fullscreen', 'codeview']],
+		        ['help', ['help']]
+		    ],
 			callbacks: {
 				onImageUpload: function(files, editor) {
 					sendFile(files[0],editor);
@@ -48,18 +61,50 @@ function sendFile(file, editor) {
 	        success : function(url) { // 처리가 성공할 경우
            		 // 에디터에 이미지 출력   
 	        	$("#summernote").summernote('insertImage', url);
+	        	
+	        	$('#summernote').summernote({
+	    			toolbar: [
+	    		        ['style', ['style']],
+	    		        ['font', ['bold', 'italic', 'underline', 'clear']],
+	    		        ['fontname', ['fontname']],
+	    		        ['color', ['color']],
+	    		        ['para', ['ul', 'ol', 'paragraph']],
+	    		        ['height', ['height']],
+	    		        ['table', ['table']],
+	    		        ['insert', ['link', 'hr']],
+	    		        ['view', ['fullscreen', 'codeview']],
+	    		        ['help', ['help']]
+	    		    ]
+	        	 });
+	        	fileurl = url;
+	        	
+	        	console.log(fileurl);
 	        }
 	    });
 	}
-function postForm() {
-    $('textarea[name="content"]').val($('#summernote').summernote('code'));
-}
+// function postForm() {
+// 	$(this).append($("<input>").attr("name", "fileurl").val(fileurl));
+	
+// 	return false;
+// 	var code = $('#summernote').summernote('code');
+	
+	
+//     $('textarea[name="content"]').val(code);
+// }
 
-
+$(document).ready(function() {
+	$("#fo").submit(function() {
+		$(this).append($("<input>").attr("type", "hidden").attr("name", "fileurl").val(fileurl));
+		var code = $('#summernote').summernote('code');
+	    $('textarea[name="content"]').val(code);
+		$(this).submit();
+	})
+})
 </script>
 </head>
 <body>
-<form action="/board/seat/write" method="post" onsubmit="postForm()">
+<!-- <form action="/board/seat/write" method="post" onsubmit="postForm()"> -->
+<form action="/board/seat/write" method="post" id="fo">
 <table>
 <tr><td class="info">아이디</td><td>${userid }</td></tr>
 <tr><td class="info">구장명</td><td>

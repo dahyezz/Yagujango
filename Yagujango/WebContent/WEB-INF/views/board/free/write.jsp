@@ -24,6 +24,18 @@ $(document).ready(function() {
             maxHeight: null,             // set maximum height of editor
             focus: true,				 // set focus to editable area after initializing summernote
 			lang: 'ko-KR',
+			toolbar: [
+		        ['style', ['style']],
+		        ['font', ['bold', 'italic', 'underline', 'clear']],
+		        ['fontname', ['fontname']],
+		        ['color', ['color']],
+		        ['para', ['ul', 'ol', 'paragraph']],
+		        ['height', ['height']],
+		        ['table', ['table']],
+		        ['insert', ['media', 'link', 'hr', 'picture']],
+		        ['view', ['fullscreen', 'codeview']],
+		        ['help', ['help']]
+		      ],
 			callbacks: {
 				onImageUpload: function(files, editor) {
 					sendFile(files[0],editor);
