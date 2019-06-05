@@ -90,7 +90,7 @@ table {
 	border-collapse: collapse;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
-	width:1100px;
+	width: 80%;
 }
 .matchtable th, td{
  	border: 1px solid #ddd;
@@ -110,9 +110,9 @@ table {
 
 .matchList {
 	text-align:left;
-	padding:100px;
-	width:50%;
-	margin: 0 200px;
+	padding: 0;
+	width: 90%;
+	margin: 0 10% 10% 250px;
 }
 .statictable{
 	font-size: 13px;

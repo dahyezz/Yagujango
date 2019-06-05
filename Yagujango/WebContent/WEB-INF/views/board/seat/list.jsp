@@ -115,7 +115,7 @@ function checklist(){
 		<c:if test="${usernick eq '관리자'}">
 		<th><input id="allCheck" type="checkbox" onclick="allChk(this);"/></th>
 		</c:if>
-		<th style="width: 10%;">글번호</th>
+		<th style="width: 10%;"></th>
 		<th style="width: 45%;">제목</th>
 		<th style="width: 15%;">작성자</th>
 		<th style="width: 10%;">조회수</th>
@@ -129,7 +129,14 @@ function checklist(){
 			<c:if test="${usernick eq '관리자'}">
 			<td><input name="rowCheck" type="checkbox" value="${i.boardno}" /></td>
 			</c:if>
-			<td>${i.boardno}</td>
+			<td>
+				<c:if test="${i.fileurl ne null }">
+				<img src="${i.fileurl}" style="width:100px;height:70px;"/>
+				</c:if>
+				<c:if test="${i.fileurl eq null }">
+				<img src="http://localhost:8088/upload/default.jpg" style="width:100px;height:70px;"/>
+				</c:if>
+			</td>
 			<td class="content">${i.stadium_name} 구장 ${i.seat_block }열 ${i.seat_number }번 좌석</td>
 			<td>${i.writer }</td>
 			<td>${i.hit }</td>

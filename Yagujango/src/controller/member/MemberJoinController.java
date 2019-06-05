@@ -3,7 +3,6 @@ package controller.member;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +31,7 @@ public class MemberJoinController extends HttpServlet {
 		//요청파라미터 한글 처리 인코딩 설정 (UTF-8)
 		req.setCharacterEncoding("utf-8");
 		
+		//요청 파라미터 정보 삽입
 		Member member = new Member();
 		
 		member.setUserid(req.getParameter("userid"));
@@ -49,13 +49,19 @@ public class MemberJoinController extends HttpServlet {
 		member.setEmail(req.getParameter("email"));
 		member.setMyteam(req.getParameter("myteam"));
 		
+		//아이디 중복 확인
 		boolean idOverlap=memberService.idOverlap(member);
+		
+		//블랙리스트 체크
 		boolean blacklistCheck=memberService.blacklistCheck(member);
 		
+		//아이디 중복되지 않으면
 		if(idOverlap) {
-			req.setAttribute("idOverlap", true);
+			req.setAttribute("idOverlap", idOverlap);
 			
+			//블랙리스트가 아니면
 			if(blacklistCheck){
+				//회원가입
 				memberService.join(member);
 			}
 			

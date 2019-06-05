@@ -110,10 +110,15 @@ public interface ReserveService {
 	 * 
 	 * @param match - 해당 경기의 match_code
 	 * @param selectseat - 선택한 좌석들(문자열)
+	 * @return Integer - 예매 완료한 티켓들의 리스트
 	 */
+
 	public List<Integer> addTicket(Match match, String selectseat);
 
 	public void deletetSeatInfoByTicket(int i);
+
+
+	public List<Seat> getResevedSeatList(Match match);
 
 
 }

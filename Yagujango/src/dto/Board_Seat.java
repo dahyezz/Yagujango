@@ -11,12 +11,12 @@ public class Board_Seat {
 	private String writer;
 	private int hit;
 	private Date writtendate;
-	private String filename;
+	private String fileurl;
 	@Override
 	public String toString() {
 		return "Board_Seat [boardno=" + boardno + ", stadium_name=" + stadium_name + ", seat_block=" + seat_block
 				+ ", seat_number=" + seat_number + ", content=" + content + ", writer=" + writer + ", hit=" + hit
-				+ ", writtendate=" + writtendate + ", filename=" + filename + "]";
+				+ ", writtendate=" + writtendate + ", fileurl=" + fileurl + "]";
 	}
 	public int getBoardno() {
 		return boardno;
@@ -66,11 +66,11 @@ public class Board_Seat {
 	public void setWrittendate(Date writtendate) {
 		this.writtendate = writtendate;
 	}
-	public String getFilename() {
-		return filename;
+	public String getFileurl() {
+		return fileurl;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setFileurl(String fileurl) {
+		this.fileurl = fileurl;
 	}
-	
+
 }

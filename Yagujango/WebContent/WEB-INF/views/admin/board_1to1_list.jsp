@@ -14,6 +14,11 @@ $(document).ready(function() {
  		$(location).attr("href","/admin/list");
 	});
 	
+	//답변리스트
+	$("#btnaList").click(function() {
+ 		$(location).attr("href","/answer/list");
+	});
+	
 });
 </script>
 
@@ -22,6 +27,7 @@ $(document).ready(function() {
 <hr>
 
 <button id="btnList" class="btn btn-list">회원리스트</button>
+<button id="btnaList" class="btn btn-list">답변완료목록</button>
 
 <table class="table table-striped table-hover table-condensed">
 <thead>

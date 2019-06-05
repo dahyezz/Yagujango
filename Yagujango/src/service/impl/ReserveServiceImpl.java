@@ -158,6 +158,7 @@ public class ReserveServiceImpl implements ReserveService{
         return sDate;
 	}
 	
+
    @Override
 	public List<Integer>  addTicket(Match match, String selectseat) {
       
@@ -184,5 +185,10 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public void deletetSeatInfoByTicket(int ticketcode) {
 		reserveDao.deletetSeatInfoByTicket(ticketcode);
+	}
+	
+	@Override
+	public List<Seat> getResevedSeatList(Match match) {
+		return reserveDao.getReservedSeatListByMatchCode(match);
 	}
 }
