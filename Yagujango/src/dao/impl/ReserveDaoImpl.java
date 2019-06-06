@@ -1,4 +1,5 @@
 package dao.impl;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -319,7 +320,8 @@ public class ReserveDaoImpl implements ReserveDao {
 		sql += " FROM ticket";
 		sql += " INNER JOIN seat";
 		sql += " ON ticket.seat_code = seat.seat_code AND ticket.match_code = ?";
-		
+		sql += " ORDER BY ticket_code DESC";
+
 		List<Ticket> ticketList = new ArrayList<Ticket>();
 		try {
 			ps = conn.prepareStatement(sql);
@@ -350,36 +352,6 @@ public class ReserveDaoImpl implements ReserveDao {
 		return ticketList;
 	}
 	
-
-
-	@Override
-	public void insertReserve(Reserve receive) {
-		String sql = "";
-		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date, ticket_quantity, how_receive)";
-		sql += " VALUES (reserve_seq.nextval, ?, ?, ?, ?, 1, ?)";
-		try {
-			//DB작업
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, receive.getTicket_code());
-			ps.setInt(2, receive.getUserno());
-			ps.setString(3, receive.getPayment());
-			ps.setDate(4, (Date) receive.getPayment_date());
-			ps.setString(5, receive.getHow_receive());
-
-			ps.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				//DB객체 닫기
-				if(ps!=null)	ps.close();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 
 	@Override
 	public Member getUserNo(String userid) {
@@ -555,5 +527,39 @@ public class ReserveDaoImpl implements ReserveDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	@Override
+	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
+		String sql = "";
+		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date, ticket_quantity, how_receive)";
+		sql += " VALUES (?||?||?, ?, ?, ?, ?, 1, ?)";
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, codedate);
+			ps.setInt(2, matchcode);
+			ps.setInt(3, userno);
 
+			ps.setInt(4, reserve.getTicket_code());
+			ps.setInt(5, reserve.getUserno());
+			ps.setString(6, reserve.getPayment());
+			ps.setDate(7, (Date)reserve.getPayment_date());
+			ps.setString(8, reserve.getHow_receive());
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

@@ -53,9 +53,6 @@ public interface ReserveDao {
 
 	List<Ticket> selectSeatInfo(Match match);
 
-
-	void insertReserve(Reserve receive);
-
 	Member getUserNo(String userid);
 
 	int selectSeatcodeBySeatInfo(String seat_block, int seat_number);
@@ -69,6 +66,6 @@ public interface ReserveDao {
 
 	List<Seat> getReservedSeatListByMatchCode(Match match);
 
-
+	void insertReserve(Reserve reserve, int codedate, int matchcode, int userno);
 
 }

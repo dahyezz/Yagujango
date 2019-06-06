@@ -15,8 +15,8 @@
 <script type="text/javascript">
 	function cancle() {
 		$('#deleteseat').submit();
-		alert("결제를 취소하시겠습니까?")
-// 		close();
+		alert("결제를 취소하시겠습니까?");
+// 		self.close();
 	}
 	
 	function payment() {
@@ -93,11 +93,13 @@ a { text-decoration:none }
 	<form id="selectpayment" name="selectpayment" action="/reserve/payment" method="post">
   	<h3>결제 방법</h3><br>
   		<input type="hidden" name="deleteparam" id="deleteparam" value="insert"/>
+		<input type="hidden" name="count" id="count" value="${count }"/>
   		<input type="hidden" name="userno" id="userno" value="${memberno }"/>
   		<c:forEach items="${seatinfo }" var="i" varStatus="status">
 			<input type="hidden" name="ticket_code" id="ticket_code" value="${i.ticket_code }"/>
 	  		<input type="hidden" name="price" id="price" value="${i.price }"/>
 		</c:forEach>
+		 <input type="hidden" name="ticketparam" id="ticketparam" value="${ticketcode }"/>
   		<input type="hidden" name="match_date" id="match_date" value="${match.match_date }"/>
   		<input type="hidden" name="receive" id="receive" value="${receive }"/>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
@@ -123,7 +125,9 @@ a { text-decoration:none }
 		<th>선택좌석</th>
 		<td>
 		<c:forEach items="${seatinfo }" var="i">
-			${i.seat_block }블럭 ${i.seat_number }석<br>
+			<c:if test="${param.ticket_code <= i.ticket_code}">
+				${i.seat_block }블럭 ${i.seat_number }석<br>
+			</c:if>
 		</c:forEach>
 		</td>
 	</tr>
@@ -132,7 +136,9 @@ a { text-decoration:none }
 		<td>
 		<c:set var = "total" value ="0"/>
 		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:set var = "total" value="${total + i.price }"/>
+			<c:if test="${param.ticket_code <= i.ticket_code}">
+				<c:set var = "total" value="${total + i.price }"/>
+			</c:if>
 		</c:forEach>
 		${total }원
 		</td>
@@ -159,7 +165,9 @@ a { text-decoration:none }
 		<th>
 		<c:set var = "total" value ="0"/>
 		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:set var = "total" value="${total + i.price }"/>
+			<c:if test="${param.ticket_code <= i.ticket_code}">
+				<c:set var = "total" value="${total + i.price }"/>
+			</c:if>
 		</c:forEach>
 		${total }원
 		</th>
