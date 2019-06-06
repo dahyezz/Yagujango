@@ -24,7 +24,6 @@ public class SelectReceiveController extends HttpServlet {
 	
 	private ReserveService reserveService = new ReserveServiceImpl();
 	private Match match = new Match();
-	private Ticket ticket = new Ticket();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

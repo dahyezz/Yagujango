@@ -91,6 +91,7 @@ a { text-decoration:none }
   		<input type="hidden" name="ticket_code" id="ticket_code" value="${param.ticket_code }"/>
 		<input type="hidden" name="count" id="count" value="${param.count }"/>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
+  		<input type="hidden" name="match_date" id="match_date" value="${match.match_date }"/>
 	  	<label id='bacode'><input type='radio' name='receive' id='bacode' value='바코드발급' />바코드발급</label><p>
 	  	<label id='place'><input type='radio' name='receive' id='place' value='현장발권' />현장발권</label>
 	</form>
@@ -116,7 +117,9 @@ a { text-decoration:none }
 		<th>선택좌석</th>
 		<td>
 		<c:forEach items="${seatinfo }" var="i">
-			${i.seat_block }블럭 ${i.seat_number }석<br>
+			<c:if test="${param.ticket_code <= i.ticket_code}">
+				${i.seat_block }블럭 ${i.seat_number }석<br>
+			</c:if>
 		</c:forEach>
 		</td>
 	</tr>
@@ -125,7 +128,9 @@ a { text-decoration:none }
 		<td>
 		<c:set var = "total" value ="0"/>
 		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:set var = "total" value="${total + i.price }"/>
+			<c:if test="${param.ticket_code <= i.ticket_code}">
+				<c:set var = "total" value="${total + i.price }"/>
+			</c:if>
 		</c:forEach>
 		${total }원
 		
@@ -152,7 +157,9 @@ a { text-decoration:none }
 		<th>
 		<c:set var = "total" value ="0"/>
 		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:set var = "total" value="${total + i.price }"/>
+			<c:if test="${param.ticket_code <= i.ticket_code}">
+				<c:set var = "total" value="${total + i.price }"/>
+			</c:if>
 		</c:forEach>
 		${total }원
 		</th>

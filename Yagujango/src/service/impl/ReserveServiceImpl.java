@@ -129,8 +129,8 @@ public class ReserveServiceImpl implements ReserveService{
 
 
 	@Override
-	public void insertReserve(Reserve receive) {
-		reserveDao.insertReserve(receive);
+	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
+		reserveDao.insertReserve(reserve, codedate, matchcode, userno);
 	}
 
 	@Override
@@ -191,4 +191,5 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Seat> getResevedSeatList(Match match) {
 		return reserveDao.getReservedSeatListByMatchCode(match);
 	}
+
 }

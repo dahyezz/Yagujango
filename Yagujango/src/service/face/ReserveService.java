@@ -99,7 +99,7 @@ public interface ReserveService {
 
 
 
-	public void insertReserve(Reserve receive);
+	public void insertReserve(Reserve receive, int codedate, int matchcode, int userno);
 	
 	public Member getUserNo(String userid);
 
