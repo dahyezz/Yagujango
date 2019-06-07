@@ -24,7 +24,63 @@ $(document).ready(function() {
  		location.href="/admin/list?keyword="+$("#keyword").val();
 	});
 	
+	// 선택체크 삭제
+	$("#btnDelete").click(function() {
+		// 선택된 체크박스
+		var $checkboxes = $("input:checkbox[name='checkRow']:checked");
+		
+		//방법2
+		// 체크된 대상들을 map으로 만들고 map을 문자열로 만들기
+		var map = $checkboxes.map(function() {
+			return $(this).val();
+		});
+		var names = map.get().join(",");
+// 		console.log("names : " + names);
+
+// 		console.log($checkboxes);
+// 		console.log( "map:" + map );	// 맵
+// 		console.log( "map->array : " + map.get() );	// 맵->배열
+// 		console.log( "array tostring : " + map.get().join(",") ); // toString
+		
+	
+	// 전송 폼
+	var $form = $("<form>")
+		.attr("action", "/admin/listDelete")
+		.attr("method", "post")
+		.append(
+			$("<input>")
+				.attr("type", "hidden")
+				.attr("name", "names")
+				.attr("value", names)
+		);
+	$(document.body).append($form);
+	$form.submit();
+	
+	});
 });
+
+//전체 체크/해제
+function checkAll() {
+	// checkbox들
+	var $checkboxes=$("input:checkbox[name='checkRow']");
+
+	// checkAll 체크상태 (true:전체선택, false:전체해제)
+	var check_status = $("#checkAll").is(":checked");
+	
+	if( check_status ) {
+		// 전체 체크박스를 checked로 바꾸기
+		$checkboxes.each(function() {
+			this.checked = true;	
+		});
+	} else {
+		// 전체 체크박스를 checked 해제하기
+		$checkboxes.each(function() {
+			this.checked = false;	
+		});
+	}
+}
+
+
 </script>
 
 <meta charset="UTF-8">
@@ -47,6 +103,7 @@ $(document).ready(function() {
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
+		<th><input type="checkbox" id="checkAll" onclick="checkAll();" /></th>
 		<th style="width: 5%;">번호</th>
 		<th style="width: 10%;">아이디</th>
 		<th style="width: 10%;">비밀번호</th>		
@@ -62,6 +119,7 @@ $(document).ready(function() {
 </thead>
 <c:forEach items="${mlist}" var="m">
 	<tr>
+		<td><input type="checkbox" name="checkRow" value="${m.userno }" /></td>
 		<td>${m.userno }</td>
 		<td>${m.userid }</td>
 		<td>${m.userpw }</td>
@@ -77,6 +135,10 @@ $(document).ready(function() {
 	</tr>
 </c:forEach>
 </table>
+
+<button id="btnDelete" class="btn btn-warning pull-left">삭제</button>
+<div class="clearfix"></div>
+
 </div>
 
 <div class="form-inline text-center">

@@ -405,7 +405,8 @@ public class AdminDaoImpl implements AdminDao{
 	}
 		return answerBoard;	
 	}
-
+	
+	//1:1질문삭제
 	@Override
 	public void delete(Board_1to1 board_1to1) {
 
@@ -434,4 +435,91 @@ public class AdminDaoImpl implements AdminDao{
 			}
 		}
 	}
+	//답변삭제
+	@Override
+	public void Adelete(Board_1to1_answer board_1to1_answer) {
+		String sql = "";
+		sql += "DELETE board_1to1_answer";
+		sql += " WHERE answerno = ?";
+		
+		//DB객체
+		PreparedStatement ps = null;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, board_1to1_answer.getAnswerno());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 담기
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	//답변수정
+	@Override
+	public void update(Board_1to1_answer board_1to1_answer) {
+
+		String sql = "";
+		sql += "UPDATE board_1to1_answer";
+		sql += " SET content = ?";
+		sql += " WHERE answerno = ?";
+		
+		//DB 객체
+		PreparedStatement ps = null; 
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_1to1_answer.getContent());
+			ps.setInt(2, board_1to1_answer.getAnswerno());
+
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	//멤버 체크선택삭제
+	@Override
+	public void deleteMemberList(String names) {
+		
+		String sql = "DELETE FROM member WHERE userno IN ( "+names+" )";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
 }

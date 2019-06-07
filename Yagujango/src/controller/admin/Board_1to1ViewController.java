@@ -26,6 +26,7 @@ public class Board_1to1ViewController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
+		req.setCharacterEncoding("UTF-8");
 		
 		//게시글 번호 파싱
 		Board_1to1 viewBoard = adminService.getBoardno(req);

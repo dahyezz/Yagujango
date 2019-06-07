@@ -53,4 +53,10 @@ public interface AdminDao {
 	 */
 	public void delete(Board_1to1 board_1to1);
 
+	public void Adelete(Board_1to1_answer board_1to1_answer);
+
+	public void update(Board_1to1_answer board_1to1_answer);
+
+	public void deleteMemberList(String names);
+
 }

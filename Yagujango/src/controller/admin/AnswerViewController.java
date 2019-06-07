@@ -30,6 +30,9 @@ public class AnswerViewController extends HttpServlet {
 //		System.out.println(viewBoard.getContent());
 //
 ///////////////////////////////////////////////////////////////////		
+		
+		resp.setCharacterEncoding("utf-8");
+
 		//게시글 번호 파싱
 		Board_1to1_answer answerBoard = adminService.AgetBoardno(req);
 		
@@ -42,7 +45,9 @@ public class AnswerViewController extends HttpServlet {
 		// 문의 내용조회
 		viewBoard = adminService.view(viewBoard);
 		req.setAttribute("viewcontent", viewBoard.getContent());
-		
+		req.setAttribute("viewdate", viewBoard.getWrittendate());
+
+		resp.setCharacterEncoding("utf-8");
 		
 		//model로 게시글 전달
 		req.setAttribute("answerBoard", answerBoard);
