@@ -12,40 +12,60 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#btnPwfind").click(function(){
+
+var httpRequest = null;
+
+//httpRequest 객체 생성
+function getXMLHttpRequest(){
+ var httpRequest = null;
+
+ if(window.ActiveXObject){
+     try{
+         httpRequest = new ActiveXObject("Msxml2.XMLHTTP");    
+     } catch(e) {
+         try{
+             httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+         } catch (e2) { httpRequest = null; }
+     }
+ }
+ else if(window.XMLHttpRequest){
+     httpRequest = new window.XMLHttpRequest();
+ }
+ return httpRequest;    
+}
+
+function pwFind(){
+	var username=document.getElementById("username").value;
+	var email=document.getElementById("email").value;
+	var userid=document.getElementById("userid").value;
+	
+	if(!username){
+		alert("이름을 입력하지 않았습니다");
+		return false;
+	} else if(!email){
+		alert("이메일을 입력하지 않았습니다");
+		return false;
+	} else if(!userid){
+		alert("아이디를 입력하지 않았습니다");
+		return false;
+	} else{
+		var param="username="+username+"&email="+email+"&userid="+userid;
+		httpRequest=getXMLHttpRequest();
+		httpRequest.onreadystatechange=callback;
+		httpRequest.open("POST","/member/pwFind",true);
+		httpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		httpRequest.send(param);
+	}
+}
+
+function callback(){
+	if(httpRequest.readyState==4){
+		var resultText=httpRequest.responseText;
 		
-		//id가 username, email인 객체를 변수에 저장
-		var Username=$("#username").val();
-		var Email=$("#email").val();
-		var Userid=$("#userid").val();
-		
-		//요청 url
-		var url="/member/pwFind_ok.jsp";
-		
-		//요청파라미터
-		var data={username:Username, email:Email, userid:Userid};
-		
-		//변수의 value가 공백이면 alert창 띄우고 return false를 함
-		if(Username ==""){
-			alert("이름을 입력하세요");
-			return;
-		}
-		if(Email ==""){
-			alert("이메일을 입력하세요");
-			return;
-		}
-		if(Userid ==""){
-			alert("아이디를 입력하세요");
-			return;
-		}
-		
-		//Ajax 요청 보내기
-		$.post(url, data, function(res){
-			$("#result").html(res);
-		});
-	});
-});
+		document.getElementById("result").innerHTML=resultText;
+	}
+}
+</script>
 </script>
 
 </head>
@@ -59,7 +79,7 @@ $(document).ready(function(){
 	<label for="userid">아이디</label><br>
 	<input type="text" id="userid" name="userid" /><br><br>
 	
-	<button id="btnPwfind">비밀번호 찾기</button>
+	<input type="button" value="비밀번호 찾기" onclick="pwFind()"/>
 </form>
 
 <div id="result"></div> 

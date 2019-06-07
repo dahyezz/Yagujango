@@ -7,61 +7,80 @@
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <script type="text/javascript">
-function inputCheck(obj){
-	if(obj.userid.value==""){
+function inputCheck(){
+	
+	var join=document.joinForm;
+	
+	if(join.userid.value==""){
 		alert("아이디를 입력해주세요");
 		obj.userid.focus();
 		return false;
 	}
-	if(obj.userpw.value==""){
+	if(join.idUncheck.value!="idCheck"){
+		alert("아이디 중복체크를 해주세요");
+		return false;
+	}
+	if(join.userpw.value==""){
 		alert("비밀번호를 입력해주세요");
 		obj.userpw.focus();
 		return false;
 	}
-	if(obj.useripwCheck.value==""){
-		alert("비밀번호 확인을 입력해주세요");
+	if(join.userpw.value!=join.userpwCheck.value){
+		alert("비밀번호를 동일하게 입력해주세요");
 		obj.userpwCheck.focus();
 		return false;
 	}
-	if(obj.usernick.value==""){
+	if(join.usernick.value==""){
 		alert("닉네임을 입력해주세요");
 		obj.usernick.focus();
 		return false;
 	}
-	if(obj.username.value==""){
+	if(join.username.value==""){
 		alert("이름을 입력해주세요");
 		obj.useriname.focus();
 		return false;
 	}
-	if(obj.birth.value==""){
+	if(join.birth.value==""){
 		alert("생년월일을 입력해주세요");
 		obj.birth.focus();
 		return false;
 	}
-	if(obj.phone.value==""){
+	if(join.phone.value==""){
 		alert("핸드폰번호를 입력해주세요");
 		obj.phone.focus();
 		return false;
 	}
-	if(obj.email.value==""){
+	if(join.email.value==""){
 		alert("이메일을 입력해주세요");
 		obj.email.focus();
 		return false;
 	}
 }
 
-$(document).ready(function(){
+function openIdCheck(){
+	window.name="parentForm";
+	window.open("/member/idOverlap","아이디 중복 확인","width=300, height=300, left=600, top=200")
+}
+
+//아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅
+//아이디 중복체크 후 다시 아이디 창이 새로운 아이디를 입력했을 때 다시 중복체크를 하도록 한다
+function inputIdCheck(){
+	document.joinForm.idUncheck.value="idUncheck";
+}
+
+
+// $(document).ready(function(){
 	
-	$("#idOverlap").click(function(){
-		if($(idOverlap)){
-			alert("사용 가능한 아이디 입니다");
-		} else{
-			alert("이미 사용중인 아이디 입니다");
-			$("#userid").value="";
-			$("#userid").focus();
-		}
-	});
-});
+// 	$("#idOverlap").click(function(){
+// 		if($(idOverlap)){
+// 			alert("사용 가능한 아이디 입니다");
+// 		} else{
+// 			alert("이미 사용중인 아이디 입니다");
+// 			$("#userid").value="";
+// 			$("#userid").focus();
+// 		}
+// 	});
+// });
 
 </script>
 
@@ -76,12 +95,16 @@ th{
 <h1>회원가입</h1>
 <hr>
 
-<form action="/member/join" method="post" onsubmit="return inputCheck(this)">
+<form action="/member/join" method="post" name="joinForm" onsubmit="return inputCheck()">
 	<table>
 	<tr><th>아이디</th></tr>
 	<tr>
-		<td><input type="text" name="userid" /></td>
-		<td><input type=button id="idOverlap" value="아이디 중복 확인"/></td>
+		<td><input type="text" name="userid" onkeydown="inputIdCheck()"/></td>
+			<!-- onkeydown이벤트 : 사용자가 중복체크를 하고 난 뒤 아이디 입력란에 사용 가능한 아이디를 지우고
+				새로운 아이디를 입력했을 경우 대처하기 위한 이벤트. 중복체크가 되지 않은것으로 처리 -->
+		<td><input type=button onclick="openIdCheck()" value="아이디 중복 체크"/>
+			<input type="hidden" name="idUncheck" value="idUncheck"></td>
+			<!-- value가 idUnckeck이면 중복체크를 하지 않은것 -->
 	</tr>
 	
 	<tr><th>비밀번호</th></tr>
@@ -146,16 +169,16 @@ th{
 		<td>
 		<select name="myteam">
 			<option value="0" selected>없음</option>
-			<option value="">KIA 타이거즈</option>
-			<option value="">KT 위즈</option>
-			<option value="">LG 트윈스</option>
-			<option value="">NC 다이노스</option>
-			<option value="">SK 와이번스</option>
-			<option value="">두산 베어스</option>
-			<option value="">롯데 자이언츠</option>
-			<option value="">삼성 라이온즈</option>
-			<option value="">키움 히어로즈</option>
-			<option value="">한화 이글스</option>
+			<option value="KIA">KIA 타이거즈</option>
+			<option value="KT">KT 위즈</option>
+			<option value="LG">LG 트윈스</option>
+			<option value="NC">NC 다이노스</option>
+			<option value="SK">SK 와이번스</option>
+			<option value="두산">두산 베어스</option>
+			<option value="롯데">롯데 자이언츠</option>
+			<option value="삼성">삼성 라이온즈</option>
+			<option value="키움">키움 히어로즈</option>
+			<option value="한화">한화 이글스</option>
 		</select>
 		</td>
 	</tr>

@@ -1,6 +1,7 @@
 package controller.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,14 +38,16 @@ public class MemberPwfindController extends HttpServlet {
 		
 		boolean pwFind = memberService.pwFind(member);
 		
-		if(pwFind) {
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out=resp.getWriter();
+		
+		if(pwFind) {	//비밀번호가 있으면
 			
 			Member mem = memberService.getPwfind(member);
 			
-			req.setAttribute("pwFind", true);
-			req.setAttribute("userpw", mem.getUserpw());
-			
-			req.getRequestDispatcher("/WEB-INF/views/member/pwFind_ok.jsp").forward(req, resp);	//뷰 지정
+			out.println("사용자의 비밀번호는 ["+mem.getUserpw()+"] 입니다");
+		} else {	//비밀번호가 없으면
+			out.println("이름과 이메일과 아이디와 일치하는 비밀번호가 없습니다");
 		}
 	}
 }

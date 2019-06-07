@@ -83,9 +83,9 @@ public class MemberServiceImpl implements MemberService{
 	public boolean idOverlap(Member member) {
 		
 		if(memberDao.selectCntMemberIdOverlap(member) >= 1)
-			return false;
-		else
 			return true;
+		else
+			return false;
 	}
 
 	@Override
