@@ -12,35 +12,55 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#btnIdfind").click(function(){
+
+var httpRequest = null;
+
+//httpRequest 객체 생성
+function getXMLHttpRequest(){
+ var httpRequest = null;
+
+ if(window.ActiveXObject){
+     try{
+         httpRequest = new ActiveXObject("Msxml2.XMLHTTP");    
+     } catch(e) {
+         try{
+             httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+         } catch (e2) { httpRequest = null; }
+     }
+ }
+ else if(window.XMLHttpRequest){
+     httpRequest = new window.XMLHttpRequest();
+ }
+ return httpRequest;    
+}
+
+function idFind(){
+	var username=document.getElementById("username").value;
+	var email=document.getElementById("email").value;
+	console.log(username);
+	if(!username){
+		alert("이름을 입력하지 않았습니다");
+		return false;
+	} else if(!email){
+		alert("이메일을 입력하지 않았습니다");
+		return false;
+	} else{
+		var param="username="+username+"&email="+email;
+		httpRequest=getXMLHttpRequest();
+		httpRequest.onreadystatechange=callback;
+		httpRequest.open("POST","/member/idFind",true);
+		httpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		httpRequest.send(param);
+	}
+}
+
+function callback(){
+	if(httpRequest.readyState==4){
+		var resultText=httpRequest.responseText;
 		
-		//id가 username, email인 객체를 변수에 저장
-		var Username=$("#username").val();
-		var Email=$("#email").val();
-		
-		//요청 url
-		var url="/member/idFind_ok.jsp";
-		
-		//요청파라미터
-		var data={username:Username, email:Email};
-		
-		//변수의 value가 공백이면 alert창 띄우고 return false를 함
-		if(Username ==""){
-			alert("이름을 입력하세요");
-			return;
-		}
-		if(Email ==""){
-			alert("이메일을 입력하세요");
-			return;
-		}
-		
-		//Ajax 요청 보내기
-		$.post(url, data, function(res){
-			$("#result").html(res);
-		});
-	});
-});
+		document.getElementById("result").innerHTML=resultText;
+	}
+}
 </script>
 
 </head>
@@ -52,9 +72,9 @@ $(document).ready(function(){
 	<label for="email">이메일</label><br>
 	<input type="text" id="email" name="email" /><br><br>
 	
-	<button id="btnIdfind">아이디 찾기</button>
+	<input type="button" value="아이디 찾기" onclick="idFind()"/>
 </form>
-
+<br>
 <div id="result"></div> 
 
 </body>

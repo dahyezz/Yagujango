@@ -22,6 +22,7 @@ public class MemberJoinController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		//View JSP 지정
 		req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
 	}
@@ -49,23 +50,14 @@ public class MemberJoinController extends HttpServlet {
 		member.setEmail(req.getParameter("email"));
 		member.setMyteam(req.getParameter("myteam"));
 		
-		//아이디 중복 확인
-		boolean idOverlap=memberService.idOverlap(member);
-		
 		//블랙리스트 체크
 		boolean blacklistCheck=memberService.blacklistCheck(member);
 		
-		//아이디 중복되지 않으면
-		if(idOverlap) {
-			req.setAttribute("idOverlap", idOverlap);
-			
-			//블랙리스트가 아니면
-			if(blacklistCheck){
+		if(blacklistCheck){
 				//회원가입
 				memberService.join(member);
 			}
 			
-			resp.sendRedirect("/main");
-		}
+		resp.sendRedirect("/main");
 	}
 }
