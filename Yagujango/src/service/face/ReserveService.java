@@ -120,5 +120,7 @@ public interface ReserveService {
 
 	public List<Seat> getResevedSeatList(Match match);
 
+	public List<Seat> getAllSeat();
+
 
 }
