@@ -162,5 +162,42 @@ public class AdminServiceImpl implements AdminService{
 		adminDao.delete(board_1to1);
 		
 	}
+
+	@Override
+	public void Adelete(Board_1to1_answer board_1to1_answer) {
+		
+		adminDao.Adelete(board_1to1_answer);
+		
+	}
+
+	@Override
+	public void update(Board_1to1_answer board_1to1_answer, HttpServletRequest req) {
+		try {
+			req.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		//Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+		//HttpSession session = req.getSession();
+				
+		//write 폼 전달 값
+		board_1to1_answer.setAnswerno(Integer.parseInt(req.getParameter("answerno")));
+		board_1to1_answer.setContent(req.getParameter("content"));
+		//board_1to1_answer.setWriter_userid(req.getParameter("writer_userid"));
+
+		//session 값
+	//	board_1to1_answer.setWriter_userid((String)session.getAttribute("userid"));
+		
+		System.out.println(board_1to1_answer);
+
+		adminDao.update(board_1to1_answer);		
+	}
+
+	@Override
+	public void memberListDelete(String names) {
+
+		adminDao.deleteMemberList(names);
+		
+	}
 	
 }

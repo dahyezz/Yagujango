@@ -8,31 +8,28 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	//목록버튼동작
-	$("#btnBoardList").click(function() {
- 		$(location).attr("href","/answer/list");
-	});
-	
-	//수정하기
+	//작성버튼 동작
 	$("#btnUpdate").click(function() {
-  		$(location).attr("href","/answer/update?answerno=${answerBoard.answerno}");
+		$("form").submit();
 	});
-	//삭제버튼동작
-	$("#btnDelete").click(function() {
- 		$(location).attr("href","/answer/delete?answerno=${answerBoard.answerno}");
+	//취소버튼동작
+	$("#btnCancel").click(function() {
+ 		history.go(-1);
 	});
 	
 });
 </script>
 
 <div class = "container">
-<h1>답변확인</h1>
+<h1>답변수정</h1>
 <hr>
 
 <div class="wrap"></div>
 <hr>
 
 <div class="wrap">
+<form action="/answer/update" method="post" method="post">
+<input type="hidden" name="answerno" value="${answerBoard.answerno}" />
 <table class="table table-striped table-hover table-condensed">
 <tbody>
 	<tr>
@@ -59,9 +56,9 @@ $(document).ready(function() {
 	<tr>
 		<td class="info">답변내용</td>
 	</tr>
-	<tr>
-		<td colspan="4">${answerBoard.content}</td>
-	</tr>
+	<tr><td colspan="2">답변작성
+		<textarea id="content" name="content" rows="10" cols="100">${answerBoard.content}</textarea>
+	</td></tr>
 	
 	<tr>
 		<td class="info">작성일</td>
@@ -69,11 +66,11 @@ $(document).ready(function() {
 	</tr>
 	</tbody>
 </table>
+</form>
 </div>
 <div class="text-center">
-<button id="btnBoardList" class="btn btn-list">1:1문의목록</button>
 <button id="btnUpdate" class="btn btn-update">수정하기</button>
-<button id="btnDelete" class="btn btn-danger">삭제</button>
+<button id="btnCancel" class="btn btn-danger">취소</button>
 </div>
 </div>
 

@@ -23,13 +23,16 @@ public class AnswerListController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		resp.setCharacterEncoding("utf-8");
+
 		//요청파라미터에서 curPage 얻어오기
 		Paging paging = adminService.getCurPage(req);
 		
 		//Model로 Paging 객체 넣기
 		req.setAttribute("paging", paging);
 		
-		
+		resp.setCharacterEncoding("utf-8");
+
 		//답변완료목록조회
 		List alist = adminService.agetList(paging);
 		

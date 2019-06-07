@@ -27,6 +27,8 @@ public class Board_1to1ListController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
+
 		//요청파라미터에서 curPage 얻어오기
 		Paging paging = adminService.getCurPage(req);
 		
