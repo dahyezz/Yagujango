@@ -13,4 +13,8 @@ public interface Board_SeatDao {
 
 	void Insert(Board_Seat board_seat);
 
+	void upHit(Board_Seat board_seat);
+
+	Board_Seat selectbyboardno(Board_Seat board_seat);
+
 }

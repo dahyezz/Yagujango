@@ -17,7 +17,9 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
+
     $('#summernote').summernote({
             height: 300,                 // set editor height
             minHeight: 300,             // set minimum height of editor
@@ -32,10 +34,10 @@ $(document).ready(function() {
 		        ['para', ['ul', 'ol', 'paragraph']],
 		        ['height', ['height']],
 		        ['table', ['table']],
-		        ['insert', ['media', 'link', 'hr', 'picture']],
+		        ['insert', ['link', 'hr', 'picture']],
 		        ['view', ['fullscreen', 'codeview']],
 		        ['help', ['help']]
-		      ],
+		    ],
 			callbacks: {
 				onImageUpload: function(files, editor) {
 					sendFile(files[0],editor);
@@ -48,17 +50,21 @@ function sendFile(file, editor) {
     	// 파일 전송을 위한 폼생성
 		data = new FormData();
 	    data.append("uploadFile", file);
+	    data.append("boardno",$('#boardno').val());
+	    console.log($('#boardno').val());
 	    $.ajax({ // ajax를 통해 파일 업로드 처리
 	        data : data,
+	        dataType: "json",
 	        type : "POST",
 	        url : "/board/free/fileupload",
 	        cache : false,
 	        contentType : false,
 	        enctype: 'multipart/form-data',
 	        processData : false,
-	        success : function(url) { // 처리가 성공할 경우
+	        success : function(data) { // 처리가 성공할 경우
            		 // 에디터에 이미지 출력   
-	        	$("#summernote").summernote('insertImage', url);
+	        	$("#summernote").summernote('insertImage', data.url);
+	        	$('#boardno').val(data.boardno);
 	        }
 	    });
 	}
@@ -87,6 +93,7 @@ function postForm() {
 	<div id="summernote"></div>
 </td></tr>
 </table>
+<input type="text" style="display: none;" id="boardno" name="boardno" value="0"/>
 <button type="submit">작성</button>
 
 </form>

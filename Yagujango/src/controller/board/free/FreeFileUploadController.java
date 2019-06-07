@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
 
 import service.face.Board_FreeService;
 import service.impl.Board_FreeServiceImpl;
@@ -24,11 +25,8 @@ public class FreeFileUploadController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String url = "http://localhost:8088/upload/";
-		url += board_FreeService.uploadfile(req);
+		 board_FreeService.uploadfile(req,resp);
 		
-		
-		resp.getWriter().print(url);
 
 	}
 }
