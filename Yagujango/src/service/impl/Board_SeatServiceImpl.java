@@ -172,5 +172,25 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		
 		return url;
 	}
+	@Override
+	public Board_Seat getBoardno(HttpServletRequest req) {
+		Board_Seat board_seat = new Board_Seat();
+		String param = req.getParameter("boardno");
+		int boardno = Integer.parseInt(param);
+		board_seat.setBoardno(boardno);
+		
+		return board_seat;
+	}
+	@Override
+	public void addHit(Board_Seat board_seat) {
+		board_SeatDao.upHit(board_seat);
+		
+	}
+	@Override
+	public Board_Seat view(Board_Seat board_seat) {
+		
+		return board_SeatDao.selectbyboardno(board_seat);
+		
+	}
 
 }

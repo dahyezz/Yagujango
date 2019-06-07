@@ -9,6 +9,7 @@ import java.util.List;
 
 import dao.face.Board_FreeDao;
 import dto.Board_Free;
+import dto.Board_file;
 import dto.Comment;
 import util.Paging;
 import dbutil.DBConn;
@@ -296,7 +297,7 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 	public void InsertNotice(Board_Free board_free) {
 		String sql = "";
 		sql +="INSERT INTO board_free_notice(boardno,tag,title,writer,content,hit)";
-		sql +=" VALUES(board_free_notice_seq.nextval,?,?,?,?,0)";
+		sql +=" VALUES(board_free_seq.nextval,?,?,?,?,0)";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -615,6 +616,150 @@ public class Board_FreeDaoImpl implements Board_FreeDao {
 				if(ps!=null)	ps.close();
 				
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public int getboardno() {
+		String sql = "";
+		sql += "SELECT board_free_seq.nextval";
+		sql += " FROM dual";
+		int boardno = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				boardno = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return boardno;
+	}
+
+	@Override
+	public void insertFile(Board_file board_file) {
+		String sql = "";
+		sql +="INSERT INTO board_freefile(fileno,boardno,originname,storedname,filesize)";
+		sql +=" VALUES(board_freefile_seq.nextval,?,?,?,?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_file.getBoardno());
+			ps.setString(2, board_file.getOriginname());
+			ps.setString(3, board_file.getStoredname());
+			ps.setInt(4, board_file.getFilesize());
+			ps.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void InsertwithFile(Board_Free board_free) {
+		String sql = "";
+		sql +="INSERT INTO board_free(boardno,tag,title,writer,content,hit)";
+		sql +=" VALUES(?,?,?,?,?,0)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_free.getBoardno());
+			ps.setString(2, board_free.getTag());
+			ps.setString(3, board_free.getTitle());
+			ps.setString(4, board_free.getWriter());
+			ps.setString(5, board_free.getContent());
+			rs = ps.executeQuery();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+
+	@Override
+	public void InsertNoticewithFile(Board_Free board_free) {
+		String sql = "";
+		sql +="INSERT INTO board_free_notice(boardno,tag,title,writer,content,hit)";
+		sql +=" VALUES(?,?,?,?,?,0)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_free.getBoardno());
+			ps.setString(2, board_free.getTag());
+			ps.setString(3, board_free.getTitle());
+			ps.setString(4, board_free.getWriter());
+			ps.setString(5, board_free.getContent());
+			rs = ps.executeQuery();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void deletenoticeBoardbyboardno(Board_Free board) {
+		String sql = "";
+		sql += "DELETE FROM board_free_notice";
+		sql += " WHERE boardno=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board.getBoardno());
+			ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

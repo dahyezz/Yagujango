@@ -29,7 +29,7 @@ public class FreeWriteController extends HttpServlet {
 		}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		board_FreeService.write(req);
+			board_FreeService.write(req);
 		
 		resp.sendRedirect("/board/free/list");
 	}

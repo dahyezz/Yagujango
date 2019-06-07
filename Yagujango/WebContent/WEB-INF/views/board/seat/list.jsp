@@ -137,7 +137,9 @@ function checklist(){
 				<img src="http://localhost:8088/upload/default.jpg" style="width:100px;height:70px;"/>
 				</c:if>
 			</td>
-			<td class="content">${i.stadium_name} 구장 ${i.seat_block }열 ${i.seat_number }번 좌석</td>
+			<td class="content"><a href="/board/seat/view?boardno=${i.boardno}">
+									${i.stadium_name} 구장 ${i.seat_block }열 ${i.seat_number }번 좌석
+								</a></td>
 			<td>${i.writer }</td>
 			<td>${i.hit }</td>
 			<td>${i.writtendate }</td>

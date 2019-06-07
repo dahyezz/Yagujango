@@ -23,7 +23,8 @@ public class FreeDeleteController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Board_Free board = board_FreeService.getBoardno(req);
-
+		board.setTag(req.getParameter("tag"));
+		
 		board_FreeService.deleteboard_free(board);
 
 		resp.sendRedirect("/board/free/list");

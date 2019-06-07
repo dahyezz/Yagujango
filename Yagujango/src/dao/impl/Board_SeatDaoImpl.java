@@ -12,6 +12,7 @@ import dbutil.DBConn;
 import dto.Board_Seat;
 import util.Paging;
 
+
 public class Board_SeatDaoImpl implements Board_SeatDao{
 	private Connection conn = DBConn.getConnection();
 	private PreparedStatement ps = null;
@@ -137,6 +138,71 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 			}
 		}
 
+	}
+
+	@Override
+	public void upHit(Board_Seat board_seat) {
+		String sql = "";
+		sql+="UPDATE board_seat";
+		sql+=" SET hit = hit + 1";
+		sql+=" WHERE boardno = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_seat.getBoardno());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public Board_Seat selectbyboardno(Board_Seat board_seat) {
+		String sql = "";
+		sql +="SELECT boardno, stadium_name,seat_block,seat_number,content,writer, hit,writtendate,fileurl";
+		sql +=" FROM board_seat";
+		sql +=" WHERE boardno = ?";
+		Board_Seat viewboard = new Board_Seat();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_seat.getBoardno());
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				viewboard.setBoardno(rs.getInt("boardno"));
+				viewboard.setStadium_name(rs.getString("stadium_name"));
+				viewboard.setSeat_block(rs.getString("seat_block"));
+				viewboard.setSeat_number(rs.getInt("seat_number"));
+				viewboard.setWriter(rs.getString("writer"));
+				viewboard.setContent(rs.getString("content"));
+				viewboard.setHit(rs.getInt("hit"));
+				viewboard.setWrittendate(rs.getDate("writtendate"));
+				viewboard.setFileurl(rs.getString("fileurl"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return viewboard;
 	}
 
 }

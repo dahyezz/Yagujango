@@ -26,6 +26,18 @@ $(document).ready(function() {
             maxHeight: null,             // set maximum height of editor
             focus: true,				 // set focus to editable area after initializing summernote
 			lang: 'ko-KR',
+			toolbar: [
+		        ['style', ['style']],
+		        ['font', ['bold', 'italic', 'underline', 'clear']],
+		        ['fontname', ['fontname']],
+		        ['color', ['color']],
+		        ['para', ['ul', 'ol', 'paragraph']],
+		        ['height', ['height']],
+		        ['table', ['table']],
+		        ['insert', ['link', 'hr', 'picture']],
+		        ['view', ['fullscreen', 'codeview']],
+		        ['help', ['help']]
+		    ],
 			callbacks: {
 				onImageUpload: function(files, editor) {
 					sendFile(files[0],editor);
@@ -38,17 +50,19 @@ function sendFile(file, editor) {
     	// 파일 전송을 위한 폼생성
 		data = new FormData();
 	    data.append("uploadFile", file);
+	    data.append("boardno", ${board.boardno})
 	    $.ajax({ // ajax를 통해 파일 업로드 처리
 	        data : data,
+	        dataType: "json",
 	        type : "POST",
 	        url : "/board/free/fileupload",
 	        cache : false,
 	        contentType : false,
 	        enctype: 'multipart/form-data',
 	        processData : false,
-	        success : function(url) { // 처리가 성공할 경우
+	        success : function(data) { // 처리가 성공할 경우
            		 // 에디터에 이미지 출력   
-	        	$("#summernote").summernote('insertImage', url);
+	        	$("#summernote").summernote('insertImage', data.url);
 	        
 	        	
 	        }

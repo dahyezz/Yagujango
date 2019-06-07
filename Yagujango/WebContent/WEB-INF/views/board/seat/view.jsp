@@ -11,13 +11,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnDelete").click(function() {
-		location.href="/board/free/delete?boardno=${board.boardno}&tag=${board.tag}";
+		location.href="/board/free/delete?boardno=${board.boardno}";
 	})
 	$("#btnList").click(function() {
 		location.href="/board/free/list";
 	})
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "/board/free/update?boardno=${board.boardno }&tag=${board.tag}");
+		$(location).attr("href", "/board/free/update?boardno=${board.boardno }");
 	});
 	$("#btncommentinsert").click(function(){
 		
@@ -26,7 +26,7 @@ $(document).ready(function() {
 		
 		if(content !=null){
 			$.ajax({
-				url : "/board/free/comment/insert",
+				url : "/board/seat/comment/insert",
 				type : "POST",
 				dataType: "html",
 				data : {"boardno":boardno,
@@ -57,7 +57,7 @@ $(document).ready(function() {
 		var agree = confirm("삭제 하시겠습니까?");
 		if(agree){
 			$.ajax({
-				url : "/board/free/comment/delete",
+				url : "/board/seat/comment/delete",
 				type : "POST",
 				dataType: "html",
 				data : {"boardno":boardno,
@@ -105,7 +105,7 @@ table{
 	</tr>
 	<tr>
 		<td class="viewinfo">제목</td>
-		<td>${board.title }</td>
+		<td>${board.stadium_name} 구장 ${board.seat_block }열 ${board.seat_number }번 좌석</td>
 	</tr>
 	<tr>
 		<td class="viewinfo">작성자</td>
@@ -140,13 +140,13 @@ table{
 
 
 <hr>
-<c:if test="${'공지' ne board.tag}">
 <div id="commentdiv">
 	<c:import url="/WEB-INF/views/layout/comment.jsp" />
 </div>
 <input type="text" id="commentcontent">
 <button type="button" id="btncommentinsert">작성</button>
-</c:if>
+
+
 
 </div>
 

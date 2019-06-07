@@ -3,6 +3,7 @@ package dao.face;
 import java.util.List;
 
 import dto.Board_Free;
+import dto.Board_file;
 import dto.Comment;
 import util.Paging;
 
@@ -43,6 +44,16 @@ public interface Board_FreeDao {
 	public void CommentInsert(Comment comment);
 
 	public void CommentDelete(Comment comment);
+
+	public int getboardno();
+
+	public void insertFile(Board_file board_file);
+
+	public void InsertwithFile(Board_Free board_free);
+
+	public void InsertNoticewithFile(Board_Free board_free);
+
+	public void deletenoticeBoardbyboardno(Board_Free board);
 
 	
 

@@ -17,4 +17,10 @@ public interface Board_SeatService {
 
 	public String uploadfile(HttpServletRequest req);
 
+	public Board_Seat getBoardno(HttpServletRequest req);
+
+	public void addHit(Board_Seat board_seat);
+
+	public Board_Seat view(Board_Seat board_seat);
+
 }

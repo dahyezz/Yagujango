@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import dto.Board_Free;
 import dto.Comment;
@@ -27,7 +28,7 @@ public interface Board_FreeService {
 
 	public Board_Free noticeview(Board_Free viewboard);
 	
-	public String uploadfile(HttpServletRequest req);
+	public void uploadfile(HttpServletRequest req, HttpServletResponse resp);
 
 	public void write(HttpServletRequest req);
 

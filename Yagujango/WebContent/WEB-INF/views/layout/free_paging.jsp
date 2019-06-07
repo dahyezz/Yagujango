@@ -27,15 +27,18 @@
 	width:26px;
 
 }
+.pagingul li .first {
+	width:30px !important;
+}
 .pagingul li a.now {
 	color:#fff;
-	background-color:#f40;
-	border:1px solid #f40;
+	background-color:#369;
+	border:1px solid #369;
 }
 .pagingul li a:hover, ul li a:focus {
 	color:#fff;
-	border:1px solid #f40;
-	background-color:#f40;
+	border:1px solid #369;
+	background-color:#369;
 }
 
 </style>
@@ -45,7 +48,7 @@
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/board/free/list"><span>&larr;처음</span></a>
+			<a class="first" href="/board/free/list"><span>처음</span></a>
 		</li>
 		</c:if>
 
@@ -59,7 +62,7 @@
 
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/board/list?curPage=${paging.curPage-1 }&keyword=${keyword}&search=${search}"><span>&laquo;</span></a>
+			<a href="/board/free/list?curPage=${paging.curPage-1 }&keyword=${keyword}&search=${search}"><span>&laquo;</span></a>
 	    </li>
 	    </c:if>
 
@@ -70,12 +73,12 @@
 	
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i}">
-			<li class="active">
+			<li>
 				<c:if test="${name eq null and keyword eq null}">
-					<a href="/board/free/list?curPage=${i }">${i }</a>
+					<a class="now" href="/board/free/list?curPage=${i }">${i }</a>
 				</c:if>
 				<c:if test="${name ne null and keyword ne null}">
-					<a href="/board/free/list?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
+					<a class="now" href="/board/free/list?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
 				</c:if>
 			</li>
 			</c:if>
@@ -98,13 +101,13 @@
 		
 		<!-- 다음 페이지 -->
 		<c:if test="${paging.curPage eq paging.totalPage }">
-		<li class="disabled">
+		<li>
 			<span>&raquo;</span>
 		</li>
 		</c:if>
 
 		<c:if test="${paging.curPage ne paging.totalPage }">
-		<li>
+		<li class="disabled">
 			<a href="/board/free/list?curPage=${paging.curPage+1 }&name=${name}&keyword=${keyword}">
 			<span>&raquo;</span>
 		</a>

@@ -34,7 +34,7 @@ $(document).ready(function() {
 		        ['para', ['ul', 'ol', 'paragraph']],
 		        ['height', ['height']],
 		        ['table', ['table']],
-		        ['insert', ['media', 'link', 'hr', 'picture']],
+		        ['insert', ['link', 'hr', 'picture']],
 		        ['view', ['fullscreen', 'codeview']],
 		        ['help', ['help']]
 		    ],
