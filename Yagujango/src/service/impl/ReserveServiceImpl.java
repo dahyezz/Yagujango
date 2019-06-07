@@ -191,5 +191,10 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Seat> getResevedSeatList(Match match) {
 		return reserveDao.getReservedSeatListByMatchCode(match);
 	}
+	
+	@Override
+	public List<Seat> getAllSeat() {
+		return reserveDao.selectAllSeat();
+	}
 
 }

@@ -94,6 +94,14 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return matchList;
@@ -123,6 +131,14 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return match;
@@ -151,6 +167,14 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return stadium;	
@@ -374,6 +398,14 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return member;	
@@ -402,6 +434,14 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return seat_code;	
@@ -460,6 +500,14 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return ticket_code;	
@@ -525,6 +573,13 @@ public class ReserveDaoImpl implements ReserveDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -561,5 +616,47 @@ public class ReserveDaoImpl implements ReserveDao {
 				e.printStackTrace();
 			}
 		}
+	
+	}
+	
+	@Override
+	public List<Seat> selectAllSeat() {
+		
+		String sql = "";
+		sql += "SELECT seat_code, seat_block, seat_number, price";
+		sql += " FROM seat";
+		sql += " ORDER BY seat_code";
+		
+		List<Seat> allList = new ArrayList<Seat>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Seat seat = new Seat();
+				
+				seat.setSeat_code(rs.getInt("seat_code"));
+				seat.setSeat_block(rs.getString("seat_block"));
+				seat.setSeat_number(rs.getInt("seat_number"));
+				seat.setPrice(rs.getInt("price"));
+
+				allList.add(seat);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return allList;
+
 	}
 }

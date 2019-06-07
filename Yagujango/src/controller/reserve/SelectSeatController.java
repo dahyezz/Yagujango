@@ -56,7 +56,12 @@ public class SelectSeatController extends HttpServlet {
 //		System.out.println(resvdSeatList);
 		request.setAttribute("resvdSeatList", resvdSeatList);
 		
+		//전체 좌석 List
+		List<Seat> allSeatList = reserveService.getAllSeat();
+		request.setAttribute("allSeat", allSeatList);
+		
 		// -----------------------
+		
 
 		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/selectseat.jsp").forward(request, response);
