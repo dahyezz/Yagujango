@@ -13,6 +13,8 @@
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
+
 <script type="text/javascript">
 var selectseat = [];
 var seat;
@@ -119,33 +121,47 @@ function view(opt){
 #topbar {
 	text-align: right;
 	margin: 0;
+	width: 350px;
+	float: right;
 }
 .seatBtn {
 	overflow: scroll;
 
-	margin: 0 10px;
+	margin: 10px;
 	padding: 0;
 	width: 600px;
-	height: 450px;
+	height: 480px;
 	float: left;
 }
 
 .seatUpper {
 	padding: 0;
 	margin: 0;
-	width: 600px;
-	height: 60px;
+	width: 700px;
+	height: 70px;
 	background-color: green;
 	float: left;
 }
 
-#ground {
+#ground:first-child {
 	margin: 0;
 	padding: 0;
-	font-size: 30px;
+	font-size: 35px;
+	color: white;
+	text-align: center;	
+	
+	font-family: 'Electrolize', sans-serif;
+	font-weight: 700;
+}
+#ground:last-child {
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
 	color: white;
 	text-align: center;
 	
+	font-family: 'Electrolize', sans-serif;
+	font-weight: 700;	
 }
 
 .seatInfo {
@@ -169,16 +185,31 @@ function view(opt){
 	margin: 0 20px;
 }
 
+#block {
+
+	width: 130px;
+	padding: 0;
+	margin: 5px;
+	float: left;
+	position: relative;
+	background: white;
+}
+
+#blockname {
+	text-align: center;
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	
+	margin: 10px;
+}
+
 a {
 	text-decoration: none;
 }
-
-/* .selected { */
-/* 	display: inline-block; */
-/* 	border: 2px solid #ccc; */
-/* 	cursur: pointer; */
-/* 	background-color: blue;; */
-/* } */
+label {
+	cursor: pointer;
+}
 
 input[type=checkbox]{
 	display: none;
@@ -186,7 +217,6 @@ input[type=checkbox]{
 
 input[type=checkbox] + label{
 	display: inline-block;
-/* 	cursor: point; */
 	position: relative;
 	width: 15px;
 	height: 15px;
@@ -202,13 +232,14 @@ input[type=checkbox] +label:before{
 	width: 15px;
 	height: 15px;
 	
-	margin-left: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 	position: absolute;
 	left: 0;
-	bottom: 1px;
+	bottom: 0;
 	background-color: #64A0FF;
 	border-radius: 1px;
-	box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,3), 0px 1px 0px 0px rgba(255,255,255,0);
+/* 	box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,3), 0px 1px 0px 0px rgba(255,255,255,0); */
 }
 
 input[type=checkbox]:disabled + label:before {
@@ -217,70 +248,69 @@ input[type=checkbox]:disabled + label:before {
 	background-position: center;
 	background-size: cover;
 	text-indent: -9999px;
-	top: 1px;
+	top: 0;
 }
 
 input[type=checkbox]:checked + label:before {
-	content: "o";
-	text-shadow: 1px 1px 1px rgba(0,0,0,2);
-	font-size: 13px;
+	content: "ㅇ";
+	font-size: 15px;
 	font-weight: 800;
 	color: #fff;
 	background-color: black;
 	text-align: center;
-	line-height: 10px;
+	line-height: 15px;
 }
 /* 레이어 말풍선 스타일 적용  */
-.btn_view {
-	font-weight: normal !important;
-}
-.box_layer {
-	position: absolute;
-	width: 350px;
-	height: 150px;
-	overflow: auto;
-	background: #eaeaea;
-	right: 0px;
-	top: 0px;
-	z-index: 999;
-	border: 2px solid #ccc;
-	-webkit-border-radius: 10px
+/* .btn_view { */
+/* 	font-weight: normal !important; */
+/* } */
+/* .box_layer { */
+/* 	position: absolute; */
+/* 	width: 350px; */
+/* 	height: 150px; */
+/* 	overflow: auto; */
+/* 	background: #eaeaea; */
+/* 	right: 0px; */
+/* 	top: 0px; */
+/* 	z-index: 999; */
+/* 	border: 2px solid #ccc; */
+/* 	-webkit-border-radius: 10px */
 	
-}
+/* } */
 
-.tt {
-	position: relative;
-}
+/* .tt { */
+/* 	position: relative; */
+/* } */
 
-.tt-text {
-	visibility: hidden;
-	width: 200px;
-	background-color: #ccc;
-	color: yellow;
-	text-align: center;
-	border-radius: 10px;
-	padding: 10px 5px;
-	position: absolute;
-	z-index: 1;
-	top: 200%;
-	left: 50%;
-	margin-left: -105px;
-}
+/* .tt-text { */
+/* 	visibility: hidden; */
+/* 	width: 200px; */
+/* 	background-color: #ccc; */
+/* 	color: yellow; */
+/* 	text-align: center; */
+/* 	border-radius: 10px; */
+/* 	padding: 10px 5px; */
+/* 	position: absolute; */
+/* 	z-index: 1; */
+/* 	top: 200%; */
+/* 	left: 50%; */
+/* 	margin-left: -105px; */
+/* } */
 
-.tt:mouseover .tt-text {
- 	visibility: visible; 
-}
+/* .tt:mouseover .tt-text { */
+/*  	visibility: visible;  */
+/* } */
 
-.tt .tt-text::after {
-	content: "";
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -10px;
-	border-left: 10px;
-	border-style: solid;
-	border-color: transparent transparent Indigo transparent;
-}
+/* .tt .tt-text::after { */
+/* 	content: ""; */
+/* 	position: absolute; */
+/* 	bottom: 100%; */
+/* 	left: 50%; */
+/* 	margin-left: -10px; */
+/* 	border-left: 10px; */
+/* 	border-style: solid; */
+/* 	border-color: transparent transparent Indigo transparent; */
+/* } */
 
 </style>
 
@@ -295,20 +325,96 @@ input[type=checkbox]:checked + label:before {
 
 <!-- 좌석 버튼 만들어 주는 곳 -->
 <div class="seatBtn">
+
 <div class="seatUpper">
 	<p id="ground" >GROUND</p>
+	<p id="ground" >⇧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇧</p>
 </div>
 
-<div style="background: white;">
-<c:forEach items="${allSeat }" var="i">
-	
-	<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
-	<label for="seatId_${i.seat_code }"></label>
-<%-- 		<span id="view" style="cursor: hand;">${i.seat_block }블럭 ${i.seat_number }석</span> --%>
-	<c:if test="${i.seat_number eq 100 }"><br></c:if>
-	
-</c:forEach>
+<div style="background: #dcdcdc; width: 700px; float:left; position: relative; ">
 
+<!-- A블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'A' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }"></label>
+			<%--	 	<span id="view" >${i.seat_block }블럭 ${i.seat_number }석</span> --%>	
+		</c:if>
+	</c:forEach>
+	</div>
+	
+<!-- B블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'B' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }"></label>	
+			<%--	 	<span id="view" >${i.seat_block }블럭 ${i.seat_number }석</span> --%>			
+		</c:if>
+	</c:forEach>
+	</div>
+
+<!-- C블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'C' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }"></label>
+			<%--	 	<span id="view" >${i.seat_block }블럭 ${i.seat_number }석</span> --%>	
+		</c:if>
+	</c:forEach>
+	</div>
+
+<!-- D블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'D' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }"></label>
+			<%--	 	<span id="view" >${i.seat_block }블럭 ${i.seat_number }석</span> --%>	
+		</c:if>
+	</c:forEach>
+	</div>
+	
+<!-- E블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'E' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }"></label>
+			<%--	 	<span id="view" >${i.seat_block }블럭 ${i.seat_number }석</span> --%>	
+		</c:if>
+	</c:forEach>
+	</div>
+
+<!-- 좌석 disabled  -->
 <c:forEach items="${resvdSeatList }" var="i" >
 	<c:forEach items="${allSeat }" var="j">
 		<c:if test="${i.seat_code eq j.seat_code }">
@@ -318,12 +424,12 @@ input[type=checkbox]:checked + label:before {
 				var label = document.getElementsByTagName("label");
 // 				console.log(label[${i.seat_code}]);
 				check.disabled = true;
-				
  			</script> 
 		</c:if>
 	</c:forEach>
 </c:forEach>
 </div>
+
 </div>
 
 <div class="seatInfo">
