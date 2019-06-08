@@ -119,7 +119,7 @@ table {
  	color: #ccc; 
 }
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none }
+a { text-decoration:none; color: black; }
 </style>
 
 
