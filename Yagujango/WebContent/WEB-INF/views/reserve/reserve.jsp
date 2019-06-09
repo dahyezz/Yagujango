@@ -43,7 +43,7 @@ function InitializeStaticMenu() {
 
 
 function selectSeat(matchcode){
-	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=600");
+	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=650");
 }
 
 
@@ -130,6 +130,9 @@ a { text-decoration:none; color: black; }
 				<th><a href="/reserve/list?stadium_code=${i.stadium_code }" >${i.stadium_name } [${i.team_name }]</a></th>
 			</tr>
 		</c:forEach>
+			<tr>
+				<th><a href="/reserve/inform">예매 안내</a></th>
+			</tr>
 	</table>
 </div>
 
