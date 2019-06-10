@@ -51,17 +51,16 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 			req.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}
+		} 
 		Board_1to1 board_1to1 = new Board_1to1();
 		HttpSession session = req.getSession();
-		
 		board_1to1.setWriter_email(req.getParameter("writer_email"));
 		board_1to1.setTitle(req.getParameter("title"));
 		board_1to1.setContent(req.getParameter("content"));
 		board_1to1.setWriter_comment(req.getParameter("writer_comment"));
 		board_1to1.setWriter_userid((String)session.getAttribute("writer_userid"));
 		
-		board_1to1Dao.insert(board_1to1);
+		board_1to1Dao.Insert(board_1to1);
 		
 			
 	}

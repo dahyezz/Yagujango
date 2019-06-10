@@ -108,10 +108,10 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 
 
 	@Override
-	public void insert(Board_1to1 board_1to1) {
+	public void Insert(Board_1to1 board_1to1) {
 		String sql = "";
 		sql += "INSERT INTO board_1to1(BOARDNO,WRITER_USERID,WRITER_EMAIL,TITLE,CONTENT,WRITER_COMMENT) ";
-		sql += " VALUES (board_faq_seq.nextval,?, ?, ?, ?)";
+		sql += " VALUES (board_1to1_seq.nextval,?,?,?,?,?)";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -122,7 +122,7 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 			ps.setString(4, board_1to1.getContent());
 			ps.setString(5, board_1to1.getWriter_comment());			
 
-			ps.executeUpdate();
+			ps.executeQuery();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
