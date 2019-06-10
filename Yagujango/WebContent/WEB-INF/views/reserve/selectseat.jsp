@@ -13,6 +13,8 @@
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
+
 <script type="text/javascript">
 var selectseat = [];
 var seat;
@@ -21,42 +23,6 @@ var seat_number;
 $(document).ready(function() {
 	
 	var layout = document.getElementById("result");
-	
-// 	//마우스 오버시 좌석정보 보이기
-// 	$("input:checkbox").mouseover(function() {
-// // 		console.log("mouseover"); //TEST
-// 		var obj = $(this);
-// 		var tX = (obj.position().left);
-// 		var tY = (obj.position().top);
-// // 		console.log(tX)
-// // 		console.log(tY)
-	
-// 		if($(this).find(".box_layer").length>0) {
-// 			if($(this).find(".box_layer").css("display") == "none" ){
-// 				$(this).find(".box_layer").css({
-// 					"top" : tY
-// 					, "left" : tX
-// 					, "position" : "absolute"
-// 				}).show();
-// 			}
-// 		} else {
-// 			$(this).append("<div class='box_layer'>test</div>");
-// 			$(this).find(".box_layer").css({
-// 				"top" : tY
-// 				, "left" : tX
-// 				, "position" : "absolute"
-
-// 			}).show();
-// 		}
-		
-		
-		
-// 	});
-	
-// 	$("input:checkbox").mouseout(function() {
-// 		$(this).find(".box_layer").css("display", "none");
-// // 		console.log("out")
-// 	});
 
 	//체크 박스 선택시
 	$("input:checkbox").on('click', function(){
@@ -71,14 +37,9 @@ $(document).ready(function() {
 			
 			layout.innerHTML += "<p id="+seat+" style='margin: 0; padding: 0;'>"+seat_block+"블럭 "+seat_number+"석</p>";
 			
-			// 스타일 지정하기 위해서 class 추가
-			$(this).addClass("selected");
-			
 		} else {
 // 			console.log("체크해제") //TEST
 			seat = $(this).val(); //체크 해제된 좌석
-			$(this).removeClass("selected");
-			$(this).addClass("unselected");
 			
 			selectseat.splice($.inArray(seat, selectseat),1); //selectseat에서 해당 좌석 삭제
 			
@@ -105,47 +66,53 @@ $(document).ready(function() {
 
 });
 
-function view(opt){
-	if(opt){
-// 		console.log("000")
-		
-	}else
-		view.style.display = "none";
-}
-
 </script>
 
 <style type="text/css">
 #topbar {
 	text-align: right;
 	margin: 0;
+	width: 350px;
+	float: right;
 }
 .seatBtn {
 	overflow: scroll;
 
-	margin: 0 10px;
+	margin: 10px;
 	padding: 0;
 	width: 600px;
-	height: 450px;
+	height: 480px;
 	float: left;
 }
 
 .seatUpper {
 	padding: 0;
 	margin: 0;
-	width: 600px;
-	height: 60px;
+	width: 700px;
+	height: 70px;
 	background-color: green;
 	float: left;
 }
 
-#ground {
+#ground:first-child {
 	margin: 0;
 	padding: 0;
-	font-size: 30px;
+	font-size: 35px;
+	color: white;
+	text-align: center;	
+	
+	font-family: 'Electrolize', sans-serif;
+	font-weight: 700;
+}
+#ground:last-child {
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
 	color: white;
 	text-align: center;
 	
+	font-family: 'Electrolize', sans-serif;
+	font-weight: 700;	
 }
 
 .seatInfo {
@@ -169,16 +136,31 @@ function view(opt){
 	margin: 0 20px;
 }
 
+#block {
+
+	width: 130px;
+	padding: 0;
+	margin: 5px;
+	float: left;
+	position: relative;
+	background: white;
+}
+
+#blockname {
+	text-align: center;
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	
+	margin: 10px;
+}
+
 a {
 	text-decoration: none;
 }
-
-/* .selected { */
-/* 	display: inline-block; */
-/* 	border: 2px solid #ccc; */
-/* 	cursur: pointer; */
-/* 	background-color: blue;; */
-/* } */
+label {
+	cursor: pointer;
+}
 
 input[type=checkbox]{
 	display: none;
@@ -186,7 +168,6 @@ input[type=checkbox]{
 
 input[type=checkbox] + label{
 	display: inline-block;
-/* 	cursor: point; */
 	position: relative;
 	width: 15px;
 	height: 15px;
@@ -202,13 +183,14 @@ input[type=checkbox] +label:before{
 	width: 15px;
 	height: 15px;
 	
-	margin-left: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 	position: absolute;
 	left: 0;
-	bottom: 1px;
+	bottom: 0;
 	background-color: #64A0FF;
 	border-radius: 1px;
-	box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,3), 0px 1px 0px 0px rgba(255,255,255,0);
+/* 	box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,3), 0px 1px 0px 0px rgba(255,255,255,0); */
 }
 
 input[type=checkbox]:disabled + label:before {
@@ -217,69 +199,31 @@ input[type=checkbox]:disabled + label:before {
 	background-position: center;
 	background-size: cover;
 	text-indent: -9999px;
-	top: 1px;
+	top: 0;
 }
 
 input[type=checkbox]:checked + label:before {
-	content: "o";
-	text-shadow: 1px 1px 1px rgba(0,0,0,2);
-	font-size: 13px;
+	content: "ㅇ";
+	font-size: 15px;
 	font-weight: 800;
 	color: #fff;
 	background-color: black;
 	text-align: center;
-	line-height: 10px;
+	line-height: 15px;
 }
-/* 레이어 말풍선 스타일 적용  */
-.btn_view {
-	font-weight: normal !important;
-}
-.box_layer {
-	position: absolute;
-	width: 350px;
-	height: 150px;
-	overflow: auto;
-	background: #eaeaea;
-	right: 0px;
-	top: 0px;
-	z-index: 999;
-	border: 2px solid #ccc;
-	-webkit-border-radius: 10px
-	
-}
-
-.tt {
+.image {
 	position: relative;
+	text-align: center; padding:0; margin: 0;
 }
 
-.tt-text {
-	visibility: hidden;
-	width: 200px;
-	background-color: #ccc;
-	color: yellow;
-	text-align: center;
-	border-radius: 10px;
-	padding: 10px 5px;
+.image .text {
 	position: absolute;
-	z-index: 1;
-	top: 200%;
-	left: 50%;
-	margin-left: -105px;
-}
-
-.tt:mouseover .tt-text {
- 	visibility: visible; 
-}
-
-.tt .tt-text::after {
-	content: "";
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -10px;
-	border-left: 10px;
-	border-style: solid;
-	border-color: transparent transparent Indigo transparent;
+	top: -13px;
+	left: 150px;
+	font-size: 20px;
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 700;
+	
 }
 
 </style>
@@ -287,28 +231,105 @@ input[type=checkbox]:checked + label:before {
 </head>
 <body style="background: #D5D5D5">
 
-
-
-<h1>티켓 예매</h1>
+<h1 style="margin: 20px 0 0 20px;">티켓 예매</h1>
+<p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p><br>
 <hr>
-<p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p>
+
+<div class="image" >
+<img src="/img/reserve1.png" width="900px" height="35px">
+	<div class="text"><p>좌석선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		수령방법/확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;결제</p></div>
+</div>
 
 <!-- 좌석 버튼 만들어 주는 곳 -->
 <div class="seatBtn">
+
 <div class="seatUpper">
 	<p id="ground" >GROUND</p>
+	<p id="ground" >⇧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⇧</p>
 </div>
 
-<div style="background: white;">
-<c:forEach items="${allSeat }" var="i">
-	
-	<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
-	<label for="seatId_${i.seat_code }"></label>
-<%-- 		<span id="view" style="cursor: hand;">${i.seat_block }블럭 ${i.seat_number }석</span> --%>
-	<c:if test="${i.seat_number eq 100 }"><br></c:if>
-	
-</c:forEach>
+<div style="background: #dcdcdc; width: 700px; float:left; position: relative; ">
 
+<!-- A블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'A' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }" style="CURSOR:hand;" title="${i.seat_block }블럭 ${i.seat_number }석"></label>
+		</c:if>
+	</c:forEach>
+	</div>
+	
+<!-- B블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'B' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }" style="CURSOR:hand;" title="${i.seat_block }블럭 ${i.seat_number }석"></label>	
+		</c:if>
+	</c:forEach>
+	</div>
+
+<!-- C블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'C' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }"/>
+			<label for="seatId_${i.seat_code }" style="CURSOR:hand;" title="${i.seat_block }블럭 ${i.seat_number }석"></label>
+		</c:if>
+	</c:forEach>
+	</div>
+
+<!-- D블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'D' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }" style="CURSOR:hand;" title="${i.seat_block }블럭 ${i.seat_number }석"></label>
+		</c:if>
+	</c:forEach>
+	</div>
+	
+<!-- E블럭 -->
+<c:set value="1" var="b" />
+	<div id="block">
+	<c:forEach items="${allSeat }" var="i">
+		<c:if test="${i.seat_block eq 'E' }">
+			<c:if test="${b == '1' }">
+				<p id="blockname">${i.seat_block }블럭</p>
+				<c:set value="2" var="b"></c:set>
+			</c:if>
+			<input type="checkbox" name="seatChk" id="seatId_${i.seat_code }" value="${i.seat_block }_${i.seat_number }" />
+			<label for="seatId_${i.seat_code }" style="CURSOR:hand;" title="${i.seat_block }블럭 ${i.seat_number }석"></label>
+		</c:if>
+	</c:forEach>
+	</div>
+
+<!-- 좌석 disabled  -->
 <c:forEach items="${resvdSeatList }" var="i" >
 	<c:forEach items="${allSeat }" var="j">
 		<c:if test="${i.seat_code eq j.seat_code }">
@@ -318,12 +339,12 @@ input[type=checkbox]:checked + label:before {
 				var label = document.getElementsByTagName("label");
 // 				console.log(label[${i.seat_code}]);
 				check.disabled = true;
-				
  			</script> 
 		</c:if>
 	</c:forEach>
 </c:forEach>
 </div>
+
 </div>
 
 <div class="seatInfo">
@@ -338,13 +359,14 @@ input[type=checkbox]:checked + label:before {
 	</div>
 	
 	<div class="restSeat">
-		<h3>남은 좌석</h3>
+		<h3>잔여 좌석</h3>
 				<p>A블럭 ${seatCount[0] }석</p>
 				<p>B블럭 ${seatCount[1] }석</p>
 				<p>C블럭 ${seatCount[2] }석</p>
 				<p>D블럭 ${seatCount[3] }석</p>
 				<p>E블럭 ${seatCount[4] }석</p>	
 	</div>
+	<hr width="230px" style="margin: 25px 0 0 25px;">
 	
 	<div class="selectSeat">
 		<h3>선택좌석</h3>

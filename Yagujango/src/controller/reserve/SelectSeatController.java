@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import dto.Match;
 import dto.Seat;
 import dto.Stadium;
-import dto.Ticket;
 import service.face.ReserveService;
 import service.impl.ReserveServiceImpl;
 
@@ -33,24 +32,11 @@ public class SelectSeatController extends HttpServlet {
 		
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
-		
-		List<Seat> seatAvailable = reserveService.getSeatInfo(match); // 예매 가능한 좌석
-		request.setAttribute("seat", seatAvailable);
-		
+
 		List<Integer> seatCount = reserveService.getSeatCount(match); //예매 가능한 좌석 카운트
 //		System.out.println(seatCount); //TEST
 		request.setAttribute("seatCount", seatCount);
 		
-		List<Ticket> ticket = reserveService.getReserveStatus(match); //예매현황
-		request.setAttribute("ticket", ticket);
-				
-		List<String> seatBlock = reserveService.getSeatBlock();
-		request.setAttribute("seatBlock", seatBlock);
-		
-		List<Integer> seatNumber = reserveService.getSeatNumber();
-		request.setAttribute("seatNumber", seatNumber);
-		
-		// ------ TEST -----------
 		//	좌석 disabled 되는지 check
 		List<Seat> resvdSeatList = reserveService.getResevedSeatList(match);
 //		System.out.println(resvdSeatList);
@@ -60,20 +46,13 @@ public class SelectSeatController extends HttpServlet {
 		List<Seat> allSeatList = reserveService.getAllSeat();
 		request.setAttribute("allSeat", allSeatList);
 		
-		// -----------------------
-		
-
-		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/selectseat.jsp").forward(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String selectseat = request.getParameter("selectseat");
 
-//		System.out.println(selectseat); //TEST 
-		
-		
+		String selectseat = request.getParameter("selectseat");
 		List<Integer> newTicketList = reserveService.addTicket(match, selectseat);
 	
 //		for(Integer e : newTicketList) {

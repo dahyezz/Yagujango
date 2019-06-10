@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,9 @@
 <title>티켓 예매_수령방법 선택</title>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<!-- 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
 	function receive() {
@@ -25,8 +29,10 @@
 
 <style type="text/css">
 #topbar {
-	margin:30px;
+	margin: 0;
 	text-align: right;
+	width: 350px;
+	float: right;
 }
 
 #receive {
@@ -72,16 +78,37 @@ table {
 }
 
 a { text-decoration:none }
+
+.image {
+	position: relative;
+	text-align: center; padding:0; margin: 0;
+}
+
+.image .text {
+	position: absolute;
+	top: -13px;
+	left: 150px;
+	font-size: 20px;
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 700;
+	
+}
 </style>
 
 </head>
 <body style="background: #D5D5D5;">
 
-
-
-<h1>티켓 예매</h1>
+<h1 style="margin: 20px 0 0 20px;">티켓 예매</h1>
+<p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p><br>
 <hr>
-<p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p>
+
+<div class="image" >
+<img src="/img/reserve2.PNG" width="900px" height="35px">
+	<div class="text"><p>좌석선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		수령방법/확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;결제</p></div>
+</div>
 
 
 <div id="receive">
