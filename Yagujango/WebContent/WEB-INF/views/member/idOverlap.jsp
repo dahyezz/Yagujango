@@ -60,8 +60,12 @@ function callback(){
 		
 		if(resultText==0){
 			document.getElementById("result").innerHTML="사용할 수 없는 아이디입니다";
+			document.getElementById("cancelBtn").style.visibility='visible';
+            document.getElementById("useBtn").style.visibility='hidden';
 		} else if(resultText==1){
 			document.getElementById("result").innerHTML="사용 가능한 아이디 입니다";
+			document.getElementById("cancelBtn").style.visibility='hidden';
+            document.getElementById("useBtn").style.visibility='visible';s
 		}
 	}
 }

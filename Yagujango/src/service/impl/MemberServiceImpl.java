@@ -1,5 +1,10 @@
 package service.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import dao.face.MemberDao;
@@ -77,6 +82,26 @@ public class MemberServiceImpl implements MemberService{
 		} else {
 			return false; //회원가입 실패
 		}
+	}
+	
+	@Override
+	public Date StringToDate(String payment_date) {
+		DateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date to = null;
+		java.sql.Date sqlDate = null;
+		try {
+			to = transFormat.parse(payment_date);
+			sqlDate = convert(to);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return sqlDate;
+	}
+	
+	///////////////////// java.util.date -> java.sql.date /////////////////////
+	private java.sql.Date convert(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
 	}
 
 	@Override

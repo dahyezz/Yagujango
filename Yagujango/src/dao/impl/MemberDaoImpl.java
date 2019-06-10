@@ -196,7 +196,7 @@ public class MemberDaoImpl implements MemberDao{
 		
 		String sql = "";
 		sql+="INSERT INTO member(userno,userid,userpw,username,usernick,birth,gender,phone,email,myteam)";
-		sql+=" VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		sql+=" VALUES ( member_seq.nextval, ?, ?, ?, ?, TO_DATE(?,'yyyy-mm-dd'), ?, ?, ?, ? )";
 		
 		try {
 			ps = conn.prepareStatement(sql);

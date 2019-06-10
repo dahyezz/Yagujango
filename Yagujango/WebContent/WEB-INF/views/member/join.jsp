@@ -59,7 +59,7 @@ function inputCheck(){
 
 function openIdCheck(){
 	window.name="parentForm";
-	window.open("/member/idOverlap","아이디 중복 확인","width=300, height=300, left=600, top=200")
+	window.open("/member/idOverlap","아이디 중복 확인","width=300, height=300, left=600, top=200");
 }
 
 //아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅
@@ -67,20 +67,6 @@ function openIdCheck(){
 function inputIdCheck(){
 	document.joinForm.idUncheck.value="idUncheck";
 }
-
-
-// $(document).ready(function(){
-	
-// 	$("#idOverlap").click(function(){
-// 		if($(idOverlap)){
-// 			alert("사용 가능한 아이디 입니다");
-// 		} else{
-// 			alert("이미 사용중인 아이디 입니다");
-// 			$("#userid").value="";
-// 			$("#userid").focus();
-// 		}
-// 	});
-// });
 
 </script>
 
@@ -112,11 +98,11 @@ th{
 		<td><input type="password" name="userpw" /></td>
 		<td>
 		<img src="/img/pwLock.png" width="50px" height="50px">
-		<c:choose>
+		<!--<c:choose>
 			<c:when test="${param.sel eq 1 }">1을 선택하셨습니다</c:when>
 			<c:when test="${param.sel eq 2 }">2을 선택하셨습니다</c:when>
 			<c:when test="${param.sel eq 3 }">3을 선택하셨습니다</c:when>
-		</c:choose>
+		</c:choose> -->
 		</td>
 	</tr>	
 	
@@ -188,6 +174,5 @@ th{
 	</tr>
 	</table>
 </form>
-
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
