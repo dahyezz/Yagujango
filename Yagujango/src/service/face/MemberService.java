@@ -1,5 +1,7 @@
 package service.face;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
@@ -64,6 +66,8 @@ public interface MemberService {
 	 * @return true/false
 	 */
 	public boolean join(Member member);
+	
+	public Date StringToDate(String payment_date);
 	
 	/**
 	 * 	아이디 중복 체크
