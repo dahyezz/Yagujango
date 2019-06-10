@@ -51,11 +51,8 @@ public class SelectReceiveController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 		// 수령방법선택창에서 좌석페이지로 돌아갈때 ticket의 좌석정보 delete
 		reserveService.deleteTicket(request);
-
 
 		// 좌석 선택 페이지로 리다이렉트
 		match = reserveService.getMatchCode(request);

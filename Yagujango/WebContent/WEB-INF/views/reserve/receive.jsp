@@ -49,8 +49,8 @@
 }
 
 table {
-	margin-right:100px;
-	margin-top:10px;
+/* 	margin-right:100px; */
+/* 	margin-top:10px; */
  	border-collapse: collapse;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
@@ -134,7 +134,7 @@ a { text-decoration:none }
 </div>
 
 <strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
-<!-- <h3>My 예매정보</h3> -->
+<div>
 <table class="table" style="text-align:center;">
 	<tr>
 		<th>일시</th>
@@ -172,7 +172,9 @@ a { text-decoration:none }
 		<td id="canceldate"></td>
 	</tr>
 </table>
-<div style="positon:static;">
+</div>
+
+<div style="float:right;">
 	<table class="table">
 		<tr>
 			<th>총 결제금액</th>
@@ -188,7 +190,7 @@ a { text-decoration:none }
 		</tr>
 	</table>
 </div>
-<div style="float:right; margin-top:20px; margin-right:100px;">
+<div style="float:right;">
 	<label><button onclick="seat()">◁PREV</button></label>&nbsp;&nbsp;&nbsp;
 	<label><button onclick="receive()">NEXT▷</button></label>
 </div>
