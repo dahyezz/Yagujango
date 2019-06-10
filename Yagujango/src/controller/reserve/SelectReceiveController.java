@@ -60,16 +60,7 @@ public class SelectReceiveController extends HttpServlet {
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
 		
-		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
-		String ticketcd = request.getParameter("ticket_code");
-		String cnt = request.getParameter("count");
-		int ticketcode = Integer.parseInt(ticketcd);
-		int count = Integer.parseInt(cnt);
-		
-		for(int i = ticketcode; i < ticketcode+count; i++) {
-			reserveService.deletetSeatInfoByTicket(i);
-		}
-		/////////////////////////////////////////////////////
+		reserveService.deletetSeatByTicket(request); // receive -> seat 삭제
 		
 		List<Seat> seatAvailable = reserveService.getSeatInfo(match); // 예매 가능한 좌석
 		request.setAttribute("seat", seatAvailable);

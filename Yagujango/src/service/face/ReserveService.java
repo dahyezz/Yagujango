@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import dto.Match;
 import dto.Member;
-import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
@@ -99,7 +98,7 @@ public interface ReserveService {
 
 
 
-	public void insertReserve(Reserve receive, int codedate, int matchcode, int userno);
+	public void insertReserve(HttpServletRequest request);
 	
 	public Member getUserNo(String userid);
 
@@ -115,11 +114,13 @@ public interface ReserveService {
 
 	public List<Integer> addTicket(Match match, String selectseat);
 
-	public void deletetSeatInfoByTicket(int i);
+	public void deletetSeatInfoByTicket(HttpServletRequest request);
 
 
 	public List<Seat> getResevedSeatList(Match match);
 
 	public List<Seat> getAllSeat();
+
+	public void deletetSeatByTicket(HttpServletRequest request);
 
 }

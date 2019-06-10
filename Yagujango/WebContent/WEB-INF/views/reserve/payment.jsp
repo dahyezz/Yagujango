@@ -16,19 +16,30 @@
 <link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
+	var popclose = false;
 	function cancle() {
 		$('#deleteseat').submit();
 		alert("결제를 취소하시겠습니까?");
-// 		self.close();
+		popclose = true;
+		if(popclose == true) {
+			console.log(close);
+			self.close();
+		}
 	}
 	
 	function payment() {
 		alert("결제 하시겠습니까?")
  		$('#selectpayment').submit();
-// 		close();
+		popclose = true;
+		if(popclose == true) {
+			console.log(close);
+			self.close();
+		}
 	}
-
-
+	
+// 	function popclose() {
+// 		close();
+// 	}
 </script>
 
 <style type="text/css">
