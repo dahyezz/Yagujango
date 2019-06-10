@@ -50,7 +50,7 @@ function sendFile(file, editor) {
     	// 파일 전송을 위한 폼생성
 		data = new FormData();
 	    data.append("uploadFile", file);
-	    data.append("boardno", ${board.boardno})
+	    data.append("boardno", ${board.boardno});
 	    $.ajax({ // ajax를 통해 파일 업로드 처리
 	        data : data,
 	        dataType: "json",

@@ -11,14 +11,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnDelete").click(function() {
-		location.href="/board/free/delete?boardno=${board.boardno}";
+		location.href="/board/seat/delete?boardno=${board.boardno}";
 	})
 	$("#btnList").click(function() {
-		location.href="/board/free/list";
+		location.href="/board/seat/list";
 	})
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "/board/free/update?boardno=${board.boardno }");
-	});
+		$(location).attr("href", "/board/seat/update?boardno=${board.boardno }");
+	})
 	$("#btncommentinsert").click(function(){
 		
 		var boardno = ${board.boardno};

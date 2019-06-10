@@ -205,4 +205,89 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 		return viewboard;
 	}
 
+	@Override
+	public void deletebyboardno(Board_Seat board_seat) {
+		String sql = "";
+		sql += "DELETE FROM board_seat";
+		sql += " WHERE boardno=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_seat.getBoardno());
+			ps.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void update(Board_Seat board_seat) {
+		String sql = "";
+		sql+="UPDATE board_seat";
+		sql+=" SET stadium_name = ?,";
+		sql+=" 		seat_block = ?,";
+		sql+=" 		seat_number = ?,";
+		sql+="      content = ?";
+		sql+=" WHERE boardno = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_seat.getStadium_name());
+			ps.setString(2, board_seat.getSeat_block());
+			ps.setInt(3, board_seat.getSeat_number());
+			ps.setString(4, board_seat.getContent());
+			ps.setInt(5, board_seat.getBoardno());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public int getboardno() {
+		String sql = "";
+		sql += "SELECT board_seat_seq.nextval";
+		sql += " FROM dual";
+		int boardno = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				boardno = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return boardno;
+	}
+
 }

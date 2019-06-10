@@ -202,7 +202,7 @@ public class Board_FreeServiceImpl implements Board_FreeService{
 		if(board_file.getOriginname() != null && 
 		board_file.getOriginname() != null &&
 		board_file.getFilesize() != 0) {
-			System.out.println(board_file);
+//			System.out.println(board_file);
 			board_FreeDao.insertFile(board_file);
 		}
 		
