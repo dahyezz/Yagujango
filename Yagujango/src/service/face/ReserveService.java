@@ -122,6 +122,6 @@ public interface ReserveService {
 
 	public List<Seat> getAllSeat();
 
-	public void deletetSeatByTicket(HttpServletRequest request);
+//	public void deletetSeatByTicket(HttpServletRequest request);
 
 }

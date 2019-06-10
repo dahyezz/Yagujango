@@ -214,7 +214,6 @@ public class ReserveServiceImpl implements ReserveService{
    }
 
 	@Override
-
 	public void deleteTicket(HttpServletRequest request) {
 
 		String ticketcd = request.getParameter("ticket_code");
@@ -227,6 +226,7 @@ public class ReserveServiceImpl implements ReserveService{
 			reserveDao.deletetSeatInfoByTicket(ticketcode);
 			ticketcode++;
 		}
+	}
 		
 
 	public void deletetSeatInfoByTicket(HttpServletRequest request) { // 결제취소버튼 삭제
@@ -255,19 +255,19 @@ public class ReserveServiceImpl implements ReserveService{
 		return reserveDao.selectAllSeat();
 	}
 
-	@Override
-	public void deletetSeatByTicket(HttpServletRequest request) { // receive -> seat 삭제
-		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
-		String ticketcd = request.getParameter("ticket_code");
-		String cnt = request.getParameter("count");
-		int ticketcode = Integer.parseInt(ticketcd);
-		int count = Integer.parseInt(cnt);
-		
-		for(int i = ticketcode; i < ticketcode+count; i++) {
-			reserveDao.deletetSeatInfoByTicket(i);
-		}
-		/////////////////////////////////////////////////////
-		
-	}
+//	@Override
+//	public void deletetSeatByTicket(HttpServletRequest request) { // receive -> seat 삭제
+//		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
+//		String ticketcd = request.getParameter("ticket_code");
+//		String cnt = request.getParameter("count");
+//		int ticketcode = Integer.parseInt(ticketcd);
+//		int count = Integer.parseInt(cnt);
+//		
+//		for(int i = ticketcode; i < ticketcode+count; i++) {
+//			reserveDao.deletetSeatInfoByTicket(i);
+//		}
+//		/////////////////////////////////////////////////////
+//		
+//	}
 
 }
