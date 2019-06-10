@@ -17,4 +17,10 @@ public interface Board_SeatDao {
 
 	Board_Seat selectbyboardno(Board_Seat board_seat);
 
+	void deletebyboardno(Board_Seat board_seat);
+
+	void update(Board_Seat board_seat);
+
+	int getboardno();
+
 }

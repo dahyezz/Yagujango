@@ -20,11 +20,9 @@ public class SeatFileUploadController extends HttpServlet {
 	Board_SeatService board_SeatService = new Board_SeatServiceImpl();
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = "http://localhost:8088/upload/";
-		url += board_SeatService.uploadfile(req);
-		
-		
-		resp.getWriter().print(url);
 
+		
+		board_SeatService.uploadfile(req,resp);
+		
 	}
 }

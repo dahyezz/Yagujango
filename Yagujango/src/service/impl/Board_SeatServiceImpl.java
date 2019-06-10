@@ -1,18 +1,23 @@
 package service.impl;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.google.gson.JsonObject;
 
 import dao.face.Board_SeatDao;
 import dao.impl.Board_SeatDaoImpl;
@@ -65,10 +70,12 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		
 	}
 	@Override
-	public String uploadfile(HttpServletRequest req) {
+	public void uploadfile(HttpServletRequest req, HttpServletResponse resp) {
 		Board_file board_file = new Board_file();
-		String url = "";
-	
+		String url = "http://localhost:8088/upload/";
+		resp.setCharacterEncoding("utf-8");
+		JsonObject obj = new JsonObject();
+		int boardno = 0;
 
 				DiskFileItemFactory factory = null;
 				factory = new DiskFileItemFactory();
@@ -101,59 +108,59 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 					e.printStackTrace();
 				}
 
-				// 7. 파싱된 데이터 처리
 				Iterator<FileItem> iter = items.iterator();
-				// 모든 요청정보 처리 루틴
+
 			
 				File up = new File(context.getRealPath("upload"));
 				while (iter.hasNext()) {
 
-					// ------요청정보 처리형태 3가지
-					// 1. 빈 파일(용량이 0인파일)
-					// 2. form data(일반적인 요청파라미터)
-					// 3. 파일
-					// -----------------------------
-					// 요청 정보 하나씩 얻어오기
+			
 					FileItem item = iter.next();
 
-					// 1)빈 파일 처리
+
 					if (item.getSize() <= 0)
 						continue;
 
-					if (item.isFormField()) {// 2)일반적인 요청 데이터 처리
-						// form-data일 경우
+					if (item.isFormField()) {
+						String key = item.getFieldName();
+						if ("boardno".equals(key)) {
+								String param;
+								try {
+									param = item.getString("utf-8");
+									boardno = Integer.parseInt(param);
+									if(boardno == 0) {
+//										boardno = board_FreeDao.getboardno();
+										boardno = board_SeatDao.getboardno();
+										
+										obj.addProperty("boardno", boardno);
+//										System.out.println(boardno);
+										board_file.setBoardno(boardno);
+//										System.out.println(board_file);
+										
+									}else {
+										obj.addProperty("boardno", boardno);
+//										System.out.println(boardno);
+										board_file.setBoardno(boardno);
+//										System.out.println(board_file);
+									}
+								} catch (UnsupportedEncodingException e) {
+									e.printStackTrace();
+								} 
+								
+								
+					}
+		
 
-						// key:value 쌍으로 전달된 요청 파라미터
-						// getFieldName():키
-						// getString() : 값
-						
-
-					} else {// 3)파일 처리
-						// 웹서버의 로컬디스크에 저장
-						// 다른방법으로 는 DB에 저장하는방법이 있
-						// UUID 생성하기
+					} else {
 						UUID uuid = UUID.randomUUID();
 
 						String u = uuid.toString().split("-")[4];
 
-						// 로컬 파일 저장소의 파일 객체
-//						up = new File(context.getRealPath("upload"), item.getName());
+						
 						up = new File(context.getRealPath("upload"), item.getName() + "_" + u);
-						url = item.getName() + "_" + u;
-						// 파일업로드 기록 DB에 저장하기
-						// ex) 게시글의 첨부파일 처리
+						url += item.getName() + "_" + u;
+				
 
-						// 업로드 파일 PK(fileno)
-						// 게시글 테이블의 FK(boardno)
-
-						// 업로드 파일의 원본 이름(originname)
-						// 업로드 파일의 저장된 이름(storedname)
-
-						// 업로드한사람의 FK(userid)
-
-						// 업로드한 시간(uploaddate)
-						// 업로드한 파일은 ContrentType(contenttype)
-						// 업로드한 파일의 크기(size)(filesize)
 						board_file.setOriginname(item.getName());
 						board_file.setStoredname(up.getName());
 						board_file.setFilesize((int) item.getSize());
@@ -165,12 +172,24 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						// 파일이 존재한다면 업로드 파일 DB 기록하기
-						
 					}
 				}
+	
+//		System.out.println(url);
+		obj.addProperty("url", url);
 		
-		return url;
+		if(board_file.getOriginname() != null && 
+		board_file.getOriginname() != null &&
+		board_file.getFilesize() != 0) {
+			System.out.println(board_file);
+//			board_SeatDao.insertFile(board_file);
+		}
+		try {
+			resp.getWriter().print(obj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public Board_Seat getBoardno(HttpServletRequest req) {
@@ -190,6 +209,26 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 	public Board_Seat view(Board_Seat board_seat) {
 		
 		return board_SeatDao.selectbyboardno(board_seat);
+		
+	}
+	@Override
+	public void delete(Board_Seat board_seat) {
+		board_SeatDao.deletebyboardno(board_seat);
+		
+	}
+	@Override
+	public void update(HttpServletRequest req) {
+		Board_Seat board_seat = new Board_Seat();
+		HttpSession session = req.getSession();
+		board_seat.setStadium_name(req.getParameter("stadium_name"));
+		board_seat.setSeat_block(req.getParameter("seat_block"));
+		String seat_param = req.getParameter("seat_number");
+		int seat_number = Integer.parseInt(seat_param);
+		board_seat.setSeat_number(seat_number);
+		board_seat.setContent(req.getParameter("content"));
+		board_seat.setWriter((String)session.getAttribute("usernick"));
+		board_seat.setFileurl(req.getParameter("fileurl"));
+		board_SeatDao.update(board_seat);
 		
 	}
 

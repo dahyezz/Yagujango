@@ -27,7 +27,7 @@ public class FreeListController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//요청파라미터에서 현재페이지 얻어오기
 		Paging paging = board_FreeService.getCurPage(req);
-		
+	
 		List<Board_Free> list = new ArrayList<Board_Free>();
 		
 		
