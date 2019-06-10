@@ -54,12 +54,6 @@ public class SelectSeatController extends HttpServlet {
 
 		String selectseat = request.getParameter("selectseat");
 		List<Integer> newTicketList = reserveService.addTicket(match, selectseat);
-	
-//		for(Integer e : newTicketList) {
-//			System.out.println(e);
-//		}
-//		System.out.println("newTicketList Size : " + newTicketList.size());
-//		System.out.println("first : " + newTicketList.get(0));
 		
 		response.sendRedirect("/reserve/receive?match_code="+match.getMatch_code()+"&ticket_code="
 										+newTicketList.get(0)+"&count="+newTicketList.size());

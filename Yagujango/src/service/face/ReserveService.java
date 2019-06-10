@@ -81,9 +81,9 @@ public interface ReserveService {
 	 */
 	public List<Ticket> getReserveStatus(Match match);
 
-	public List<String> getSeatBlock();
+//	public List<String> getSeatBlock();
 
-	public List<Integer> getSeatNumber();
+//	public List<Integer> getSeatNumber();
 
 	public List<Ticket> getSeatInfoByTicket(Match match);
 
@@ -114,7 +114,8 @@ public interface ReserveService {
 
 	public List<Integer> addTicket(Match match, String selectseat);
 
-	public void deletetSeatInfoByTicket(HttpServletRequest request);
+
+	public void deleteTicket(HttpServletRequest request);
 
 
 	public List<Seat> getResevedSeatList(Match match);

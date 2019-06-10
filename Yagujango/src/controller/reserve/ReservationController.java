@@ -54,7 +54,9 @@ public class ReservationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reserveService.deletetSeatInfoByTicket(request); // ticket테이블 삭제, 결제취소버튼 누를때
 		
+
 		reserveService.insertReserve(request); // reserve테이블 insert
+
 		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/payment.jsp").forward(request, response);
 	}

@@ -83,15 +83,15 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 	
-	@Override
-	public List<String> getSeatBlock() {
-		return reserveDao.selectSeatBlock();
-	}
+//	@Override
+//	public List<String> getSeatBlock() {
+//		return reserveDao.selectSeatBlock();
+//	}
 	
-	@Override
-	public List<Integer> getSeatNumber() {
-		return reserveDao.selectSeatNumber();
-	}
+//	@Override
+//	public List<Integer> getSeatNumber() {
+//		return reserveDao.selectSeatNumber();
+//	}
 
 	@Override
 	public List<Ticket> getSeatInfoByTicket(Match match) {
@@ -128,7 +128,7 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 
-	@Override
+
 	public void insertReserve(HttpServletRequest request) {
 		String deleteparam = request.getParameter("deleteparam");
 		System.out.println(deleteparam);
@@ -161,6 +161,7 @@ public class ReserveServiceImpl implements ReserveService{
 				// -> reserve테이블 resserve_code에 int형파라미터를 전부합쳐서 reserve_code 보여주기..... -> 다른방법이 생각이 안남...
 			}
 		}
+
 	}
 
 	@Override
@@ -213,6 +214,21 @@ public class ReserveServiceImpl implements ReserveService{
    }
 
 	@Override
+
+	public void deleteTicket(HttpServletRequest request) {
+
+		String ticketcd = request.getParameter("ticket_code");
+		int ticketcode = Integer.parseInt(ticketcd);
+		
+		String cnt = request.getParameter("count");
+		int count = Integer.parseInt(cnt);
+		
+		for(int i=0; i < count; i++) {
+			reserveDao.deletetSeatInfoByTicket(ticketcode);
+			ticketcode++;
+		}
+		
+
 	public void deletetSeatInfoByTicket(HttpServletRequest request) { // 결제취소버튼 삭제
 		String deleteparam = request.getParameter("deleteparam");
 		String cnt = request.getParameter("count"); // 내가 고른 티켓매수
@@ -226,6 +242,7 @@ public class ReserveServiceImpl implements ReserveService{
 				reserveDao.deletetSeatInfoByTicket(i); // ticket테이블 삭제
 			}
 		}
+
 	}
 	
 	@Override
