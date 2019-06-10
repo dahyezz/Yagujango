@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import dto.Match;
 import dto.Member;
-import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
 import service.face.ReserveService;
@@ -52,51 +51,12 @@ public class SelectReceiveController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// 수령방법선택창에서 좌석페이지로 돌아갈때 ticket의 좌석정보 delete
+		reserveService.deleteTicket(request);
+		
+		// 좌석 선택 페이지로 리다이렉트
 		match = reserveService.getMatchCode(request);
-		match = reserveService.getMatchInfo(match);
-		
-		request.setAttribute("match", match);
-		
-		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
-		request.setAttribute("stadium", stadium);
-		
-		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
-		String ticketcd = request.getParameter("ticket_code");
-		String cnt = request.getParameter("count");
-		int ticketcode = Integer.parseInt(ticketcd);
-		int count = Integer.parseInt(cnt);
-		
-		for(int i = ticketcode; i < ticketcode+count; i++) {
-			reserveService.deletetSeatInfoByTicket(i);
-		}
-		/////////////////////////////////////////////////////
-		
-		List<Seat> seatAvailable = reserveService.getSeatInfo(match); // 예매 가능한 좌석
-		request.setAttribute("seat", seatAvailable);
-		
-		List<Integer> seatCount = reserveService.getSeatCount(match); //예매 가능한 좌석 카운트
-		request.setAttribute("seatCount", seatCount);
-		
-		List<Ticket> ticket = reserveService.getReserveStatus(match); //예매현황
-		request.setAttribute("ticket", ticket);
-				
-		List<String> seatBlock = reserveService.getSeatBlock();
-		request.setAttribute("seatBlock", seatBlock);
-		
-		List<Integer> seatNumber = reserveService.getSeatNumber();
-		request.setAttribute("seatNumber", seatNumber);
-		
-		// ------ TEST -----------
-		//	좌석 disabled 되는지 check
-		List<Seat> resvdSeatList = reserveService.getResevedSeatList(match);
-//		System.out.println(resvdSeatList);
-		request.setAttribute("resvdSeatList", resvdSeatList);
-		
-		//전체 좌석 List
-		List<Seat> allSeatList = reserveService.getAllSeat();
-		request.setAttribute("allSeat", allSeatList);
-		// -----------------------
-		
-		request.getRequestDispatcher("/WEB-INF/views/reserve/selectseat.jsp").forward(request, response);
+		response.sendRedirect("/reserve/seat?match_code="+match.getMatch_code());
 	}
 }

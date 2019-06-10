@@ -83,15 +83,15 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 	
-	@Override
-	public List<String> getSeatBlock() {
-		return reserveDao.selectSeatBlock();
-	}
+//	@Override
+//	public List<String> getSeatBlock() {
+//		return reserveDao.selectSeatBlock();
+//	}
 	
-	@Override
-	public List<Integer> getSeatNumber() {
-		return reserveDao.selectSeatNumber();
-	}
+//	@Override
+//	public List<Integer> getSeatNumber() {
+//		return reserveDao.selectSeatNumber();
+//	}
 
 	@Override
 	public List<Ticket> getSeatInfoByTicket(Match match) {
@@ -131,6 +131,9 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
 		reserveDao.insertReserve(reserve, codedate, matchcode, userno);
+		
+		
+		
 	}
 
 	@Override
@@ -183,8 +186,20 @@ public class ReserveServiceImpl implements ReserveService{
    }
 
 	@Override
-	public void deletetSeatInfoByTicket(int ticketcode) {
-		reserveDao.deletetSeatInfoByTicket(ticketcode);
+	public void deleteTicket(HttpServletRequest request) {
+
+		String ticketcd = request.getParameter("ticket_code");
+		int ticketcode = Integer.parseInt(ticketcd);
+		
+		String cnt = request.getParameter("count");
+		int count = Integer.parseInt(cnt);
+		
+		for(int i=0; i < count; i++) {
+			reserveDao.deletetSeatInfoByTicket(ticketcode);
+			ticketcode++;
+		}
+		
+//		reserveDao.deletetSeatInfoByTicket(ticketcode);
 	}
 	
 	@Override

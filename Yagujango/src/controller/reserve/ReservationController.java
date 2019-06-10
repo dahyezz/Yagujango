@@ -58,14 +58,8 @@ public class ReservationController extends HttpServlet {
 		String cnt = request.getParameter("count"); // 내가 고른 티켓매수
 		
 		if(deleteparam.equals("delete")) { // parameter가 delete일 경우 ticket테이블 삭제
-			String ticketcd = request.getParameter("ticket_code"); // 삭제용 ticket_code
-			System.out.println("삭제");
-			int ticketcod = Integer.parseInt(ticketcd);
-			int count = Integer.parseInt(cnt);
-			
-			for(int i = ticketcod; i < ticketcod+count; i++) {
-				reserveService.deletetSeatInfoByTicket(i); // ticket테이블 삭제
-			}
+//			System.out.println("삭제");
+			reserveService.deleteTicket(request);
 		}
 		
 		if(deleteparam.equals("insert")) { // parameter가 insert일 경우 reserve테이블 삽입
