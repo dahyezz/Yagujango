@@ -149,14 +149,7 @@ a { text-decoration:none }
 	</tr>
 	<tr>
 		<th>취소기한</th>
-		
-		<fmt:formatDate value="${match.match_date }" var="currentDate" pattern="yyyyMMdd"/> <!-- 현재 날짜 '-'뺀 형식으로 바꾸기  -->
-		<fmt:parseNumber value="${currentDate + 7 }" var="numberDate" integerOnly="true"/> <!-- 현재날짜 숫자로 바꿔 +7  -->
-		
-		<fmt:parseDate value="${numberDate }" var="endDate" pattern="yyyyMMdd"/> <!-- 숫자로 바꾼 날짜를 날짜형식으로 변환 -->
-
-		<td><fmt:formatDate value="${endDate }" pattern="yyyy-MM-dd (E요일)"/></td> <!-- 원래 형식으로 변환 -->
-		
+		<td id="canceldate"></td>
 	</tr>
 </table>
 <table class="table">
@@ -178,4 +171,41 @@ a { text-decoration:none }
 	<label><button onclick="payment()">결제하기</button></label>
 </div>
 </body>
+
+<!-- 취소기한 날짜계산  -->
+<script type="text/javascript">
+Date.prototype.format = function(f) {
+	if (!this.valueOf()) return " ";
+ 
+	var weekName = ["일", "월", "화", "수", "목", "금", "토"];
+	var d = this;
+	 
+	return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+		switch ($1) {
+			case "yyyy": return d.getFullYear();
+			case "yy": return (d.getFullYear() % 1000).zf(2);
+			case "MM": return (d.getMonth() + 1).zf(2);
+			case "dd": return d.getDate().zf(2);
+			case "E": return weekName[d.getDay()];
+			case "HH": return d.getHours().zf(2);
+			case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+			case "mm": return d.getMinutes().zf(2);
+			case "ss": return d.getSeconds().zf(2);
+			case "a/p": return d.getHours() < 12 ? "오전" : "오후";
+			default: return $1;
+		}
+	});
+};
+ 
+String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+Number.prototype.zf = function(len){return this.toString().zf(len);};
+   
+var canceldate = new Date("${match.match_date}");
+canceldate.setDate(canceldate.getDate() + 7); 
+console.log(canceldate.format("yyyy-MM-dd"));
+document.getElementById('canceldate').innerHTML=canceldate.format("yyyy-MM-dd (E요일)");
+
+</script>
+
 </html>

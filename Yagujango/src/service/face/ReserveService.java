@@ -122,5 +122,4 @@ public interface ReserveService {
 
 	public List<Seat> getAllSeat();
 
-
 }
