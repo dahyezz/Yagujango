@@ -18,23 +18,37 @@
 <script type="text/javascript">
 	var popclose = false;
 	function cancle() {
-		$('#deleteseat').submit();
+		var deleteparam = $('#deleteseat').submit();
 		alert("결제를 취소하시겠습니까?");
-		popclose = true;
-		if(popclose == true) {
-			console.log(close);
-			self.close();
-		}
+		
+		$.ajax({
+			type: "POST",
+			data: deleteparam,
+			url: "/reserve/list",
+			success: function (data) {
+			     window.close();
+			
+			 }, error: function (jqXHR, textStatus, errorThrown) {
+			   alert(error);
+			}
+		});
 	}
 	
 	function payment() {
 		alert("결제 하시겠습니까?")
- 		$('#selectpayment').submit();
-		popclose = true;
-		if(popclose == true) {
-			console.log(close);
-			self.close();
-		}
+ 		var insertparam = $('#selectpayment').submit();
+		
+		$.ajax({
+			type: "POST",
+			data: insertparam,
+			url: "/reserve/list",
+			success: function (data) {
+			     window.close();
+			
+			 }, error: function (jqXHR, textStatus, errorThrown) {
+			   alert(error);
+			}
+		});
 	}
 	
 // 	function popclose() {

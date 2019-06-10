@@ -63,7 +63,5 @@ public class ReservationController extends HttpServlet {
 		if(deleteparam.equals("insert")) {
 			reserveService.insertReserve(request); // reserve테이블 insert
 		}
-
-		request.getRequestDispatcher("/WEB-INF/views/reserve/payment.jsp").forward(request, response);
 	}
 }
