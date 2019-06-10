@@ -59,4 +59,6 @@ public interface AdminDao {
 
 	public void deleteMemberList(String names);
 
+	public void updatePenalty(String names);
+
 }

@@ -59,6 +59,8 @@ public class Board_1to1WriteController extends HttpServlet {
 		//게시글 조회
 		viewBoard = adminService.view(viewBoard);
 		
+		System.out.println(viewBoard);
+		
 		Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
 		board_1to1_answer.setWriter_userid(viewBoard.getWriter_userid());
 		

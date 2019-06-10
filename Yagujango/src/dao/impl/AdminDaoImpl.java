@@ -521,5 +521,28 @@ public class AdminDaoImpl implements AdminDao{
 		
 		
 	}
+
+	@Override
+	public void updatePenalty(String names) {
+
+		String sql = "UPDATE FROM member WHERE userno IN ( "+names+" )";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	
 }

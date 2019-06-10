@@ -199,5 +199,12 @@ public class AdminServiceImpl implements AdminService{
 		adminDao.deleteMemberList(names);
 		
 	}
+
+	@Override
+	public void memberPenalty(String names) {
+
+		adminDao.updatePenalty(names);
+		
+	}
 	
 }
