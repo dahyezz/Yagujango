@@ -82,17 +82,6 @@ public class ReserveServiceImpl implements ReserveService{
 		return reserveDao.selectAllTicketByMatchCode(match);
 	}
 
-	
-//	@Override
-//	public List<String> getSeatBlock() {
-//		return reserveDao.selectSeatBlock();
-//	}
-	
-//	@Override
-//	public List<Integer> getSeatNumber() {
-//		return reserveDao.selectSeatNumber();
-//	}
-
 	@Override
 	public List<Ticket> getSeatInfoByTicket(Match match) {
 		return reserveDao.selectSeatInfo(match);
@@ -159,6 +148,8 @@ public class ReserveServiceImpl implements ReserveService{
 				
 				reserveDao.insertReserve(reserve, codedate, matchcode, userno); // reserve테이블 삽입
 				// -> reserve테이블 resserve_code에 int형파라미터를 전부합쳐서 reserve_code 보여주기..... -> 다른방법이 생각이 안남...
+				
+							
 			}
 		}
 

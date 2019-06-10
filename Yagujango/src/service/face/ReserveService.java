@@ -81,10 +81,6 @@ public interface ReserveService {
 	 */
 	public List<Ticket> getReserveStatus(Match match);
 
-//	public List<String> getSeatBlock();
-
-//	public List<Integer> getSeatNumber();
-
 	public List<Ticket> getSeatInfoByTicket(Match match);
 
 

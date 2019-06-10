@@ -46,11 +46,6 @@ public interface ReserveDao {
 	 */
 	List<Ticket> selectAllTicketByMatchCode(Match match);
 
-
-	List<String> selectSeatBlock();
-
-	List<Integer> selectSeatNumber();
-
 	List<Ticket> selectSeatInfo(Match match);
 
 	Member getUserNo(String userid);
