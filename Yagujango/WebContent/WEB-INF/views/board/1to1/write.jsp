@@ -96,7 +96,7 @@ Body {
 
 <div class="witer">
 	<div class="witerBody">
-		<form action="/board/write" method="post">
+		<form action="/board/1:1write" method="post">
 		
 			<table class="table 1">
 				<tr>
@@ -116,6 +116,7 @@ Body {
 							<option value="dreamwiz.com">dreamwiz.com</option>
 							<option value="korea.com">korea.com</option>
 							<option value="paran.com">paran.com</option>
+							
 						</select>
 					</td>
 				</tr>

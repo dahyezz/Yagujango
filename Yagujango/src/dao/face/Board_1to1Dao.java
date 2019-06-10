@@ -12,7 +12,7 @@ public interface Board_1to1Dao {
 
 	public int selectCntAll(Paging paging);
 	
-	public void insert(Board_1to1 board_1to1);
+	public void Insert(Board_1to1 board_1to1);
 
 }
 
