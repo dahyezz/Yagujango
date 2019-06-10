@@ -30,7 +30,7 @@ public class FreeUpdateController extends HttpServlet {
 		}
 		
 
-		System.out.println(viewboard);
+//		System.out.println(viewboard);
 		req.setAttribute("board", viewboard);
 		req.getRequestDispatcher("/WEB-INF/views/board/free/update.jsp").forward(req, resp);
 	}
