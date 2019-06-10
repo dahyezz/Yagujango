@@ -49,7 +49,14 @@ $(document).ready(function() {
 		<td>${b.writer_userid }</td>
 		<td><a href="/admin/board_1to1view?boardno=${b.boardno}">${b.title }</a></td>
 		<td>${b.writtendate }</td>		
-		<td>${b.writer_comment }</td>
+<%-- 		<td>${b.writer_comment }</td> --%>
+<!-- 		질문목록에는 boardno가 있는데 답변목록에는 질문목록에 해당하는 boardno가 없는상황 -->
+		<!-- 미처리상태 -->
+		<td><c:if test="${not b.writer_comment }">
+<!-- 		<strong>미처리</strong><br> -->
+		<button onclick='location.href="/member/login";'>미처리</button>
+		</c:if></td>
+
 		<td><fmt:formatDate value="${b.writtendate }" pattern="yyyy-MM-dd" /></td>
 
 	</tr>

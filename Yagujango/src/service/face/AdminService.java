@@ -82,6 +82,8 @@ public interface AdminService {
 
 	public void memberListDelete(String names);
 
+	public void memberPenalty(String names);
+
 	
 	
 

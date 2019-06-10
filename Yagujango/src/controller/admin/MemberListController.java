@@ -45,5 +45,22 @@ public class MemberListController extends HttpServlet {
 		req.getRequestDispatcher("/WEB-INF/views/admin/list.jsp").forward(req, resp);
 		
 	}
+		
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		String names = req.getParameter("names");
+		
+		if( !"".equals(names) && names != null) {
+			adminService.memberPenalty(names);
+		}
+	
+		resp.sendRedirect("/admin/list");
+//		penalty
+		
+		
+	}
 
 }
