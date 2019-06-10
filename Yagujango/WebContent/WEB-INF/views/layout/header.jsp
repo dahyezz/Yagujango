@@ -86,7 +86,7 @@ body {
 	position: absolute;
 	left: 0;	
 	top: 100%;
-	width: 180px;
+	width: 100%;
 	float: center;
 }
 .zeta-menu ul li { float: none; width: auto;}

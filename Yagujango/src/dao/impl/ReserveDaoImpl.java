@@ -1,5 +1,5 @@
 package dao.impl;
-import java.io.UnsupportedEncodingException;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

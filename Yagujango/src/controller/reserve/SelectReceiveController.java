@@ -37,8 +37,6 @@ public class SelectReceiveController extends HttpServlet {
 		
 		Match match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
-//		System.out.println(match); //TEST
-		
 		request.setAttribute("match", match);
 		
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
@@ -87,6 +85,17 @@ public class SelectReceiveController extends HttpServlet {
 		
 		List<Integer> seatNumber = reserveService.getSeatNumber();
 		request.setAttribute("seatNumber", seatNumber);
+		
+		// ------ TEST -----------
+		//	좌석 disabled 되는지 check
+		List<Seat> resvdSeatList = reserveService.getResevedSeatList(match);
+//		System.out.println(resvdSeatList);
+		request.setAttribute("resvdSeatList", resvdSeatList);
+		
+		//전체 좌석 List
+		List<Seat> allSeatList = reserveService.getAllSeat();
+		request.setAttribute("allSeat", allSeatList);
+		// -----------------------
 		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/selectseat.jsp").forward(request, response);
 	}

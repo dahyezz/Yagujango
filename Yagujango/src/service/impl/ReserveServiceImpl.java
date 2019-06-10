@@ -196,5 +196,4 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Seat> getAllSeat() {
 		return reserveDao.selectAllSeat();
 	}
-
 }

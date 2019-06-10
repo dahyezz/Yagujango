@@ -119,7 +119,9 @@ table {
  	color: #ccc; 
 }
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none; color: black; }
+
+a { text-decoration:none; color:#000000 }
+
 </style>
 
 
@@ -139,6 +141,7 @@ a { text-decoration:none; color: black; }
 
 <!-- 구장별 경기목록 -->
 <div id="matchList" class="matchList">
+
 <!-- 5월  -->
 <c:set value="1" var="month"/> <!-- 테이블 위 '월'을 한번만 출력하기 위한 변수 -->
 	<table class="matchtable" style="text-align:center;">
