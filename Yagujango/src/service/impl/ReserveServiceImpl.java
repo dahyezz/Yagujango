@@ -128,12 +128,40 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 
-	@Override
-	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
-		reserveDao.insertReserve(reserve, codedate, matchcode, userno);
+
+	public void insertReserve(HttpServletRequest request) {
+		String deleteparam = request.getParameter("deleteparam");
+		System.out.println(deleteparam);
+		String cnt = request.getParameter("count"); // 내가 고른 티켓매수
 		
-		
-		
+		if(deleteparam.equals("insert")) { // parameter가 insert일 경우 reserve테이블 삽입
+			Reserve reserve = new Reserve();
+			int ticketcnt = Integer.parseInt(cnt);
+			String memberno = request.getParameter("userno");
+			String match = request.getParameter("match_code");
+			String payment = request.getParameter("payment");
+			String payment_date = request.getParameter("match_date"); // reserve에 날짜를 insert하기 위한 date형 파라미터
+			String string_date = request.getParameter("match_date"); // reserve에 예매코드에 날짜를표현하기 위해  string형 파라미터
+			String stringdate = string_date.replace("-", "");
+			String receive = request.getParameter("receive");
+			String[] Arrayticket = request.getParameterValues("ticket_code"); // 내가고른 좌석이 여러개일 경우 티켓코드는 여러개 생성 -> 배열로 방아와야함
+			
+			for(int i=0; i < ticketcnt; i++) { // 티켓매수를 통해 reserve테이블에 반복 insert.... -> 더 좋은 방법이 있을까?
+				int userno = Integer.parseInt(memberno);
+				int matchcode = Integer.parseInt(match);
+				int codedate = Integer.parseInt(stringdate);
+				
+				reserve.setTicket_code(Integer.parseInt(Arrayticket[i]));
+				reserve.setPayment(payment);
+				reserve.setUserno(userno);
+				reserve.setPayment_date(StringToDate(payment_date)); // String date를 java.sql.date로 바꾸기
+				reserve.setHow_receive(receive);
+				
+				reserveDao.insertReserve(reserve, codedate, matchcode, userno); // reserve테이블 삽입
+				// -> reserve테이블 resserve_code에 int형파라미터를 전부합쳐서 reserve_code 보여주기..... -> 다른방법이 생각이 안남...
+			}
+		}
+
 	}
 
 	@Override
@@ -186,6 +214,7 @@ public class ReserveServiceImpl implements ReserveService{
    }
 
 	@Override
+
 	public void deleteTicket(HttpServletRequest request) {
 
 		String ticketcd = request.getParameter("ticket_code");
@@ -199,7 +228,21 @@ public class ReserveServiceImpl implements ReserveService{
 			ticketcode++;
 		}
 		
-//		reserveDao.deletetSeatInfoByTicket(ticketcode);
+
+	public void deletetSeatInfoByTicket(HttpServletRequest request) { // 결제취소버튼 삭제
+		String deleteparam = request.getParameter("deleteparam");
+		String cnt = request.getParameter("count"); // 내가 고른 티켓매수
+		String ticketcd = request.getParameter("ticket_code"); // 삭제용 ticket_code
+		System.out.println("삭제");
+		int ticketcod = Integer.parseInt(ticketcd);
+		int count = Integer.parseInt(cnt);
+		
+		if(deleteparam.equals("delete")) { // parameter가 delete일 경우 ticket테이블 삭제
+			for(int i = ticketcod; i < ticketcod+count; i++) {
+				reserveDao.deletetSeatInfoByTicket(i); // ticket테이블 삭제
+			}
+		}
+
 	}
 	
 	@Override
@@ -211,4 +254,20 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Seat> getAllSeat() {
 		return reserveDao.selectAllSeat();
 	}
+
+	@Override
+	public void deletetSeatByTicket(HttpServletRequest request) { // receive -> seat 삭제
+		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
+		String ticketcd = request.getParameter("ticket_code");
+		String cnt = request.getParameter("count");
+		int ticketcode = Integer.parseInt(ticketcd);
+		int count = Integer.parseInt(cnt);
+		
+		for(int i = ticketcode; i < ticketcode+count; i++) {
+			reserveDao.deletetSeatInfoByTicket(i);
+		}
+		/////////////////////////////////////////////////////
+		
+	}
+
 }
