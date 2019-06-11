@@ -513,7 +513,8 @@ public class ReserveDaoImpl implements ReserveDao {
 	@Override
 	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
 		String sql = "";
-		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date, how_receive)";
+
+		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date , how_receive)";
 		sql += " VALUES (?||?||?, ?, ?, ?,(to_date(sysdate,'yyyy-MM-dd')), ?)";
 
 		try {
@@ -586,6 +587,52 @@ public class ReserveDaoImpl implements ReserveDao {
 		return allList;
 
 	}
+
+
+	@Override
+	public Member getMember(int memno) {
+		Member member = new Member();
+		
+		String sql = "";
+		sql += "SELECT * FROM member";
+		sql += " WHERE userno = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, memno);
+			
+			rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				member.setUserno(rs.getInt("userno"));
+				member.setUserid(rs.getString("userid"));
+				member.setUserpw(rs.getString("userpw"));
+				member.setUsername(rs.getString("username"));
+				member.setUsernick(rs.getString("usernick"));
+				member.setBirth(rs.getDate("birth"));
+				member.setGender(rs.getString("gender"));
+				member.setPhone(rs.getString("phone"));
+				member.setEmail(rs.getString("email"));
+				member.setPenalty(rs.getInt("penalty"));
+				member.setMyteam(rs.getString("myteam"));
+	    }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+        
+		return member;
+	}
+
 	
 	@Override
 	public void updateBarcode(Reserve reserve, String barcode) {
@@ -641,6 +688,7 @@ public class ReserveDaoImpl implements ReserveDao {
 				match.setHighlight(rs.getString("highlight"));
 				
 				matchList.add(match);
+
 			}
 			
 		} catch (SQLException e) {
@@ -654,8 +702,10 @@ public class ReserveDaoImpl implements ReserveDao {
 				e.printStackTrace();
 			}
 		}
-		
+		    
 		return matchList;
 	}
+
+
 
 }

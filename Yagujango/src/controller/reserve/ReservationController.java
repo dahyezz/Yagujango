@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Match;
+import dto.Member;
 import dto.Stadium;
 import dto.Ticket;
 import service.face.ReserveService;
@@ -24,8 +25,8 @@ public class ReservationController extends HttpServlet {
 	
 		
 		String memberno = request.getParameter("userno");
-		System.out.println("payment : " + memberno);
 		request.setAttribute("memberno", memberno);
+		int memno = Integer.parseInt(memberno);
 		
 		String ticketcd = request.getParameter("ticket_code");
 		String cnt = request.getParameter("count");
@@ -50,6 +51,9 @@ public class ReservationController extends HttpServlet {
 		System.out.println(seatinfo); // TEST
 		request.setAttribute("seatinfo", seatinfo);
 		
+		Member member = reserveService.getMember(memno); // member email 가져오기
+		request.setAttribute("member", member);
+		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/payment.jsp").forward(request, response);
 	}
 	
@@ -66,6 +70,7 @@ public class ReservationController extends HttpServlet {
 		
 		if(deleteparam.equals("insert")) {
 			reserveService.insertReserve(request); // reserve테이블 insert
+			reserveService.sendEmail(request);
 		}
 	}
 }

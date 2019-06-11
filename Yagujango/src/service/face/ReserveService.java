@@ -118,6 +118,11 @@ public interface ReserveService {
 
 	public List<Seat> getAllSeat();
 
+
+	public Member getMember(int memno);
+
+	public void sendEmail(HttpServletRequest request);
+
 	/**
 	 * 바코드 생성
 	 * 
@@ -131,5 +136,6 @@ public interface ReserveService {
 	 * 
 	 */
 	public List<Match> getThreeDaysMatchList();
+
 
 }

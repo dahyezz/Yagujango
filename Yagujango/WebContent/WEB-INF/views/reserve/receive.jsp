@@ -45,17 +45,17 @@
 	background:white;
 	border: 1px solid #D5D5D5;
 	border-radius: 5px;
-	float:left;
+ 	float:left; 
 }
 
 table {
-/* 	margin-right:100px; */
-/* 	margin-top:10px; */
+	margin-right:100px;
+ 	margin-top:10px;
  	border-collapse: collapse;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 	width:300px;
-	float:right;
+/*  	float:right;  */
 }
 .table th{
   	border: 1px solid #ddd;
@@ -69,6 +69,7 @@ table {
  	padding: 10px;
  	text-align:center;
  	background:#D5D5D5;
+ 	vertical-align:middle;
 }
 .table th :first-child, td:first-child{
  	border-left: 0;
@@ -124,57 +125,59 @@ a { text-decoration:none }
 	</form>
 </div>
 
-<div id="seat">
-	<form id="selectseat" name="selectseat" action="/reserve/receive" method="post">
-		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
-		<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
-		<input type="hidden" name="ticket_code" id="ticket_code" value="${param.ticket_code }"/>
-		<input type="hidden" name="count" id="count" value="${param.count }"/>
-	</form>
-</div>
+
+<form id="selectseat" name="selectseat" action="/reserve/receive" method="post">
+	<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
+	<input type="hidden" name="userno" id="userno" value="${memberno.userno }"/>
+	<input type="hidden" name="ticket_code" id="ticket_code" value="${param.ticket_code }"/>
+	<input type="hidden" name="count" id="count" value="${param.count }"/>
+</form>
+
 
 <strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
-<div>
-<table class="table" style="text-align:center;">
-	<tr>
-		<th>일시</th>
-		<td><fmt:formatDate value="${match.match_date }" pattern="yyyy-MM-dd (E요일)"/></td>
-	</tr>
-	<tr>
-		<th>선택좌석</th>
-		<td>
-		<c:forEach items="${seatinfo }" var="i">
-			<c:if test="${param.ticket_code <= i.ticket_code}">
-				${i.seat_block }블럭 ${i.seat_number }석<br>
-			</c:if>
-		</c:forEach>
-		</td>
-	</tr>
-	<tr>
-		<th>티켓금액</th>
-		<td>
-		<c:set var = "total" value ="0"/>
-		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:if test="${param.ticket_code <= i.ticket_code}">
-				<c:set var = "total" value="${total + i.price }"/>
-			</c:if>
-		</c:forEach>
-		${total }원
-		
-		</td>
-	</tr>
-	<tr>
-		<th>수수료</th>
-		<td>0원</td>
-	</tr>
-	<tr>
-		<th>취소기한</th>
-		<td id="canceldate"></td>
-	</tr>
-</table>
+<div style="float:right;">
+	<table class="table" style="text-align:center;">
+		<tr>
+			<th>일시</th>
+			<td><fmt:formatDate value="${match.match_date }" pattern="yyyy-MM-dd (E요일)"/></td>
+		</tr>
+		<tr>
+			<th>선택좌석</th>
+			<td>
+				<div style="overflow:auto; max-height:80px;">
+					<c:forEach items="${seatinfo }" var="i">
+						<c:if test="${param.ticket_code <= i.ticket_code}">
+							${i.seat_block }블럭 ${i.seat_number }석<br>
+						</c:if>
+					</c:forEach>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>티켓금액</th>
+			<td>
+				<c:set var = "total" value ="0"/>
+				<c:forEach items="${seatinfo }" var="i" varStatus="status">
+					<c:if test="${param.ticket_code <= i.ticket_code}">
+						<c:set var = "total" value="${total + i.price }"/>
+					</c:if>
+				</c:forEach>
+				${total }원
+				
+			</td>
+		</tr>
+		<tr>
+			<th>수수료</th>
+			<td>0원</td>
+		</tr>
+		<tr>
+			<th>취소기한</th>
+			<td id="canceldate"></td>
+		</tr>
+	</table>
 </div>
 
-<div style="float:right;">
+<div style="float:right; margin-left:100px;">
 	<table class="table">
 		<tr>
 			<th>총 결제금액</th>
@@ -190,7 +193,7 @@ a { text-decoration:none }
 		</tr>
 	</table>
 </div>
-<div style="float:right;">
+<div style="float:right; margin-top:30px; margin-left:250px; margin-right:100px;">
 	<label><button onclick="seat()">◁PREV</button></label>&nbsp;&nbsp;&nbsp;
 	<label><button onclick="receive()">NEXT▷</button></label>
 </div>

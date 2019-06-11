@@ -17,6 +17,7 @@
 
 <script type="text/javascript">
 	var popclose = false;
+	
 	function cancle() {
 		var deleteparam = $('#deleteseat').submit();
 		alert("결제를 취소하시겠습니까?");
@@ -51,9 +52,6 @@
 		});
 	}
 	
-// 	function popclose() {
-// 		close();
-// 	}
 </script>
 
 <style type="text/css">
@@ -84,7 +82,7 @@ table {
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 	width:300px;
-	float:right;
+/* 	float:right; */
 }
 .table th{
   	border: 1px solid #ddd;
@@ -126,7 +124,7 @@ a { text-decoration:none }
 </style>
 
 </head>
-<body style="background: #D5D5D5;">
+<body style="background: #D5D5D5;" onUnload="xConfirm()">
 
 
 
@@ -157,6 +155,7 @@ a { text-decoration:none }
   		<input type="hidden" name="match_date" id="match_date" value="${match.match_date }"/>
   		<input type="hidden" name="receive" id="receive" value="${receive }"/>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
+  		<input type="hidden" name="email" id="email" value="${member.email }"/>
 	  	<label id='cash'><input type='radio' name='payment' id='cash' value='무통장입금' />무통장 입금</label><p>
 	  	<label id='card'><input type='radio' name='payment' id='card' value='신용카드' />신용 카드</label>
 	</form>
@@ -170,58 +169,67 @@ a { text-decoration:none }
 
 <strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
 <!-- <h3>My 예매정보</h3> -->
-<table class="table" style="text-align:center;">
-	<tr>
-		<th>일시</th>
-		<td><fmt:formatDate value="${match.match_date }" pattern="yyyy-MM-dd (E요일)"/></td>
-	</tr>
-	<tr>
-		<th>선택좌석</th>
-		<td>
-		<c:forEach items="${seatinfo }" var="i">
-			<c:if test="${param.ticket_code <= i.ticket_code}">
-				${i.seat_block }블럭 ${i.seat_number }석<br>
-			</c:if>
-		</c:forEach>
-		</td>
-	</tr>
-	<tr>
-		<th>티켓금액</th>
-		<td>
-		<c:set var = "total" value ="0"/>
-		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:if test="${param.ticket_code <= i.ticket_code}">
-				<c:set var = "total" value="${total + i.price }"/>
-			</c:if>
-		</c:forEach>
-		${total }원
-		</td>
-	</tr>
-	<tr>
-		<th>수수료</th>
-		<td>0원</td>
-	</tr>
-	<tr>
-		<th>취소기한</th>
-		<td id="canceldate"></td>
-	</tr>
-</table>
-<table class="table">
-	<tr>
-		<th>총 결제금액</th>
-		<th>
-		<c:set var = "total" value ="0"/>
-		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-			<c:if test="${param.ticket_code <= i.ticket_code}">
-				<c:set var = "total" value="${total + i.price }"/>
-			</c:if>
-		</c:forEach>
-		${total }원
-		</th>
-	</tr>
-</table>
-<div style="float:right; margin-top:50px; margin-right:100px;">
-	<label><button onclick="cancle()">결제취소</button></label>
+<div style="float:right;">
+	<table class="table" style="text-align:center;">
+		<tr>
+			<th>일시</th>
+			<td><fmt:formatDate value="${match.match_date }" pattern="yyyy-MM-dd (E요일)"/></td>
+		</tr>
+		<tr>
+			<th>선택좌석</th>
+			<td>
+				<div style="overflow:auto; max-height:80px;">
+					<c:forEach items="${seatinfo }" var="i">
+						<c:if test="${param.ticket_code <= i.ticket_code}">
+							${i.seat_block }블럭 ${i.seat_number }석<br>
+						</c:if>
+					</c:forEach>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>티켓금액</th>
+			<td>
+				<c:set var = "total" value ="0"/>
+				<c:forEach items="${seatinfo }" var="i" varStatus="status">
+					<c:if test="${param.ticket_code <= i.ticket_code}">
+						<c:set var = "total" value="${total + i.price }"/>
+					</c:if>
+				</c:forEach>
+				${total }원
+			
+			</td>
+		</tr>
+		<tr>
+			<th>수수료</th>
+			<td>0원</td>
+		</tr>
+		<tr>
+			<th>취소기한</th>
+			<td id="canceldate"></td>
+		</tr>
+	</table>
+</div>
+
+<div style="float:right; margin-left:100px;">
+	<table class="table">
+		<tr>
+			<th>총 결제금액</th>
+			<th>
+			<c:set var = "total" value ="0"/>
+			<c:forEach items="${seatinfo }" var="i" varStatus="status">
+				<c:if test="${param.ticket_code <= i.ticket_code}">
+					<c:set var = "total" value="${total + i.price }"/>
+				</c:if>
+			</c:forEach>
+			${total }원
+			</th>
+		</tr>
+	</table>
+</div>
+
+<div style="float:right; margin-top:30px; margin-left:250px; margin-right:100px;">
+	<label><button onclick="cancle()">결제취소</button></label>&nbsp;&nbsp;&nbsp;
 	<label><button onclick="payment()">결제하기</button></label>
 </div>
 </body>

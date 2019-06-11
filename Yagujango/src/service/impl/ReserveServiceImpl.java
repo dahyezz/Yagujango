@@ -1,15 +1,31 @@
 package service.impl;
 
 
+import java.io.UnsupportedEncodingException;
+
 import java.io.File;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import javax.servlet.ServletContext;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -29,6 +45,7 @@ import net.sourceforge.barbecue.BarcodeFactory;
 import net.sourceforge.barbecue.BarcodeImageHandler;
 import net.sourceforge.barbecue.output.OutputException;
 import service.face.ReserveService;
+import util.MailAuth;
 
 public class ReserveServiceImpl implements ReserveService{
 	private ReserveDao reserveDao = new ReserveDaoImpl();
@@ -310,9 +327,79 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Seat> getAllSeat() {
 		return reserveDao.selectAllSeat();
 	}
+
+
+	@Override
+	public Member getMember(int memno) {
+		return reserveDao.getMember(memno);
+	}
+
+	@Override
+	public void sendEmail(HttpServletRequest request) {
+		Properties props = new Properties();
+		
+		String user_email = request.getParameter("email");
+		
+		String master_email = "yagujanggo@yagujanggo.com";
+		String master_name = "yagujanggo";
+		String master_pw = "1234";
+		
+		
+		String SUBJECT = "구글 SMTP 이메일 발송 테스트";
+		
+		final String BODY = String.join(
+				"<h1>구글 SMTP Email Test</h1>",
+				"<p>javax.mail을 이용한 구글 smtp 이메일 전송 테스트</p>");
+		
+		Authenticator auth = new MailAuth("yagujanggo", "1234");
+		
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+
+
+		
+		Session session = Session.getDefaultInstance(props, auth);
+		MimeMessage msg = new MimeMessage(session);
+		
+		try {
+			try {
+				msg.setFrom(new InternetAddress(master_email, master_name));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(user_email));
+			msg.setSubject(SUBJECT);
+			msg.setContent(BODY, "text/html;charset=utf-8");
+
+			System.out.println("Sending...");
+
+			//메시지 보내기
+			Transport.send(msg);
+			
+			System.out.println("Email sent!");
+
+		} catch (NoSuchProviderException e) {
+			e.printStackTrace();
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			
+			System.out.println("The email was not sent.");
+			System.out.println("Error message: " + e.getMessage());
+			
+		} 
+
+		
+	}
+
+
 	
 	@Override
 	public List<Match> getThreeDaysMatchList() {
 		return reserveDao.selectThreeMatchList();
 	}
+
 }
