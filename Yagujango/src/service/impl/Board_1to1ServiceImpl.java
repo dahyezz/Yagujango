@@ -7,15 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import dao.face.Board_1to1Dao;
+import dao.face.MemberDao;
 import dao.impl.Board_1to1DaoImpl;
+import dao.impl.MemberDaoImpl;
 import dto.Board_1to1;
 import dto.Board_faq;
+import dto.Member;
 import service.face.Board_1to1Service;
 import util.Paging;
 
 public class Board_1to1ServiceImpl implements Board_1to1Service {
 	
 	private Board_1to1Dao board_1to1Dao = new Board_1to1DaoImpl();
+	private MemberDao memberDao = new MemberDaoImpl();
+	
+	
 
 	@Override
 	public Paging getCurPage(HttpServletRequest req) {
@@ -34,7 +40,7 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 		int totalCount = board_1to1Dao.selectCntAll(paging);
 
 		paging = new Paging(totalCount, curPage);
-		paging.setName(name);
+//		paging.setName(name);
 		paging.setKeyword(keyword);
 		return paging;
 
@@ -47,22 +53,32 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 
 	@Override
 	public void write(HttpServletRequest req) {
+		
 		try {
 			req.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} 
+		
+		String email1 = req.getParameter("email1");
+		String email2 = req.getParameter("email2");
+		
 		Board_1to1 board_1to1 = new Board_1to1();
 		HttpSession session = req.getSession();
-		board_1to1.setWriter_email(req.getParameter("writer_email"));
+		board_1to1.setWriter_email(email1+email2);
 		board_1to1.setTitle(req.getParameter("title"));
 		board_1to1.setContent(req.getParameter("content"));
 		board_1to1.setWriter_comment(req.getParameter("writer_comment"));
-		board_1to1.setWriter_userid((String)session.getAttribute("writer_userid"));
-		
+		board_1to1.setWriter_userid((String)session.getAttribute("userid"));
+//		System.out.println(board_1to1);//test
 		board_1to1Dao.Insert(board_1to1);
 		
 			
+	}
+
+	@Override
+	public List<Member> getOneToOneList() {
+		return board_1to1Dao.OneToOneSelectAll(); 
 	}
 }
 

@@ -11,6 +11,7 @@ import dao.face.Board_1to1Dao;
 import dbutil.DBConn;
 import dto.Board_1to1;
 import dto.Board_faq;
+import dto.Member;
 import util.Paging;
 
 public class Board_1to1DaoImpl implements Board_1to1Dao{
@@ -134,6 +135,57 @@ public class Board_1to1DaoImpl implements Board_1to1Dao{
 				e.printStackTrace();
 			}
 		}	
+	}
+
+
+	@Override
+	public List<Member> OneToOneSelectAll() {
+		
+		List<Member> OneToOneList = new ArrayList<Member>();
+		
+		String sql = "";
+		sql += "SELECT";
+		sql += " B.boardno,";
+		sql += " M.userno, M.userid, M.usernick,M.email,M.myteam,";
+		sql += " B.title, B.content, B.writer_comment, B.writtendate";		
+		sql += " FROM member M, board_1to1 B";
+		sql += " WHERE M.userid = B.writer_userid";
+		sql += " ORDER BY B.boardno";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				Member member = new Member();
+				
+				member.setBoardno(rs.getInt("boardno"));
+				member.setUserno(rs.getInt("userno"));
+				member.setUserid(rs.getString("userid"));
+				member.setUsernick(rs.getString("usernick"));
+				member.setEmail(rs.getString("email"));
+				member.setMyteam(rs.getString("myteam"));
+				member.setTitle(rs.getString("title"));
+				member.setContent(rs.getString("content"));
+				member.setWriter_comment(rs.getString("writer_comment"));
+				member.setWrittendate(rs.getDate("writtendate"));
+				
+				OneToOneList.add(member);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+				
+		
+		return OneToOneList;
 	}
 
 	

@@ -2,7 +2,7 @@ package dto;
 
 import java.util.Date;
 
-public class Member {
+public class Member extends Board_1to1 {
 	
 	private int userno;
 	private String userid;

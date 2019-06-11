@@ -39,7 +39,6 @@ public class FaqListController extends HttpServlet {
 		req.setAttribute("paging", paging);
 
 		req.setAttribute("faqList", faqList);
-		System.out.println(paging);
 		
 		req.getRequestDispatcher("/WEB-INF/views/board/faq/faq.jsp").forward(req, resp);
 	 
