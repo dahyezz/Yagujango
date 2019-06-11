@@ -66,7 +66,6 @@ function callback(){
 	}
 }
 </script>
-</script>
 
 </head>
 <body>
