@@ -24,6 +24,7 @@ public class SelectSeatController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
 		match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
 //		System.out.println(match); //TEST

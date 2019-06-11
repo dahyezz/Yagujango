@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Stadium;
+import dto.Match;
 import service.face.ReserveService;
 import service.impl.ReserveServiceImpl;
 
@@ -21,8 +21,10 @@ public class MainController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Stadium> list = reserveService.getList();
-		req.setAttribute("list", list);
+		
+		//match List 불러오기
+		List<Match> matchList = reserveService.getThreeDaysMatchList();
+		req.setAttribute("matchList", matchList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
 	}
