@@ -84,6 +84,10 @@ public interface AdminService {
 
 	public void memberPenalty(String names);
 
+	void write(Board_1to1_answer board_1to1_answer, Board_1to1 board_1to1, HttpServletRequest req);
+
+	public void blacklistDelete(String names);
+
 	
 	
 

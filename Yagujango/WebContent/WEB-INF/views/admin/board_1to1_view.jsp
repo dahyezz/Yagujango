@@ -17,6 +17,7 @@ $(document).ready(function() {
 	$("#btnUpdate").click(function() {
   		$(location).attr("href","/admin/board_1to1_write?boardno=${viewBoard.boardno}");
 	});
+	
 	//삭제버튼동작
 	$("#btnDelete").click(function() {
  		$(location).attr("href","/board_1to1/delete?boardno=${viewBoard.boardno}");

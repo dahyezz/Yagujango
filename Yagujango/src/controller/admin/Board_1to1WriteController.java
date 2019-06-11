@@ -62,10 +62,11 @@ public class Board_1to1WriteController extends HttpServlet {
 		System.out.println(viewBoard);
 		
 		Board_1to1_answer board_1to1_answer = new Board_1to1_answer();
+		Board_1to1 board_1to1 = new Board_1to1();
 		board_1to1_answer.setWriter_userid(viewBoard.getWriter_userid());
 		
 		// 작성글 삽입
-		adminService.write(board_1to1_answer,req);
+		adminService.write(board_1to1_answer, board_1to1, req);
 		
 		//목록으로 리다이렉션
 		resp.sendRedirect("/admin/board_1to1");

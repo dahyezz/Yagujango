@@ -36,6 +36,7 @@ public interface AdminDao {
 	public int selectBoardno();
 	/**
 	 * 게시글 입력
+	 * @param board_1to1 
 	 * 
 	 * @param board - 삽입될 게시글 내용
 	 */
@@ -60,5 +61,11 @@ public interface AdminDao {
 	public void deleteMemberList(String names);
 
 	public void updatePenalty(String names);
+
+	public void updateStatus(Board_1to1 board_1to1);
+
+	public void deleteBlackList(String names);
+
+	public List<Integer> selectPenalty(String names);
 
 }

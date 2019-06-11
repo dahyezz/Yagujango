@@ -158,7 +158,8 @@ public class AdminDaoImpl implements AdminDao{
 				board_1to1.setContent(rs.getString("content"));
 				board_1to1.setWriter_comment(rs.getString("writer_comment"));
 				board_1to1.setWrittendate(rs.getDate("writtendate"));
-
+				System.out.println(board_1to1.getWriter_comment());
+				
 				blist.add(board_1to1);
 			}
 			
@@ -333,6 +334,32 @@ public class AdminDaoImpl implements AdminDao{
 			}
 		}	
 	}
+	
+	@Override
+	public void updateStatus(Board_1to1 board_1to1) {
+		
+		String sql = "";
+		sql +="UPDATE board_1to1 SET writer_comment='처리' WHERE boardno=?";
+
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, board_1to1.getBoardno());
+
+			System.out.println(board_1to1.getBoardno());
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)		ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+
 	
 	//답변완료목록리스트
 	@Override
@@ -525,7 +552,7 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void updatePenalty(String names) {
 
-		String sql = "UPDATE FROM member WHERE userno IN ( "+names+" )";
+		String sql = "UPDATE member SET penalty = 1 WHERE userno IN ( "+names+" )";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -544,5 +571,53 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		
 	}
-	
+	//보류
+	@Override
+	public void deleteBlackList(String names) {
+		String sql = "DELETE FROM mem_blacklist WHERE userno IN ( "+names+" )";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+}
+
+	// update하기전에 select penalty from member where userno=? 이런식으로 불러와서
+	@Override
+	public List<Integer> selectPenalty(String names) {
+		String sql = "";
+		sql += "SELECT penalty FROM member WHERE userno IN ( "+names+" ) ";
+			
+		//수행결과를 담을 리스트
+		List list = new ArrayList();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }
