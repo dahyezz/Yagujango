@@ -119,7 +119,7 @@ body {
 
 	<c:if test="${login }">
 		<a href="/member/logout">로그아웃</a>&nbsp;&nbsp;
-		<a href="/member/modify">회원정보</a>	
+		<a href="/mypage/main">회원정보</a>	
 	</c:if>
 	<c:if test="${empty login }">
 		<a href="/member/login">로그인</a>&nbsp;&nbsp;
@@ -151,6 +151,13 @@ body {
     <li><a href="/board/seat/list">좌석뷰 게시판</a></li>
     <li><a href="/board/free/list">자유 게시판</a></li>
     <li><a href="/board/faq/faqlist">문의 게시판</a></li> 
-    <li><a href="/member/mypage">마이페이지</a></li> 
+    <li><a href="/mypage/main">마이페이지</a>
+    	<ul>
+    		<li><a href="/mypage/main">마이페이지</a></li>
+    		<li><a href="/mypage/ticket">예매 상세 확인/취소</a></li>
+    		<li><a href="/mypage/modify">회원 정보 수정</a></li>
+	    	<li><a href="/mypage/my1to1">나의 1:1 문의 내역</a></li>
+      </ul>
+    </li> 
   </ul>
 </div>

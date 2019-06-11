@@ -40,7 +40,6 @@ public class MemberLoginController extends HttpServlet {
 			req.getSession().setAttribute("login", true);
 			req.getSession().setAttribute("userid", member.getUserid());
 			req.getSession().setAttribute("usernick", member.getUsernick());
-	
 		}
 		
 		if(member.getUserid().equals("admin"))
