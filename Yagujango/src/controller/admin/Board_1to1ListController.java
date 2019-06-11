@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Board_1to1;
+import dto.Board_1to1_answer;
 import dto.Stadium;
 import service.face.AdminService;
 import service.face.ReserveService;
@@ -41,10 +43,42 @@ public class Board_1to1ListController extends HttpServlet {
 		//model로 결과 넣기
 		req.setAttribute("blist", blist);
 		
+		//게시글 번호 파싱
+		Board_1to1_answer answerBoard = adminService.AgetBoardno(req);
+		
+		//게시글 조회
+		answerBoard = adminService.Aview(answerBoard);
+		
+		//model로 게시글 전달
+		req.setAttribute("answerBoard", answerBoard);
+
+		
 		//view지정
 		req.getRequestDispatcher("/WEB-INF/views/admin/board_1to1_list.jsp").forward(req, resp);
 		
-		
 	}
-
+	
 }
+//	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		
+//		req.setCharacterEncoding("utf-8");
+//		resp.setCharacterEncoding("UTF-8");
+//
+//		//게시글 번호 파싱
+//		Board_1to1 viewBoard = adminService.getBoardno(req);
+//		
+//		//게시글 조회
+//		viewBoard = adminService.view(viewBoard);
+//		
+//		//model로 게시글 전달
+//		req.setAttribute("viewBoard", viewBoard);
+//		
+//		
+//		//목록으로 리다이렉션
+//		resp.sendRedirect("/admin/board_1to1");
+//
+//	}	
+//
+//}
+
+

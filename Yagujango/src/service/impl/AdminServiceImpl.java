@@ -2,6 +2,7 @@ package service.impl;
 
 import java.io.File;
 
+
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
@@ -98,7 +99,7 @@ public class AdminServiceImpl implements AdminService{
 
 	//답변작성
 	@Override
-	public void write(Board_1to1_answer board_1to1_answer,HttpServletRequest req) {
+	public void write(Board_1to1_answer board_1to1_answer, Board_1to1 board_1to1, HttpServletRequest req) {
 
 		try {
 			req.setCharacterEncoding("utf-8");
@@ -119,6 +120,7 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println(board_1to1_answer);
 
 		adminDao.insert(board_1to1_answer);
+		adminDao.updateStatus(board_1to1);
 		
 
 
@@ -202,8 +204,35 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void memberPenalty(String names) {
+		
+		// List<Integer> penal  = dao.selectPenalty....(names)
+		
+		//member테이블 조회
+		List<Integer> member = adminDao.selectPenalty(names);
+		// update하기전에 select penalty from member where userno=? 이런식으로 불러와서
+		//  패널티가 몇인지  확인 후 (1단계)
+		// 반복문 돌면서  횟수는 penal.size() 
+		
+//		for
+		// 2단계 -> 조건문
+		// penalty == 0 이면  update 쿼리에 SET penalty=1
+		//	패널티 == 1 이면 set =2
+		//  패널티 == 2 이면 set = 3 처리 하고 블랙리스트에 insert
 
 		adminDao.updatePenalty(names);
+		
+	}
+
+	@Override
+	public void blacklistDelete(String names) {
+		
+		adminDao.deleteBlackList(names);
+
+	}
+
+	@Override
+	public void write(Board_1to1_answer board_1to1_answer, HttpServletRequest req) {
+		// TODO Auto-generated method stub
 		
 	}
 	

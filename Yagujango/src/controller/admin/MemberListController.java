@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Board_1to1;
 import dto.Stadium;
 import service.face.AdminService;
 import service.face.ReserveService;
@@ -25,10 +26,7 @@ public class MemberListController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		List<Stadium> list = reserveService.getList();
-		
-		//�씠嫄� �닔�젙
-		req.setAttribute("list", list);
+
 		//요청파라미터에서 curPage 얻어오기
 		Paging paging = adminService.getCurPage(req);
 		
@@ -46,21 +44,4 @@ public class MemberListController extends HttpServlet {
 		
 	}
 		
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		req.setCharacterEncoding("utf-8");
-		resp.setCharacterEncoding("UTF-8");
-		
-		String names = req.getParameter("names");
-		
-		if( !"".equals(names) && names != null) {
-			adminService.memberPenalty(names);
-		}
-	
-		resp.sendRedirect("/admin/list");
-//		penalty
-		
-		
-	}
-
 }
