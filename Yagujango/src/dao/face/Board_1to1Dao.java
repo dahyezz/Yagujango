@@ -15,7 +15,7 @@ public interface Board_1to1Dao {
 	
 	public void Insert(Board_1to1 board_1to1);
 
-	public List<Member> OneToOneSelectAll();
+
 
 }
 

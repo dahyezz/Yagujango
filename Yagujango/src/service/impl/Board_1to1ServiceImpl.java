@@ -76,9 +76,6 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 			
 	}
 
-	@Override
-	public List<Member> getOneToOneList() {
-		return board_1to1Dao.OneToOneSelectAll(); 
-	}
+
 }
 

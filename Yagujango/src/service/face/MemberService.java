@@ -1,6 +1,7 @@
 package service.face;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -82,4 +83,6 @@ public interface MemberService {
 	 * @return 블랙리스트 DB에 있을 시 true
 	 */
 	public boolean blacklistCheck(Member member);
+	
+	List<Member> getOneToOneList();
 }

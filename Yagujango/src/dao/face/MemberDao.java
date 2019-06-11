@@ -1,5 +1,7 @@
 package dao.face;
 
+import java.util.List;
+
 import dto.Member;
 
 public interface MemberDao {
@@ -30,4 +32,6 @@ public interface MemberDao {
 	
 	//회원가입 - 회원가입 시 블랙리스트였는지 count
 	public int selectCntByBlacklist(Member member);
+	
+	public List<Member> OneToOneSelectAll();
 }

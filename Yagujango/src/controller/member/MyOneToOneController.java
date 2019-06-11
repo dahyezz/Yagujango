@@ -20,8 +20,7 @@ import service.impl.MemberServiceImpl;
 @WebServlet("/member/my1to1")
 public class MyOneToOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private Board_1to1Service board_1to1Service = new Board_1to1ServiceImpl();
+
 	private MemberService memberService = new MemberServiceImpl();
 	
 	@Override
@@ -36,13 +35,13 @@ public class MyOneToOneController extends HttpServlet {
 		
 		if( req.getSession().getAttribute("login") != null ) {
 			
-			OneToOneList = board_1to1Service.getOneToOneList();
+			OneToOneList = memberService.getOneToOneList();
 		}
 		
 		req.setAttribute("OneToOneList", OneToOneList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/member/my1to1.jsp").forward(req, resp);
-	
+	 
 	}
 
 } 
