@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.Board_1to1;
 import dto.Board_faq;
+import dto.Member;
 import util.Paging;
 
 public interface Board_1to1Dao {
@@ -13,6 +14,8 @@ public interface Board_1to1Dao {
 	public int selectCntAll(Paging paging);
 	
 	public void Insert(Board_1to1 board_1to1);
+
+	public List<Member> OneToOneSelectAll();
 
 }
 
