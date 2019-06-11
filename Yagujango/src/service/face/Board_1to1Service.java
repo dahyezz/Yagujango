@@ -15,7 +15,7 @@ public interface Board_1to1Service {
 
 	void write(HttpServletRequest req);
 
-	List<Member> getOneToOneList();
+
 
 }
 
