@@ -118,6 +118,18 @@ public interface ReserveService {
 
 	public List<Seat> getAllSeat();
 
-//	public void deletetSeatByTicket(HttpServletRequest request);
+	/**
+	 * 바코드 생성
+	 * 
+	 * @param String - reserve_code + 티켓순서
+	 */
+	public void createBarcode(String barcode, HttpServletRequest request);
+
+	/**
+	 * 메인페이지에서 3일간의 경기일정 띄우기
+	 * @return 
+	 * 
+	 */
+	public List<Match> getThreeDaysMatchList();
 
 }

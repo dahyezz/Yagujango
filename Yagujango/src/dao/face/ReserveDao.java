@@ -64,4 +64,9 @@ public interface ReserveDao {
 	void insertReserve(Reserve reserve, int codedate, int matchcode, int userno);
 
 	List<Seat> selectAllSeat();
+
+	void updateBarcode(Reserve reserve, String barcode);
+
+	List<Match> selectThreeMatchList();
+
 }

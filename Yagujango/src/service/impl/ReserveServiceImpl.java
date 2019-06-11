@@ -1,6 +1,7 @@
 package service.impl;
 
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import dao.face.ReserveDao;
 import dao.impl.ReserveDaoImpl;
@@ -18,6 +23,11 @@ import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
+import net.sourceforge.barbecue.Barcode;
+import net.sourceforge.barbecue.BarcodeException;
+import net.sourceforge.barbecue.BarcodeFactory;
+import net.sourceforge.barbecue.BarcodeImageHandler;
+import net.sourceforge.barbecue.output.OutputException;
 import service.face.ReserveService;
 
 public class ReserveServiceImpl implements ReserveService{
@@ -149,10 +159,65 @@ public class ReserveServiceImpl implements ReserveService{
 				reserveDao.insertReserve(reserve, codedate, matchcode, userno); // reserve테이블 삽입
 				// -> reserve테이블 resserve_code에 int형파라미터를 전부합쳐서 reserve_code 보여주기..... -> 다른방법이 생각이 안남...
 				
-							
+				//----- 바코드 생성 ------
+				//	receive 가 바코드발급일때
+				if(receive.equals("바코드발급")) {
+
+					String barcode = stringdate+match+memberno;
+					createBarcode(barcode+i, request);
+					reserveDao.updateBarcode(reserve, barcode+i);
+				}
 			}
+			
 		}
 
+	}
+	
+	@Override
+	public void createBarcode(String bar, HttpServletRequest request) {
+		
+		DiskFileItemFactory factory = null;
+		factory = new DiskFileItemFactory();
+
+		// 3. 업로드된 아이템이 용량이 적당히 작으면 메모리에서 처리
+		int maxMem = 1 * 1024 * 1024; // 1MB
+		factory.setSizeThreshold(maxMem);
+		// 4. 용량이 적당히 크면 임시파일 만들어서 처리(디스크)
+		ServletContext context = request.getServletContext();
+
+		File repository = new File(context.getRealPath("tmp"));
+//		System.out.println(repository);
+//		System.out.println(repository.exists());
+
+		factory.setRepository(repository);
+		// 5. 업로드 허용 기준을 넘지 않을 경우에만 파일 업로드 처리
+		int maxFile = 10 * 1024 * 1024; // 10MB
+		ServletFileUpload upload = null;
+		upload = new ServletFileUpload(factory);
+
+		upload.setFileSizeMax(maxFile);
+
+		// --업로드 준비 완료--
+
+//		File up = new File(context.getRealPath("barcode"));
+//		System.out.println(up);
+//		System.out.println(up.exists());
+		
+		// - - - 바코드 생성 - - -
+		try {
+			Barcode barcode = BarcodeFactory.createCode128B(bar);
+			barcode.setBarHeight(80);
+			
+			File file = new File(context.getRealPath("barcode")+"/"+bar+".png");
+
+			BarcodeImageHandler.savePNG(barcode, file);
+			
+		} catch (BarcodeException e) {
+			e.printStackTrace();
+		} catch (OutputException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -245,20 +310,9 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Seat> getAllSeat() {
 		return reserveDao.selectAllSeat();
 	}
-
-//	@Override
-//	public void deletetSeatByTicket(HttpServletRequest request) { // receive -> seat 삭제
-//		// 수령방법선택창에서 좌석페이지로 돌아깔때 ticket의 좌석정보 delete
-//		String ticketcd = request.getParameter("ticket_code");
-//		String cnt = request.getParameter("count");
-//		int ticketcode = Integer.parseInt(ticketcd);
-//		int count = Integer.parseInt(cnt);
-//		
-//		for(int i = ticketcode; i < ticketcode+count; i++) {
-//			reserveDao.deletetSeatInfoByTicket(i);
-//		}
-//		/////////////////////////////////////////////////////
-//		
-//	}
-
+	
+	@Override
+	public List<Match> getThreeDaysMatchList() {
+		return reserveDao.selectThreeMatchList();
+	}
 }
