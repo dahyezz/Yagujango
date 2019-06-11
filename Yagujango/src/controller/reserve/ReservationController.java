@@ -22,6 +22,8 @@ public class ReservationController extends HttpServlet {
 	private ReserveService reserveService = new ReserveServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
 		String memberno = request.getParameter("userno");
 		request.setAttribute("memberno", memberno);
 		int memno = Integer.parseInt(memberno);
@@ -56,6 +58,8 @@ public class ReservationController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 		
 		String deleteparam = request.getParameter("deleteparam");
 //		System.out.println(deleteparam);

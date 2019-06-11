@@ -41,7 +41,7 @@
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/board/faq/faqlist"><span>&larr;처음</span></a>
+			<a href="/board/faq/faqlist"><span>처음</span></a>
 		</li>
 		</c:if>
 
@@ -66,23 +66,23 @@
 	
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i}">
-			<li class="active">
-				<c:if test="${name eq null and keyword eq null}">
+			<li>
+				<c:if test="${keyword eq null}">
 					<a href="/board/faq/faqlist?curPage=${i }">${i }</a>
 				</c:if>
-				<c:if test="${name ne null and keyword ne null}">
-					<a href="/board/faq/faqlist?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
+				<c:if test="${keyword ne null}">
+					<a href="/board/faq/faqlist?curPage=${i }&keyword=${keyword}">${i }</a>
 				</c:if>
 			</li>
 			</c:if>
 		
 			<c:if test="${paging.curPage ne i}">
 			<li>
-				<c:if test="${name eq null and keyword eq null}">
+				<c:if test="${keyword eq null}">
 					<a href="/board/faq/faqlist?curPage=${i }">${i }</a>
 				</c:if>
-				<c:if test="${name ne null and keyword ne null}">
-					<a href="/board/faq/faqlist?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
+				<c:if test="${keyword ne null}">
+					<a href="/board/faq/faqlist?curPage=${i }&keyword=${keyword}">${i }</a>
 				</c:if>
 			</li>
 			</c:if>
@@ -101,7 +101,7 @@
 
 		<c:if test="${paging.curPage ne paging.totalPage }">
 		<li>
-			<a href="/board/faq/faqlist?curPage=${paging.curPage+1 }&name=${name}&keyword=${keyword}">
+			<a href="/board/faq/faqlist?curPage=${paging.curPage+1 }&keyword=${keyword}">
 			<span>&raquo;</span>
 		</a>
 		</li>

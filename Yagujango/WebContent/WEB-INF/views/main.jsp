@@ -7,19 +7,20 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
+<div>
 
-<c:if test="${empty login }">
-	<strong>로그인이 필요합니다</strong><br>
-<!-- 	<button onclick="location.href='/member/login';">로그인</button> -->
-<!-- 	<button onclick="location.href='/member/join';">회원가입</button> -->
-</c:if>
+<c:forEach items="${matchList }" var="i">
+	<table>
 
-<c:if test="${login }">
-	${userid }님, 접속을 환영합니다.
-<!-- 	<button onclick="location.href='/member/logout';">로그아웃</button> -->
-</c:if>
+		<tr>
+			<td>${i.match_date }</td>
+			<td>${i.hometeam_name } : ${i.awayteam_name }</td>
+		</tr>
+	</table>
+</c:forEach>
 
-<!-- 아래 br들은 나중에 메인 완성되면 삭제 예정 -->
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+<!-- <video src="https://sports.news.naver.com/kbaseball/vod/index.nhn?id=549175&category=kbo&gameId=20190609LGHH02019&date=20190609&listType=game"></video> -->
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

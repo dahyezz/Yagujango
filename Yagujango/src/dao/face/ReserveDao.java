@@ -65,5 +65,12 @@ public interface ReserveDao {
 
 	List<Seat> selectAllSeat();
 
+
 	Member getMember(int memno);
+
+	void updateBarcode(Reserve reserve, String barcode);
+
+	List<Match> selectThreeMatchList();
+
+
 }

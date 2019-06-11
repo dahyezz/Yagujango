@@ -1,7 +1,6 @@
 package dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -514,8 +513,10 @@ public class ReserveDaoImpl implements ReserveDao {
 	@Override
 	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
 		String sql = "";
+
 		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date , how_receive)";
 		sql += " VALUES (?||?||?, ?, ?, ?,(to_date(sysdate,'yyyy-MM-dd')), ?)";
+
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
@@ -587,6 +588,7 @@ public class ReserveDaoImpl implements ReserveDao {
 
 	}
 
+
 	@Override
 	public Member getMember(int memno) {
 		Member member = new Member();
@@ -614,6 +616,79 @@ public class ReserveDaoImpl implements ReserveDao {
 				member.setEmail(rs.getString("email"));
 				member.setPenalty(rs.getInt("penalty"));
 				member.setMyteam(rs.getString("myteam"));
+	    }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+        
+		return member;
+	}
+
+	
+	@Override
+	public void updateBarcode(Reserve reserve, String barcode) {
+		
+		String sql = "";
+		sql += "UPDATE reserve";
+		sql += " SET barcode = ? ";
+		sql += " WHERE ticket_code = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, barcode);
+			ps.setInt(2, reserve.getTicket_code());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public List<Match> selectThreeMatchList() {
+		
+		String sql = "";
+		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name, highlight";
+		sql += " FROM match";
+		sql += " WHERE match_date >= sysdate";
+		sql += " AND match_date < sysdate + 3";
+		sql += " ORDER BY match_code";
+		
+		List<Match> matchList = new ArrayList<Match>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Match match = new Match();
+				
+				match.setMatch_code(rs.getInt("match_code"));
+				match.setHometeam_code(rs.getInt("hometeam_code"));
+				match.setMatch_date(rs.getDate("match_date"));
+				match.setHometeam_name(rs.getString("hometeam_name"));
+				match.setAwayteam_name(rs.getString("awayteam_name"));
+				match.setHighlight(rs.getString("highlight"));
+				
+				matchList.add(match);
+
 			}
 			
 		} catch (SQLException e) {
@@ -627,7 +702,10 @@ public class ReserveDaoImpl implements ReserveDao {
 				e.printStackTrace();
 			}
 		}
-		
-		return member;
+		    
+		return matchList;
 	}
+
+
+
 }
