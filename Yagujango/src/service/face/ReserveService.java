@@ -118,6 +118,10 @@ public interface ReserveService {
 
 	public List<Seat> getAllSeat();
 
+	public Member getMember(int memno);
+
+	public void sendEmail(HttpServletRequest request);
+
 //	public void deletetSeatByTicket(HttpServletRequest request);
 
 }

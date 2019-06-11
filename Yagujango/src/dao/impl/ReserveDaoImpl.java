@@ -514,8 +514,8 @@ public class ReserveDaoImpl implements ReserveDao {
 	@Override
 	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
 		String sql = "";
-		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date, ticket_quantity, how_receive)";
-		sql += " VALUES (?||?||?, ?, ?, ?, ?, 1, ?)";
+		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date , how_receive)";
+		sql += " VALUES (?||?||?, ?, ?, ?,(to_date(sysdate,'yyyy-MM-dd')), ?)";
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
@@ -527,8 +527,8 @@ public class ReserveDaoImpl implements ReserveDao {
 			ps.setInt(4, reserve.getTicket_code());
 			ps.setInt(5, reserve.getUserno());
 			ps.setString(6, reserve.getPayment());
-			ps.setDate(7, (Date)reserve.getPayment_date());
-			ps.setString(8, reserve.getHow_receive());
+//			ps.setDate(7, (Date)reserve.getPayment_date());
+			ps.setString(7, reserve.getHow_receive());
 
 			ps.executeUpdate();
 			
@@ -585,5 +585,49 @@ public class ReserveDaoImpl implements ReserveDao {
 		
 		return allList;
 
+	}
+
+	@Override
+	public Member getMember(int memno) {
+		Member member = new Member();
+		
+		String sql = "";
+		sql += "SELECT * FROM member";
+		sql += " WHERE userno = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, memno);
+			
+			rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				member.setUserno(rs.getInt("userno"));
+				member.setUserid(rs.getString("userid"));
+				member.setUserpw(rs.getString("userpw"));
+				member.setUsername(rs.getString("username"));
+				member.setUsernick(rs.getString("usernick"));
+				member.setBirth(rs.getDate("birth"));
+				member.setGender(rs.getString("gender"));
+				member.setPhone(rs.getString("phone"));
+				member.setEmail(rs.getString("email"));
+				member.setPenalty(rs.getInt("penalty"));
+				member.setMyteam(rs.getString("myteam"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return member;
 	}
 }
