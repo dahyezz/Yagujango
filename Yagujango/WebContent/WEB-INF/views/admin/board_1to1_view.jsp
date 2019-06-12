@@ -75,7 +75,8 @@ $(document).ready(function() {
 				<c:set value="true" var="status" />
 			</c:if>
 		</c:forEach>
-		<c:if test="${!status }"><td>미처리</td></c:if>
+		<c:if test="${!status && not empty untreatedList}"><td>미처리</td></c:if>
+		<c:if test="${empty untreatedList }"><td>처리</td></c:if>
 		<c:if test="${status }"><td>처리</td></c:if>
 <!-- 		<td colspan="3"></td> -->
 	</tr>

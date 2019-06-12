@@ -63,9 +63,10 @@ public class ReservationController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		
 		request.setCharacterEncoding("UTF-8");
+		
+		System.out.println("test");
 		
 		String deleteparam = request.getParameter("deleteparam");
 //		System.out.println(deleteparam);
