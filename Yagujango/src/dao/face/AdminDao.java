@@ -4,22 +4,21 @@ import java.util.List;
 
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
-import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
 public interface AdminDao {
 	
 	//������ - ȸ����ü��ȸ
-	public List selectAll(Paging paging);
+	public List<Member> selectAll(Paging paging);
 
 	//������ -ȸ�� ���̺� ��ü count��ȸ
 	public int selectCntAll(String keyword);
 	
 	//1:1������� ��ȸ
-	public List bselectAll(Paging paging);
+	public List<Board_1to1> bselectAll(Paging paging);
 
-	public List blackselectAll(Paging paging);
+	public List<Member> blackselectAll(Paging paging);
 	
 	/**
 	 * 1:1���� �󼼺���
@@ -44,7 +43,7 @@ public interface AdminDao {
 	public void insert(Board_1to1_answer board_1to1_answer);
 
 	//답변완료목록리스트
-	public List aselectAll(Paging paging);
+	public List<Board_1to1_answer> aselectAll(Paging paging);
 
 	//답변완료 view
 	public Board_1to1_answer selectBoard_answerByBoardno(Board_1to1_answer answerBoard);
@@ -63,13 +62,15 @@ public interface AdminDao {
 
 	public void updatePenalty(Member m, int penalty);
 
-	public void updateStatus(Board_1to1 board_1to1);
+//	public void updateStatus(Board_1to1 board_1to1);
 
 	public void deleteBlackList(String names);
 
 	public List<Member> selectPenalty(String names);
 
 	public void insertBlackMem(Member e);
+
+	public List<Board_1to1> selectBoardNotInBoardAnswer();
 
 
 

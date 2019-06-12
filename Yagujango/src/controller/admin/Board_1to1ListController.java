@@ -10,12 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Board_1to1;
-import dto.Board_1to1_answer;
-import dto.Stadium;
 import service.face.AdminService;
-import service.face.ReserveService;
 import service.impl.AdminServiceImpl;
-import service.impl.ReserveServiceImpl;
 import util.Paging;
 
 //1:1 질문목록보기
@@ -25,7 +21,6 @@ public class Board_1to1ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private AdminService adminService = new AdminServiceImpl();
-	private ReserveService reserveService = new ReserveServiceImpl();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -38,19 +33,23 @@ public class Board_1to1ListController extends HttpServlet {
 		req.setAttribute("paging", paging);
 		
 		//1:1 답변목록조회
-		List blist = adminService.bgetList(paging);
+		List<Board_1to1> blist = adminService.bgetList(paging);
 		
 		//model로 결과 넣기
 		req.setAttribute("blist", blist);
 		
-		//게시글 번호 파싱
-		Board_1to1_answer answerBoard = adminService.AgetBoardno(req);
+//		//게시글 번호 파싱
+//		Board_1to1_answer answerBoard = adminService.AgetBoardno(req);
+//		
+//		//게시글 조회
+//		answerBoard = adminService.Aview(answerBoard);
+//		
+//		//model로 게시글 전달
+//		req.setAttribute("answerBoard", answerBoard);
 		
-		//게시글 조회
-		answerBoard = adminService.Aview(answerBoard);
-		
-		//model로 게시글 전달
-		req.setAttribute("answerBoard", answerBoard);
+		//1:1문의 미처리된 게시글리스트
+		List<Board_1to1> untreatedList = adminService.getUntreatedList();
+		req.setAttribute("untreatedList", untreatedList);
 
 		
 		//view지정

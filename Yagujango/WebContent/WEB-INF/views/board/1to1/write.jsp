@@ -103,7 +103,7 @@ Body {
 					<th class="witer_info" style="font-size: 13px;">답변 받을 이메일</th>
 					<th style="color: blue; font-size: 12px;">(필수)</th>
 					<td>
-						<input type="text" name="email1" id="email1" class="box" class=""/>@
+						<input type="text" name="email1" id="email1" class="box" class=""/>
 						<input type="text" name="email2" id="email2" class="box"/>
 						<select name="emailSelection" class="emailSelection">
 							<option value="1" selected="selected">메일을 선택해주세요</option>

@@ -65,10 +65,9 @@ public class Board_1to1ServiceImpl implements Board_1to1Service {
 		
 		Board_1to1 board_1to1 = new Board_1to1();
 		HttpSession session = req.getSession();
-		board_1to1.setWriter_email(email1+email2);
+		board_1to1.setWriter_email(email1+"@"+email2);
 		board_1to1.setTitle(req.getParameter("title"));
 		board_1to1.setContent(req.getParameter("content"));
-		board_1to1.setWriter_comment(req.getParameter("writer_comment"));
 		board_1to1.setWriter_userid((String)session.getAttribute("userid"));
 //		System.out.println(board_1to1);//test
 		board_1to1Dao.Insert(board_1to1);

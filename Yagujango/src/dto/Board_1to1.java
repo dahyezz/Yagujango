@@ -8,15 +8,13 @@ public class Board_1to1 {
 	private String writer_email;
 	private String title;
 	private String content;
-	private String writer_comment;
 	private Date writtendate;
 	
-	
+
 	@Override
 	public String toString() {
 		return "Board_1to1 [boardno=" + boardno + ", writer_userid=" + writer_userid + ", writer_email=" + writer_email
-				+ ", title=" + title + ", content=" + content + ", writer_comment=" + writer_comment + ", writtendate="
-				+ writtendate + "]";
+				+ ", title=" + title + ", content=" + content + ", writtendate=" + writtendate + "]";
 	}
 
 
@@ -65,16 +63,6 @@ public class Board_1to1 {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-
-	public String getWriter_comment() {
-		return writer_comment;
-	}
-
-
-	public void setWriter_comment(String writer_comment) {
-		this.writer_comment = writer_comment;
 	}
 
 

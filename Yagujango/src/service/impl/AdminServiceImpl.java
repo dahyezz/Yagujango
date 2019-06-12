@@ -1,28 +1,26 @@
 package service.impl;
 
-import java.io.File;
-
-
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import dao.face.AdminDao;
 import dao.impl.AdminDaoImpl;
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
-import dto.Mem_blacklist;
 import dto.Member;
 import service.face.AdminService;
+import util.MailAuth;
 import util.Paging;
 
 
@@ -31,7 +29,7 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao adminDao = new AdminDaoImpl();
 
 	@Override
-	public List getList(Paging paging) {
+	public List<Member> getList(Paging paging) {
 		
 		return adminDao.selectAll(paging);
 		
@@ -62,14 +60,14 @@ public class AdminServiceImpl implements AdminService{
 
 	//1:1������ϸ���Ʈ
 	@Override
-	public List bgetList(Paging paging) {
+	public List<Board_1to1> bgetList(Paging paging) {
 			
 		return adminDao.bselectAll(paging);
 
 	}
 
 	@Override
-	public List blackgetList(Paging paging) {
+	public List<Member> blackgetList(Paging paging) {
 
 		return adminDao.blackselectAll(paging);
 	}
@@ -121,14 +119,14 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println(board_1to1_answer);
 
 		adminDao.insert(board_1to1_answer);
-		adminDao.updateStatus(board_1to1);
+//		adminDao.updateStatus(board_1to1);
 		
 
 
 	}
 
 	@Override
-	public List agetList(Paging paging) {
+	public List<Board_1to1_answer> agetList(Paging paging) {
 		//답변완료목록리스트
 				
 		return adminDao.aselectAll(paging);
@@ -264,6 +262,74 @@ public class AdminServiceImpl implements AdminService{
 	public void write(Board_1to1_answer board_1to1_answer, HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public List<Board_1to1> getUntreatedList() {
+		return adminDao.selectBoardNotInBoardAnswer();
+	}
+	
+	@Override
+	public void sendEmailAnswer(HttpServletRequest req) {
+		
+		//FROM 
+		final String FROM = "yagujango123@gmail.com";
+		final String FROMNAME = "야구장고";
+		
+		//TO
+		final String TO = req.getParameter("email");
+
+		Board_1to1 board_1to1 = getBoardno(req); //boardno만 있음
+//		System.out.println("mailtest : " + board_1to1);
+		
+		String content = req.getParameter("content");
+//		System.out.println("mataltest : " + content);
+		
+		final String SUBJECT = "문의주신 '" + req.getParameter("title") + "에 관한 답변작성이 완료되었습니다.";
+		
+		final String BODY = String.join(
+				"<h1>야구장고</h1>",
+				"<p>문의주신 내역 : " + req.getParameter("title") + "</p><br>",
+				"<p>답변<p><br>",
+				"<p>" + req.getParameter("content") + "</p>"
+				);
+		
+		Authenticator auth = new MailAuth("yagujango123@gmail.com", "1q2w3e!!");
+		
+		Properties props = System.getProperties();
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getDefaultInstance(props, auth);
+		MimeMessage msg = new MimeMessage(session);
+		
+		try {
+			msg.setFrom(new InternetAddress(FROM, FROMNAME));
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
+			msg.setSubject(SUBJECT);
+			msg.setContent(BODY, "text/html;charset=utf-8");
+
+			System.out.println("Sending...");
+
+			//메시지 보내기
+			Transport.send(msg);
+			
+			System.out.println("Email sent!");
+
+		} catch (NoSuchProviderException e) {
+			e.printStackTrace();
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			
+			System.out.println("The email was not sent.");
+			System.out.println("Error message: " + e.getMessage());
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 

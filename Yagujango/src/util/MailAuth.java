@@ -6,10 +6,10 @@ import javax.mail.PasswordAuthentication;
 public class MailAuth extends Authenticator {
 
 	// 구글 SMTP ID
-	private String smtp_username = "기본계정";
+	private String smtp_username = "yagujango123@gmail.com";
 
 	// 구글 SMTP PW
-	private String smtp_password = "기본패스워드";
+	private String smtp_password = "1q2w3e!!";
 
 	// 인증 객체
 	private PasswordAuthentication pa;

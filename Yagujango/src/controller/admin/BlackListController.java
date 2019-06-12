@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Mem_blacklist;
+import dto.Member;
 import dto.Stadium;
 import service.face.AdminService;
 import service.face.ReserveService;
@@ -39,7 +39,7 @@ public class BlackListController extends HttpServlet {
 		
 		
 		//블랙리스트조회
-		List blacklist = adminService.blackgetList(paging);
+		List<Member> blacklist = adminService.blackgetList(paging);
 		for(int i=0; i<blacklist.size();i++)
 			
 	//		System.out.println(blacklist.get(i));

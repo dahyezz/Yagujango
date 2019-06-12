@@ -65,7 +65,19 @@ $(document).ready(function() {
 	
 		<tr>
 		<td class="info">처리유무</td>
-		<td colspan="3">${viewBoard.writer_comment}</td>
+		<c:set value="1" var="st"/>
+		<c:forEach items="${untreatedList }" var="i">
+			<c:if test="${st == '1' && i.boardno eq viewBoard.boardno }">
+				<c:set value="false" var="status" />
+				<c:set value="2" var="st"/>
+			</c:if>
+			<c:if test="${st == '1' && i.boardno ne viewBoard.boardno }">
+				<c:set value="true" var="status" />
+			</c:if>
+		</c:forEach>
+		<c:if test="${!status }"><td>미처리</td></c:if>
+		<c:if test="${status }"><td>처리</td></c:if>
+<!-- 		<td colspan="3"></td> -->
 	</tr>
 	
 	<tr>

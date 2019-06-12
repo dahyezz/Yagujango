@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import dao.face.AdminDao;
 import dbutil.DBConn;
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
-import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
@@ -25,7 +23,7 @@ public class AdminDaoImpl implements AdminDao{
 	
 	//회원목록조회
 	@Override
-	public List selectAll(Paging paging) {
+	public List<Member> selectAll(Paging paging) {
 		String keyword = paging.getKeyword();
 		//수행할 SQL쿼리
 		//게시글 목록 조회쿼리
@@ -56,7 +54,7 @@ public class AdminDaoImpl implements AdminDao{
 		sql += " ORDER BY userno";
 		
 		//수행결과를 담을 리스트
-		List list = new ArrayList();
+		List<Member> list = new ArrayList<Member>();
 		
 		try {
 			ps=conn.prepareStatement(sql);//수행객체 얻기
@@ -88,6 +86,13 @@ public class AdminDaoImpl implements AdminDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 			
 		return list;
@@ -134,14 +139,15 @@ public class AdminDaoImpl implements AdminDao{
 
 	//질문목록보기
 	@Override
-	public List bselectAll(Paging paging) {
+	public List<Board_1to1> bselectAll(Paging paging) {
 		
 		//수행할 SQL쿼리
 		String sql= "";
 		sql += "SELECT * FROM board_1to1";
+		sql += " ORDER BY boardno";
 		
 		//수행결과를 담을 리스트
-		List blist = new ArrayList();
+		List<Board_1to1> blist = new ArrayList<Board_1to1>();
 		
 		try {
 			ps=conn.prepareStatement(sql);//수행객체 얻기
@@ -156,15 +162,20 @@ public class AdminDaoImpl implements AdminDao{
 				board_1to1.setWriter_email(rs.getString("writer_email"));
 				board_1to1.setTitle(rs.getString("title"));
 				board_1to1.setContent(rs.getString("content"));
-				board_1to1.setWriter_comment(rs.getString("writer_comment"));
 				board_1to1.setWrittendate(rs.getDate("writtendate"));
-				System.out.println(board_1to1.getWriter_comment());
 				
 				blist.add(board_1to1);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -175,7 +186,7 @@ public class AdminDaoImpl implements AdminDao{
 	//블랙리스트조회
 
 	@Override
-	public List blackselectAll(Paging paging) {
+	public List<Member> blackselectAll(Paging paging) {
 		
 		//수행할 SQL쿼리
 		String sql= "";
@@ -184,11 +195,11 @@ public class AdminDaoImpl implements AdminDao{
 		sql += " AND B.username = A.username and B.email = A.email and B.phone = A.phone ";
 		
 		//수행결과를 담을 리스트
-		List list = new ArrayList();
+		List<Member> list = new ArrayList<Member>();
 		
 		try {
 			
-			Mem_blacklist mem_blacklist = new Mem_blacklist();
+//			Mem_blacklist mem_blacklist = new Mem_blacklist();
 			
 			ps=conn.prepareStatement(sql);//수행객체 얻기
 			
@@ -234,7 +245,7 @@ public class AdminDaoImpl implements AdminDao{
 		
 		//게시글 조회 쿼리
 		String sql = "";
-		sql += "SELECT boardno, writer_userid, writer_email, title, content, writer_comment, writtendate FROM board_1to1";
+		sql += "SELECT boardno, writer_userid, writer_email, title, content, writtendate FROM board_1to1";
 		sql += " WHERE boardno = ?";
 		
 		try {
@@ -250,7 +261,6 @@ public class AdminDaoImpl implements AdminDao{
 				viewBoard.setWriter_email( rs.getString("writer_email"));
 				viewBoard.setTitle( rs.getString("title"));
 				viewBoard.setContent( rs.getString("content"));
-				viewBoard.setWriter_comment( rs.getString("writer_comment"));
 				viewBoard.setWrittendate( rs.getDate("writtendate"));
 				
 			}
@@ -335,41 +345,41 @@ public class AdminDaoImpl implements AdminDao{
 		}	
 	}
 	
-	@Override
-	public void updateStatus(Board_1to1 board_1to1) {
-		
-		String sql = "";
-		sql +="UPDATE board_1to1 SET writer_comment='처리' WHERE boardno=?";
-
-		try {
-			ps = conn.prepareStatement(sql);
-			
-			ps.setInt(1, board_1to1.getBoardno());
-
-			System.out.println(board_1to1.getBoardno());
-			ps.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (ps != null)		ps.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}	
-	}
+//	@Override
+//	public void updateStatus(Board_1to1 board_1to1) {
+//		
+//		String sql = "";
+//		sql +="UPDATE board_1to1 SET writer_comment='처리' WHERE boardno=?";
+//
+//		try {
+//			ps = conn.prepareStatement(sql);
+//			
+//			ps.setInt(1, board_1to1.getBoardno());
+//
+//			System.out.println(board_1to1.getBoardno());
+//			ps.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				if (ps != null)		ps.close();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}	
+//	}
 
 	
 	//답변완료목록리스트
 	@Override
-	public List aselectAll(Paging paging) {
+	public List<Board_1to1_answer> aselectAll(Paging paging) {
 		//수행할 SQL쿼리
 		String sql= "";
 		sql += "SELECT * FROM board_1to1_answer";
 		
 		//수행결과를 담을 리스트
-		List alist = new ArrayList();
+		List<Board_1to1_answer> alist = new ArrayList<Board_1to1_answer>();
 		
 		try {
 			ps=conn.prepareStatement(sql);//수행객체 얻기
@@ -390,6 +400,13 @@ public class AdminDaoImpl implements AdminDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 			
 		return alist;
@@ -580,7 +597,7 @@ public class AdminDaoImpl implements AdminDao{
 		sql += " WHERE userno IN ( "+names+" )";
 		
 		//수행결과를 담을 리스트
-		List list = new ArrayList();
+		List<Member>  list = new ArrayList<Member>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -678,6 +695,49 @@ public class AdminDaoImpl implements AdminDao{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public List<Board_1to1> selectBoardNotInBoardAnswer() {
+		
+		//수행할 SQL쿼리
+		String sql= "";
+		sql += "SELECT boardno";
+		sql += " FROM board_1to1";
+		sql += " WHERE boardno NOT IN (";
+		sql += "    SELECT boardno";
+		sql += "     FROM board_1to1_answer";
+		sql += " )";
+		sql += " ORDER BY boardno";
+
+		List<Board_1to1> untreatedList = new ArrayList<Board_1to1>();
+		
+		try {
+			ps = conn.prepareStatement(sql);//수행객체 얻기
+			rs = ps.executeQuery(); //sql수행결과 얻기
+			
+			//sql수행결과 처리
+			while(rs.next()) {
+				Board_1to1 board_1to1 = new Board_1to1();
+				
+				board_1to1.setBoardno(rs.getInt("boardno"));
+				
+				untreatedList.add(board_1to1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return untreatedList;
 	}
 
 

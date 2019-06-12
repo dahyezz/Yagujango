@@ -9,12 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Board_1to1;
-import dto.Stadium;
+import dto.Member;
 import service.face.AdminService;
-import service.face.ReserveService;
 import service.impl.AdminServiceImpl;
-import service.impl.ReserveServiceImpl;
 import util.Paging;
 
 @WebServlet("/admin/list")
@@ -22,7 +19,6 @@ public class MemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private AdminService adminService = new AdminServiceImpl();
-	private ReserveService reserveService = new ReserveServiceImpl();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -34,7 +30,7 @@ public class MemberListController extends HttpServlet {
 		req.setAttribute("paging", paging);
 		
 		//회원목록조회
-		List mlist = adminService.getList(paging);
+		List<Member> mlist = adminService.getList(paging);
 		
 		//model로 결과 넣기
 		req.setAttribute("mlist", mlist);

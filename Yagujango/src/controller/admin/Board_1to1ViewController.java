@@ -10,20 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Board_1to1;
-import dto.Stadium;
 import service.face.AdminService;
-import service.face.ReserveService;
 import service.impl.AdminServiceImpl;
-import service.impl.ReserveServiceImpl;
-import util.Paging;
 
 @WebServlet("/admin/board_1to1view")
 public class Board_1to1ViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private AdminService adminService = new AdminServiceImpl();
-	private ReserveService reserveService = new ReserveServiceImpl();
-
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		req.setCharacterEncoding("UTF-8");
@@ -36,6 +31,10 @@ public class Board_1to1ViewController extends HttpServlet {
 		
 		//model로 게시글 전달
 		req.setAttribute("viewBoard", viewBoard);
+		
+		//1:1문의 미처리된 게시글
+		List<Board_1to1> untreatedList = adminService.getUntreatedList();
+		req.setAttribute("untreatedList", untreatedList);
 		
 		//view지정
 		req.getRequestDispatcher("/WEB-INF/views/admin/board_1to1_view.jsp").forward(req, resp);

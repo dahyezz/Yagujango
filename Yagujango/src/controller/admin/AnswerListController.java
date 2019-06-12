@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Board_1to1;
+import dto.Board_1to1_answer;
 import service.face.AdminService;
 import service.impl.AdminServiceImpl;
 import util.Paging;
@@ -34,7 +34,7 @@ public class AnswerListController extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
 
 		//답변완료목록조회
-		List alist = adminService.agetList(paging);
+		List<Board_1to1_answer> alist = adminService.agetList(paging);
 		
 		//model로 결과 넣기
 		req.setAttribute("alist", alist);

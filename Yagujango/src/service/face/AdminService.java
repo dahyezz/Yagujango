@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
-import dto.Mem_blacklist;
 import dto.Member;
 import util.Paging;
 
@@ -16,7 +15,7 @@ public interface AdminService {
 	 * @param
 	 * @return ȸ�������ȸ
 	 */
-	public List getList(Paging paging);
+	public List<Member> getList(Paging paging);
 	
 	/**
 	 * ��û�Ķ���Ϳ��� curPage�� �Ľ��Ѵ�.
@@ -31,14 +30,14 @@ public interface AdminService {
 	 * @return �Խ��Ǹ���Ʈ��ȸ
 	 */
 
-	public List bgetList(Paging paging);
+	public List<Board_1to1> bgetList(Paging paging);
 	
 	/**
 	 * @param
 	 * @return ������Ʈ��ȸ
 	 */
 
-	public List blackgetList(Paging paging);
+	public List<Member> blackgetList(Paging paging);
 	
 	/**
 	 * 요청파라미터에서 boardno를 파싱한다.
@@ -60,7 +59,7 @@ public interface AdminService {
 	public void write(Board_1to1_answer board_1to1_answer,HttpServletRequest req);
 	
 	//답변완료목록리스트
-	public List agetList(Paging paging);
+	public List<Board_1to1_answer> agetList(Paging paging);
 	
 	/**
 	 * 요청파라미터에서 answerno를 파싱한다.
@@ -88,6 +87,10 @@ public interface AdminService {
 	void write(Board_1to1_answer board_1to1_answer, Board_1to1 board_1to1, HttpServletRequest req);
 
 	public void blacklistDelete(String names);
+
+	public List<Board_1to1> getUntreatedList();
+
+	public void sendEmailAnswer(HttpServletRequest req);
 
 	
 	
