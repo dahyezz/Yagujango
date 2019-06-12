@@ -1,10 +1,8 @@
 package service.impl;
 
 
-import java.io.UnsupportedEncodingException;
-
 import java.io.File;
-
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,10 +20,9 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import javax.servlet.ServletContext;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.JOptionPane;
 
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -336,41 +332,34 @@ public class ReserveServiceImpl implements ReserveService{
 
 	@Override
 	public void sendEmail(HttpServletRequest request) {
-		Properties props = new Properties();
+
+		final String user_email = request.getParameter("email");
 		
-		String user_email = request.getParameter("email");
+		final String master_email = "";
+		final String master_pw = "";
+		final String master_name = "yagujanggo";
 		
-		String master_email = "yagujanggo@yagujanggo.com";
-		String master_name = "yagujanggo";
-		String master_pw = "1234";
-		
-		
-		String SUBJECT = "구글 SMTP 이메일 발송 테스트";
+		final String SUBJECT = "구글 SMTP 이메일 발송 테스트";
 		
 		final String BODY = String.join(
 				"<h1>구글 SMTP Email Test</h1>",
 				"<p>javax.mail을 이용한 구글 smtp 이메일 전송 테스트</p>");
 		
-		Authenticator auth = new MailAuth("yagujanggo", "1234");
+		Authenticator auth = new MailAuth(master_email, master_pw);
 		
+		Properties props = System.getProperties();
+		props.put("mail.smtp.ssl.enable", "false");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "587");
 
-
-		
 		Session session = Session.getDefaultInstance(props, auth);
 		MimeMessage msg = new MimeMessage(session);
 		
 		try {
-			try {
-				msg.setFrom(new InternetAddress(master_email, master_name));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(user_email));
+			msg.setFrom(new InternetAddress(master_email, master_name));
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(""));
 			msg.setSubject(SUBJECT);
 			msg.setContent(BODY, "text/html;charset=utf-8");
 
@@ -390,11 +379,10 @@ public class ReserveServiceImpl implements ReserveService{
 			System.out.println("The email was not sent.");
 			System.out.println("Error message: " + e.getMessage());
 			
-		} 
-
-		
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
-
 
 	
 	@Override
