@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Board_1to1;
 import dto.Member;
-import service.face.Board_1to1Service;
+import service.face.AdminService;
 import service.face.MemberService;
-import service.impl.Board_1to1ServiceImpl;
+import service.impl.AdminServiceImpl;
 import service.impl.MemberServiceImpl;
 
 
@@ -22,6 +23,7 @@ public class MyOneToOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private MemberService memberService = new MemberServiceImpl();
+	private AdminService adminService = new AdminServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +41,10 @@ public class MyOneToOneController extends HttpServlet {
 		}
 		
 		req.setAttribute("OneToOneList", OneToOneList);
+		
+		//1:1문의 미처리된 게시글리스트
+		List<Board_1to1> untreatedList = adminService.getUntreatedList();
+		req.setAttribute("untreatedList", untreatedList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/member/my1to1.jsp").forward(req, resp);
 	 

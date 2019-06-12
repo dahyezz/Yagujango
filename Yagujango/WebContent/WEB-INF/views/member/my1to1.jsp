@@ -55,9 +55,20 @@
 						<td class="content"><a href="/member/my1to1view?boardno=${oto.boardno}">${oto.boardno}</a><br></td>
 						<td>${oto.title }</td>
 						<td>${oto.usernick }</td>
-						<td>${oto.writer_comment }</td>
+						<c:set value="1" var="st"/>
+							<c:forEach items="${untreatedList }" var="i">
+								<c:if test="${st == '1' && i.boardno eq oto.boardno }">
+									<c:set value="false" var="status" />
+									<c:set value="2" var="st"/>
+								</c:if>
+								<c:if test="${st == '1' && i.boardno ne oto.boardno }">
+									<c:set value="true" var="status" />
+								</c:if>
+							</c:forEach>
+						<c:if test="${!status }"><td>미처리</td></c:if>
+						<c:if test="${status }"><td>처리</td></c:if>
 						<td><fmt:formatDate value="${oto.writtendate }" pattern="yyyy-MM-dd" /></td>
-						<br>
+						
 					</tr>	
 				</c:forEach>
 			</thead> 

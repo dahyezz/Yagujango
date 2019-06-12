@@ -349,11 +349,19 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public void sendEmail(HttpServletRequest request) {
 
-		final String user_email = request.getParameter("email");
+		//FROM 
+		final String FROM = "yagujango123@gmail.com";
+		final String FROMNAME = "야구장고";
 		
-		final String master_email = "";
-		final String master_pw = "";
-		final String master_name = "yagujanggo";
+		//TO
+		final String TO = request.getParameter("email");
+		
+//		final String user_email = request.getParameter("email");
+		
+	
+//		final String master_email = "yagujango123@gmail.com";
+//		final String master_pw = "1q2w3e!!";
+//		final String master_name = "yagujanggo";
 		
 		final String SUBJECT = "구글 SMTP 이메일 발송 테스트";
 		
@@ -361,10 +369,10 @@ public class ReserveServiceImpl implements ReserveService{
 				"<h1>구글 SMTP Email Test</h1>",
 				"<p>javax.mail을 이용한 구글 smtp 이메일 전송 테스트</p>");
 		
-		Authenticator auth = new MailAuth(master_email, master_pw);
+		Authenticator auth = new MailAuth("yagujango123@gmail.com", "1q2w3e!!");
 		
 		Properties props = System.getProperties();
-		props.put("mail.smtp.ssl.enable", "false");
+//		props.put("mail.smtp.ssl.enable", "false");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
@@ -374,8 +382,8 @@ public class ReserveServiceImpl implements ReserveService{
 		MimeMessage msg = new MimeMessage(session);
 		
 		try {
-			msg.setFrom(new InternetAddress(master_email, master_name));
-			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(""));
+			msg.setFrom(new InternetAddress(FROM, FROMNAME));
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
 			msg.setSubject(SUBJECT);
 			msg.setContent(BODY, "text/html;charset=utf-8");
 

@@ -1,7 +1,6 @@
 package controller.admin;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
-import dto.Stadium;
 import service.face.AdminService;
-import service.face.ReserveService;
 import service.impl.AdminServiceImpl;
-import service.impl.ReserveServiceImpl;
-import util.Paging;
 
 @WebServlet("/admin/board_1to1_write")
 public class Board_1to1WriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private AdminService adminService = new AdminServiceImpl();
-	private ReserveService reserveService = new ReserveServiceImpl();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -67,6 +61,9 @@ public class Board_1to1WriteController extends HttpServlet {
 		
 		// 작성글 삽입
 		adminService.write(board_1to1_answer, board_1to1, req);
+		
+		// - - - 답변 내용 이메일 보내기 - - -
+		adminService.sendEmailAnswer(req);
 		
 		//목록으로 리다이렉션
 		resp.sendRedirect("/admin/board_1to1");

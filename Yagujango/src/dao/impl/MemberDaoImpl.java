@@ -291,7 +291,7 @@ public class MemberDaoImpl implements MemberDao{
 		sql += "SELECT";
 		sql += " B.boardno,";
 		sql += " M.userno, M.userid, M.usernick,M.email,M.myteam,";
-		sql += " B.title, B.content, B.writer_comment, B.writtendate";		
+		sql += " B.title, B.content, B.writtendate";		
 		sql += " FROM member M, board_1to1 B";
 		sql += " WHERE M.userid = B.writer_userid";
 		sql += " ORDER BY B.boardno";
@@ -311,7 +311,6 @@ public class MemberDaoImpl implements MemberDao{
 				member.setMyteam(rs.getString("myteam"));
 				member.setTitle(rs.getString("title"));
 				member.setContent(rs.getString("content"));
-				member.setWriter_comment(rs.getString("writer_comment"));
 				member.setWrittendate(rs.getDate("writtendate"));
 				
 				OneToOneList.add(member);
