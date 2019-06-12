@@ -27,11 +27,16 @@
 	width:26px;
 
 }
+.pagingul li .first {
+	width:30px !important;
+}
 .pagingul li a.now {
 	color:#fff;
-	background-color:#f40;
-	border:1px solid #f40;
+	background-color:#369;
+	border:1px solid #369;
 }
+
+
 
 
 </style>
@@ -67,22 +72,22 @@
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i}">
 			<li>
-				<c:if test="${keyword eq null}">
+				<c:if test="${name eq null and keyword eq null}">
 					<a href="/board/faq/faqlist?curPage=${i }">${i }</a>
 				</c:if>
-				<c:if test="${keyword ne null}">
-					<a href="/board/faq/faqlist?curPage=${i }&keyword=${keyword}">${i }</a>
+				<c:if test="${name ne null and keyword ne null}">
+					<a href="/board/faq/faqlist?curPage=${i }&name=${name }&keyword=${keyword}">${i }</a>
 				</c:if>
 			</li>
 			</c:if>
 		
 			<c:if test="${paging.curPage ne i}">
 			<li>
-				<c:if test="${keyword eq null}">
+				<c:if test="${name eq null and keyword eq null}">
 					<a href="/board/faq/faqlist?curPage=${i }">${i }</a>
 				</c:if>
-				<c:if test="${keyword ne null}">
-					<a href="/board/faq/faqlist?curPage=${i }&keyword=${keyword}">${i }</a>
+				<c:if test="${name ne null and keyword ne null}">
+					<a href="/board/faq/faqlist?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
 				</c:if>
 			</li>
 			</c:if>
@@ -94,14 +99,14 @@
 		
 		<!-- 다음 페이지 -->
 		<c:if test="${paging.curPage eq paging.totalPage }">
-		<li class="disabled">
+		<li>
 			<span>&raquo;</span>
 		</li>
 		</c:if>
 
 		<c:if test="${paging.curPage ne paging.totalPage }">
-		<li>
-			<a href="/board/faq/faqlist?curPage=${paging.curPage+1 }&keyword=${keyword}">
+		<li class="disabled">
+			<a href="/board/faq/faqlist?curPage=${paging.curPage+1 }&name=${name}&keyword=${keyword}">
 			<span>&raquo;</span>
 		</a>
 		</li>
