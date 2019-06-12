@@ -163,4 +163,9 @@ a { text-decoration:none; color: black; }
 </table>
 </div>
 
+<div class="paging">
+<c:import url="/WEB-INF/views/layout/admin_answerlist.jsp" />
+
+</div>
+
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

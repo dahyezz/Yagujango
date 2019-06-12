@@ -286,6 +286,11 @@ function checkAll() {
 
 </div>
 
+<div class="paging">
+<c:import url="/WEB-INF/views/layout/admin_list.jsp" />
+
+</div>
+
 <div class="form-inline text-center">
 	<input class="form-control" type="text" id="keyword" />
 	<button id="btnSearch" class="btn">검색</button>

@@ -21,6 +21,7 @@ import dao.impl.AdminDaoImpl;
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
 import dto.Mem_blacklist;
+import dto.Member;
 import service.face.AdminService;
 import util.Paging;
 
@@ -208,20 +209,49 @@ public class AdminServiceImpl implements AdminService{
 		// List<Integer> penal  = dao.selectPenalty....(names)
 		
 		//member테이블 조회
-		List<Integer> member = adminDao.selectPenalty(names);
+		List<Member> member = adminDao.selectPenalty(names);
+		// SELECT * FROM member WHERE userno 
 		// update하기전에 select penalty from member where userno=? 이런식으로 불러와서
 		//  패널티가 몇인지  확인 후 (1단계)
 		// 반복문 돌면서  횟수는 penal.size() 
+		System.out.println(member.size());
+//		System.out.println(names);
+		int penalty=0;
 		
+	    for(Member m : member) {
+//	    	System.out.println(m);
+	    	if(m.getPenalty() == 0 ) {
+	    		//패널티 1로 업데이트
+	    		penalty=1;
+	    		adminDao.updatePenalty(m, penalty);
+	    	}
+	    	if(m.getPenalty() == 1 ) {
+	    		//패널티 2로 업데이트
+	    		penalty=2;
+	    		adminDao.updatePenalty(m, penalty); 	
+	    	}
+	    	if(m.getPenalty() == 2 ) {
+	    		//패널티 3으로 업데이트
+	    		penalty=3;
+	    		adminDao.updatePenalty(m, penalty);	
+	    		adminDao.insertBlackMem(m);
+	    	}	    	
+	    }	   	
 //		for
 		// 2단계 -> 조건문
 		// penalty == 0 이면  update 쿼리에 SET penalty=1
 		//	패널티 == 1 이면 set =2
 		//  패널티 == 2 이면 set = 3 처리 하고 블랙리스트에 insert
-
-		adminDao.updatePenalty(names);
-		
+//		adminDao.updatePenalty(names);	
 	}
+	
+//	@Override
+//	public void blackinsert(Mem_blacklist mem) {
+//
+//		adminDao.insertBlackMem(mem);
+//		
+//	}
+	
 
 	@Override
 	public void blacklistDelete(String names) {
@@ -235,5 +265,6 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+
 }
