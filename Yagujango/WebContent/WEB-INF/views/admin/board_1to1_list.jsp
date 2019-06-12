@@ -196,4 +196,9 @@ $(document).ready(function() {
 </table>
 </div>
 
+<div class="paging">
+<c:import url="/WEB-INF/views/layout/admin_boardlist.jsp" />
+
+</div>
+
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

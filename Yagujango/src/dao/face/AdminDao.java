@@ -5,6 +5,7 @@ import java.util.List;
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
 import dto.Mem_blacklist;
+import dto.Member;
 import util.Paging;
 
 public interface AdminDao {
@@ -60,12 +61,16 @@ public interface AdminDao {
 
 	public void deleteMemberList(String names);
 
-	public void updatePenalty(String names);
+	public void updatePenalty(Member m, int penalty);
 
 	public void updateStatus(Board_1to1 board_1to1);
 
 	public void deleteBlackList(String names);
 
-	public List<Integer> selectPenalty(String names);
+	public List<Member> selectPenalty(String names);
+
+	public void insertBlackMem(Member e);
+
+
 
 }

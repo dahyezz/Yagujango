@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Board_1to1;
+import dto.Mem_blacklist;
+import dto.Member;
 import service.face.AdminService;
 import service.face.ReserveService;
 import service.impl.AdminServiceImpl;
@@ -24,10 +27,12 @@ public class PenaltyController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("UTF-8");
 		
+		Mem_blacklist mem = new Mem_blacklist();
 		String names = req.getParameter("names");
 		
 		if( !"".equals(names) && names != null) {
 			adminService.memberPenalty(names);
+//			adminService.blackinsert(mem);
 		}
 	
 		resp.sendRedirect("/admin/list");	}

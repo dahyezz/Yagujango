@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import dto.Board_1to1;
 import dto.Board_1to1_answer;
 import dto.Mem_blacklist;
+import dto.Member;
 import util.Paging;
 
 public interface AdminService {

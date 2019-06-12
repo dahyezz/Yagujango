@@ -549,28 +549,6 @@ public class AdminDaoImpl implements AdminDao{
 		
 	}
 
-	@Override
-	public void updatePenalty(String names) {
-
-		String sql = "UPDATE member SET penalty = 1 WHERE userno IN ( "+names+" )";
-		
-		try {
-			ps = conn.prepareStatement(sql);
-			
-			ps.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(ps!=null)	ps.close();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
 	//보류
 	@Override
 	public void deleteBlackList(String names) {
@@ -592,20 +570,41 @@ public class AdminDaoImpl implements AdminDao{
 			}
 		}
 }
-
+	
 	// update하기전에 select penalty from member where userno=? 이런식으로 불러와서
 	@Override
-	public List<Integer> selectPenalty(String names) {
+	public List<Member> selectPenalty(String names) {
+		
 		String sql = "";
-		sql += "SELECT penalty FROM member WHERE userno IN ( "+names+" ) ";
-			
+		sql += "SELECT userno, userid, userpw, username, usernick, birth, gender, phone, email, penalty, myteam FROM MEMBER";
+		sql += " WHERE userno IN ( "+names+" )";
+		
 		//수행결과를 담을 리스트
 		List list = new ArrayList();
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			
-			ps.executeUpdate();
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				
+				Member mem = new Member();
+
+				mem.setUserno( rs.getInt("userno"));
+				mem.setUserid( rs.getString("userid"));
+				mem.setUserpw(rs.getString("userpw"));
+				mem.setUsername(rs.getString("username"));
+				mem.setUsernick(rs.getString("usernick"));
+				mem.setBirth(rs.getDate("birth"));
+				mem.setGender(rs.getString("gender"));
+				mem.setPhone(rs.getString("phone"));
+				mem.setEmail(rs.getString("email"));
+				mem.setPenalty(rs.getInt("penalty"));
+				mem.setMyteam(rs.getString("myteam"));
+				
+				list.add(mem);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -620,4 +619,66 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		return list;
 	}
+	
+
+	//(Member m, int penalty)는 파라미터
+	@Override
+	public void updatePenalty(Member m, int penalty) {
+
+		String sql = "UPDATE member SET penalty = ?";
+		sql += " WHERE userno = ?";
+		
+		try {
+		
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, penalty);
+			ps.setInt(2, m.getUserno());
+			ps.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void insertBlackMem(Member mem) {
+
+		String sql = "";
+		sql +="INSERT INTO mem_blacklist(userid, username,email, phone)";
+		sql +=" VALUES(?,?,?,?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, mem.getUserid());
+			ps.setString(2, mem.getUsername());
+			ps.setString(3, mem.getEmail());
+			ps.setString(4, mem.getPhone());
+
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
 }
