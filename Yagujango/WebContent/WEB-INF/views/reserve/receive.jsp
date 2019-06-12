@@ -146,9 +146,7 @@ a { text-decoration:none }
 			<td>
 				<div style="overflow:auto; max-height:80px;">
 					<c:forEach items="${seatinfo }" var="i">
-						<c:if test="${param.ticket_code <= i.ticket_code}">
-							${i.seat_block }블럭 ${i.seat_number }석<br>
-						</c:if>
+						${i.seat_block }블럭 ${i.seat_number }석<br>
 					</c:forEach>
 				</div>
 			</td>
@@ -158,12 +156,9 @@ a { text-decoration:none }
 			<td>
 				<c:set var = "total" value ="0"/>
 				<c:forEach items="${seatinfo }" var="i" varStatus="status">
-					<c:if test="${param.ticket_code <= i.ticket_code}">
-						<c:set var = "total" value="${total + i.price }"/>
-					</c:if>
+					<c:set var = "total" value="${total + i.price }"/>
 				</c:forEach>
 				${total }원
-				
 			</td>
 		</tr>
 		<tr>
@@ -184,9 +179,7 @@ a { text-decoration:none }
 			<th>
 			<c:set var = "total" value ="0"/>
 			<c:forEach items="${seatinfo }" var="i" varStatus="status">
-				<c:if test="${param.ticket_code <= i.ticket_code}">
-					<c:set var = "total" value="${total + i.price }"/>
-				</c:if>
+				<c:set var = "total" value="${total + i.price }"/>
 			</c:forEach>
 			${total }원
 			</th>

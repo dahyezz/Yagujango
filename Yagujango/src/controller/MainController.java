@@ -26,6 +26,10 @@ public class MainController extends HttpServlet {
 		List<Match> matchList = reserveService.getThreeDaysMatchList();
 		req.setAttribute("matchList", matchList);
 		
+//		for(Match e : matchList) {
+//			System.out.println(e);
+//		}
+		
 		req.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(req, resp);
 	}
 	

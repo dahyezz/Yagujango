@@ -46,7 +46,6 @@ public interface ReserveDao {
 	 */
 	List<Ticket> selectAllTicketByMatchCode(Match match);
 
-	List<Ticket> selectSeatInfo(Match match);
 
 	Member getUserNo(String userid);
 
@@ -71,6 +70,10 @@ public interface ReserveDao {
 	void updateBarcode(Reserve reserve, String barcode);
 
 	List<Match> selectThreeMatchList();
+
+	List<Ticket> selectTicketInfo(Match match, int count);
+	Seat selectSeatInfo(int seat_code);
+
 
 
 }

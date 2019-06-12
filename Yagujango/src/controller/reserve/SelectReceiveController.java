@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dto.Match;
 import dto.Member;
+import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
 import service.face.ReserveService;
@@ -34,6 +35,9 @@ public class SelectReceiveController extends HttpServlet {
 		memberno = reserveService.getUserNo(userid);
 		request.setAttribute("memberno", memberno);
 		
+		String cnt = request.getParameter("count");
+		int count = Integer.parseInt(cnt);
+		
 		Match match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
 		request.setAttribute("match", match);
@@ -41,10 +45,14 @@ public class SelectReceiveController extends HttpServlet {
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
 
-		List<Ticket> seatinfo = reserveService.getSeatInfoByTicket(match); // ticket 예매정보확인(My예매내역)
-		System.out.println(seatinfo); // TEST
 
+		// - - - ticket, seat 불러오기 - - -
+		List<Ticket> ticketinfo = reserveService.getSelectSeatTicketinfo(match, count); // ticket 예매정보확인(My예매내역)
+		request.setAttribute("ticketinfo", ticketinfo);
+
+		List<Seat> seatinfo = reserveService.getSelectSeatInfo(ticketinfo, count);
 		request.setAttribute("seatinfo", seatinfo);
+		// - - - - - - - - - - - - - - - - - 
 
 		request.getRequestDispatcher("/WEB-INF/views/reserve/receive.jsp").forward(request, response);
 	}
