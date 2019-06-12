@@ -75,6 +75,7 @@
 <span>상태를 클릭하면 취소여부와 예매 취소를 할수 있습니다.</span><br>
 
 <div class="reservation">
+<c:forEach items="${reservecodeList}" var="i">
 	<table>
 	<tr>
 		<th>예매번호</th>
@@ -86,7 +87,7 @@
 		<th>상태</th>
 	</tr>
 	<tr>
-		<td><a href></a></td>
+		<td><a href="/mypage/ticket">${i.reservecode }</a></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -95,6 +96,7 @@
 		<td></td>
 	</tr>
 	</table>
+</c:forEach>
 </div>
 
 <c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />

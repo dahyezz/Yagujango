@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
+import dto.Reserve;
+import util.Paging;
 
 public interface MemberService {
 
@@ -85,4 +87,18 @@ public interface MemberService {
 	public boolean blacklistCheck(Member member);
 	
 	List<Member> getOneToOneList();
+	
+	/**
+	 * 	reservo_code를 리스트에 삽입
+	 * @param mypagepaging
+	 * @return 조회 결과
+	 */
+	public List getReservecodeList(Paging mypagepaging,Reserve reserve);
+	
+	/**
+	 * 	curPage 파싱
+	 * @param req
+	 * @return paging
+	 */
+	public Paging getCurPage(HttpServletRequest req,Reserve reserve);
 }

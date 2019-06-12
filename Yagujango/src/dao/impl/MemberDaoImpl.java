@@ -11,6 +11,8 @@ import java.util.List;
 import dao.face.MemberDao;
 import dbutil.DBConn;
 import dto.Member;
+import dto.Reserve;
+import util.Paging;
 
 public class MemberDaoImpl implements MemberDao{
 	
@@ -328,5 +330,83 @@ public class MemberDaoImpl implements MemberDao{
 				
 		
 		return OneToOneList;
+	}
+
+	@Override
+	public List<Reserve> selectReservecodeByUserno(Paging mypagepaging, Reserve reserve) {
+		
+		String sql="";
+		sql+="SELECT * FROM ("; 
+		sql+=" SELECT rownum rnum, R.* FROM ("; 
+		sql+="  SELECT reserve_code FROM reserve";
+		sql+="  WHERE userno = ?";
+		sql+="  GROUP BY reserve_code) R";
+		sql+=" ) Rnum";
+		sql+=" WHERE rnum BETWEEN ? AND ?";
+		
+		List list=new ArrayList();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+			ps.setInt(2, mypagepaging.getStartNo());
+			ps.setInt(3, mypagepaging.getEndNo());
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				reserve.setReserve_code((int)rs.getLong("reserve_code"));
+				System.out.println(reserve.getReserve_code());
+				list.add(reserve);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int selectCntReservecode(Reserve reserve) {
+		
+		String sql="";
+		sql+="SELECT count(*) FROM (";
+		sql+=" SELECT reserve_code FROM reserve";
+		sql+=" WHERE userno = ?";
+		sql+=" GROUP BY reserve_code)";
+		
+		//userno별 전체 reservo_code 수
+		int count=0;
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			
+		return count;
 	}
 }

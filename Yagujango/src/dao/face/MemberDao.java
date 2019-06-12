@@ -3,6 +3,8 @@ package dao.face;
 import java.util.List;
 
 import dto.Member;
+import dto.Reserve;
+import util.Paging;
 
 public interface MemberDao {
 
@@ -33,5 +35,12 @@ public interface MemberDao {
 	//회원가입 - 회원가입 시 블랙리스트였는지 count
 	public int selectCntByBlacklist(Member member);
 	
+	//나의 1:1 문의 내역 조회
 	public List<Member> OneToOneSelectAll();
+	
+	//userno로 reserve_code를 리스트에 중복없이 저장
+	public List<Reserve> selectReservecodeByUserno(Paging mypagepaging,Reserve reserve);
+	
+	//reserve_code의 개수
+	public int selectCntReservecode(Reserve reserve);
 }
