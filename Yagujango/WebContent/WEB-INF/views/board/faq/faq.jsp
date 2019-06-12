@@ -14,7 +14,7 @@ $(document).ready(function() {
 	});
 	
 	$("#btnSearch").click(function() {
-		location.href="/board/faq/faqlist?search="+$("#search").val();
+		location.href="/board/faq/faqlist?search="+$(".search").val();
 	}); 
 });
 </script>
@@ -35,6 +35,7 @@ Body {
     border-bottom: 3px solid #000000;
 
 }
+
 
 .form-control { 
 	line-height: 25px;
@@ -154,6 +155,7 @@ jQuery(function($){
 
 </script>
 
+
 <table class="t1">
 	<tr>
 		<th style="font-size: 60px;">FAQ</th>
@@ -174,7 +176,7 @@ jQuery(function($){
        <c:forEach items="${faqList}" var="i">
 			<li class="article" id="a1">
 				<p class="q">
-					<a href="/board/faq/faqlist?name=${i.faq_title }"  >
+					<a href="/board/faq/faqlist"  >
 						Q.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.faq_title }
 					</a>
 				</p>
