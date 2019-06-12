@@ -3,7 +3,7 @@ package dto;
 import java.util.Date;
 
 public class Reserve {
-	private int reserve_code;
+	private String reserve_code;
 	private int ticket_code;
 	private int userno;
 	private String payment;
@@ -11,20 +11,28 @@ public class Reserve {
 	private int ticket_quantity;
 	private String how_receive;
 	
+	
+
 	@Override
 	public String toString() {
 		return "Reserve [reserve_code=" + reserve_code + ", ticket_code=" + ticket_code + ", userno=" + userno
 				+ ", payment=" + payment + ", payment_date=" + payment_date + ", ticket_quantity=" + ticket_quantity
 				+ ", how_receive=" + how_receive + "]";
 	}
+	
+	
 
-	public int getReserve_code() {
+	public String getReserve_code() {
 		return reserve_code;
 	}
 
-	public void setReserve_code(int reserve_code) {
+
+
+	public void setReserve_code(String reserve_code) {
 		this.reserve_code = reserve_code;
 	}
+
+
 
 	public int getTicket_code() {
 		return ticket_code;

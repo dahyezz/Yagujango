@@ -60,7 +60,7 @@ public interface ReserveDao {
 
 	List<Seat> getReservedSeatListByMatchCode(Match match);
 
-	void insertReserve(Reserve reserve, int codedate, int matchcode, int userno);
+	void insertReserve(Reserve reserve, String stringdate, String match, int userno);
 
 	List<Seat> selectAllSeat();
 

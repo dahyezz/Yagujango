@@ -557,7 +557,7 @@ public class ReserveDaoImpl implements ReserveDao {
 	
 	
 	@Override
-	public void insertReserve(Reserve reserve, int codedate, int matchcode, int userno) {
+	public void insertReserve(Reserve reserve, String stringdate, String match, int userno) {
 		String sql = "";
 
 		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date , how_receive)";
@@ -567,8 +567,10 @@ public class ReserveDaoImpl implements ReserveDao {
 			//DB작업
 			ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, codedate);
-			ps.setInt(2, matchcode);
+//			ps.setInt(1, codedate);
+//			ps.setInt(2, matchcode);
+			ps.setString(1, stringdate);
+			ps.setString(2, match);
 			ps.setInt(3, userno);
 
 			ps.setInt(4, reserve.getTicket_code());
