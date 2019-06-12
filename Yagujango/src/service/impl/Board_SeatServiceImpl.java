@@ -32,6 +32,7 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 	public Paging getCurPage(HttpServletRequest req) {
 		
 		
+		
 		String param = req.getParameter("curPage");
 		int curPage = 0;
 		if (param != null && !"".equals(param)) {
@@ -39,11 +40,12 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		} 
 		Paging paging = new Paging();
 		
-		int totalCount = board_SeatDao.selectCntAll(paging);
 		
+		int totalCount = board_SeatDao.selectCntAll(paging);
 			
 		paging = new Paging(totalCount, curPage);
-		
+		paging.setName(req.getParameter("name"));
+		paging.setKeyword(req.getParameter("keyword"));
 		
 		//		System.out.println(paging);
 		

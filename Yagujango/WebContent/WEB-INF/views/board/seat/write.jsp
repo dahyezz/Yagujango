@@ -26,6 +26,8 @@ $(document).ready(function() {
             maxHeight: null,             // set maximum height of editor
             focus: true,				 // set focus to editable area after initializing summernote
 			lang: 'ko-KR',
+			placeholder: '마지막에 업로드하는 이미지가 미리보기 이미지로 등록됩니다.<br>부적절한 이미지 게시 시,글이 삭제는 등 불이익을 받을 수 있습니다.',
+			
 			toolbar: [
 		        ['style', ['style']],
 		        ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -88,13 +90,36 @@ $(document).ready(function() {
 	})
 })
 </script>
+<style type="text/css">
+.wrap{
+	padding:0 5% 0 5%;
+	border-collapse: collapse;
+}
+p{
+	color:blue;
+	font-weight:bold;
+}
+.button-right{text-align:right;}
+h1{
+	color:#000;
+	font:bold 12px tahoma;
+	font-size: 32px;
+}
+hr{
+	color: "black";
+	border-style: inset;
+	border-width: 1px;
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+<h1>좌석 뷰 게시판</h1>
+<hr>
 <!-- <form action="/board/seat/write" method="post" onsubmit="postForm()"> -->
 <form action="/board/seat/write" method="post" id="fo">
 <table>
-<tr><td class="info">아이디</td><td>${userid }</td></tr>
-<tr><td class="info">구장명</td><td>
+<tr><td>구장명</td><td><p>(필수)</p></td><td>
 						<select name="stadium_name">
 							<option>광주 KIA챔피언스필드</option>
 							<option>수원 케이티위즈파크</option>
@@ -107,7 +132,7 @@ $(document).ready(function() {
 							<option>한화생명 EaglesPark</option>
 						</select>
 					</td></tr>
-<tr><td class="info">블록</td><td>
+<tr><td>블럭</td><td><p>(필수)</p></td><td>
 						<select name="seat_block">
 							<option>A</option>
 							<option>B</option>
@@ -116,22 +141,22 @@ $(document).ready(function() {
 							<option>E</option>
 						</select>
 					</td></tr>
-<tr><td class="info">좌석번호</td><td>
+<tr><td>좌석번호</td><td><p>(필수)</p></td><td>
 						<select name="seat_number">
 							<c:forEach begin="1" end="100" var="i">
 								<option>${i}</option>
 							</c:forEach>
 						</select>
 					</td></tr>
-<tr><td colspan="2">
-	<textarea name="content" style="display: none;"></textarea>
-	<div id="summernote"></div>
-</td></tr>
 </table>
+<textarea name="content" style="display: none;"></textarea>
+<div id="summernote"></div>
 <input type="text" style="display: none;" id="boardno" name="boardno" value="0"/>
+<div class ="button-right">
 <button type="submit">작성</button>
-
+</div>
 </form>
+</div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

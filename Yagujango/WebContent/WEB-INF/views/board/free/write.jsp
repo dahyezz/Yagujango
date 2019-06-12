@@ -19,13 +19,16 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-
+	$("#btnCancle").click(function() {
+		location.href="/board/free/list";
+	})
     $('#summernote').summernote({
             height: 300,                 // set editor height
             minHeight: 300,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
             focus: true,				 // set focus to editable area after initializing summernote
 			lang: 'ko-KR',
+			placeholder: '불건전한 언어 사용, 타인 비방 및 게시판 운영을 방해하는 행위가 확인되면 서비스 이용이 제한될 수 있습니다.<br>게시글 작성 시 타인에 대한 배려와 책임을 담아주세요.',
 			toolbar: [
 		        ['style', ['style']],
 		        ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -74,29 +77,60 @@ function postForm() {
 
 
 </script>
+<style type="text/css">
+.wrap{
+	padding:0 5% 0 5%;
+	border-collapse: collapse;
+}
+.button-right{
+	text-align:right;
+}
+.inline{
+	display:inline;
+}
+h1{
+	color:#000;
+	font:bold 12px tahoma;
+	font-size: 32px;
+}
+hr{
+	color: "black";
+	border-style: inset;
+	border-width: 1px;
+}
+
+
+</style>
 </head>
 <body>
+<div class="wrap">
+<div class="up">
+<h1>자유게시판</h1>
+<hr>
+</div>
 <form action="/board/free/write" method="post" onsubmit="postForm()">
-<table class="table table-bordered">
-<tr><td class="info">아이디</td><td>${userid }</td></tr>
-<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
-<tr><td class="info">태그</td><td>
-							<select name="tag">
-    								<option>잡담</option>
-    								<option>질문</option>
-   									<option>후기</option>
-  <c:if test="${userid eq 'admin'}"><option>공지</option></c:if>
-							</select></td></tr>
-<tr><td class="info" colspan="2">본문</td></tr>
-<tr><td colspan="2">
-	<textarea name="content" style="display: none;"></textarea>
-	<div id="summernote"></div>
-</td></tr>
-</table>
+<div class="inline">
+<select name="tag">
+    <option>잡담</option>
+    <option>질문</option>
+   	<option>후기</option>
+<c:if test="${userid eq 'admin'}">
+	<option>공지</option>
+</c:if>
+</select>
+&nbsp;
+<input type="text" name="title" style="width:50%;"placeholder="제목을 입력하세요"/>
+<br>
+<br>
+</div>
+<textarea name="content" style="display: none;"></textarea>
+<div id="summernote"></div>
 <input type="text" style="display: none;" id="boardno" name="boardno" value="0"/>
-<button type="submit">작성</button>
-
+<div class ="button-right">
+<button type="submit">작성</button><button type="button" id="btnCancle">취소</button>
+</div>
 </form>
+</div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

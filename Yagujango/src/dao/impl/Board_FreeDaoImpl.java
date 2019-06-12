@@ -15,6 +15,7 @@ import util.Paging;
 import dbutil.DBConn;
 
 public class Board_FreeDaoImpl implements Board_FreeDao {
+	
 	private Connection conn = DBConn.getConnection();
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;

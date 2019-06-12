@@ -20,10 +20,10 @@ $(document).ready(function() {
 		$(location).attr("href", "/board/free/update?boardno=${board.boardno }&tag=${board.tag}");
 	});
 	$("#btncommentinsert").click(function(){
-		
 		var boardno = ${board.boardno};
 		var content = $("#commentcontent").val();
-		
+		console.log(boardno);
+		console.log(content);
 		if(content !=null){
 			$.ajax({
 				url : "/board/free/comment/insert",
@@ -37,7 +37,7 @@ $(document).ready(function() {
 					$("#commentcontent").val("");
 				} 
 				, error: function(res){
-					
+					console.log("hi");
 				}
 				
 			});		
@@ -76,12 +76,20 @@ $(document).ready(function() {
 });
 
 </script>
-<style type="text/css">						
+<style type="text/css">	
+table thead {
+	padding: 10px;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}					
 .button-center {
 	text-align: center;
 }
 .tablediv {
 	padding: 0 5% 0 5%;
+}
+.contentdiv{
+	padding: 0 10% 0 10%;
 }
 table{
 	width: 100%;
@@ -92,66 +100,90 @@ table{
 .viewinfo {
 	background:#ccc;
 }
+h1{
+	color:#000;
+	font:bold 12px tahoma;
+	font-size: 32px;
+}
+hr{
+	color: "black";
+	border-style: inset;
+	border-width: 1px;
+}
+.wrap{
+	padding:0 5% 0 5%;
+	border-collapse: collapse;
+}
+.commentinsertdiv{
+	padding: 0 10% 0 10%;
+	display:inline-flex;
+}
+img {
+	max-width: 100%;
+}
 </style>
 </head>
 <body>
-<div class ="container">
-<div class="tablediv">
+<div class ="wrap">
+
+<h1>자유게시판</h1>
+<hr>
+
+
 <table>
+<thead>
+	<tr>
+		<td style="width:33%;text-align:left;">&nbsp;&nbsp;${board.boardno }</td>
+		<td style="width:34%;">${board.title }</td>
+		<td style="width:33%;text-align:right;"> 조회수 : ${board.hit}&nbsp;&nbsp;</td>
+	</tr>
+</thead>
 <tbody>
+
 	<tr>
-		<td class="viewinfo">글번호</td>
-		<td>${board.boardno }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">제목</td>
-		<td>${board.title }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">작성자</td>
-		<td>${board.writer }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">조회수</td>
-		<td>${board.hit }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">작성일</td>
-		<td>${board.writtendate }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">본문</td>
-	</tr>
-	<tr>
-		<td>${board.content }</td>
+		<td colspan="3" style="text-align:right;">
+		<fmt:formatDate value="${board.writtendate }" pattern="yyyy-MM-dd" />
+		&nbsp;&nbsp;${board.writer}</td>
 	</tr>
 </tbody>
 </table>
-
-
+<div class="contentdiv">
+${board.content }
+</div>
+<hr>
 <div class="button-center">	
-<button id="btnList" class="btn btn-primary">목록</button>
+<button id="btnList" class="btn btn-primary">목록</button>&nbsp;
 <c:if test="${usernick eq board.writer && login eq true || usernick eq '관리자'}">
-<button id="btnUpdate" class="btn btn-primary">수정</button>
+<button id="btnUpdate" class="btn btn-primary">수정</button>&nbsp;
 <button id="btnDelete" class="btn btn-primary">삭제</button>
 </c:if>
 <br><br><br>
 </div>
 
 
-<hr>
 <c:if test="${'공지' ne board.tag}">
 <div id="commentdiv">
 	<c:import url="/WEB-INF/views/layout/comment.jsp" />
 </div>
-<input type="text" id="commentcontent">
-<button type="button" id="btncommentinsert">작성</button>
+<br>
+
+<c:if test="${login ne true }">
+<div class="commentinsertdiv">
+<textarea id="commentcontent" placeholder="로그인이 필요합니다."
+	style="height:50px; width:600px; resize: none;"></textarea>
+</div>
 </c:if>
-
+<c:if test="${login eq true }">
+<div class="commentinsertdiv">
+<textarea id="commentcontent" placeholder="내용을 입력해주세요" 
+style="height:50px; width:600px; resize: none;"></textarea>&nbsp;
+<button style="height:55px; width:55px;" type="button" id="btncommentinsert">작성</button>
+</div>
+</c:if>
+</c:if>
 </div>
 
 
-</div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

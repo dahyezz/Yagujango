@@ -41,6 +41,6 @@ public class FreeCommentDeleteController extends HttpServlet {
 
 		//MODEL
 		req.setAttribute("comment", commentlist);
-		req.getRequestDispatcher("/WEB-INF/views/board/free/comment.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/layout/comment.jsp").forward(req, resp);
 	}
 }

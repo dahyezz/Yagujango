@@ -20,6 +20,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	$("#btnCancle").click(function() {
+		location.href="/board/free/view?tag=${board.tag}&boardno=${board.boardno}";
+	})
     $('#summernote').summernote({
             height: 300,                 // set editor height
             minHeight: 300,             // set minimum height of editor
@@ -69,29 +72,59 @@ function sendFile(file, editor) {
 	    });
 	}
 </script>
+
+<style type="text/css">
+.wrap{
+	padding:0 5% 0 5%;
+	border-collapse: collapse;
+}
+.button-right{
+	text-align:right;
+}
+.inline{
+	display:inline;
+}
+h1{
+	color:#000;
+	font:bold 12px tahoma;
+	font-size: 32px;
+}
+hr{
+	color: "black";
+	border-style: inset;
+	border-width: 1px;
+}
+
+
+</style>
 </head>
 <body>
+<div class="wrap">
+<h1>자유게시판</h1>
+<hr>
 <form action="/board/free/update" method="post">
 <input type="hidden" name="boardno" value="${board.boardno }" />
 
-<table class="table table-bordered">
-<tr><td class="info">아이디</td><td>${userid }</td></tr>
-<tr><td class="info">닉네임</td><td>${usernick }</td></tr>
-<tr><td class="info">태그</td><td>
-							<select name="tag">
-    								<option>잡담</option>
-    								<option>질문</option>
-   									<option>후기</option>
-  <c:if test="${userid eq 'admin'}"><option>공지</option></c:if>
-							</select></td></tr>
-<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="${board.title }"/></td></tr>
-<tr><td class="info" colspan="2">본문</td></tr>
-<tr><td colspan="2">
-	
+<div class="inline">
+<select name="tag">
+    <option>잡담</option>
+    <option>질문</option>
+   	<option>후기</option>
+<c:if test="${userid eq 'admin'}">
+	<option>공지</option>
+</c:if>
+</select>
+&nbsp;
+<input type="text" name="title" style="width:50%;"value ="${board.title}"/>
+<br>
+<br>
+</div>
 	<textarea id="summernote" name="content">${board.content }</textarea>
-</td></tr>
-</table>
-<button>수정</button>
+<div class ="button-right">
+<button>수정</button><button type="button" id="btnCancle">취소</button>
+</div>
 </form>
+</div>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>
