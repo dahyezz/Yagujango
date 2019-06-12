@@ -9,7 +9,12 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-.tablediv {
+a {text-decoration:none}
+a:visited ,a:link{color: black;}
+.watching{
+	color:green;
+}
+.wrap {
 	padding: 0 5% 0 5%;
 }
 table {
@@ -22,19 +27,15 @@ table thead {
 	padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    color: #369;
-    border-bottom: 3px solid #036;
+    border-bottom: 3px solid #000;
 }
 table .notice {
-	background:#ccc;
-}
-.content {
-	text-align:left;
+	background:#DDD;
 }
 .search {
 	display:block;
 	text-align:center; 
-	background:#CCC;
+	background:#DDD;
 	padding:0 0 0 35px;
 	font-size:18px;
 	color:#5e5e5e;
@@ -43,6 +44,9 @@ table .notice {
 	cursor:pointer;
 	box-sizing: content-box;
 	margin: 10px 0; !important
+}
+.button-right{
+	text-align:right;
 }
 
 </style>
@@ -55,7 +59,27 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		location.href="/board/free/write";
 	})
+	
+	$('.title').each(function(){
+		var length = 20;
+		if($(this).text().length>=length){
+			$(this).text($(this).text().substr(0,length)+'...');
+		}
+	});
+	var keyword="${keyword}";
+	var number = 0;
+	$('.menu').each(function(){
+		if(keyword == $(this).text()){
+			$(this).attr("style","color:#01DF3A;");
+		}else{
+			number++;
+		}
+		if(number == 5){
+			$("#default").attr("style","color:#01DF3A;");
+		}
+	});
 });
+
 //맨 위 체크박스 클릭시 모두 체크/해제
 function allChk(obj){
     var chkObj = document.getElementsByName("rowCheck");
@@ -73,6 +97,8 @@ function allChk(obj){
          }
         }
     }
+    
+    
 } 
 
 function checklist(){
@@ -109,21 +135,34 @@ function checklist(){
 	}
 }
 
+
 </script>
 
 <div class="wrap">
 <div class="tablediv">
+<h1>자유게시판</h1>
+<hr>
+<h2>
+<a class="menu" id="default" href="/board/free/list">전체</a>
+<a class="menu" href="/board/free/list?name=tag&keyword=공지">공지</a>
+<a class="menu" href="/board/free/list?name=tag&keyword=후기">후기</a>
+<a class="menu" href="/board/free/list?name=tag&keyword=질문">질문</a>
+<a class="menu" href="/board/free/list?name=tag&keyword=잡담">잡담</a>
+
+
+</h2>
+
 <table>
 <thead>
 	<tr>
 		<c:if test="${usernick eq '관리자'}">
 		<th><input id="allCheck" type="checkbox" onclick="allChk(this);"/></th>
 		</c:if>
-		<th style="width: 10%;">글번호</th>
+		<th style="width: 10%;">구분</th>
 		<th style="width: 45%;">제목</th>
 		<th style="width: 15%;">작성자</th>
-		<th style="width: 10%;">조회수</th>
 		<th style="width: 20%;">작성일</th>
+		<th style="width: 10%;">조회수</th>
 	</tr>
 </thead>
 <tbody>
@@ -132,10 +171,11 @@ function checklist(){
 		<tr class="notice">
 			<c:if test="${usernick eq '관리자'}"><td></td></c:if>
 			<td><a href="/board/free/list?name=tag&keyword=${i.tag}">공지</a></td>
-			<td class="content"><a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>	
+			<td><a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>	
 			<td>${i.writer }</td>
-			<td>${i.hit }</td>
 			<td><fmt:formatDate value="${i.writtendate }" pattern="yyyy-MM-dd" /></td>
+			<td>${i.hit }</td>
+			
 		<tr>
 	</c:if>
 	<c:if test="${i.tag ne '공지' }">
@@ -143,14 +183,17 @@ function checklist(){
 			<c:if test="${usernick eq '관리자'}">
 			<td><input name="rowCheck" type="checkbox" value="${i.boardno}" /></td>
 			</c:if>
-			<td>${i.boardno }</td>
-			<td class="content">
-			<a href="/board/free/list?name=tag&keyword=${i.tag}"  >[${i.tag}]</a>
-			<a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a>
+			<td><a href="/board/free/list?name=tag&keyword=${i.tag}">${i.tag}</a></td>
+			<td>
+			
+			<a class ="title" href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}">
+			${i.title }</a>
+			
 			</td>
 			<td>${i.writer }</td>
-			<td>${i.hit }</td>
 			<td><fmt:formatDate value="${i.writtendate }" pattern="yyyy-MM-dd" /></td>
+			<td>${i.hit }</td>
+			
 		</tr>
 	</c:if>
 		
@@ -163,8 +206,9 @@ function checklist(){
 </div>
 <div class="paging">
 <c:import url="/WEB-INF/views/layout/free_paging.jsp" />
-
+<div class="button-right"><button id="btnWrite">글 쓰기</button></div>
 </div>
+
 <div class="search">
 <form action="/board/free/list" method="get">
 		<select name="name">
@@ -178,7 +222,6 @@ function checklist(){
 	
 </form>
 </div>
-<button id="btnWrite">글 쓰기</button>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>

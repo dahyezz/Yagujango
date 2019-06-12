@@ -31,14 +31,14 @@
 	width:30px !important;
 }
 .pagingul li a.now {
-	color:#fff;
-	background-color:#369;
-	border:1px solid #369;
+	color:#FFF;
+	background-color:black;
+	border:1px solid black;
 }
-.pagingul li a:hover, ul li a:focus {
-	color:#fff;
-	border:1px solid #369;
-	background-color:#369;
+.pagingul li a:hover, .pagingul li a:focus {
+	color:#FFF;
+	border:1px solid black;
+	background-color:black;
 }
 
 </style>
@@ -75,10 +75,10 @@
 			<c:if test="${paging.curPage eq i}">
 			<li>
 				<c:if test="${name eq null and keyword eq null}">
-					<a class="now" href="/board/free/list?curPage=${i }">${i }</a>
+					<a class="now">${i }</a>
 				</c:if>
 				<c:if test="${name ne null and keyword ne null}">
-					<a class="now" href="/board/free/list?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
+					<a class="now">${i }</a>
 				</c:if>
 			</li>
 			</c:if>

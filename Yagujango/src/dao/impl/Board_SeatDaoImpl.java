@@ -63,6 +63,7 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 		sql += "		SELECT boardno, stadium_name,seat_block,seat_number,";
 		sql += " 			content, writer, hit, writtendate,fileurl FROM board_seat ";
 		if (name != null && !"".equals(name) && keyword != null && !"".equals(keyword)) {
+
 			sql += " WHERE " + name + " LIKE '%" + keyword + "%'";
 		}
 		sql += " 		ORDER BY boardno DESC";

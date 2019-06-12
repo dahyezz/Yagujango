@@ -21,8 +21,7 @@ table thead {
 	padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    color: #369;
-    border-bottom: 3px solid #036;
+    border-bottom: 3px solid #000;
 }
 
 .content {
@@ -109,6 +108,8 @@ function checklist(){
 
 <div class="wrap">
 <div class="tablediv">
+<h1>좌석 뷰 게시판</h1>
+<hr>
 <table>
 <thead>
 	<tr>
@@ -157,13 +158,9 @@ function checklist(){
 
 </div>
 <div class="search">
-<form action="/board/free/list" method="get">
-		<select name="name">
-				<option value="title">제목</option>
-				<option value="content">본문</option>
-				<option value="writer">작성자</option>
-		</select>
-		<input type="text"  name="keyword" placeholder="검색어를 입력해주세요." >
+<form action="/board/seat/list" method="get">
+		<input type="hidden" name="name" value="stadium_name">
+		<input type="text" name="keyword" placeholder="구장별로 검색하기" >
 	
 	 	<button>검색</button>
 	
@@ -172,7 +169,5 @@ function checklist(){
 <button id="btnWrite">글 쓰기</button>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>
 </body>
 </html>

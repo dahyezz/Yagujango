@@ -15,8 +15,6 @@ import dto.Comment;
 import service.face.Board_FreeService;
 import service.impl.Board_FreeServiceImpl;
 
-
-
 /**
  * Servlet implementation class FreeCommentInsertController
  */
@@ -24,26 +22,33 @@ import service.impl.Board_FreeServiceImpl;
 public class FreeCommentInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Board_FreeService board_FreeService = new Board_FreeServiceImpl();
-	@Override
-		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			req.setCharacterEncoding("utf-8");
-			HttpSession session = req.getSession();
-			Board_Free board_free = board_FreeService.getBoardno(req);
-			int boardno = board_free.getBoardno();
-			Comment comment = new Comment();
-			comment.setBoardno(boardno);
-			comment.setWriter((String)session.getAttribute("usernick"));
-			comment.setContent(req.getParameter("content"));
-			
-			board_FreeService.insertcomment(comment);
-			
-			List<Comment> commentlist = board_FreeService.commentlist(board_free);
-			
-			resp.setCharacterEncoding("utf-8");
 
-			//MODEL
-			req.setAttribute("comment", commentlist);
-			req.getRequestDispatcher("/WEB-INF/views/board/free/comment.jsp").forward(req, resp);
-			
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		//로그인 되어있지 않으면 리다이렉트 
+		if( req.getSession().getAttribute("login") == null ) {
+			resp.sendRedirect("/main");
+			return;
 		}
+		
+		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
+		Board_Free board_free = board_FreeService.getBoardno(req);
+		int boardno = board_free.getBoardno();
+		Comment comment = new Comment();
+		comment.setBoardno(boardno);
+		comment.setWriter((String) session.getAttribute("usernick"));
+		comment.setContent(req.getParameter("content"));
+
+		board_FreeService.insertcomment(comment);
+
+		List<Comment> commentlist = board_FreeService.commentlist(board_free);
+
+		resp.setCharacterEncoding("utf-8");
+		// MODEL
+		req.setAttribute("comment", commentlist);
+		req.getRequestDispatcher("/WEB-INF/views/layout/comment.jsp").forward(req, resp);
+
+	}
 }
