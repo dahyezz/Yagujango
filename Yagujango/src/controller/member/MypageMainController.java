@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.Member;
+import dto.Reserve;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
 import util.Paging;
@@ -37,17 +38,14 @@ public class MypageMainController extends HttpServlet {
 		req.setAttribute("usernick", (String)member.getUsernick());
 		req.setAttribute("myteam", (String)member.getMyteam());
 		
-//		//요청 파라미터에서 curPage 얻어오기
-//		Paging paging=boardService.getCurPage(req);
-//		
-//		//MODEL로 paging 객체 넣기
-//		req.setAttribute("paging", paging);
-//		
-//		//board 테이블 전체 조회 결과 얻기
-//		List list=boardService.getList(paging);
-//		
-//		//View에 모델값 전달하기, Model로 조회결과 넣기
-//		req.setAttribute("boardList",list);
+		Reserve reserve=new Reserve();
+		reserve.setUserno(member.getUserno());
+		
+		Paging mypagepaging=memberService.getCurPage(req,reserve);
+		req.setAttribute("paging", mypagepaging);
+		
+		List list=memberService.getReservecodeList(mypagepaging,reserve);
+		req.setAttribute("reservecodeList",list);
 		
 		//View JSP 지정하기
 		req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);

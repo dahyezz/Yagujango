@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import dao.face.MemberDao;
 import dao.impl.MemberDaoImpl;
 import dto.Member;
+import dto.Reserve;
 import service.face.MemberService;
+import util.Paging;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -126,6 +128,32 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Member> getOneToOneList() {
 		return memberDao.OneToOneSelectAll(); 
+	}
+
+	@Override
+	public List getReservecodeList(Paging mypagepaging, Reserve reserve) {
+		
+		return memberDao.selectReservecodeByUserno(mypagepaging,reserve);
+	}
+
+	@Override
+	public Paging getCurPage(HttpServletRequest req,Reserve reserve) {
+
+		//전달 파라미터 curPage 파싱
+		String param=req.getParameter("curPage");
+		int curPage=0;
+		if(param!=null && !"".equals(param)) {
+			curPage=Integer.parseInt(param);
+		}
+		
+		//userno별 reserve_code 수
+		int totalCount=memberDao.selectCntReservecode(reserve);
+		
+		//페이징 객체 생성
+		Paging paging=new Paging(totalCount,curPage);
+//		System.out.println(paging);
+		
+		return paging;
 	}
 
 }
