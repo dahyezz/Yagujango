@@ -43,7 +43,19 @@ function InitializeStaticMenu() {
 
 
 function selectSeat(matchcode){
-	window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=650");
+	
+	var islogin = <%=session.getAttribute("login") %>
+
+	var date = document.getElementById(reserveBtn);
+	console.log(date)
+	
+	if(!islogin){
+		console.log("로그인 아님")
+		location.href=("/member/login");
+	} else {
+		window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=650");
+	}
+	
 }
 
 
@@ -167,7 +179,7 @@ a { text-decoration:none; color:#000000 }
 						<td>${j.stadium_name }</td>
 					</c:if>
 				</c:forEach>
-				<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+				<td><input id="reserveBtn" type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
 			</tr>
 			<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 		</c:if>
@@ -203,7 +215,7 @@ a { text-decoration:none; color:#000000 }
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -239,7 +251,7 @@ a { text-decoration:none; color:#000000 }
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<td><input id="reserveBtn" type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -275,7 +287,7 @@ a { text-decoration:none; color:#000000 }
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<td><input id="reserveBtn" type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -311,7 +323,7 @@ a { text-decoration:none; color:#000000 }
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>

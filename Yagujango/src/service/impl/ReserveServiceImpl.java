@@ -1,10 +1,8 @@
 package service.impl;
 
 
-import java.io.UnsupportedEncodingException;
-
 import java.io.File;
-
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,19 +11,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import javax.servlet.ServletContext;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -110,8 +104,23 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 
 	@Override
-	public List<Ticket> getSeatInfoByTicket(Match match) {
-		return reserveDao.selectSeatInfo(match);
+	public List<Ticket> getSelectSeatTicketinfo(Match match, int count) {
+		
+		return reserveDao.selectTicketInfo(match, count);
+	}
+	@Override
+	public List<Seat> getSelectSeatInfo(List<Ticket> ticketinfo, int count) {
+		
+		List<Seat> seatList = new ArrayList<Seat>();
+		
+		for(int i=0; i<count; i++) {
+			Seat seat = new Seat();
+			seat = reserveDao.selectSeatInfo(ticketinfo.get(i).getSeat_code());
+			
+			seatList.add(seat);
+		}
+		
+		return seatList;
 	}
 
 	@Override

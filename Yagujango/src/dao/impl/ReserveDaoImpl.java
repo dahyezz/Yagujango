@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -264,30 +266,75 @@ public class ReserveDaoImpl implements ReserveDao {
 	}
 
 	@Override
-	public List<Ticket> selectSeatInfo(Match match) {
+	public List<Ticket> selectTicketInfo(Match match, int count) {
+		
 		String sql = "";
-		sql += "SELECT ticket.ticket_code, ticket.match_code, seat.seat_code, seat.seat_block, seat.seat_number, seat.price";
-		sql += " FROM ticket";
-		sql += " INNER JOIN seat";
-		sql += " ON ticket.seat_code = seat.seat_code AND ticket.match_code = ?";
-		sql += " ORDER BY ticket_code DESC";
-
+		sql += "SELECT rownum, ticket_code, match_code, seat_code";
+		sql += " FROM (";
+		sql += "    SELECT ticket_code, match_code, seat_code";
+		sql += "    FROM ticket";
+		sql += "    WHERE match_code = ?";
+		sql += "    ORDER BY ticket_code desc)";
+		sql += " WHERE rownum <= ? ";
+		sql += " ORDER BY ticket_code";
+		
 		List<Ticket> ticketList = new ArrayList<Ticket>();
+		
+		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, match.getMatch_code());
+			ps.setInt(2, count);
 			
 			rs = ps.executeQuery();
+			
 			while(rs.next()) {
 				Ticket ticket = new Ticket();
 				ticket.setTicket_code(rs.getInt("ticket_code"));
 				ticket.setMatch_code(rs.getInt("match_code"));
 				ticket.setSeat_code(rs.getInt("seat_code"));
-				ticket.setSeat_block(rs.getString("seat_block"));
-				ticket.setSeat_number(rs.getInt("seat_number"));
-				ticket.setPrice(rs.getInt("price"));
+				
 				ticketList.add(ticket);
 			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return ticketList;
+		
+	}
+	
+	@Override
+	public Seat selectSeatInfo(int seat_code) {
+		
+		String sql = "";
+		sql += "SELECT seat_code, seat_block, seat_number, price";
+		sql += " FROM seat";
+		sql += " WHERE seat_code = ? ";
+		
+		Seat seat = new Seat();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, seat_code);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				seat.setSeat_code(rs.getInt("seat_code"));
+				seat.setSeat_block(rs.getString("seat_block"));
+				seat.setSeat_number(rs.getInt("seat_number"));
+				seat.setPrice(rs.getInt("price"));
+				
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -299,9 +346,8 @@ public class ReserveDaoImpl implements ReserveDao {
 			}
 		}
 		
-		return ticketList;
+		return seat;
 	}
-	
 
 	@Override
 	public Member getUserNo(String userid) {
@@ -665,7 +711,7 @@ public class ReserveDaoImpl implements ReserveDao {
 	public List<Match> selectThreeMatchList() {
 		
 		String sql = "";
-		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name, highlight";
+		sql += "SELECT match_code, hometeam_code, to_char(match_date, 'yyyy/MM/dd:HH24:MI') match_date, hometeam_name, awayteam_name";
 		sql += " FROM match";
 		sql += " WHERE match_date >= sysdate";
 		sql += " AND match_date < sysdate + 3";
@@ -682,16 +728,18 @@ public class ReserveDaoImpl implements ReserveDao {
 				
 				match.setMatch_code(rs.getInt("match_code"));
 				match.setHometeam_code(rs.getInt("hometeam_code"));
-				match.setMatch_date(rs.getDate("match_date"));
+//				match.setMatch_date((Date)rs.getString("match_date"));
+				match.setMatch_date(new SimpleDateFormat("yyyy/MM/dd:HH:mm").parse(rs.getString("match_date")));
 				match.setHometeam_name(rs.getString("hometeam_name"));
 				match.setAwayteam_name(rs.getString("awayteam_name"));
-				match.setHighlight(rs.getString("highlight"));
 				
 				matchList.add(match);
 
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		} finally {
 			try {

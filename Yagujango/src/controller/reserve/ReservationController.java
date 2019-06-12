@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dto.Match;
 import dto.Member;
+import dto.Seat;
 import dto.Stadium;
 import dto.Ticket;
 import service.face.ReserveService;
@@ -47,9 +48,13 @@ public class ReservationController extends HttpServlet {
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
 		request.setAttribute("stadium", stadium);
 				
-		List<Ticket> seatinfo = reserveService.getSeatInfoByTicket(match); // ticket 예매정보확인(My예매내역)
-		System.out.println(seatinfo); // TEST
+		// - - - ticket, seat 불러오기 - - -
+		List<Ticket> ticketinfo = reserveService.getSelectSeatTicketinfo(match, count); // ticket 예매정보확인(My예매내역)
+		request.setAttribute("ticketinfo", ticketinfo);
+
+		List<Seat> seatinfo = reserveService.getSelectSeatInfo(ticketinfo, count);
 		request.setAttribute("seatinfo", seatinfo);
+		// - - - - - - - - - - - - - - - - - 
 		
 		Member member = reserveService.getMember(memno); // member email 가져오기
 		request.setAttribute("member", member);

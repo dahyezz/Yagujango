@@ -81,7 +81,24 @@ public interface ReserveService {
 	 */
 	public List<Ticket> getReserveStatus(Match match);
 
-	public List<Ticket> getSeatInfoByTicket(Match match);
+	/**
+	 * 선택한 좌석의 티켓 정보 리스트
+	 * 
+	 * @param match - 해당 경기의 match_coe
+	 * @param count - 티켓 선택한 매수
+	 * @return Ticket - 선택한 좌석별 티켓 정보
+	 */
+	public List<Ticket> getSelectSeatTicketinfo(Match match, int count);
+	
+	/**
+	 * 선택한 좌석의 좌석 정보 리스트
+	 * 
+	 * @param ticketinfo - 선택한 좌석별 seat_code 담고 있는 ticket 리스트
+	 * @param count - 티켓 선택한 매수
+	 * @return Seat - 선택한 좌석별 좌석 정보
+	 */
+	public List<Seat> getSelectSeatInfo(List<Ticket> ticketinfo, int count);
+
 
 
 	/**
@@ -137,5 +154,6 @@ public interface ReserveService {
 	 */
 	public List<Match> getThreeDaysMatchList();
 
+	
 
 }
