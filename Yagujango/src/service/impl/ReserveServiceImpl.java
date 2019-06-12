@@ -174,16 +174,18 @@ public class ReserveServiceImpl implements ReserveService{
 			
 			for(int i=0; i < ticketcnt; i++) { // 티켓매수를 통해 reserve테이블에 반복 insert.... -> 더 좋은 방법이 있을까?
 				int userno = Integer.parseInt(memberno);
-				int matchcode = Integer.parseInt(match);
-				int codedate = Integer.parseInt(stringdate);
+//				int matchcode = Integer.parseInt(match);
+//				int codedate = Integer.parseInt(stringdate);
 				
 				reserve.setTicket_code(Integer.parseInt(Arrayticket[i]));
 				reserve.setPayment(payment);
 				reserve.setUserno(userno);
+//				reserve.setUserno(memberno);
 				reserve.setPayment_date(StringToDate(payment_date)); // String date를 java.sql.date로 바꾸기
 				reserve.setHow_receive(receive);
 				
-				reserveDao.insertReserve(reserve, codedate, matchcode, userno); // reserve테이블 삽입
+//				reserveDao.insertReserve(reserve, codedate, matchcode, userno); // reserve테이블 삽입
+				reserveDao.insertReserve(reserve, stringdate, match, userno);
 				// -> reserve테이블 resserve_code에 int형파라미터를 전부합쳐서 reserve_code 보여주기..... -> 다른방법이 생각이 안남...
 				
 				//----- 바코드 생성 ------

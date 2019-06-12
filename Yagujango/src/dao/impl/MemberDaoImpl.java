@@ -356,7 +356,7 @@ public class MemberDaoImpl implements MemberDao{
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				reserve.setReserve_code((int)rs.getLong("reserve_code"));
+//				reserve.setReserve_code((int)rs.getLong("reserve_code"));
 				System.out.println(reserve.getReserve_code());
 				list.add(reserve);
 			}
