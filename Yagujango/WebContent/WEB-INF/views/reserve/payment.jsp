@@ -11,33 +11,94 @@
 <title>티켓 예매_결제방법 선택</title>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- 결제 API  -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <!-- 폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
-	var popclose = false;
+var popclose = false;
+var IMP = window.IMP;
+IMP.init('imp11074492');
+
+
+// $(document).ready(function() {
+// 	var payVal = $("input[name=payment]:checked").val();
+// 	console.log(payVal);
+// });
+
+function cancle() {
+	var deleteparam = $('#deleteseat').submit();
+	alert("결제를 취소하시겠습니까?");
 	
-	function cancle() {
-		var deleteparam = $('#deleteseat').submit();
-		alert("결제를 취소하시겠습니까?");
+	$.ajax({
+		type: "POST",
+		data: deleteparam,
+		url: "/reserve/list",
+		success: function (data) {
+		     window.close();
 		
-		$.ajax({
-			type: "POST",
-			data: deleteparam,
-			url: "/reserve/list",
-			success: function (data) {
-			     window.close();
+		 }, error: function (jqXHR, textStatus, errorThrown) {
+		   alert(error);
+		}
+	});
+}
+	
+function payment() {
+
+
+	alert("결제 하시겠습니까?")
+	
+	var payVal_btn = document.getElementsByName("payment");
+	var payVal;
+	
+	for(var i=0; i<2; i++){
+		if(payVal_btn[i].checked==true){
+			payVal = payVal_btn[i].value;
+		}
+	}
+
+	if(payVal == '신용카드'){
+			IMP.request_pay({
+			pg : 'inicis', // version 1.1.0부터 지원.
+			pay_method : 'card',
+			merchant_uid : 'merchant_' + new Date().getTime(),
+			name : '2019 KBO 프로야구',
+			amount : 100,
+			buyer_email : 'iamport@siot.do',
+			buyer_name : '구매자이름',
+			buyer_tel : '010-1234-5678',
+			buyer_addr : '서울특별시 강남구 삼성동',
+			buyer_postcode : '123-456',
+			m_redirect_url : 'https://localhost:8088/main'
+		}, function(rsp) {
+		 if ( rsp.success ) {
+
+		 	var insertparam = $('#selectpayment').submit();
+
+			$.ajax({
+				type: "POST",
+				data: insertparam,
+				url: "/reserve/list",
+				success: function (data) {
+				     window.close();
+				
+				 }, error: function (jqXHR, textStatus, errorThrown) {
+				   alert(error);
+				}
+			});
 			
-			 }, error: function (jqXHR, textStatus, errorThrown) {
-			   alert(error);
-			}
+		 } else {
+		     var msg = '결제에 실패하였습니다.';
+		     msg += '에러내용 : ' + rsp.error_msg;
+		 }
+// 		 alert(msg);
 		});
 	}
-	
-	function payment() {
-		alert("결제 하시겠습니까?")
- 		var insertparam = $('#selectpayment').submit();
+		
+	if(payVal == '무통장입금'){
+		var insertparam = $('#selectpayment').submit();
 		
 		$.ajax({
 			type: "POST",
@@ -51,6 +112,22 @@
 			}
 		});
 	}
+	
+// 	var insertparam = $('#selectpayment').submit();
+	
+// 	$.ajax({
+// 		type: "POST",
+// 		data: insertparam,
+// 		url: "/reserve/list",
+// 		success: function (data) {
+// 		     window.close();
+		
+// 		 }, error: function (jqXHR, textStatus, errorThrown) {
+// 		   alert(error);
+// 		}
+// 	});
+	
+}
 	
 </script>
 
@@ -226,7 +303,7 @@ a { text-decoration:none }
 
 <div style="float:right; margin-top:30px; margin-left:250px; margin-right:100px;">
 	<label><button onclick="cancle()">결제취소</button></label>&nbsp;&nbsp;&nbsp;
-	<label><button onclick="payment()">결제하기</button></label>
+	<label><button id="pay" onclick="payment()">결제하기</button></label>
 </div>
 </body>
 

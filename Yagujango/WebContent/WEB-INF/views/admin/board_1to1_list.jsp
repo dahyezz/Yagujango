@@ -177,8 +177,6 @@ $(document).ready(function() {
 		<c:set value="1" var="st"/>
 		
 		<c:forEach items="${untreatedList }" var="i">
-		<label>${i.boardno }</label>
-		<label>${b.boardno }</label><br>
 			<c:if test="${st == '1' && i.boardno eq b.boardno }">
 				<c:set value="false" var="status" />
 				<c:set value="2" var="st"/>
@@ -187,7 +185,8 @@ $(document).ready(function() {
 				<c:set value="true" var="status" />
 			</c:if>
 		</c:forEach>
-		<c:if test="${!status }"><td>미처리</td></c:if>
+		<c:if test="${!status && not empty untreatedList}"><td>미처리</td></c:if>
+		<c:if test="${empty untreatedList }"><td>처리</td></c:if>
 		<c:if test="${status }"><td>처리</td></c:if>
 		
 <!-- 		질문목록에는 boardno가 있는데 답변목록에는 질문목록에 해당하는 boardno가 없는상황 -->

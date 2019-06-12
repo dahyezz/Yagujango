@@ -560,8 +560,8 @@ public class ReserveDaoImpl implements ReserveDao {
 	public void insertReserve(Reserve reserve, String stringdate, String match, int userno) {
 		String sql = "";
 
-		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment, payment_date , how_receive)";
-		sql += " VALUES (?||?||?, ?, ?, ?,(to_date(sysdate,'yyyy-MM-dd')), ?)";
+		sql += "INSERT INTO reserve (reserve_code, ticket_code, userno, payment , how_receive)";
+		sql += " VALUES (?||?||?, ?, ?, ?, ?)";
 
 		try {
 			//DB작업
