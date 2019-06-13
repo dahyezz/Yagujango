@@ -1,6 +1,7 @@
 package controller.reserve;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class SelectReceiveController extends HttpServlet {
 		
 		Match match = reserveService.getMatchCode(request);
 		match = reserveService.getMatchInfo(match);
+		System.out.println(match);
 		request.setAttribute("match", match);
 		
 		Stadium stadium = reserveService.getStadiumInfo(match); //구장 정보
@@ -53,7 +55,10 @@ public class SelectReceiveController extends HttpServlet {
 		List<Seat> seatinfo = reserveService.getSelectSeatInfo(ticketinfo, count);
 		request.setAttribute("seatinfo", seatinfo);
 		// - - - - - - - - - - - - - - - - - 
-
+		
+		String formatdate = reserveService.formatdate(match);
+		request.setAttribute("formatdate", formatdate);
+		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/receive.jsp").forward(request, response);
 	}
 

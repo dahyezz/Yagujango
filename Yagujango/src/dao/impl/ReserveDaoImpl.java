@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dao.face.ReserveDao;
@@ -112,7 +113,7 @@ public class ReserveDaoImpl implements ReserveDao {
 	public Match selectMatchByMatchCode(Match match) {
 		
 		String sql = "";
-		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name";
+		sql += "SELECT match_code, hometeam_code, to_char(match_date, 'yyyy/MM/dd:HH24:MI') match_date, hometeam_name, awayteam_name";
 		sql += " FROM match where match_code = ? ";
 		
 		
@@ -121,16 +122,19 @@ public class ReserveDaoImpl implements ReserveDao {
 			ps.setInt(1, match.getMatch_code());
 			
 			rs = ps.executeQuery();
-			
+
 			while(rs.next()) {
+				
 				match.setMatch_code(rs.getInt("match_code"));
 				match.setHometeam_code(rs.getInt("hometeam_code"));
-				match.setMatch_date(rs.getDate("match_date"));
+				match.setMatch_date(new SimpleDateFormat("yyyy/MM/dd:HH:mm").parse(rs.getString("match_date")));
 				match.setHometeam_name(rs.getString("hometeam_name"));
 				match.setAwayteam_name(rs.getString("awayteam_name"));
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		} finally {
 			try {

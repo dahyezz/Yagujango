@@ -59,11 +59,14 @@ public class ReservationController extends HttpServlet {
 		Member member = reserveService.getMember(memno); // member email 가져오기
 		request.setAttribute("member", member);
 		
+		String formatdate = reserveService.formatdate(match); // match_date 시분초 가져오기
+		request.setAttribute("formatdate", formatdate);
+		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/payment.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		
 		System.out.println("test");

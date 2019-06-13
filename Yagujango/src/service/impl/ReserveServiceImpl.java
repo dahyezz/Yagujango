@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -401,6 +402,17 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public List<Match> getThreeDaysMatchList() {
 		return reserveDao.selectThreeMatchList();
+	}
+
+	@Override
+	public String formatdate(Match match) {
+		Date datefrom = match.getMatch_date();
+		SimpleDateFormat datetransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateto = datetransFormat.format(datefrom);
+		System.out.println(dateto);
+
+
+		return dateto;
 	}
 
 }
