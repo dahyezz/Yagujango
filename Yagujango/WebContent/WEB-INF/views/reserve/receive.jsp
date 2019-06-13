@@ -18,13 +18,19 @@
 <link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
-	function receive() {
- 		$('#selectreceive').submit();
-	}
+// window.onbeforeunload = function(e) {
+// // 	location.href="/main"
+// 	return false;
+	
+// };
 
-	function seat() {
-		$('#selectseat').submit();
-	}
+function receive() {
+	$('#selectreceive').submit();
+}
+
+function seat() {
+	$('#selectseat').submit();
+}
 </script>
 
 <style type="text/css">
