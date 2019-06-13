@@ -2,9 +2,12 @@ package dao.face;
 
 import java.util.List;
 
+import dto.Match;
 import dto.Member;
 import dto.Reserve;
-import util.Paging;
+import dto.Seat;
+import dto.Stadium;
+import util.MypagePaging;
 
 public interface MemberDao {
 
@@ -39,14 +42,26 @@ public interface MemberDao {
 	public List<Member> OneToOneSelectAll();
 	
 	//userno로 reserve_code를 리스트에 중복없이 저장
-	public List<Reserve> selectReservecodeByUserno(Paging mypagepaging,Reserve reserve);
+	public List selectReservecodeByUserno(MypagePaging mypagepaging,Reserve reserve);
 	
 	//reserve_code의 개수
 	public int selectCntReservecode(Reserve reserve);
+
+	
+	//userno로 match 테이블 조회
+	public Match selectMatchByUserno(Reserve reserve);
+	
+	//userno로 seat 테이블 조회
+	public List<Seat> selectSeatListByUserno(Reserve reserve);
+		
+	//userno로 stadium 테이블 조회
+	public Stadium selectStadiumByUserno(Reserve reserve);
+
 
 	//회원 정보 업데이트
 	public void updateMemberByUserid(Member member);
 
 	//회원 삭제
 	public void deleteMemberByUserid(Member member);
+
 }

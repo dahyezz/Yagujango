@@ -6,6 +6,15 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
+<script type="text/javascript">
+$(document).ready(function(){
+	var matchdate=new Date($("#matchdate"));
+	
+	matchdate;
+	
+});
+</script>
+
 <style type="text/css">
 .myteam div{	/* class가 myteam인 것의 하위요소 중 div요소만 선택 */
 	width:600px;
@@ -45,7 +54,7 @@
 	<c:when test="${myteam eq '삼성' }"><div style="background:#074CA1"><img src="/img/teamLogo/samsung.png"/></div></c:when>
 	<c:when test="${myteam eq '키움' }"><div style="background:#820024"><img src="/img/teamLogo/kiwoom.png"/></div></c:when>
 	<c:when test="${myteam eq '한화' }"><div style="background:#FF6600"><img src="/img/teamLogo/hanwha.png"/></div></c:when>
-	<c:otherwise><img src="/img/teamLogo/noteam.png"/></c:otherwise>
+	<c:otherwise><div style="background:#ccc"><img src="/img/teamLogo/noteam.png"/></div></c:otherwise>
 </c:choose>
 </div>
 
@@ -88,12 +97,14 @@
 	</tr>
 	<tr>
 		<td><a href="/mypage/ticket">${i.reserve_code }</a></td>
+
+		<td>[2019 신한은행 MY CAR KBO 리그] ${match.hometeam_name } vs ${match.awayteam_name }</td>
+		<td><p id="matchdate"><fmt:formatDate value="${match.match_date}" pattern="yyyy/MM/dd HH:mm"/></p></td>
+
 		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%-- ${seat.block }블럭 ${seat.number }석 --%></td>
+		<td><fmt:formatDate value="${match.match_date}" pattern="yyyy/MM/dd HH:mm"/></td>
+		<td><a href="/mypage/ticket">취소가능</a></td>
 	</tr>
 	</table>
 </c:forEach>

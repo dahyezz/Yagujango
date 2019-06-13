@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Match;
 import dto.Member;
 import dto.Reserve;
-import util.Paging;
+import dto.Seat;
+import dto.Stadium;
+import util.MypagePaging;
 
 public interface MemberService {
 
@@ -93,13 +96,37 @@ public interface MemberService {
 	 * @param mypagepaging
 	 * @return 조회 결과
 	 */
-	public List getReservecodeList(Paging mypagepaging,Reserve reserve);
+	public List getReservecodeList(MypagePaging mypagepaging,Reserve reserve);
 	
 	/**
 	 * 	curPage 파싱
 	 * @param req
 	 * @return paging
 	 */
+
+	public MypagePaging getCurPage(HttpServletRequest req,Reserve reserve);
+	
+	/**
+	 * 	userno별 match 조회
+	 * @param reserve
+	 * @return match
+	 */
+	public Match getMatchByUserno(Reserve reserve);
+	
+	/**
+	 * 	userno별 seat 리스트 조회
+	 * @param reserve
+	 * @return seat list
+	 */
+	public List<Seat> getSeatListByUserno(Reserve reserve);
+	
+	/**
+	 * 	userno별 stadium 조회
+	 * @param reserve
+	 * @return stadium
+	 */
+	public Stadium getStadiumByUserno(Reserve reserve);
+
 	public Paging getCurPage(HttpServletRequest req,Reserve reserve);
 
 	/**
@@ -115,4 +142,5 @@ public interface MemberService {
 	 * @param member
 	 */
 	public void leaveMember(Member member);
+
 }
