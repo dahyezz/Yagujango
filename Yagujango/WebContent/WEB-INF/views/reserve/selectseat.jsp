@@ -20,6 +20,7 @@ var selectseat = [];
 var seat;
 var seat_block;
 var seat_number;
+var count;
 $(document).ready(function() {
 	
 	var layout = document.getElementById("result");
@@ -36,7 +37,9 @@ $(document).ready(function() {
 			seat_number = seatArray[1];
 			
 			layout.innerHTML += "<p id="+seat+" style='margin: 0; padding: 0;'>"+seat_block+"블럭 "+seat_number+"석</p>";
-			
+
+			count = 1; //좌석을 선택하지 않고 next버튼 누르면 alert뜨게
+
 		} else {
 // 			console.log("체크해제") //TEST
 			seat = $(this).val(); //체크 해제된 좌석
@@ -50,19 +53,27 @@ $(document).ready(function() {
 	});
 	
 	$("#selectsuccess").click(function(){
-		var $form = $("<form>")
-		.attr("action","/reserve/seat")
-		.attr("method", "POST")
-		.append(
-				$("<input>")
-						.attr("type", "hidden")
-						.attr("name", "selectseat")
-						.attr("value", selectseat)
-		);
-		$(document.body).append($form);
-		$form.submit();
+	
+		var num = $('input[name="seatChk"]:not(:checked)').length;
+		console.log(num);
+		if(num == 500){
+			alert("좌석을 선택해주세요");
+			return false;
+		} else {
+			var $form = $("<form>")
+			.attr("action","/reserve/seat")
+			.attr("method", "POST")
+			.append(
+					$("<input>")
+							.attr("type", "hidden")
+							.attr("name", "selectseat")
+							.attr("value", selectseat)
+			);
+			$(document.body).append($form);
+			$form.submit();
+		}
+	
 	});
-
 
 });
 

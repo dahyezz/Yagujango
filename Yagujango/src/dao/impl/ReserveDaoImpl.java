@@ -756,6 +756,30 @@ public class ReserveDaoImpl implements ReserveDao {
 		return matchList;
 	}
 
-
+	@Override
+	public void optimizeSeat() {
+		
+		String sql = "";
+		sql += " DELETE ticket ";
+		sql += " WHERE ticket_code NOT IN (";
+		sql += "        SELECT ticket_code FROM reserve";
+		sql += " )";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

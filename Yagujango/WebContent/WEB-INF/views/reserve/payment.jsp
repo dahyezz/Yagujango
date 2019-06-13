@@ -22,61 +22,94 @@ var popclose = false;
 var IMP = window.IMP;
 IMP.init('imp11074492');
 
-
-// $(document).ready(function() {
-// 	var payVal = $("input[name=payment]:checked").val();
-// 	console.log(payVal);
-// });
-
 function cancle() {
-	var deleteparam = $('#deleteseat').submit();
-	alert("결제를 취소하시겠습니까?");
 	
-	$.ajax({
-		type: "POST",
-		data: deleteparam,
-		url: "/reserve/list",
-		success: function (data) {
-		     window.close();
+	var message = confirm("결제를 취소하시겠습니까?");
+	if(message == true){
+		var deleteparam = $('#deleteseat').submit();
 		
-		 }, error: function (jqXHR, textStatus, errorThrown) {
-		   alert(error);
-		}
-	});
+		$.ajax({
+			type: "POST",
+			data: deleteparam,
+			url: "/reserve/list",
+			success: function (data) {
+			     window.close();
+			
+			 }, error: function (jqXHR, textStatus, errorThrown) {
+			   alert(error);
+			}
+		});
+	} else {
+		return false;
+	}
+
 }
 	
 function payment() {
 
 
-	alert("결제 하시겠습니까?")
+// 	alert("결제 하시겠습니까?")
+	var message = confirm("결제 하시겠습니까?");
 	
-	var payVal_btn = document.getElementsByName("payment");
-	var payVal;
-	
-	for(var i=0; i<2; i++){
-		if(payVal_btn[i].checked==true){
-			payVal = payVal_btn[i].value;
+	if(message == true){
+		
+		var payVal_btn = document.getElementsByName("payment");
+		var payVal;
+		
+		for(var i=0; i<2; i++){
+			if(payVal_btn[i].checked==true){
+				payVal = payVal_btn[i].value;
+			}
 		}
-	}
+		
+		var email = document.getElementsByName("email");
+		var name = document.getElementsByName("username");
+		console.log(email[0].value);
+		console.log(name[0].value);
 
-	if(payVal == '신용카드'){
-			IMP.request_pay({
-			pg : 'inicis', // version 1.1.0부터 지원.
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : '2019 KBO 프로야구',
-			amount : 100,
-			buyer_email : 'iamport@siot.do',
-			buyer_name : '구매자이름',
-			buyer_tel : '010-1234-5678',
-			buyer_addr : '서울특별시 강남구 삼성동',
-			buyer_postcode : '123-456',
-			m_redirect_url : 'https://localhost:8088/main'
-		}, function(rsp) {
-		 if ( rsp.success ) {
+		if(payVal == '신용카드'){
+			
+				IMP.request_pay({
+				pg : 'inicis', // version 1.1.0부터 지원.
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : '[2019 신한은행 MY CAR KBO 리그]',
+				amount : 100,
+				buyer_email : email[0].value,
+				buyer_name : name[0].value,
+				buyer_tel : '010-1234-5678',
+				buyer_addr : '서울특별시 강남구 삼성동',
+				buyer_postcode : '123-456',
+				m_redirect_url : 'https://localhost:8088/mypage/main'
+				
+				}, function(rsp) {
+			 	if ( rsp.success ) {
 
-		 	var insertparam = $('#selectpayment').submit();
-
+			 	var insertparam = $('#selectpayment').submit();
+	
+					$.ajax({
+						type: "POST",
+						data: insertparam,
+						url: "/reserve/list",
+						success: function (data) {
+						     window.close();
+						
+						 }, error: function (jqXHR, textStatus, errorThrown) {
+						   alert(error);
+						}
+					});
+				
+				 } else {
+				     var msg = '결제에 실패하였습니다.';
+				     msg += '에러내용 : ' + rsp.error_msg;
+				 } //if end
+	//	 		 alert(msg);
+				}); //
+		}
+			
+		if(payVal == '무통장입금'){
+			var insertparam = $('#selectpayment').submit();
+// 			window.close();
 			$.ajax({
 				type: "POST",
 				data: insertparam,
@@ -88,45 +121,12 @@ function payment() {
 				   alert(error);
 				}
 			});
-			
-		 } else {
-		     var msg = '결제에 실패하였습니다.';
-		     msg += '에러내용 : ' + rsp.error_msg;
-		 }
-// 		 alert(msg);
-		});
+		}
+		
+	} else {
+		return false;
 	}
-		
-	if(payVal == '무통장입금'){
-		var insertparam = $('#selectpayment').submit();
-		
-		$.ajax({
-			type: "POST",
-			data: insertparam,
-			url: "/reserve/list",
-			success: function (data) {
-			     window.close();
-			
-			 }, error: function (jqXHR, textStatus, errorThrown) {
-			   alert(error);
-			}
-		});
-	}
-	
-// 	var insertparam = $('#selectpayment').submit();
-	
-// 	$.ajax({
-// 		type: "POST",
-// 		data: insertparam,
-// 		url: "/reserve/list",
-// 		success: function (data) {
-// 		     window.close();
-		
-// 		 }, error: function (jqXHR, textStatus, errorThrown) {
-// 		   alert(error);
-// 		}
-// 	});
-	
+
 }
 	
 </script>
@@ -235,6 +235,7 @@ a { text-decoration:none }
   		<input type="hidden" name="receive" id="receive" value="${receive }"/>
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
   		<input type="hidden" name="email" id="email" value="${member.email }"/>
+  		<input type="hidden" name="username" id="username" value="${member.username }"/>
 	  	<label id='cash'><input type='radio' name='payment' id='cash' value='무통장입금' />무통장 입금</label><p>
 	  	<label id='card'><input type='radio' name='payment' id='card' value='신용카드' />신용 카드</label>
 	</form>

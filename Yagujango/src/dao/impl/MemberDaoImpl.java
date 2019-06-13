@@ -408,4 +408,59 @@ public class MemberDaoImpl implements MemberDao{
 			
 		return count;
 	}
+	
+	@Override
+	public void updateMemberByUserid(Member member) {
+		String sql = "";
+		sql += "UPDATE member ";
+		sql += " SET userpw=?, usernick=?, phone=?, email=?, myteam=?";
+		sql += " WHERE userid = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserpw());
+			ps.setString(2, member.getUsernick());
+			ps.setString(3, member.getPhone());
+			ps.setString(4, member.getEmail());
+			ps.setString(5, member.getMyteam());
+			ps.setString(6, member.getUserid());
+			
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void deleteMemberByUserid(Member member) {
+		
+		String sql = "";
+		sql += " DELETE member WHERE userid = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserid());
+		
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }

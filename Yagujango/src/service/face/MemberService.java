@@ -101,4 +101,18 @@ public interface MemberService {
 	 * @return paging
 	 */
 	public Paging getCurPage(HttpServletRequest req,Reserve reserve);
+
+	/**
+	 * 회원 정보 수정
+	 * 
+	 * @param member - 바뀐 정보
+	 */
+	public void modifyMemberInfo(Member member);
+
+	/**
+	 * 회원 탈퇴 
+	 * 
+	 * @param member
+	 */
+	public void leaveMember(Member member);
 }

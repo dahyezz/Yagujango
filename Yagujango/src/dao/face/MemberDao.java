@@ -43,4 +43,10 @@ public interface MemberDao {
 	
 	//reserve_code의 개수
 	public int selectCntReservecode(Reserve reserve);
+
+	//회원 정보 업데이트
+	public void updateMemberByUserid(Member member);
+
+	//회원 삭제
+	public void deleteMemberByUserid(Member member);
 }

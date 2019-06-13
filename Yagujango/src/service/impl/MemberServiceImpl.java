@@ -155,5 +155,15 @@ public class MemberServiceImpl implements MemberService{
 		
 		return paging;
 	}
+	
+	@Override
+	public void modifyMemberInfo(Member member) {
+		memberDao.updateMemberByUserid(member);
+	}
+	
+	@Override
+	public void leaveMember(Member member) {
+		memberDao.deleteMemberByUserid(member);
+	}
 
 }

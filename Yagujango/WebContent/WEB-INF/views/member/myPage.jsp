@@ -87,7 +87,7 @@
 		<th>상태</th>
 	</tr>
 	<tr>
-		<td><a href="/mypage/ticket">${i.reservecode }</a></td>
+		<td><a href="/mypage/ticket">${i.reserve_code }</a></td>
 		<td></td>
 		<td></td>
 		<td></td>
