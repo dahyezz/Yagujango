@@ -26,6 +26,7 @@ public class AnswerDeleteController extends HttpServlet {
 		
 		//목록으로 리다이렉트
 		resp.sendRedirect("/answer/list");
+		//asdfadfadfadfa
 	}
 
 }

@@ -5,14 +5,19 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.face.MemberDao;
 import dbutil.DBConn;
+import dto.Match;
 import dto.Member;
 import dto.Reserve;
-import util.Paging;
+import dto.Seat;
+import dto.Stadium;
+import util.MypagePaging;
 
 public class MemberDaoImpl implements MemberDao{
 	
@@ -332,7 +337,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<Reserve> selectReservecodeByUserno(Paging mypagepaging, Reserve reserve) {
+	public List selectReservecodeByUserno(MypagePaging mypagepaging, Reserve reserve) {
 		
 		String sql="";
 		sql+="SELECT * FROM ("; 
@@ -355,8 +360,8 @@ public class MemberDaoImpl implements MemberDao{
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-//				reserve.setReserve_code((int)rs.getLong("reserve_code"));
-				System.out.println(reserve.getReserve_code());
+				reserve.setReserve_code(rs.getString("reserve_code"));
+				
 				list.add(reserve);
 			}
 		} catch (SQLException e) {
@@ -408,4 +413,183 @@ public class MemberDaoImpl implements MemberDao{
 			
 		return count;
 	}
+
+
+	@Override
+	public Match selectMatchByUserno(Reserve reserve) {
+		
+		String sql = "";
+		sql+="SELECT";
+		sql+=" match_code, hometeam_code,";
+		sql+=" to_char(match_date, 'yyyy/MM/dd HH24:MI') match_date,";
+		sql+=" hometeam_name, awayteam_name";
+		sql+=" FROM match"; 
+		sql+=" WHERE match_code IN ("; 
+		sql+="  SELECT match_code FROM ticket"; 
+		sql+="  WHERE ticket_code IN (";
+		sql+="   SELECT ticket_code FROM reserve"; 
+		sql+="   WHERE userno = ?";
+		sql+="   AND reserve_code = ?))";
+		
+		Match match=new Match();
+
+		
+		try {
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, reserve.getUserno());
+			ps.setString(2, reserve.getReserve_code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				match.setMatch_code(rs.getInt("match_code"));
+				match.setHometeam_code(rs.getInt("hometeam_code"));
+				match.setMatch_date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(rs.getString("match_date")));
+				match.setHometeam_name(rs.getString("hometeam_name"));
+				match.setAwayteam_name(rs.getString("awayteam_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return match;
+	}
+
+	@Override
+	public List<Seat> selectSeatListByUserno(Reserve reserve) {
+		
+		String sql="";
+		sql+="SELECT seat_code, seat_block, seat_number, price";
+		sql+=" FROM seat";
+		sql+=" WHERE seat_code IN (";
+		sql+="  SELECT seat_code FROM ticket";
+		sql+="  WHERE ticket_code IN (";
+		sql+="   SELECT ticket_code FROM reserve";
+		sql+="   WHERE userno = ?";
+		sql+="   AND reserve_code = ?))";
+		
+		Seat seat=new Seat();
+		List list=new ArrayList();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+			ps.setString(2, reserve.getReserve_code());
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				seat.setSeat_code(rs.getInt("seat_code"));
+				seat.setSeat_block(rs.getString("seat_block"));
+				seat.setSeat_number(rs.getInt("seat_number"));
+				seat.setPrice(rs.getInt("price"));
+				
+				list.add(seat);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
+
+
+	@Override
+	public Stadium selectStadiumByUserno(Reserve reserve) {
+		
+		String sql = "";
+		sql+="SELECT stadium_code, stadium_name FROM stadium"; 
+		sql+=" WHERE stadium_code IN ("; 
+		sql+="  SELECT hometeam_code FROM match";
+		sql+="  WHERE match_code IN (";
+		sql+="   SELECT match_code FROM ticket";
+		sql+="   WHERE ticket_code IN(";
+		sql+="    SELECT ticket_code FROM reserve"; 
+		sql+="    WHERE userno = ?";
+		sql+="    AND reserve_code = ?)))";
+		
+		Stadium stadium=new Stadium();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, reserve.getUserno());
+			ps.setString(2, reserve.getReserve_code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				stadium.setStadium_code(rs.getInt("stadium_code"));
+				stadium.setStadium_name(rs.getString("stadium_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return stadium;
+	}
+	
+	@Override
+	public void deleteMemberByUserid(Member member) {
+		
+		String sql = "";
+		sql += " DELETE member WHERE userid = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserid());
+		
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+  
+	@Override
+	public void updateMemberByUserid(Member member) {
+		String sql = "";
+		sql += "UPDATE member ";
+		sql += " SET userpw=?, usernick=?, phone=?, email=?, myteam=?";
+		sql += " WHERE userid = ?";
+	
+      ps.setString(1, member.getUserpw());
+			ps.setString(2, member.getUsernick());
+			ps.setString(3, member.getPhone());
+			ps.setString(4, member.getEmail());
+			ps.setString(5, member.getMyteam());
+			ps.setString(6, member.getUserid());
+			
+			ps.executeUpdate();
+  
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 }

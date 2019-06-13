@@ -8,13 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import dto.Match;
 import dto.Member;
 import dto.Reserve;
+import dto.Seat;
+import dto.Stadium;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
-import util.Paging;
+import util.MypagePaging;
 
 @WebServlet("/mypage/main")
 public class MypageMainController extends HttpServlet {
@@ -41,11 +43,20 @@ public class MypageMainController extends HttpServlet {
 		Reserve reserve=new Reserve();
 		reserve.setUserno(member.getUserno());
 		
-		Paging mypagepaging=memberService.getCurPage(req,reserve);
+		MypagePaging mypagepaging=memberService.getCurPage(req,reserve);
 		req.setAttribute("paging", mypagepaging);
 		
 		List list=memberService.getReservecodeList(mypagepaging,reserve);
 		req.setAttribute("reservecodeList",list);
+		
+		Match match=memberService.getMatchByUserno(reserve);
+		req.setAttribute("match", match);
+		
+		List<Seat> seat=memberService.getSeatListByUserno(reserve);
+		req.setAttribute("seat", seat);
+		
+		Stadium stadium=memberService.getStadiumByUserno(reserve);
+		req.setAttribute("stadium", stadium);
 		
 		//View JSP 지정하기
 		req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);

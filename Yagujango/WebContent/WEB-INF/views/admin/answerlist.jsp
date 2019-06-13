@@ -66,6 +66,11 @@ table {
  	padding: 10px;
  	text-align:center;
 }
+
+th{
+	background-color : #d9e1e8;
+	color : #282c37;
+}
 .table th:hover{
 	background: #D5D5D5;
 }

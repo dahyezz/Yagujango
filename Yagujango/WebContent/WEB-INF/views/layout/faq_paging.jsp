@@ -31,13 +31,15 @@
 	width:30px !important;
 }
 .pagingul li a.now {
-	color:#fff;
-	background-color:#369;
-	border:1px solid #369;
+	color:#FFF;
+	background-color:black;
+	border:1px solid black;
 }
-
-
-
+.pagingul li a:hover, .pagingul li a:focus {
+	color:#FFF;
+	border:1px solid black;
+	background-color:black;
+}
 
 </style>
 
@@ -46,7 +48,7 @@
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/board/faq/faqlist"><span>처음</span></a>
+			<a class="first" href="/board/faq/faqlist"><span>처음</span></a>
 		</li>
 		</c:if>
 
@@ -73,10 +75,10 @@
 			<c:if test="${paging.curPage eq i}">
 			<li>
 				<c:if test="${name eq null and keyword eq null}">
-					<a href="/board/faq/faqlist?curPage=${i }">${i }</a>
+					<a class="now">${i }</a>
 				</c:if>
 				<c:if test="${name ne null and keyword ne null}">
-					<a href="/board/faq/faqlist?curPage=${i }&name=${name }&keyword=${keyword}">${i }</a>
+					<a class="now">${i }</a>
 				</c:if>
 			</li>
 			</c:if>

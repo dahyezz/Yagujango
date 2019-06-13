@@ -36,11 +36,4 @@ public class ReserveListController extends HttpServlet {
 
 		
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println(request.getParameter("matchSeq"));
-//		
-//		List<Match> matchlist = reserveService.getMatchList();
-//		
-//		request.getRequestDispatcher("/WEB-INF/views/matchinfo.jsp").forward(request, response);
-	}
 }

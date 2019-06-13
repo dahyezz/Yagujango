@@ -13,7 +13,7 @@ function inputCheck(){
 	
 	if(join.userid.value==""){
 		alert("아이디를 입력해주세요");
-		obj.userid.focus();
+		join.userid.focus();
 		return false;
 	}
 	if(join.idUncheck.value!="idCheck"){
@@ -22,37 +22,37 @@ function inputCheck(){
 	}
 	if(join.userpw.value==""){
 		alert("비밀번호를 입력해주세요");
-		obj.userpw.focus();
+		join.userpw.focus();
 		return false;
 	}
 	if(join.userpw.value!=join.userpwCheck.value){
 		alert("비밀번호를 동일하게 입력해주세요");
-		obj.userpwCheck.focus();
+		join.userpwCheck.focus();
 		return false;
 	}
 	if(join.usernick.value==""){
 		alert("닉네임을 입력해주세요");
-		obj.usernick.focus();
+		join.usernick.focus();
 		return false;
 	}
 	if(join.username.value==""){
 		alert("이름을 입력해주세요");
-		obj.useriname.focus();
+		join.useriname.focus();
 		return false;
 	}
 	if(join.birth.value==""){
 		alert("생년월일을 입력해주세요");
-		obj.birth.focus();
+		join.birth.focus();
 		return false;
 	}
 	if(join.phone.value==""){
 		alert("핸드폰번호를 입력해주세요");
-		obj.phone.focus();
+		join.phone.focus();
 		return false;
 	}
 	if(join.email.value==""){
 		alert("이메일을 입력해주세요");
-		obj.email.focus();
+		join.email.focus();
 		return false;
 	}
 }

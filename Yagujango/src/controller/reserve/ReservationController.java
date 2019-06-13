@@ -69,6 +69,8 @@ public class ReservationController extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
+		System.out.println("test");
+		
 		String deleteparam = request.getParameter("deleteparam");
 //		System.out.println(deleteparam);
 		

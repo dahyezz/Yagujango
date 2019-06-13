@@ -65,6 +65,11 @@ table {
  	padding: 10px;
  	text-align:center;
 }
+
+th{
+	background-color : #d9e1e8;
+	color : #282c37;
+}
 .table th:hover{
 	background: #D5D5D5;
 }
@@ -104,11 +109,11 @@ a { text-decoration:none; color: black; }
 
 <div id="STATICMENU">
 	<table class="table statictable">
-		<c:forEach items="${list }" var="i">
-			<tr>
-				<th><a href="/reserve/list?stadium_code=${i.stadium_code }" >${i.stadium_name } [${i.team_name }]</a></th>
-			</tr>
-		</c:forEach>
+<%-- 		<c:forEach items="${list }" var="i"> --%>
+<!-- 			<tr> -->
+<%-- 				<th><a href="/reserve/list?stadium_code=${i.stadium_code }" >${i.stadium_name } [${i.team_name }]</a></th> --%>
+<!-- 			</tr> -->
+<%-- 		</c:forEach> --%>
 			
 			<tr>
 				<th><a href="/admin/list">회원</a></th>
@@ -169,9 +174,11 @@ a { text-decoration:none; color: black; }
 	</tr>
 </c:forEach>
 </table>
+<!-- <div class="row-fluid"> -->
+<!-- <button id="btnDelete" class="btn pull-right">삭제</button> -->
+<!-- </div> -->
+<!-- </div> -->
 
-<button id="btnDelete" class="btn btn-warning pull-left">삭제</button>
 </div>
-
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>
