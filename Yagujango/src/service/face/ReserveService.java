@@ -155,4 +155,6 @@ public interface ReserveService {
 	public List<Match> getThreeDaysMatchList();
 
 	public String formatdate(Match match);
+
+	public List<String> formatdatelist(List<Match> matchList);
 }

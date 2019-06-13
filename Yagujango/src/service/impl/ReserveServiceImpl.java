@@ -409,10 +409,26 @@ public class ReserveServiceImpl implements ReserveService{
 		Date datefrom = match.getMatch_date();
 		SimpleDateFormat datetransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateto = datetransFormat.format(datefrom);
-		System.out.println(dateto);
-
 
 		return dateto;
+	}
+
+	@Override
+	public List<String> formatdatelist(List<Match> matchList) {
+		List date = new ArrayList();
+		
+		for(int i = 0; i < matchList.size(); i++) {
+			Date datefrom = matchList.get(i).getMatch_date();
+			SimpleDateFormat datetransFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String dateto = datetransFormat.format(datefrom);
+			dateto = dateto.replaceAll("-", "");
+			dateto = dateto.replaceAll(":", "");
+			dateto = dateto.replaceAll(" ", "");
+			
+			date.add(dateto);
+
+		}
+		return date;
 	}
 
 }

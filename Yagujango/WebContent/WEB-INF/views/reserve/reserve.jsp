@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Locale"%>
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
@@ -134,6 +136,48 @@ table {
 
 a { text-decoration:none; color:#000000 }
 
+#reserveBtn {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid black;
+	background-color: rgba(0,0,0,0);
+	color: black;
+	padding: 5px;
+
+}
+
+#reserveBtn:hover{
+    color:white;
+    background-color: skyblue;
+    border: 1px solid skyblue;
+}
+
+#tobeBtn {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid gray;
+	background-color: rgba(0,0,0,0);
+	color: gray;
+	padding: 5px;
+}
+
+#oldBtn {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid gray;
+	background-color: rgba(0,0,0,0);
+	color: gray;
+	padding: 5px;
+}
 
 </style>
 
@@ -155,7 +199,10 @@ a { text-decoration:none; color:#000000 }
 <div id="matchList" class="matchList">
 <c:set var="now" value="<%=new java.util.Date()%>" /> <!-- 오늘날짜 -->
 <c:set var="today"><fmt:formatDate value="${now }" pattern="yyyy-MM-dd" /></c:set> <!-- 오늘날짜 포맷 -->
+<c:set var="sysdate"><fmt:formatDate value="${now }" pattern="yyyyMMddHHmm" /></c:set> <!-- 오늘날짜 포맷 -->
 <c:set value="1" var="month"/> <!-- 테이블 위 '월'을 한번만 출력하기 위한 변수 -->
+<c:set var="todate" value="<%=new java.util.Date(new java.util.Date().getTime() + 60*60*24*1000*7)%>"/> <!-- 일주일이후 날짜 -->
+<c:set var="formatdate"><fmt:formatDate value="${todate }" pattern="yyyy-MM-dd" /></c:set>
 
 <table class="matchtable" style="text-align:center;">
 	<c:if test="${today < '2019-06-01' }">
@@ -166,22 +213,34 @@ a { text-decoration:none; color:#000000 }
 			<th>예매</th>
 		</tr>
 	</c:if>
-	<c:forEach items="${matchList }" var="i">
-		<c:set var="matchdate"><fmt:formatDate value="${i.match_date }" pattern="yyyy-MM-dd" /></c:set>
-		<c:if test="${i.match_date >= today && i.match_date < '2019-06-01' && i.match_date > '2019-04-31'}">
+	<c:forEach items="${matchList }" var="i" varStatus="status">
+		<fmt:parseDate var="dateString" value="${datelist[status.index] }" pattern="yyyyMMddHHmm" />
+		<fmt:formatDate var="matchdate" value="${dateString }" pattern="yyyy-MM-dd" />
+		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
+		<c:if test="${matchdate >= today && matchdate < '2019-06-01' && matchdate > '2019-04-30'}">
 			<c:if test="${month == '1'}">
 				<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
 			</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 			<tr>
-				<td>${i.match_date }</td>
+				<td>${matchdate }</td>
 				<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
 				<c:forEach items="${list }" var="j">
 					<c:if test="${j.stadium_code eq i.hometeam_code }">
 						<td>${j.stadium_name }</td>
 					</c:if>
 				</c:forEach>
-				<td><input id="reserveBtn" type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
-			</tr>
+					<c:choose>
+						<c:when test="${olddate-sysdate <= 100}">
+							<td><input id="oldBtn" type="button" value="판매종료" disabled='disabled'/></td>
+						</c:when>
+						<c:when test="${formatdate >= matchdate}">
+							<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+						</c:when>
+						<c:when test="${formatdate < matchdate}">
+							<td><input id="tobeBtn" type="button" value="판매예정" disabled='disabled'/></td>
+						</c:when>
+					</c:choose>
+				</tr>
 			<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 		</c:if>
 	</c:forEach>
@@ -192,7 +251,7 @@ a { text-decoration:none; color:#000000 }
 
 
 
-<!-- 6월  -->
+<!-- 6월 
 <c:set value="1" var="month"/> <!-- 테이블 위 '월'을 한번만 출력하기 위한 변수 -->
 	<table class="matchtable" style="text-align:center;">
 		<c:if test="${today < '2019-07-01' }">
@@ -203,22 +262,33 @@ a { text-decoration:none; color:#000000 }
 				<th>예매</th>
 			</tr>
 		</c:if>
-		<c:forEach items="${matchList }" var="i">
-			<c:if test="${i.match_date >= today && i.match_date < '2019-07-01' && i.match_date > '2019-05-31'}">
+		<c:forEach items="${matchList }" var="i" varStatus="status">
+		<fmt:parseDate var="dateString" value="${datelist[status.index] }" pattern="yyyyMMddHHmm" />
+		<fmt:formatDate var="matchdate" value="${dateString }" pattern="yyyy-MM-dd" />
+		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
+			<c:if test="${matchdate >= today && matchdate < '2019-07-01' && matchdate > '2019-05-31'}">
 				<c:if test="${month == '1'}">
-					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+					<u><h1><fmt:formatDate value="${i.match_date }" pattern="M"/>월</h1></u>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
-					<td>${i.match_date }</td>
+					<td>${matchdate }</td>
 					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
 					<c:forEach items="${list }" var="j">
 						<c:if test="${j.stadium_code eq i.hometeam_code }">
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-
-					<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
-
+					<c:choose>
+						<c:when test="${olddate-sysdate <= 100}">
+							<td><input id="oldBtn" type="button" value="판매종료" disabled='disabled'/></td>
+						</c:when>
+						<c:when test="${formatdate >= matchdate}">
+							<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+						</c:when>
+						<c:when test="${formatdate < matchdate}">
+							<td><input id="tobeBtn" type="button" value="판매예정" disabled='disabled'/></td>
+						</c:when>
+					</c:choose>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -241,20 +311,33 @@ a { text-decoration:none; color:#000000 }
 				<th>예매</th>
 			</tr>
 		</c:if>
-		<c:forEach items="${matchList }" var="i">
-			<c:if test="${i.match_date >= today && i.match_date < '2019-08-01' && i.match_date > '2019-06-31'}">
+		<c:forEach items="${matchList }" var="i" varStatus="status">
+		<fmt:parseDate var="dateString" value="${datelist[status.index] }" pattern="yyyyMMddHHmm" />
+		<fmt:formatDate var="matchdate" value="${dateString }" pattern="yyyy-MM-dd" />
+		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
+			<c:if test="${matchdate >= today && matchdate < '2019-08-01' && matchdate > '2019-06-30'}">
 				<c:if test="${month == '1'}">
 					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
-					<td>${i.match_date }</td>
+					<td>${matchdate }</td>
 					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
 					<c:forEach items="${list }" var="j">
 						<c:if test="${j.stadium_code eq i.hometeam_code }">
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input id="reserveBtn" type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<c:choose>
+						<c:when test="${olddate-sysdate <= 100}">
+							<td><input id="oldBtn" type="button" value="판매종료" disabled='disabled'/></td>
+						</c:when>
+						<c:when test="${formatdate >= matchdate}">
+							<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+						</c:when>
+						<c:when test="${formatdate < matchdate}">
+							<td><input id="tobeBtn" type="button" value="판매예정" disabled='disabled'/></td>
+						</c:when>
+					</c:choose>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -277,20 +360,33 @@ a { text-decoration:none; color:#000000 }
 				<th>예매</th>
 			</tr>
 		</c:if>
-		<c:forEach items="${matchList }" var="i">
-			<c:if test="${i.match_date >= today && i.match_date < '2019-09-01' && i.match_date > '2019-07-31'}">
+		<c:forEach items="${matchList }" var="i" varStatus="status">
+		<fmt:parseDate var="dateString" value="${datelist[status.index] }" pattern="yyyyMMddHHmm" />
+		<fmt:formatDate var="matchdate" value="${dateString }" pattern="yyyy-MM-dd" />
+		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
+			<c:if test="${matchdate >= today && matchdate < '2019-09-01' && matchdate > '2019-07-31'}">
 				<c:if test="${month == '1'}">
 					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
-					<td>${i.match_date }</td>
+					<td>${matchdate }</td>
 					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
 					<c:forEach items="${list }" var="j">
 						<c:if test="${j.stadium_code eq i.hometeam_code }">
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input id="reserveBtn" type ="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<c:choose>
+						<c:when test="${olddate-sysdate <= 100}">
+							<td><input id="oldBtn" type="button" value="판매종료" disabled='disabled'/></td>
+						</c:when>
+						<c:when test="${formatdate >= matchdate}">
+							<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+						</c:when>
+						<c:when test="${formatdate < matchdate}">
+							<td><input id="tobeBtn" type="button" value="판매예정" disabled='disabled'/></td>
+						</c:when>
+					</c:choose>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -313,79 +409,38 @@ a { text-decoration:none; color:#000000 }
 				<th>예매</th>
 			</tr>
 		</c:if>
-		<c:forEach items="${matchList }" var="i">
-			<c:if test="${i.match_date >= today && i.match_date < '2019-10-01' && i.match_date > '2019-08-31'}">
+		<c:forEach items="${matchList }" var="i" varStatus="status">
+		<fmt:parseDate var="dateString" value="${datelist[status.index] }" pattern="yyyyMMddHHmm" />
+		<fmt:formatDate var="matchdate" value="${dateString }" pattern="yyyy-MM-dd" />
+		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
+			<c:if test="${matchdate >= today && matchdate < '2019-10-01' && matchdate > '2019-08-31'}">
 				<c:if test="${month == '1'}">
 					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
-					<td>${i.match_date }</td>
+					<td>${matchdate }</td>
 					<td>${i.hometeam_name } vs ${i.awayteam_name }</td>
 					<c:forEach items="${list }" var="j">
 						<c:if test="${j.stadium_code eq i.hometeam_code }">
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
-					<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+					<c:choose>
+						<c:when test="${olddate-sysdate <= 100}">
+							<td><input id="oldBtn" type="button" value="판매종료" disabled='disabled'/></td>
+						</c:when>
+						<c:when test="${formatdate >= matchdate}">
+							<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+						</c:when>
+						<c:when test="${formatdate < matchdate}">
+							<td><input id="tobeBtn" type="button" value="판매예정" disabled='disabled'/></td>
+						</c:when>
+					</c:choose>
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
 		</c:forEach>
 	</table>
 </div>
-
-<!-- 취소기한 날짜계산  -->
-<script type="text/javascript">
-Date.prototype.format = function(f) {
-	if (!this.valueOf()) return " ";
- 
-	var weekName = ["일", "월", "화", "수", "목", "금", "토"];
-	var d = this;
-	 
-	return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
-		switch ($1) {
-			case "yyyy": return d.getFullYear();
-			case "yy": return (d.getFullYear() % 1000).zf(2);
-			case "MM": return (d.getMonth() + 1).zf(2);
-			case "dd": return d.getDate().zf(2);
-			case "E": return weekName[d.getDay()];
-			case "HH": return d.getHours().zf(2);
-			case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
-			case "mm": return d.getMinutes().zf(2);
-			case "ss": return d.getSeconds().zf(2);
-			case "a/p": return d.getHours() < 12 ? "오전" : "오후";
-			default: return $1;
-		}
-	});
-};
- 
-String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
-String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
-Number.prototype.zf = function(len){return this.toString().zf(len);};
-
-var matchdate = new Array();
-<c:forEach items="${matchList}" var="i">
-	matchdate.push(new Date("${i.match_date}"));
-</c:forEach>
-
-for (var i = 0; i < matchdate.length; i++) {
-	matchdate[i].setDate(matchdate[i].getDate() + 7);
-// 	matchdate[i].format("yyyy-MM-dd");
-	console.log(matchdate[i].format("yyyy-MM-dd"));
-}
-
-var todate = new Date();
-todate.setDate(todate.getDate() + 7);
-console.log(todate);
-document.getElementById('todate').innerHTML=todate.format("yyyy-MM-dd");
-
-// var matchdate = new Date("${formatdate }");
-// var canceldate = new Date("${formatdate }");
-// canceldate.setDate(canceldate.getDate() + 7);
-// console.log(canceldate.format("yyyy-MM-dd HH:mm"));
-// document.getElementById('matchdate').innerHTML=matchdate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
-// document.getElementById('canceldate').innerHTML=canceldate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
-
-</script>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

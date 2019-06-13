@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import dao.face.ReserveDao;
 import dbutil.DBConn;
@@ -66,8 +67,8 @@ public class ReserveDaoImpl implements ReserveDao {
 	public List<Match> selectAllByStadiumcode(Stadium stadium) {
 		
 		String sql = "";
-//		sql += "SELECT match_code, hometeam_code, to_char(match_date, 'mm.dd') match_date, hometeam_name, awayteam_name";
-		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name";
+		sql += "SELECT match_code, hometeam_code, to_char(match_date, 'yyyy/MM/dd:HH24:MI') match_date, hometeam_name, awayteam_name";
+//		sql += "SELECT match_code, hometeam_code, match_date, hometeam_name, awayteam_name";
 		sql += " FROM match";
 		sql += " WHERE hometeam_code = ?";
 //		sql += " AND match_date >= sysdate";
@@ -80,14 +81,13 @@ public class ReserveDaoImpl implements ReserveDao {
 			ps.setInt(1, stadium.getStadium_code());
 			
 			rs = ps.executeQuery();
-			
+
 			while(rs.next()) {
-				
 				Match match = new Match();
-				
+
 				match.setMatch_code(rs.getInt("match_code"));
 				match.setHometeam_code(rs.getInt("hometeam_code"));
-				match.setMatch_date(rs.getDate("match_date"));
+				match.setMatch_date(new SimpleDateFormat("yyyy/MM/dd:HH:mm").parse(rs.getString("match_date")));
 				match.setHometeam_name(rs.getString("hometeam_name"));
 				match.setAwayteam_name(rs.getString("awayteam_name"));
 				
@@ -95,6 +95,8 @@ public class ReserveDaoImpl implements ReserveDao {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		} finally {
 			try {
