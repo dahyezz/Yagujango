@@ -1,6 +1,8 @@
 package controller.reserve;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -31,6 +33,10 @@ public class ReserveListController extends HttpServlet {
 		List<Match> matchList = reserveService.getMatchList(stadium); //해당 구장의 경기 일정
 		System.out.println(matchList);
 		request.setAttribute("matchList", matchList);
+
+		List<String> datelist = reserveService.formatdatelist(matchList);
+		System.out.println(datelist);
+		request.setAttribute("datelist", datelist);
 		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/reserve.jsp").forward(request, response);
 
