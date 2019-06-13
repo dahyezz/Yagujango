@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import dao.face.ReserveDao;
@@ -714,19 +713,20 @@ public class ReserveDaoImpl implements ReserveDao {
 	}
 	
 	@Override
-	public List<Match> selectThreeMatchList() {
+	public List<Match> selectThreeMatchList(int i) {
 		
 		String sql = "";
 		sql += "SELECT match_code, hometeam_code, to_char(match_date, 'yyyy/MM/dd:HH24:MI') match_date, hometeam_name, awayteam_name";
 		sql += " FROM match";
-		sql += " WHERE match_date >= sysdate";
-		sql += " AND match_date < sysdate + 3";
+		sql += " WHERE to_char(match_date, 'yyyy/MM/dd') >= to_char(sysdate, 'yyyy/MM/dd')";
+		sql += " AND to_char(match_Date,'yyyy/MM/dd') < to_char(sysdate+?, 'yyyy/MM/dd')";
 		sql += " ORDER BY match_code";
 		
 		List<Match> matchList = new ArrayList<Match>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, i);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {

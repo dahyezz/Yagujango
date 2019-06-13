@@ -69,7 +69,7 @@ public interface ReserveDao {
 
 	void updateBarcode(Reserve reserve, String barcode);
 
-	List<Match> selectThreeMatchList();
+	List<Match> selectThreeMatchList(int i);
 
 	List<Ticket> selectTicketInfo(Match match, int count);
 	Seat selectSeatInfo(int seat_code);

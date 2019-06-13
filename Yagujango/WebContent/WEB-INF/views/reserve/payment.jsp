@@ -47,8 +47,6 @@ function cancle() {
 	
 function payment() {
 
-
-// 	alert("결제 하시겠습니까?")
 	var message = confirm("결제 하시겠습니까?");
 	
 	if(message == true){
@@ -80,17 +78,19 @@ function payment() {
 				buyer_tel : '010-1234-5678',
 				buyer_addr : '서울특별시 강남구 삼성동',
 				buyer_postcode : '123-456',
-				m_redirect_url : 'https://localhost:8088/mypage/main'
+// 				m_redirect_url : 'https://localhost:8088/mypage/main'
+				company : '(주)야구장고'
 				
 				}, function(rsp) {
 			 	if ( rsp.success ) {
 
+			 	window.close();
 			 	var insertparam = $('#selectpayment').submit();
-	
+				
 					$.ajax({
-						type: "POST",
+						type: "GET",
 						data: insertparam,
-						url: "/reserve/list",
+						url: "/mypage/main",
 						success: function (data) {
 						     window.close();
 						
@@ -109,11 +109,11 @@ function payment() {
 			
 		if(payVal == '무통장입금'){
 			var insertparam = $('#selectpayment').submit();
-// 			window.close();
+			
 			$.ajax({
-				type: "POST",
+				type: "GET",
 				data: insertparam,
-				url: "/reserve/list",
+				url: "/mypage/main",
 				success: function (data) {
 				     window.close();
 				

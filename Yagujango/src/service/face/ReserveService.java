@@ -149,10 +149,11 @@ public interface ReserveService {
 
 	/**
 	 * 메인페이지에서 3일간의 경기일정 띄우기
+	 * @param i 
 	 * @return 
 	 * 
 	 */
-	public List<Match> getThreeDaysMatchList();
+	public List<Match> getThreeDaysMatchList(int i);
 
 	public String formatdate(Match match);
 }

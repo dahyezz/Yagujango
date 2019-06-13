@@ -23,7 +23,7 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		//match List 불러오기
-		List<Match> matchList = reserveService.getThreeDaysMatchList();
+		List<Match> matchList = reserveService.getThreeDaysMatchList(3);
 		req.setAttribute("matchList", matchList);
 		
 //		for(Match e : matchList) {
