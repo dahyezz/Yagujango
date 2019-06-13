@@ -46,6 +46,7 @@ public interface MemberDao {
 	
 	//reserve_code의 개수
 	public int selectCntReservecode(Reserve reserve);
+
 	
 	//userno로 match 테이블 조회
 	public Match selectMatchByUserno(Reserve reserve);
@@ -55,4 +56,12 @@ public interface MemberDao {
 		
 	//userno로 stadium 테이블 조회
 	public Stadium selectStadiumByUserno(Reserve reserve);
+
+
+	//회원 정보 업데이트
+	public void updateMemberByUserid(Member member);
+
+	//회원 삭제
+	public void deleteMemberByUserid(Member member);
+
 }

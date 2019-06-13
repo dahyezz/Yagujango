@@ -414,6 +414,7 @@ public class MemberDaoImpl implements MemberDao{
 		return count;
 	}
 
+
 	@Override
 	public Match selectMatchByUserno(Reserve reserve) {
 		
@@ -431,10 +432,11 @@ public class MemberDaoImpl implements MemberDao{
 		sql+="   AND reserve_code = ?))";
 		
 		Match match=new Match();
+
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, reserve.getUserno());
 			ps.setString(2, reserve.getReserve_code());
 			
@@ -489,6 +491,7 @@ public class MemberDaoImpl implements MemberDao{
 				
 				list.add(seat);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -499,7 +502,7 @@ public class MemberDaoImpl implements MemberDao{
 				e.printStackTrace();
 			}
 		}
-		
+
 		return list;
 	}
 
@@ -539,4 +542,54 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return stadium;
 	}
+	
+	@Override
+	public void deleteMemberByUserid(Member member) {
+		
+		String sql = "";
+		sql += " DELETE member WHERE userid = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserid());
+		
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+  
+	@Override
+	public void updateMemberByUserid(Member member) {
+		String sql = "";
+		sql += "UPDATE member ";
+		sql += " SET userpw=?, usernick=?, phone=?, email=?, myteam=?";
+		sql += " WHERE userid = ?";
+	
+      ps.setString(1, member.getUserpw());
+			ps.setString(2, member.getUsernick());
+			ps.setString(3, member.getPhone());
+			ps.setString(4, member.getEmail());
+			ps.setString(5, member.getMyteam());
+			ps.setString(6, member.getUserid());
+			
+			ps.executeUpdate();
+  
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 }

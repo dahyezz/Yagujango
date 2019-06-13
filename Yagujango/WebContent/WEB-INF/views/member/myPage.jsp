@@ -97,8 +97,10 @@ $(document).ready(function(){
 	</tr>
 	<tr>
 		<td><a href="/mypage/ticket">${i.reserve_code }</a></td>
+
 		<td>[2019 신한은행 MY CAR KBO 리그] ${match.hometeam_name } vs ${match.awayteam_name }</td>
 		<td><p id="matchdate"><fmt:formatDate value="${match.match_date}" pattern="yyyy/MM/dd HH:mm"/></p></td>
+
 		<td></td>
 		<td><%-- ${seat.block }블럭 ${seat.number }석 --%></td>
 		<td><fmt:formatDate value="${match.match_date}" pattern="yyyy/MM/dd HH:mm"/></td>

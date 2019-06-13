@@ -226,11 +226,6 @@ public class ReserveServiceImpl implements ReserveService{
 
 		upload.setFileSizeMax(maxFile);
 
-		// --업로드 준비 완료--
-
-//		File up = new File(context.getRealPath("barcode"));
-//		System.out.println(up);
-//		System.out.println(up.exists());
 		
 		// - - - 바코드 생성 - - -
 		try {
@@ -332,6 +327,8 @@ public class ReserveServiceImpl implements ReserveService{
 	
 	@Override
 	public List<Seat> getResevedSeatList(Match match) {
+		reserveDao.optimizeSeat();
+		
 		return reserveDao.getReservedSeatListByMatchCode(match);
 	}
 	
@@ -356,13 +353,6 @@ public class ReserveServiceImpl implements ReserveService{
 		//TO
 		final String TO = request.getParameter("email");
 		
-//		final String user_email = request.getParameter("email");
-		
-	
-//		final String master_email = "yagujango123@gmail.com";
-//		final String master_pw = "1q2w3e!!";
-//		final String master_name = "yagujanggo";
-		
 		final String SUBJECT = "구글 SMTP 이메일 발송 테스트";
 		
 		final String BODY = String.join(
@@ -372,7 +362,6 @@ public class ReserveServiceImpl implements ReserveService{
 		Authenticator auth = new MailAuth("yagujango123@gmail.com", "1q2w3e!!");
 		
 		Properties props = System.getProperties();
-//		props.put("mail.smtp.ssl.enable", "false");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");

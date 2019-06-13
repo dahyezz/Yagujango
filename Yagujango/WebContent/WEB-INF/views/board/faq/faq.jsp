@@ -13,20 +13,13 @@ $(document).ready(function() {
 		location.href="/board/1:1write";
 	});
 	
-	$("#btnSearch").click(function() {
-		location.href="/board/faq/faqlist?search="+$(".search").val();
-	}); 
 });
 </script>
 
 <style type="text/css">
 
 Body {
-    width: 1170px;
-	padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+	padding: 0 5% 0 5%;
 }
 
 .faqBody {
@@ -50,7 +43,7 @@ Body {
 .search {
 	display:block;
 	text-align:center; 
-	background:#CCC;
+	background:#d9e1e8;
 	padding:0 0 0 35px;
 	font-size:18px;
 	color:#5e5e5e;
@@ -85,21 +78,23 @@ Body {
 	list-style:none
 }
 
-	
+
+
 .faq .q a {
 	display: block;
-    padding: 0 15px 0 100px;
+    padding: 22 15px 0 100px;
     line-height: 55px;
     color: #555555;
     margin: 0 0 0 0px;
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid #d9e1e8;
     font-size: 16px;
     text-decoration:none;
 }
     
 .faq .q a:hover, .faq .q a:active, .faq .q a:focus{}
 .faq .a {
-	background:#f8f8f8 url("a_icon.png") no-repeat 40px 10px;padding: 10px 75px 10px 75px;
+	background:#f8f8f8;
+	padding: 10px 75px 10px 75px;
 	font-size: 16px;
 	color: #444444;
 	line-height: 22px;
@@ -107,9 +102,10 @@ Body {
 	margin:5px 0 0 0;
 }
 #btnBox { 
+
 	display:block;
 	text-align:center; 
-	background:#CCC;
+	background:#d9e1e8;
 	padding:0 0 0 35px;
 	font-size:15px;
 	color:#5e5e5e;
@@ -122,12 +118,13 @@ Body {
 }
 
 #btn1to1Write {
-    position: relative;
-    left: 580px;
-	line-height: 40px;
-	font-size: 15px;
+	line-height: 38px;
+	font-size: 14px;
 	width: 100%; 
+	text-align:right;
 }
+
+
 
 </style>
 
@@ -166,6 +163,7 @@ jQuery(function($){
 
 <div class="search">
 	<form action="/board/faq/faqlist" method="get">
+		<input type="hidden" name="name" value="faq_title">
 		<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해 주세요"/>
 		<button>검색</button>
 	</form>
@@ -180,11 +178,10 @@ jQuery(function($){
 						Q.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.faq_title }
 					</a>
 				</p>
-				<br>
 				<p class="a" style="background: #CCC">
 					&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
 					&nbsp;&nbsp;&nbsp;&nbsp;${i.faq_content }<br>
-				</p><br>
+				</p>
 			</li>
 		</c:forEach>
     </ul>
@@ -192,16 +189,19 @@ jQuery(function($){
 
 <div id="pagingBox">  
 	<c:import url="/WEB-INF/views/layout/faq_paging.jsp" />
+
 </div>
 
 <table id="btnBox">
 		<tr>
-			<th>원하시는 답변을 찾지 못하셨다면, 옆에 1:1문의하여주세요.</th>
-			<th>
-				<button id="btn1to1Write">1:1문의하기</button>
-			</th>
+			<td colspan="3">원하시는 답변을 찾지 못하셨다면, 옆에 1:1문의하여주세요.</td>
+			<td>
+				<button class="button-right" id="btn1to1Write">1:1 문의하기</button>
+			</td>
 		</tr>
 
 </table>
+ 
+
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

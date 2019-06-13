@@ -74,6 +74,10 @@ public interface ReserveDao {
 	List<Ticket> selectTicketInfo(Match match, int count);
 	Seat selectSeatInfo(int seat_code);
 
+	//reserve테이블에는 없는데 ticket테이블에 있는 좌석 삭제하는 코드 (좌석 최적화)
+	// 예매 진행하다가 중단하면 reserve에 insert안되는데 ticket에는 됨
+	void optimizeSeat();
+
 
 
 }

@@ -19,29 +19,24 @@ import util.Paging;
 public class Board_1to1ServiceImpl implements Board_1to1Service {
 	
 	private Board_1to1Dao board_1to1Dao = new Board_1to1DaoImpl();
-	private MemberDao memberDao = new MemberDaoImpl();
-	
-	
 
 	@Override
 	public Paging getCurPage(HttpServletRequest req) {
-		String name = req.getParameter("name");
-		String keyword = req.getParameter("keyword");
-		String param = req.getParameter("cutPage");
 		
+		String param = req.getParameter("cutPage");
 		int curPage = 0;
 		if( param!=null && !"".equals(param) ) {
 			curPage = Integer.parseInt(param);
 		}
 		
 		Paging paging = new Paging();
-		paging.setName(name);
-		paging.setKeyword(keyword);
 		int totalCount = board_1to1Dao.selectCntAll(paging);
 
 		paging = new Paging(totalCount, curPage);
-//		paging.setName(name);
-		paging.setKeyword(keyword);
+		paging.setName(req.getParameter("name"));
+		paging.setKeyword(req.getParameter("keyword"));
+		
+//		System.out.println(paging);
 		return paging;
 
 	}
