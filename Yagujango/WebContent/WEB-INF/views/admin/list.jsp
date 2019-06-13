@@ -44,6 +44,7 @@ function InitializeStaticMenu() {
 
 <style type="text/css">
 /* 메뉴 네비게이션바 */
+
 #STATICMENU {
 	width: 200px;
 	margin: 0pt;
@@ -54,17 +55,25 @@ function InitializeStaticMenu() {
 	top: 0px;
 }
 
+/* body{ */
+/* background-color:#d9e1e8; */
+/* } */
 /* 네비게이션바 테이블 */
 table {
 	border-collapse: collapse;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 	width:auto;
+/* 	background-color : #d9e1e8; */
 }
 .table th, td{
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
+}
+th{
+	background-color : #d9e1e8;
+	color : #282c37;
 }
 .table th:hover{
 	background: #D5D5D5;
@@ -101,6 +110,7 @@ a { text-decoration:none; color: black; }
 	font-weight: 300;
 	font-size: 15px;
 }
+
 </style>
 
 <div id="STATICMENU">
@@ -293,9 +303,10 @@ function checkAll() {
 
 <div class="form-inline text-center">
 	<input class="form-control" type="text" id="keyword" />
-	<button id="btnSearch" class="btn">검색</button>
+	<button id="btnSearch" class="btn btn-default pull-right" type="button">검색</button>
 </div> 
 
 </div>
+
 
 <c:import url="/WEB-INF/views/layout/footer.jsp"/>

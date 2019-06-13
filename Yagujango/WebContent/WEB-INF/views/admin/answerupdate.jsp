@@ -65,11 +65,16 @@ table {
  	padding: 10px;
  	text-align:center;
 }
+.th{
+	background-color : #d9e1e8;
+	color : #282c37;
+}
 .table th:hover{
 	background: #D5D5D5;
 }
 .table th:first-child, td:first-child{
  	border-left: 0;
+ 	background-color:#d9e1e8;
 }
 .table th:last-child, td:last-child{
  	border-right: 0;
@@ -100,6 +105,13 @@ a { text-decoration:none; color: black; }
 	font-weight: 300;
 	font-size: 15px;
 }
+.infok{
+	text-align : center;
+/* 	margin : 20px 10% 20px 20px; */
+	width:20%; 
+
+}
+
 </style>
 
 <div id="STATICMENU">
@@ -147,46 +159,40 @@ $(document).ready(function() {
 
 <div class = "container">
 <h1>답변수정</h1>
-<hr>
 
 <div class="wrap"></div>
-<hr>
 
 <div class="wrap">
 <form action="/answer/update" method="post" method="post">
 <input type="hidden" name="answerno" value="${answerBoard.answerno}" />
-<table class="table table-striped table-hover table-condensed">
+<table class="table table-bordered">
 <tbody>
 	<tr>
-		<td class="info">NO.</td>
+		<td class="infok">NO.</td>
 		<td colspan="3">${answerBoard.answerno}</td>
 	</tr>
 	<tr>
-		<td class="info">접수번호</td>
+		<td class="infok">접수번호</td>
 		<td colspan="3">${answerBoard.boardno}</td>
 	</tr>
 	
 	<tr>
-		<td class="info">회원아이디</td>
+		<td class="infok">회원아이디</td>
 		<td>${answerBoard.writer_userid}</td>
 	</tr>
 	
 		<tr>
-		<td class="info">문의내용</td>
-	</tr>
-	<tr>
-		<td colspan="4">${viewcontent}</td>
+		<td class="infok">문의내용</td>
+		<td colspan="3">${viewcontent}</td>
 	</tr>
 
 	<tr>
-		<td class="info">답변내용</td>
-	</tr>
-	<tr><td colspan="2">답변작성
+		<td class="infok">답변내용</td><td colspan="3">
 		<textarea id="content" name="content" rows="10" cols="100">${answerBoard.content}</textarea>
 	</td></tr>
 	
 	<tr>
-		<td class="info">작성일</td>
+		<td class="infok">작성일</td>
 		<td colspan="3">${viewdate}</td>
 	</tr>
 	</tbody>
