@@ -127,7 +127,6 @@ public interface MemberService {
 	 */
 	public Stadium getStadiumByUserno(Reserve reserve);
 
-	public Paging getCurPage(HttpServletRequest req,Reserve reserve);
 
 	/**
 	 * 회원 정보 수정
