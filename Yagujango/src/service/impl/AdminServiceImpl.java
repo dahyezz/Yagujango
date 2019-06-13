@@ -285,7 +285,7 @@ public class AdminServiceImpl implements AdminService{
 		String content = req.getParameter("content");
 //		System.out.println("mataltest : " + content);
 		
-		final String SUBJECT = "문의주신 '" + req.getParameter("title") + "에 관한 답변작성이 완료되었습니다.";
+		final String SUBJECT = "[(주)야구장고] 문의주신 '" + req.getParameter("title") + "에 관한 답변작성이 완료되었습니다.";
 		
 		final String BODY = String.join(
 				"<h1>야구장고</h1>",

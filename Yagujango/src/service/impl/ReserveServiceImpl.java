@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -22,12 +21,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.JOptionPane;
 
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import dao.face.MemberDao;
 import dao.face.ReserveDao;
+import dao.impl.MemberDaoImpl;
 import dao.impl.ReserveDaoImpl;
 import dto.Match;
 import dto.Member;
@@ -45,6 +45,7 @@ import util.MailAuth;
 
 public class ReserveServiceImpl implements ReserveService{
 	private ReserveDao reserveDao = new ReserveDaoImpl();
+	private MemberDao memberDao = new MemberDaoImpl();
 	
 	@Override
 	public Stadium getStadiumcode(HttpServletRequest request) {
@@ -167,27 +168,28 @@ public class ReserveServiceImpl implements ReserveService{
 			String memberno = request.getParameter("userno");
 			String match = request.getParameter("match_code");
 			String payment = request.getParameter("payment");
-			String payment_date = request.getParameter("match_date"); // reserve에 날짜를 insert하기 위한 date형 파라미터
-			String string_date = request.getParameter("match_date"); // reserve에 예매코드에 날짜를표현하기 위해  string형 파라미터
-			String stringdate = string_date.replace("-", "");
+
+			// - - - match_date 변환 하는 부분 - - - 
+			Match matchdt = new Match();
+			matchdt.setMatch_code(Integer.parseInt(match));
+			matchdt = reserveDao.selectMatchByMatchCode(matchdt);
+			String stringdate = formatdate(matchdt);
+			stringdate = stringdate.substring(0,10);
+			stringdate = stringdate.replace("-", "");
+//			System.out.println("stringdate : " + stringdate);
+			// - - - - - - - - - - - - - - - - - - - - -
+		
 			String receive = request.getParameter("receive");
 			String[] Arrayticket = request.getParameterValues("ticket_code"); // 내가고른 좌석이 여러개일 경우 티켓코드는 여러개 생성 -> 배열로 방아와야함
 			
-			for(int i=0; i < ticketcnt; i++) { // 티켓매수를 통해 reserve테이블에 반복 insert.... -> 더 좋은 방법이 있을까?
+			for(int i=0; i < ticketcnt; i++) { 
 				int userno = Integer.parseInt(memberno);
-//				int matchcode = Integer.parseInt(match);
-//				int codedate = Integer.parseInt(stringdate);
-				
 				reserve.setTicket_code(Integer.parseInt(Arrayticket[i]));
 				reserve.setPayment(payment);
 				reserve.setUserno(userno);
-//				reserve.setUserno(memberno);
-				reserve.setPayment_date(StringToDate(payment_date)); // String date를 java.sql.date로 바꾸기
 				reserve.setHow_receive(receive);
-				
-//				reserveDao.insertReserve(reserve, codedate, matchcode, userno); // reserve테이블 삽입
+
 				reserveDao.insertReserve(reserve, stringdate, match, userno);
-				// -> reserve테이블 resserve_code에 int형파라미터를 전부합쳐서 reserve_code 보여주기..... -> 다른방법이 생각이 안남...
 				
 				//----- 바코드 생성 ------
 				//	receive 가 바코드발급일때
@@ -347,18 +349,21 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public void sendEmail(HttpServletRequest request) {
 
+		String username = request.getParameter("username");
+//		System.out.println(username);
+		
 		//FROM 
 		final String FROM = "yagujango123@gmail.com";
 		final String FROMNAME = "야구장고";
 		
 		//TO
 		final String TO = request.getParameter("email");
-		
-		final String SUBJECT = "구글 SMTP 이메일 발송 테스트";
+		 
+		final String SUBJECT = "[(주)야구장고] " + username + "님, 예매가 완료되었습니다.";
 		
 		final String BODY = String.join(
-				"<h1>구글 SMTP Email Test</h1>",
-				"<p>javax.mail을 이용한 구글 smtp 이메일 전송 테스트</p>");
+				"<h5>안녕하세요. " + username + "님!<br>예매가 성공적으로 완료되었습니다.</h5>",
+				"<p>예매관련 정보와 예매 안내 사항은 야구장고 마이페이지를 참조하여주십시오.</p>");
 		
 		Authenticator auth = new MailAuth("yagujango123@gmail.com", "1q2w3e!!");
 		
@@ -400,8 +405,17 @@ public class ReserveServiceImpl implements ReserveService{
 
 	
 	@Override
-	public List<Match> getThreeDaysMatchList() {
-		return reserveDao.selectThreeMatchList();
+	public List<Match> getThreeDaysMatchList(int i) {
+		
+		List<Match> matchList = reserveDao.selectThreeMatchList(3);
+		System.out.println(matchList.size());
+		
+		if(matchList.size()==15)
+			return matchList;
+		else {
+			matchList = reserveDao.selectThreeMatchList(4);
+			return matchList;
+		}
 	}
 
 	@Override
