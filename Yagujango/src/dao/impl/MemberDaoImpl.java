@@ -574,7 +574,8 @@ public class MemberDaoImpl implements MemberDao{
 		sql += " SET userpw=?, usernick=?, phone=?, email=?, myteam=?";
 		sql += " WHERE userid = ?";
 	
-      ps.setString(1, member.getUserpw());
+		try {
+			ps.setString(1, member.getUserpw());
 			ps.setString(2, member.getUsernick());
 			ps.setString(3, member.getPhone());
 			ps.setString(4, member.getEmail());
@@ -592,4 +593,5 @@ public class MemberDaoImpl implements MemberDao{
 				e.printStackTrace();
 			}
 		}
+	}
 }
