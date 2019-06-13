@@ -29,7 +29,9 @@ public class ReserveListController extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		List<Match> matchList = reserveService.getMatchList(stadium); //해당 구장의 경기 일정
+		System.out.println(matchList);
 		request.setAttribute("matchList", matchList);
+		
 		request.getRequestDispatcher("/WEB-INF/views/reserve/reserve.jsp").forward(request, response);
 
 		

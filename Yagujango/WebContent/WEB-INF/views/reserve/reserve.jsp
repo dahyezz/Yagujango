@@ -167,6 +167,7 @@ a { text-decoration:none; color:#000000 }
 		</tr>
 	</c:if>
 	<c:forEach items="${matchList }" var="i">
+		<c:set var="matchdate"><fmt:formatDate value="${i.match_date }" pattern="yyyy-MM-dd" /></c:set>
 		<c:if test="${i.match_date >= today && i.match_date < '2019-06-01' && i.match_date > '2019-04-31'}">
 			<c:if test="${month == '1'}">
 				<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
@@ -215,7 +216,9 @@ a { text-decoration:none; color:#000000 }
 							<td>${j.stadium_name }</td>
 						</c:if>
 					</c:forEach>
+
 					<td><input id="reserveBtn" type="button" value="예매하기" onClick="selectSeat(${i.match_code})"/></td>
+
 				</tr>
 				<input type="hidden" value ="${month = 2}"/> <!-- hidden으로 'month'값 바꾸기 (화면에 출력안되게)-->
 			</c:if>
@@ -330,5 +333,59 @@ a { text-decoration:none; color:#000000 }
 		</c:forEach>
 	</table>
 </div>
+
+<!-- 취소기한 날짜계산  -->
+<script type="text/javascript">
+Date.prototype.format = function(f) {
+	if (!this.valueOf()) return " ";
+ 
+	var weekName = ["일", "월", "화", "수", "목", "금", "토"];
+	var d = this;
+	 
+	return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+		switch ($1) {
+			case "yyyy": return d.getFullYear();
+			case "yy": return (d.getFullYear() % 1000).zf(2);
+			case "MM": return (d.getMonth() + 1).zf(2);
+			case "dd": return d.getDate().zf(2);
+			case "E": return weekName[d.getDay()];
+			case "HH": return d.getHours().zf(2);
+			case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+			case "mm": return d.getMinutes().zf(2);
+			case "ss": return d.getSeconds().zf(2);
+			case "a/p": return d.getHours() < 12 ? "오전" : "오후";
+			default: return $1;
+		}
+	});
+};
+ 
+String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+var matchdate = new Array();
+<c:forEach items="${matchList}" var="i">
+	matchdate.push(new Date("${i.match_date}"));
+</c:forEach>
+
+for (var i = 0; i < matchdate.length; i++) {
+	matchdate[i].setDate(matchdate[i].getDate() + 7);
+// 	matchdate[i].format("yyyy-MM-dd");
+	console.log(matchdate[i].format("yyyy-MM-dd"));
+}
+
+var todate = new Date();
+todate.setDate(todate.getDate() + 7);
+console.log(todate);
+document.getElementById('todate').innerHTML=todate.format("yyyy-MM-dd");
+
+// var matchdate = new Date("${formatdate }");
+// var canceldate = new Date("${formatdate }");
+// canceldate.setDate(canceldate.getDate() + 7);
+// console.log(canceldate.format("yyyy-MM-dd HH:mm"));
+// document.getElementById('matchdate').innerHTML=matchdate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
+// document.getElementById('canceldate').innerHTML=canceldate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
+
+</script>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

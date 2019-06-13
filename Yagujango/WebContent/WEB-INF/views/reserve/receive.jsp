@@ -139,7 +139,7 @@ a { text-decoration:none }
 	<table class="table" style="text-align:center;">
 		<tr>
 			<th>일시</th>
-			<td><fmt:formatDate value="${match.match_date }" pattern="yyyy-MM-dd (E요일)"/></td>
+			<td id="matchdate"></td>
 		</tr>
 		<tr>
 			<th>선택좌석</th>
@@ -221,11 +221,13 @@ Date.prototype.format = function(f) {
 String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
 String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 Number.prototype.zf = function(len){return this.toString().zf(len);};
-   
-var canceldate = new Date("${match.match_date}");
-canceldate.setDate(canceldate.getDate() + 7); 
-console.log(canceldate.format("yyyy-MM-dd"));
-document.getElementById('canceldate').innerHTML=canceldate.format("yyyy-MM-dd (E요일)");
+
+var matchdate = new Date("${formatdate }");
+var canceldate = new Date("${formatdate }");
+canceldate.setDate(canceldate.getDate() + 7);
+console.log(canceldate.format("yyyy-MM-dd HH:mm"));
+document.getElementById('matchdate').innerHTML=matchdate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
+document.getElementById('canceldate').innerHTML=canceldate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
 
 </script>
 
