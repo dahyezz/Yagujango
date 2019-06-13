@@ -20,11 +20,11 @@ public class AnswerListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private AdminService adminService = new AdminServiceImpl();
-	
+	     
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		resp.setCharacterEncoding("utf-8");
-
+//ㄴㅇㄴㅁ
 		//요청파라미터에서 curPage 얻어오기
 		Paging paging = adminService.getCurPage(req);
 		

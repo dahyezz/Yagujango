@@ -52,7 +52,6 @@ function InitializeStaticMenu() {
 	left: 0px;
 	top: 0px;
 }
-
 /* 네비게이션바 테이블 */
 table {
 	border-collapse: collapse;
@@ -64,6 +63,10 @@ table {
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
+}
+th{
+	background-color : #d9e1e8;
+	color : #282c37;
 }
 .table th:hover{
 	background: #D5D5D5;
@@ -100,6 +103,7 @@ a { text-decoration:none; color: black; }
 	font-weight: 300;
 	font-size: 15px;
 }
+
 </style>
 
 <div id="STATICMENU">
