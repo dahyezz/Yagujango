@@ -43,15 +43,17 @@ function InitializeStaticMenu() {
 
 <style type="text/css">
 /* 메뉴 네비게이션바 */
+
 #STATICMENU {
 	width: 200px;
 	margin: 0pt;
 	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
-	left: 0px;
+	left: 50px;
 	top: 0px;
 }
+
 
 /* 네비게이션바 테이블 */
 table {
@@ -86,7 +88,7 @@ th{
 /* 네비게이션바 테이블 */
 
 .reservestep {
-	margin: 0 5% 5% 270px;
+	margin: 0 5% 5% 230px;
 	width: 80%;
 	text-align: left;
 /* 	height: 60%; */
@@ -134,11 +136,11 @@ a { text-decoration:none; color: black; }
 </div>
 
 <div class="reservestep">
-<h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1>
-<hr width="130px" align="left">
+<!-- <h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1> -->
+<!-- <hr width="130px" align="left"> -->
 
 <h1>블랙리스트</h1>
-<hr>
+
 <div class="tablediv">
 <table class="table table-striped table-hover table-condensed">
 <thead>

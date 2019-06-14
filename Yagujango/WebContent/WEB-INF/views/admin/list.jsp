@@ -51,7 +51,7 @@ function InitializeStaticMenu() {
 	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
-	left: 0px;
+	left: 50px;
 	top: 0px;
 }
 
@@ -66,6 +66,7 @@ table {
 	width:auto;
 /* 	background-color : #d9e1e8; */
 }
+
 .table th, td{
  	border: 1px solid #ddd;
  	padding: 10px;
@@ -75,6 +76,7 @@ th{
 	background-color : #d9e1e8;
 	color : #282c37;
 }
+
 .table th:hover{
 	background: #D5D5D5;
 }
@@ -88,10 +90,24 @@ th{
 	font-size: 13px;
  	color: #ccc; 
 }
+
+.list {
+	test-align:center;
+	padding:0;
+/* 	width:90%; */
+
+
+}
+.list th:first-child, td:first-child{
+ 	border-left: 0;
+}
+.list th:last-child, td:last-child{c
+ 	border-right: 0;
+}
 /* 네비게이션바 테이블 */
 
 .reservestep {
-	margin: 0 5% 5% 270px;
+	margin: 0 5% 5% 230px;
 	width: 80%;
 	text-align: left;
 /* 	height: 60%; */
@@ -110,7 +126,19 @@ a { text-decoration:none; color: black; }
 	font-weight: 300;
 	font-size: 15px;
 }
-
+.btn-button{
+	background-color: white;
+	border:0;
+	align:center;
+}
+.btn-default{
+	background-color: white;
+	border:0;
+	float:right;
+}
+.form-control{
+	float:right;
+}
 </style>
 
 <div id="STATICMENU">
@@ -140,8 +168,8 @@ a { text-decoration:none; color: black; }
 </div>
 
 <div class="reservestep">
-<h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1>
-<hr width="130px" align="left">
+<!-- <h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1> -->
+<!-- <hr width="130px" align="left"> -->
 
 
 <script type="text/javascript">
@@ -247,12 +275,12 @@ function checkAll() {
 </script>
 
 <h1>회원</h1>
-<hr>
+
 
 <!-- <button id="btnList" class="btn btn-blacklist">블랙리스트</button> -->
 <!-- <button id="btnmList" class="btn btn-blacklist">1:1문의확인</button> -->
 
-<div class="tablediv">
+<div class="list">
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
@@ -289,8 +317,8 @@ function checkAll() {
 </c:forEach>
 </table>
 
-<button id="btnDelete" class="btn btn-warning pull-left">삭제</button>
-<button id="btnUpdate" class="btn btn-update pull-left">경고</button>
+<button id="btnUpdate" class="btn btn-button"><img class="btn-img" src="/img/admin/btn_up.gif"></button>
+<button id="btnDelete" class="btn btn-button"><img class="btn-img" src="/img/admin/btn_delete.gif" ></button>
 
 <div class="clearfix"></div>
 
@@ -303,7 +331,7 @@ function checkAll() {
 
 <div class="form-inline text-center">
 	<input class="form-control" type="text" id="keyword" />
-	<button id="btnSearch" class="btn btn-default pull-right" type="button">검색</button>
+	<button id="btnSearch" class="btn btn-default pull-right" type="button"><img class="btn-img" src="/img/admin/btn_search.gif"></button>
 </div> 
 
 </div>

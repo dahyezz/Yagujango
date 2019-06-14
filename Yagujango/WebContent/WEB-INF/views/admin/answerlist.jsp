@@ -50,7 +50,7 @@ function InitializeStaticMenu() {
 	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
-	left: 0px;
+	left: 50px;
 	top: 0px;
 }
 
@@ -84,10 +84,16 @@ th{
 	font-size: 13px;
  	color: #ccc; 
 }
+.answerlist	{
+	border-collapse: collapse;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	width:80%;
+}
 /* 네비게이션바 테이블 */
 
 .reservestep {
-	margin: 0 5% 5% 270px;
+	margin: 0 5% 5% 230px;
 	width: 80%;
 	text-align: left;
 /* 	height: 60%; */
@@ -135,17 +141,17 @@ a { text-decoration:none; color: black; }
 </div>
 
 <div class="reservestep">
-<h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1>
-<hr width="130px" align="left">
+<!-- <h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1> -->
+<!-- <hr width="130px" align="left"> -->
 
 
 <h1>답변완료목록</h1>
 <hr>
 
-<table class="table table-striped table-hover table-condensed">
+<table class="table table-striped table-hover table-condensed answerlist">
 <thead>
 	<tr>
-		<th style="width: 10%;">NO.</th>
+		<th style="width: 7%;">NO.</th>
 		<th style="width: 10%;">접수번호</th>
 		<th style="width: 10%;">회원아이디</th>		
 		<th style="width: 30%;">답변내용</th>

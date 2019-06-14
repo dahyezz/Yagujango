@@ -43,15 +43,17 @@ function InitializeStaticMenu() {
 
 <style type="text/css">
 /* 메뉴 네비게이션바 */
+
 #STATICMENU {
 	width: 200px;
 	margin: 0pt;
 	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
-	left: 0px;
+	left: 50px;
 	top: 0px;
 }
+
 /* 네비게이션바 테이블 */
 table {
 	border-collapse: collapse;
@@ -63,6 +65,9 @@ table {
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
+}
+.e{
+	width:100%;
 }
 th{
 	background-color : #d9e1e8;
@@ -81,10 +86,16 @@ th{
 	font-size: 13px;
  	color: #ccc; 
 }
+.boardlist	{
+	border-collapse: collapse;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	width:80%;
+}
 /* 네비게이션바 테이블 */
 
 .reservestep {
-	margin: 0 5% 5% 270px;
+	margin: 0 5% 5% 230px;
 	width: 80%;
 	text-align: left;
 /* 	height: 60%; */
@@ -133,8 +144,9 @@ a { text-decoration:none; color: black; }
 </div>
 
 <div class="reservestep">
-<h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1>
-<hr width="130px" align="left">
+<!-- <h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1> -->
+<!-- <hr width="130px" align="left"> -->
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -148,10 +160,8 @@ $(document).ready(function() {
 
 
 <h1>1:1 문의내역 확인</h1>
-<hr>
 
-
-<table class="table table-striped table-hover table-condensed">
+<table class="table table-striped table-hover table-condensed boardlist">
 <thead>
 	<tr>
 		<th style="width: 10%;">접수번호</th>
@@ -189,9 +199,9 @@ $(document).ready(function() {
 				<c:set value="true" var="status" />
 			</c:if>
 		</c:forEach>
-		<c:if test="${!status && not empty untreatedList}"><td>미처리</td></c:if>
-		<c:if test="${empty untreatedList }"><td>처리</td></c:if>
-		<c:if test="${status }"><td>처리</td></c:if>
+		<c:if test="${!status && not empty untreatedList}"><td><img class="btn-img" src="/img/admin/q_1.gif"></td></c:if>
+		<c:if test="${empty untreatedList }"><td><img class="btn-img" src="/img/admin/a_1.gif"></td></c:if>
+		<c:if test="${status }"><td><img class="btn-img" src="/img/admin/a_1.gif"></td></c:if>
 		
 <!-- 		질문목록에는 boardno가 있는데 답변목록에는 질문목록에 해당하는 boardno가 없는상황 -->
 		<!-- 미처리상태 -->

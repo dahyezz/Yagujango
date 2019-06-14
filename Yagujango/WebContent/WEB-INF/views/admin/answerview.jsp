@@ -43,13 +43,14 @@ function InitializeStaticMenu() {
 
 <style type="text/css">
 /* 메뉴 네비게이션바 */
+
 #STATICMENU {
 	width: 200px;
 	margin: 0pt;
 	width: 200px;
 	padding: 0pt;  
 	position: absolute; 
-	left: 0px;
+	left: 50px;
 	top: 0px;
 }
 
@@ -88,7 +89,7 @@ table {
 /* 네비게이션바 테이블 */
 
 .reservestep {
-	margin: 0 5% 5% 270px;
+	margin: 0 5% 5% 230px;
 	width: 80%;
 	text-align: left;
 /* 	height: 60%; */
@@ -111,7 +112,11 @@ a { text-decoration:none; color: black; }
 	text-align : center;
 /* 	margin : 20px 10% 20px 20px; */
 	width:20%; 
-
+}
+.btn-button{
+	background-color: white;
+	border:0;
+	align:center;
 }
 
 </style>
@@ -143,8 +148,9 @@ a { text-decoration:none; color: black; }
 </div>
 
 <div class="reservestep">
-<h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1>
-<hr width="130px" align="left">
+<!-- <h1 style="font-family: 'Nanum Gothic', sans-serif; font-weight: 700;"></h1> -->
+<!-- <hr width="130px" align="left"> -->
+
 <script type="text/javascript">
 $(document).ready(function() {
 	//목록버튼동작
@@ -204,9 +210,9 @@ $(document).ready(function() {
 </table>
 </div>
 <div class="text-center">
-<button id="btnBoardList" class="btn btn-list">1:1문의목록</button>
-<button id="btnUpdate" class="btn btn-update">수정하기</button>
-<button id="btnDelete" class="btn btn-danger">삭제</button>
+<button id="btnBoardList" class="btn btn-button"><img class="btn-img" src="/img/admin/btn_list.gif"></button>
+<button id="btnUpdate" class="btn btn-button"><img class="btn-img" src="/img/admin/btn_modify.gif"></button>
+<button id="btnDelete" class="btn btn-button"><img class="btn-img" src="/img/admin/btn_delete.gif"></button>
 </div>
 </div>
 </div>
