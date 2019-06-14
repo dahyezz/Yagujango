@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Board_1to1;
 import dto.Match;
 import dto.Member;
 import dto.Reserve;
@@ -89,7 +90,7 @@ public interface MemberService {
 	 */
 	public boolean blacklistCheck(Member member);
 	
-	List<Member> getOneToOneList();
+	List<Board_1to1> getOneToOneList(String userid);
 	
 	/**
 	 * 	reservo_code를 리스트에 삽입
@@ -141,5 +142,13 @@ public interface MemberService {
 	 * @param member
 	 */
 	public void leaveMember(Member member);
+
+	
+	
+	public Board_1to1 getBoardno(HttpServletRequest req);
+
+	
+	// 요청파라미터에서 boardno를 파싱
+	public Board_1to1 view(Board_1to1 viewBoard);
 
 }

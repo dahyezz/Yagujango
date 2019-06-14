@@ -12,6 +12,7 @@ import java.util.List;
 
 import dao.face.MemberDao;
 import dbutil.DBConn;
+import dto.Board_1to1;
 import dto.Match;
 import dto.Member;
 import dto.Reserve;
@@ -288,37 +289,46 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	@Override
-	public List<Member> OneToOneSelectAll() {
+	public List<Board_1to1> OneToOneSelectAll(String userid) {
 		
-		List<Member> OneToOneList = new ArrayList<Member>();
+		List<Board_1to1> OneToOneList = new ArrayList<Board_1to1>();
 		
 		String sql = "";
-		sql += "SELECT";
-		sql += " B.boardno,";
-		sql += " M.userno, M.userid, M.usernick,M.email,M.myteam,";
-		sql += " B.title, B.content, B.writtendate";		
-		sql += " FROM member M, board_1to1 B";
-		sql += " WHERE M.userid = B.writer_userid";
-		sql += " ORDER BY B.boardno";
+		sql += "SELECT * FROM board_1to1";
+		sql += " WHERE writer_userid = ? ";
+		sql += " ORDER BY boardno DESC";
 		
 		try {
-			ps = conn.prepareStatement(sql);
+			
+			ps = conn.prepareStatement(sql); 
+			
+			ps.setString(1, userid);
+			
 			rs = ps.executeQuery();
 			
 			while( rs.next() ) {
-				Member member = new Member();
 				
-				member.setBoardno(rs.getInt("boardno"));
-				member.setUserno(rs.getInt("userno"));
-				member.setUserid(rs.getString("userid"));
-				member.setUsernick(rs.getString("usernick"));
-				member.setEmail(rs.getString("email"));
-				member.setMyteam(rs.getString("myteam"));
-				member.setTitle(rs.getString("title"));
-				member.setContent(rs.getString("content"));
-				member.setWrittendate(rs.getDate("writtendate"));
+				Board_1to1 board_1to1 = new Board_1to1();
+				board_1to1.setBoardno(rs.getInt("boardno"));
+				board_1to1.setWriter_email(rs.getString("Writer_email"));
+				board_1to1.setWriter_userid(rs.getString("writer_userid"));		
+				board_1to1.setTitle(rs.getString("Title"));
+				board_1to1.setContent(rs.getString("Content"));
+				board_1to1.setWrittendate(rs.getDate("writtendate"));
 				
-				OneToOneList.add(member);
+//				Member member = new Member();
+//				member.setBoardno(rs.getInt("boardno"));
+//				member.setUserno(rs.getInt("userno"));
+//				member.setUserid(rs.getString("userid"));
+//				member.setUsernick(rs.getString("usernick"));
+//				member.setWriter_email(rs.getString("writer_email"));
+//				member.setMyteam(rs.getString("myteam"));
+//				member.setTitle(rs.getString("title"));
+//				member.setContent(rs.getString("content"));
+//				member.setWrittendate(rs.getDate("writtendate"));
+				
+//				System.out.println(board_1to1);
+				OneToOneList.add(board_1to1);
 			}
 
 		} catch (SQLException e) {
@@ -593,5 +603,46 @@ public class MemberDaoImpl implements MemberDao{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public Board_1to1 selectBoardByBoardno(Board_1to1 my1to1view) {
+
+		String sql = "";
+		sql += "SELECT boardno, writer_userid, ";
+		sql += "writer_email, title, content, writtendate FROM board_1to1";
+		sql += " WHERE boardno = ?";
+		
+		try { 
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, my1to1view.getBoardno());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				
+				my1to1view.setBoardno( rs.getInt("boardno") );
+				my1to1view.setWriter_userid( rs.getString("writer_userid") );
+				my1to1view.setWriter_email( rs.getString("writer_email") );
+				my1to1view.setTitle( rs.getString("title") );
+				my1to1view.setContent( rs.getString("content") );
+				my1to1view.setWrittendate( rs.getDate("writtendate") );
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 자원 해제
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return my1to1view;
 	}
 }

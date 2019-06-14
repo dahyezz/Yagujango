@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import dao.face.MemberDao;
 import dao.impl.MemberDaoImpl;
+import dto.Board_1to1;
 import dto.Match;
 import dto.Member;
 import dto.Reserve;
@@ -116,7 +117,7 @@ public class MemberServiceImpl implements MemberService{
 		if(memberDao.selectCntMemberIdOverlap(member) >= 1)
 			return true;
 		else
-			return false;
+			return false; 
 	}
 
 	@Override
@@ -129,8 +130,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public List<Member> getOneToOneList() {
-		return memberDao.OneToOneSelectAll(); 
+	public List<Board_1to1> getOneToOneList(String userid) {
+		return memberDao.OneToOneSelectAll(userid); 
 	}
 
 	@Override
@@ -185,6 +186,27 @@ public class MemberServiceImpl implements MemberService{
 	public Stadium getStadiumByUserno(Reserve reserve) {
 		
 		return memberDao.selectStadiumByUserno(reserve);
+	}
+
+	@Override
+	public Board_1to1 getBoardno(HttpServletRequest req) {
+		
+		String param = req.getParameter("boardno");
+		int boardno = 0;
+		if( param!=null && !"".equals(param) ) {
+			boardno = Integer.parseInt(param);
+		}
+		
+		Board_1to1 board_1to1 = new Board_1to1();
+		board_1to1.setBoardno(boardno);
+		
+		return board_1to1;
+	}
+
+	@Override
+	public Board_1to1 view(Board_1to1 my1to1view) {
+
+		return memberDao.selectBoardByBoardno(my1to1view);
 	}
 
 }

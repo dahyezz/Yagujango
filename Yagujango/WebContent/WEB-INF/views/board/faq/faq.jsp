@@ -178,7 +178,7 @@ jQuery(function($){
 						Q.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.faq_title }
 					</a>
 				</p>
-				<p class="a" style="background: #CCC">
+				<p class="a" style="background: #d9e1e8">
 					&nbsp;&nbsp;&nbsp;&nbsp;A.<br>
 					&nbsp;&nbsp;&nbsp;&nbsp;${i.faq_content }<br>
 				</p>

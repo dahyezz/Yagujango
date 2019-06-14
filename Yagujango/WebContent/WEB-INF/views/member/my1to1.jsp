@@ -8,11 +8,19 @@
 
 <style type="text/css">
 
+.OneToOneListBody{
+	padding: 0 5% 0 5%;
+}
 
 .OneToOneList {
     clear: both;
     border-top: 3px solid #000000;
     border-bottom: 3px solid #000000;
+    
+    padding-right: 162px;
+    padding-left: 155px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .text-center { 
@@ -22,21 +30,12 @@
 }
 
 .ListTop {
-	background: #CCC;
+	background: #d9e1e8;
 }
 
 
 </style>
-
-<table class="t1">
-	<tr>
-		<th style="font-size: 45px;">내 1:1문의내역</th>
-		<th style="font-size: 13px; padding-top: 20px;">
-		</th>
-	</tr>
-</table>
-
-<div>
+<div class="OneToOneListBody">
 	<div class="OneToOneList">
 		<table class="text-center">
 			<thead>
@@ -53,8 +52,8 @@
 				<c:forEach items="${OneToOneList}" var="oto">
 					<tr>
 						<td class="content"><a href="/member/my1to1view?boardno=${oto.boardno}">${oto.boardno}</a><br></td>
-						<td>${oto.title }</td>
-						<td>${oto.usernick }</td>
+						<td><a href="/member/my1to1view?boardno=${oto.boardno}">${oto.title }</a></td>
+						<td>${oto.writer_userid }</td>
 						<c:set value="1" var="st"/>
 							<c:forEach items="${untreatedList }" var="i">
 								<c:if test="${st == '1' && i.boardno eq oto.boardno }">
@@ -76,5 +75,4 @@
 		</table>
 	</div>
 </div>
-
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
