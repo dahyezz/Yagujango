@@ -16,6 +16,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 import service.face.MemberService;
 import util.Paging;
 
@@ -215,6 +216,21 @@ public class MemberServiceImpl implements MemberService{
 	public Board_1to1 view(Board_1to1 my1to1view) {
 
 		return memberDao.selectBoardByBoardno(my1to1view);
+	}
+	
+	@Override
+	public void cancleMyTicket(String reserve_code) {
+		
+		//ticket_code 리스트 가져오기
+		List<Ticket> ticketList = memberDao.selectTicketCodeByReservecode(reserve_code);
+		
+		//ticket 테이블 삭제
+		for(Ticket e : ticketList) {
+			memberDao.deleteTicket(e);
+		}
+		
+		//reserve 테이블 삭제
+		memberDao.deleteReserveByReserveCode(reserve_code);
 	}
 
 }

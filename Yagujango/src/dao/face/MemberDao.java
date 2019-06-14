@@ -8,6 +8,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 import util.Paging;
 
 public interface MemberDao {
@@ -66,5 +67,11 @@ public interface MemberDao {
 
 	
 	public Board_1to1 selectBoardByBoardno(Board_1to1 my1to1view);
+
+	public List<Ticket> selectTicketCodeByReservecode(String reserve_code);
+
+	public void deleteTicket(Ticket e);
+
+	public void deleteReserveByReserveCode(String reserve_code);
 
 }

@@ -151,4 +151,11 @@ public interface MemberService {
 	// 요청파라미터에서 boardno를 파싱
 	public Board_1to1 view(Board_1to1 viewBoard);
 
+	/**
+	 * 예매한 티켓 취소처리
+	 * 
+	 * @param reserve_code - 취소하려는 예매의 예매코드
+	 */
+	public void cancleMyTicket(String reserve_code);
+
 }
