@@ -480,9 +480,8 @@ public class MemberDaoImpl implements MemberDao{
 	public Ticket selectTicketByTicketcode(Reserve reserve) {
 		
 		String sql = "";
-		sql+="SELECT * FROM ticket"; 
-		sql+=" WHERE ticket_code = ?";
-		sql += " ORDER BY ticket_code";
+		sql += "SELECT * FROM ticket"; 
+		sql += " WHERE ticket_code = ?";
 		
 		Ticket ticket = new Ticket();
 		
@@ -514,7 +513,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<Match> selectMatchByMatchcode(Ticket ticket) {
+	public List<Match> selectMatchByMatchcode(String match_code) {
 		
 		String sql = "";
 		sql+="SELECT";
@@ -522,15 +521,13 @@ public class MemberDaoImpl implements MemberDao{
 		sql+=" to_char(match_date, 'yyyy/MM/dd HH24:MI') match_date,";
 		sql+=" hometeam_name, awayteam_name";
 		sql+=" FROM match"; 
-		sql+=" WHERE match_code = ?";
+		sql+=" WHERE match_code IN (" + match_code + ")";
+		sql += " ORDER BY match_code";
 		
-		List<Match> list=new ArrayList();
-
+		List<Match> matchList = new ArrayList<Match>();
+		
 		try {
 			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, ticket.getMatch_code());
-			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -542,7 +539,7 @@ public class MemberDaoImpl implements MemberDao{
 				match.setHometeam_name(rs.getString("hometeam_name"));
 				match.setAwayteam_name(rs.getString("awayteam_name"));
 				
-				list.add(match);
+				matchList.add(match);
 			}
 			
 		} catch (SQLException e) {
@@ -551,17 +548,17 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		}
 		
-		return list;
+		return matchList;
 	}
 
 	@Override
-	public List<Seat> selectSeatBySeatcode(Ticket ticket) {
+	public Seat selectSeatBySeatcode(Ticket ticket) {
 		
 		String sql="";
 		sql+="SELECT * FROM seat";
 		sql+=" WHERE seat_code  = ?";
 		
-		List<Seat> list=new ArrayList();
+		Seat seat=new Seat();
 		
 		try {
 			ps=conn.prepareStatement(sql);
@@ -571,14 +568,11 @@ public class MemberDaoImpl implements MemberDao{
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				Seat seat=new Seat();
 				
 				seat.setSeat_code(rs.getInt("seat_code"));
 				seat.setSeat_block(rs.getString("seat_block"));
 				seat.setSeat_number(rs.getInt("seat_number"));
 				seat.setPrice(rs.getInt("price"));
-				
-				list.add(seat);
 			}
 
 		} catch (SQLException e) {
@@ -592,7 +586,7 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		}
 
-		return list;
+		return seat;
 	}
 	
 	@Override
@@ -627,20 +621,19 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<Stadium> selectStadiumByStadiumcode(Match match) {
+	public List<Stadium> selectStadiumByStadiumcode(String hometeam_code) {
 		
 		String sql = "";
 		sql+="SELECT stadium_code, stadium_name";
 		sql+=" FROM stadium"; 
-		sql+=" WHERE stadium_code = ?";
+		sql += " WHERE stadium_code IN (" + hometeam_code + ")";
+		sql += " ORDER BY stadium_code";
 		
-		List<Stadium> list=new ArrayList();
+		List<Stadium> list = new ArrayList<Stadium>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, match.getHometeam_code());
-			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
