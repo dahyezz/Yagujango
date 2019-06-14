@@ -195,30 +195,52 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<Match> getMatchList(List<Ticket> ticketList) {
+
+		String match_code = "";
 		
-//		List<Match> matchList = new ArrayList<Match>();
-//		
-//		for(Ticket ticket : ticketList) {
-//			Match match = memberDao.selectMatchByMatchcode(ticket);
-//			
-//			matchList.add(match);
-//		}
-//		return matchList;
-		return null;
+		for(Ticket ticket : ticketList) {
+			int matchcode = ticket.getMatch_code();
+			match_code += matchcode;
+			match_code += ",";
+		}
+		if(match_code.charAt(match_code.length()-1) == ',') {
+			match_code = match_code.substring(0,match_code.length()-1);
+		}
+//		System.out.println(match_code);
+		
+		return memberDao.selectMatchByMatchcode(match_code);
 	}
 
 	@Override
-	public List<Seat> getSeatList(List<Ticket> ticket) {
-
-//		return memberDao.selectSeatBySeatcode(ticket);
-		return null;
+	public List<Seat> getSeatList(List<Ticket> ticketList) {
+		
+		List<Seat> seatList = new ArrayList<Seat>();
+		
+		for(Ticket ticket : ticketList) {
+			Seat seat = memberDao.selectSeatBySeatcode(ticket);
+			
+			seatList.add(seat);
+		}
+		
+		return seatList;
 	}
 
 	@Override
-	public List<Stadium> getStadiumList(List<Match> match) {
+	public List<Stadium> getStadiumList(List<Match> matchList) {
 		
-//		return memberDao.selectStadiumByStadiumcode(match);
-		return null;
+		String hometeam_code = "";
+		
+		for(Match match : matchList) {
+			int hometeamcode = match.getHometeam_code();
+			hometeam_code += hometeamcode;
+			hometeam_code += ",";
+		}
+		if(hometeam_code.charAt(hometeam_code.length()-1) == ',') {
+			hometeam_code = hometeam_code.substring(0,hometeam_code.length()-1);
+		}
+
+		return memberDao.selectStadiumByStadiumcode(hometeam_code);
+
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package controller.member;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Match;
 import dto.Member;
 import dto.Reserve;
+import dto.Seat;
+import dto.Stadium;
 import dto.Ticket;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
@@ -40,8 +42,9 @@ public class MypageTicketController extends HttpServlet {
 		
 		List<Reserve> reserveList = memberService.getReserveList(reserve); //reserve table 조회
 		List<Ticket> ticketList = memberService.getTicketList(reserveList); //ticket table 조회
-	
-		
+		List<Seat> seatList = memberService.getSeatList(ticketList); //seat table조회
+		List<Match> matchList = memberService.getMatchList(ticketList); //match table 조회
+		List<Stadium> stadiumList = memberService.getStadiumList(matchList);
 	
 		req.getRequestDispatcher("/WEB-INF/views/member/myticket.jsp").forward(req, resp);
 	}

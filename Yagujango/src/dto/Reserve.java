@@ -58,7 +58,7 @@ public class Reserve {
 	public void setPayment_date(Date payment_date) {
 		this.payment_date = payment_date;
 	}
-	
+
 	public String getHow_receive() {
 		return how_receive;
 	}
