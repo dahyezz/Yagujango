@@ -56,16 +56,16 @@ public interface MemberDao {
 	public Ticket selectTicketByTicketcode(Reserve reserve);
 	
 	//match 테이블 조회
-	public List<Match> selectMatchByMatchcode(Ticket ticket);
+	public List<Match> selectMatchByMatchcode(String match_code);
 	
 	//seat 테이블 조회
-	public List<Seat> selectSeatBySeatcode(Ticket ticket);
+	public Seat selectSeatBySeatcode(Ticket ticket);
 	
 	//reserve_code별 매수 count
 	public int selectCntSeatByReservecode(Reserve reserve);
 		
 	//stadium 테이블 조회
-	public List<Stadium> selectStadiumByStadiumcode(Match match);
+	public List<Stadium> selectStadiumByStadiumcode(String hometeam_code);
 
 	//회원 정보 업데이트
 	public void updateMemberByUserid(Member member);
