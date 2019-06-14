@@ -53,30 +53,27 @@ public class MypageMainController extends HttpServlet {
 		req.setAttribute("reservecodeList",reserveList);
 		
 		//match 리스트
-		List<Match> matchList = new ArrayList<Match>();
-		
-		for(int i=0; i<reserveList.size(); i++) {
-			Match match = memberService.getMatchByUserno(reserveList.get(i));
-			matchList.add(match);
-		}
-//		System.out.println(matchList);
-		req.setAttribute("matchList", matchList);
-		
-		//seat 리스트
-		List<Seat> seatList=new ArrayList<Seat>();
-		List<Integer> seatCountList = new ArrayList<Integer>();
-		
-		for(int i=0; i<reserveList.size(); i++) {
-			List<Seat> seatListByreserve=memberService.getSeatListByUserno(reserveList.get(i));
-			seatCountList.add(i, seatListByreserve.size());
-			seatList.addAll(seatListByreserve);
-//			reserveList.addAll(seatListByreserve);
-//			System.out.println(seatCountList);
-			System.out.println(seatListByreserve);
-		}
-		System.out.println(seatList);
-		req.setAttribute("seatList", seatList);
-		req.setAttribute("seatCountList", seatCountList);
+//		List<Match> matchList = new ArrayList<Match>();
+//		
+//		for(int i=0; i<reserveList.size(); i++) {
+//			Match match = memberService.getMatchByUserno(reserveList.get(i));
+//			matchList.add(match);
+//		}
+////		System.out.println(matchList);
+//		req.setAttribute("matchList", matchList);
+//		
+//		//seat 리스트
+//		List<List> seatList=new ArrayList();
+//		List<Seat> seatListByreserve=new ArrayList();
+//		
+//		for(int i=0; i<reserveList.size(); i++) {
+//			seatListByreserve=memberService.getSeatListByUserno(reserveList.get(i));
+//			seatList.add(seatListByreserve);
+//			System.out.println(seatListByreserve);
+//		}
+//		req.setAttribute("seatListByreserve", seatListByreserve);
+//		System.out.println(seatList);
+//		req.setAttribute("seatList", seatList);
 		
 		//View JSP 지정하기
 		req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);

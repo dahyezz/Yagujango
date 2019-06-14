@@ -15,6 +15,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 import service.face.MemberService;
 import util.Paging;
 
@@ -137,12 +138,6 @@ public class MemberServiceImpl implements MemberService{
 	public List getReservecodeList(Paging mypagepaging, Reserve reserve) {
 		
 		return memberDao.selectReservecodeByUserno(mypagepaging,reserve);
-		
-//		List<Reserve> list =  memberDao.selectReservecodeByUserno(mypagepaging,reserve);
-//		for(Reserve e : list)
-//			System.out.println(e);
-//		
-//		return list;
 	}
 
 	@Override
@@ -178,21 +173,33 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Match getMatchByUserno(Reserve reserveList) {
+	public List<Reserve> getReserveList(Reserve reserve) {
 		
-		return memberDao.selectMatchByUserno(reserveList);
+		return memberDao.selectReserveByUserno(reserve);
 	}
 
 	@Override
-	public List<Seat> getSeatListByUserno(Reserve reserveList) {
-
-		return memberDao.selectSeatListByUserno(reserveList);
+	public List<Ticket> getTicketList(Reserve reserve) {
+		 
+		return memberDao.selectTicketByTicketcode(reserve);
 	}
 
 	@Override
-	public Stadium getStadiumByUserno(Reserve reserve) {
+	public List<Match> getMatchList(Ticket ticket) {
 		
-		return memberDao.selectStadiumByUserno(reserve);
+		return memberDao.selectMatchByMatchcode(ticket);
+	}
+
+	@Override
+	public List<Seat> getSeatList(Ticket ticket) {
+
+		return memberDao.selectSeatBySeatcode(ticket);
+	}
+
+	@Override
+	public List<Stadium> getStadiumList(Match match) {
+		
+		return memberDao.selectStadiumByStadiumcode(match);
 	}
 
 }
