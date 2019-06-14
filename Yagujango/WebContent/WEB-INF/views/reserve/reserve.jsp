@@ -155,19 +155,7 @@ a { text-decoration:none; color:#000000 }
     border: 1px solid skyblue;
 }
 
-#tobeBtn {
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	margin-right:-4px;
-	border: 1px solid gray;
-	background-color: rgba(0,0,0,0);
-	color: gray;
-	padding: 5px;
-}
-
-#oldBtn {
+#tobeBtn, #oldBtn {
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -206,7 +194,7 @@ a { text-decoration:none; color:#000000 }
 
 <table class="matchtable" style="text-align:center;">
 	<c:if test="${today < '2019-06-01' }">
-		<tr>
+		<tr style="font-size:1.3em;">
 			<th>일시</th>
 			<th>경기(홈 vs 원정)</th>
 			<th>장소</th>
@@ -219,7 +207,7 @@ a { text-decoration:none; color:#000000 }
 		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
 		<c:if test="${matchdate >= today && matchdate < '2019-06-01' && matchdate > '2019-04-30'}">
 			<c:if test="${month == '1'}">
-				<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+				<h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1>
 			</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 			<tr>
 				<td>${matchdate }</td>
@@ -255,7 +243,7 @@ a { text-decoration:none; color:#000000 }
 <c:set value="1" var="month"/> <!-- 테이블 위 '월'을 한번만 출력하기 위한 변수 -->
 	<table class="matchtable" style="text-align:center;">
 		<c:if test="${today < '2019-07-01' }">
-			<tr>
+			<tr style="font-size:1.3em;">
 				<th>일시</th>
 				<th>경기(홈 vs 원정)</th>
 				<th>장소</th>
@@ -268,7 +256,7 @@ a { text-decoration:none; color:#000000 }
 		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
 			<c:if test="${matchdate >= today && matchdate < '2019-07-01' && matchdate > '2019-05-31'}">
 				<c:if test="${month == '1'}">
-					<u><h1><fmt:formatDate value="${i.match_date }" pattern="M"/>월</h1></u>
+					<h1><fmt:formatDate value="${i.match_date }" pattern="M"/>월</h1>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
 					<td>${matchdate }</td>
@@ -304,7 +292,7 @@ a { text-decoration:none; color:#000000 }
 <c:set value="1" var="month"/> <!-- 테이블 위 '월'을 한번만 출력하기 위한 변수 -->
 	<table class="matchtable" style="text-align:center;">
 		<c:if test="${today < '2019-08-01' }">
-			<tr>
+			<tr style="font-size:1.3em;">
 				<th>일시</th>
 				<th>경기(홈 vs 원정)</th>
 				<th>장소</th>
@@ -317,7 +305,7 @@ a { text-decoration:none; color:#000000 }
 		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
 			<c:if test="${matchdate >= today && matchdate < '2019-08-01' && matchdate > '2019-06-30'}">
 				<c:if test="${month == '1'}">
-					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+					<h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
 					<td>${matchdate }</td>
@@ -353,7 +341,7 @@ a { text-decoration:none; color:#000000 }
 <input type="hidden" value ="${month = 1}"/>
 	<table class="matchtable" style="text-align:center;">
 		<c:if test="${today < '2019-09-01' }">
-			<tr>
+			<tr style="font-size:1.3em;">
 				<th>일시</th>
 				<th>경기(홈 vs 원정)</th>
 				<th>장소</th>
@@ -366,7 +354,7 @@ a { text-decoration:none; color:#000000 }
 		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
 			<c:if test="${matchdate >= today && matchdate < '2019-09-01' && matchdate > '2019-07-31'}">
 				<c:if test="${month == '1'}">
-					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+					<h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
 					<td>${matchdate }</td>
@@ -402,7 +390,7 @@ a { text-decoration:none; color:#000000 }
 <input type="hidden" value ="${month = 1}"/>
 	<table class="matchtable" style="text-align:center;">
 		<c:if test="${today < '2019-10-01' }">
-			<tr>
+			<tr style="font-size:1.3em;">
 				<th>일시</th>
 				<th>경기(홈 vs 원정)</th>
 				<th>장소</th>
@@ -415,7 +403,7 @@ a { text-decoration:none; color:#000000 }
 		<fmt:formatDate var="olddate" value="${dateString }" pattern="yyyyMMddHHmm" />
 			<c:if test="${matchdate >= today && matchdate < '2019-10-01' && matchdate > '2019-08-31'}">
 				<c:if test="${month == '1'}">
-					<u><h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1></u>
+					<h1><fmt:formatDate value="${i.match_date}" pattern="M월"/></h1>
 				</c:if> <!-- 't'가 1일경우만 출력(반복출력 방지)  -->
 				<tr>
 					<td>${matchdate }</td>

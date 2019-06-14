@@ -34,11 +34,12 @@ function cancle() {
 			url: "/reserve/list",
 			success: function (data) {
 			     window.close();
-			
+			     
 			 }, error: function (jqXHR, textStatus, errorThrown) {
 			   alert(error);
 			}
 		});
+
 	} else {
 		return false;
 	}
@@ -144,7 +145,7 @@ function payment() {
 
 #payment {
 	margin-left:30px;
-	margin-top:43px;
+	margin-top:65px;
 	margin-bottom:100px;
 	padding:20px;
 	width:40%;
@@ -201,6 +202,25 @@ a { text-decoration:none }
 	
 }
 
+#cancleBtn, #payBtn {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid white;
+	background-color: white;
+	color: black;
+	padding: 5px;
+
+}
+
+#cancleBtn:hover, #payBtn:hover{
+    color:white;
+    background-color: skyblue;
+    border: 1px solid skyblue;
+}
+
 </style>
 
 </head>
@@ -252,24 +272,13 @@ a { text-decoration:none }
 	</form>
 </div>
 
-<!-- <!-- 무통장입금 클릭시 submit -->
-<!-- <form id="account" name="account" action="/reserve/payment" method="post"> -->
-<!-- 	<input type="hidden" name="bank" id="bank" value="신한은행"/> -->
-<!-- 	<input type="hidden" name="account_number" id="account_number" value="123456-00-789001"/> -->
-<%-- 	<c:set var = "total" value ="0"/> --%>
-<%-- 	<c:forEach items="${seatinfo }" var="i" varStatus="status"> --%>
-<%-- 	<c:set var = "total" value="${total + i.price }"/> --%>
-<%-- 	</c:forEach> --%>
-<%-- 	<input type="hidden" name="pay" id="pay" value="${total }"/> --%>
-<!-- </form> -->
-
 <form id="deleteseat" name="deleteseat" action="/reserve/payment" method="post">
 		<input type="hidden" name="deleteparam" id="deleteparam" value="delete"/>
   	  	<input type="hidden" name="ticket_code" id="ticket_code" value="${ticketcode }"/>
 		<input type="hidden" name="count" id="count" value="${count }"/>
 </form>
 
-<strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
+<br><strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
 <!-- <h3>My 예매정보</h3> -->
 <div style="float:right;">
 	<table class="table" style="text-align:center;">
@@ -324,9 +333,9 @@ a { text-decoration:none }
 	</table>
 </div>
 
-<div style="float:right; margin-top:30px; margin-left:250px; margin-right:100px;">
-	<label><button onclick="cancle()">결제취소</button></label>&nbsp;&nbsp;&nbsp;
-	<label><button id="pay" onclick="payment()">결제하기</button></label>
+<div style="float:right; margin-top:30px; margin-left:300px; margin-right:100px;">
+	<label><button id="cancleBtn" name="cnacleBtn" onclick="cancle()">결제취소</button></label>&nbsp;&nbsp;&nbsp;
+	<label><button id="payBtn" name="payBtn" onclick="payment()">결제하기</button></label>
 </div>
 </body>
 

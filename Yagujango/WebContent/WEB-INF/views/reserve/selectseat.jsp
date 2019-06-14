@@ -237,6 +237,24 @@ input[type=checkbox]:checked + label:before {
 	
 }
 
+#selectsuccess {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid white;
+	background-color: white;
+	color: black;
+	padding: 5px;
+}
+
+#selectsuccess:hover {
+    color:white;
+    background-color: skyblue;
+    border: 1px solid skyblue;
+}
+
 </style>
 
 </head>
@@ -381,7 +399,7 @@ input[type=checkbox]:checked + label:before {
 	
 	<div class="selectSeat">
 		<h3>선택좌석</h3>
-			<p id="result">
+			<p id="result"style="overflow:auto; max-height:100px; width:250px;">
 			</p>
 	</div>
 
