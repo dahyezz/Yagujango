@@ -25,7 +25,14 @@
 // };
 
 function receive() {
-	$('#selectreceive').submit();
+	var num = $('input[name="receive"]:not(:checked)').length;
+	console.log(num);
+	if(num == 2){
+		alert("수령방법을 선택해주세요");
+		return false;
+	} else {
+		$('#selectreceive').submit();
+	}
 }
 
 function seat() {
@@ -35,7 +42,7 @@ function seat() {
 
 <style type="text/css">
 #topbar {
-	margin: 0;
+	margin:0px;
 	text-align: right;
 	width: 350px;
 	float: right;
@@ -43,7 +50,7 @@ function seat() {
 
 #receive {
 	margin-left:30px;
-	margin-top:43px;
+	margin-top:65px;
 	margin-bottom:100px;
 	padding:20px;
 	width:40%;
@@ -100,6 +107,25 @@ a { text-decoration:none }
 	font-weight: 700;
 	
 }
+
+#prev, #next {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid white;
+	background-color: white;
+	color: black;
+	padding: 5px;
+}
+
+#prev:hover, #next:hover{
+    color:white;
+    background-color: skyblue;
+    border: 1px solid skyblue;
+}
+
 </style>
 
 </head>
@@ -140,7 +166,7 @@ a { text-decoration:none }
 </form>
 
 
-<strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
+<br><strong><font size="5em">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My 예매정보</font></strong>
 <div style="float:right;">
 	<table class="table" style="text-align:center;">
 		<tr>
@@ -192,9 +218,9 @@ a { text-decoration:none }
 		</tr>
 	</table>
 </div>
-<div style="float:right; margin-top:30px; margin-left:250px; margin-right:100px;">
-	<label><button onclick="seat()">◁PREV</button></label>&nbsp;&nbsp;&nbsp;
-	<label><button onclick="receive()">NEXT▷</button></label>
+<div style="float:right; margin-top:30px; margin-left:300px; margin-right:100px;">
+	<label><button id="prev" name="prev" onclick="seat()">◁PREV</button></label>&nbsp;&nbsp;&nbsp;
+	<label><button id="next" name="next" onclick="receive()">NEXT▷</button></label>
 </div>
 
 </body>
