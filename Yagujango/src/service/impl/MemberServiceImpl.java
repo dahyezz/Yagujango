@@ -195,7 +195,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<Match> getMatchList(List<Ticket> ticketList) {
-		
+
 		String match_code = "";
 		
 		for(Ticket ticket : ticketList) {
@@ -240,6 +240,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 
 		return memberDao.selectStadiumByStadiumcode(hometeam_code);
+
 	}
 
 	@Override

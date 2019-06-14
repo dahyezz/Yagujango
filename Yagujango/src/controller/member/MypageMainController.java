@@ -50,50 +50,29 @@ public class MypageMainController extends HttpServlet {
 		Paging mypagepaging=memberService.getCurPage(req,reserve);
 		req.setAttribute("paging", mypagepaging);
 		
-		List reserveList=memberService.getReservecodeList(mypagepaging,reserve);
-		req.setAttribute("reservecodeList",reserveList);
-		System.out.println(reserveList);
+		List reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
+		req.setAttribute("reservecodeList",reservecodeList);
+		System.out.println(reservecodeList);
 		
 		//Reserve 리스트 조회
-		List<Reserve> rserveList=new ArrayList();
+		List<Reserve> reserveList=memberService.getReserveList(reserve);
+		req.setAttribute("reserveList",reserveList);
 		
-//		for(int i=0; i<reserveList.size(); i++) {
-//			Reserve reserveSelect = memberService.getReserveList(reserveList.get(i));
-//			rserveList.add(reserveSelect);
-//		}
-//		System.out.println(reserveList);
-//		req.setAttribute("ticketList", reserveList);
-//		
-//		List<Ticket> ticketList=new ArrayList<Ticket>();
-//		
-//		for(int i=0; i<reserveList.size(); i++) {
-//			Ticket ticket = memberService.getTicketList(reserveList.get(i));
-//			ticketList.add(ticket);
-//		}
-//		System.out.println(ticketList);
-//		req.setAttribute("ticketList", ticketList);
-		//match 리스트
-//		List<Match> matchList = new ArrayList<Match>();
-//		
-//		for(int i=0; i<reserveList.size(); i++) {
-//			Match match = memberService.getMatchByUserno(reserveList.get(i));
-//			matchList.add(match);
-//		}
-////		System.out.println(matchList);
-//		req.setAttribute("matchList", matchList);
-//		
-//		//seat 리스트
-//		List<List> seatList=new ArrayList();
-//		List<Seat> seatListByreserve=new ArrayList();
-//		
-//		for(int i=0; i<reserveList.size(); i++) {
-//			seatListByreserve=memberService.getSeatListByUserno(reserveList.get(i));
-//			seatList.add(seatListByreserve);
-//			System.out.println(seatListByreserve);
-//		}
-//		req.setAttribute("seatListByreserve", seatListByreserve);
-//		System.out.println(seatList);
-//		req.setAttribute("seatList", seatList);
+		//Ticket 리스트 조회
+		List<Ticket> ticketList=memberService.getTicketList(reserveList);
+		
+		//Match 리스트 조회
+		List<Match> matchList=memberService.getMatchList(ticketList);
+		req.setAttribute("matchList",matchList);
+		
+		//Seat 리스트 조회
+		List<Seat> seatList=memberService.getSeatList(ticketList);
+		req.setAttribute("seatList",seatList);
+		
+		//Stadium 리스트 조회
+		List<Stadium> stadiumList=memberService.getStadiumList(matchList);
+		req.setAttribute("stadiumList",stadiumList);
+		
 		
 		//View JSP 지정하기
 		req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);
