@@ -109,6 +109,8 @@ function payment() {
 			
 		if(payVal == '무통장입금'){
 			var insertparam = $('#selectpayment').submit();
+// 			document.getElementById('#account').submit();
+			var accountparam = $('#account').submit();
 			
 			$.ajax({
 				type: "GET",
@@ -121,12 +123,13 @@ function payment() {
 				   alert(error);
 				}
 			});
+			
 		}
 		
 	} else {
 		return false;
 	}
-
+	
 }
 	
 </script>
@@ -236,10 +239,29 @@ a { text-decoration:none }
   		<input type="hidden" name="match_code" id="match_code" value="${match.match_code }"/>
   		<input type="hidden" name="email" id="email" value="${member.email }"/>
   		<input type="hidden" name="username" id="username" value="${member.username }"/>
-	  	<label id='cash'><input type='radio' name='payment' id='cash' value='무통장입금' />무통장 입금</label><p>
+  		<input type="hidden" name="bank" id="bank" value="신한은행"/>
+		<input type="hidden" name="account_number" id="account_number" value="123456-00-789001"/>
+		<c:set var = "total" value ="0"/>
+		<c:forEach items="${seatinfo }" var="i" varStatus="status">
+		<c:set var = "total" value="${total + i.price }"/>
+		</c:forEach>
+		<input type="hidden" name="pay" id="pay" value="${total }"/>
+	  	<label id='cash'><input type='radio' name='payment' id='cash' value='무통장입금'/>무통장 입금</label><p>
 	  	<label id='card'><input type='radio' name='payment' id='card' value='신용카드' />신용 카드</label>
+	  	
 	</form>
 </div>
+
+<!-- <!-- 무통장입금 클릭시 submit -->
+<!-- <form id="account" name="account" action="/reserve/payment" method="post"> -->
+<!-- 	<input type="hidden" name="bank" id="bank" value="신한은행"/> -->
+<!-- 	<input type="hidden" name="account_number" id="account_number" value="123456-00-789001"/> -->
+<%-- 	<c:set var = "total" value ="0"/> --%>
+<%-- 	<c:forEach items="${seatinfo }" var="i" varStatus="status"> --%>
+<%-- 	<c:set var = "total" value="${total + i.price }"/> --%>
+<%-- 	</c:forEach> --%>
+<%-- 	<input type="hidden" name="pay" id="pay" value="${total }"/> --%>
+<!-- </form> -->
 
 <form id="deleteseat" name="deleteseat" action="/reserve/payment" method="post">
 		<input type="hidden" name="deleteparam" id="deleteparam" value="delete"/>
