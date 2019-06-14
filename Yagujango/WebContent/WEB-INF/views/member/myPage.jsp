@@ -113,29 +113,29 @@ $(document).ready(function(){
 	<tr>
 		<td><a href="/mypage/ticket">${i.reserve_code }</a></td>
 		<td>
-			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
+			<%-- <c:forEach items="${matchList }" var="m" varStatus="Mstatus">
 				<c:if test="${Istatus.index eq Mstatus.index }">
 				[2019 신한은행 MY CAR KBO 리그]<br>${m.hometeam_name } vs ${m.awayteam_name }
 				</c:if>
-			</c:forEach>
+			</c:forEach> --%>
 		</td>
 		<td>
-			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
+			<%-- <c:forEach items="${matchList }" var="m" varStatus="Mstatus">
 				<c:if test="${Istatus.index eq Mstatus.index }">
 				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd HH:mm"/>
 				<input type="hidden" id="matchdate" value="${match.match_date }"/>
 				</c:if>
-			</c:forEach>
+			</c:forEach> --%>
 		</td>
 		<td></td>
 		<td>
-			<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
+			<%-- <c:forEach items="${seatList }" var="s" varStatus="Sstatus">
 				<c:if test="${Istatus.index eq Sstatus.index }">
 					<c:forEach items="${seatListByreserve }" var="sr">
 					${sr[Sstatus.index].seat_block }블럭 ${sr[Sstatus.index].seat_number }석
 					</c:forEach>
 				</c:if>
-			</c:forEach>
+			</c:forEach> --%>
 		</td>
 		<td><%-- <fmt:formatDate value="${cancledate}" pattern="yyyy/MM/dd HH:mm"/> --%>
 			<!-- <input type="text" id="cancledate"/> --></td>

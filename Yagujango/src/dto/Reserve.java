@@ -8,31 +8,24 @@ public class Reserve {
 	private int userno;
 	private String payment;
 	private Date payment_date;
-	private int ticket_quantity;
 	private String how_receive;
+	private String barcode;
 	
 	
-
 	@Override
 	public String toString() {
 		return "Reserve [reserve_code=" + reserve_code + ", ticket_code=" + ticket_code + ", userno=" + userno
-				+ ", payment=" + payment + ", payment_date=" + payment_date + ", ticket_quantity=" + ticket_quantity
-				+ ", how_receive=" + how_receive + "]";
+				+ ", payment=" + payment + ", payment_date=" + payment_date + ", how_receive=" + how_receive + 
+				",barcode=" + barcode + "]";
 	}
 	
-	
-
 	public String getReserve_code() {
 		return reserve_code;
 	}
 
-
-
 	public void setReserve_code(String reserve_code) {
 		this.reserve_code = reserve_code;
 	}
-
-
 
 	public int getTicket_code() {
 		return ticket_code;
@@ -65,15 +58,7 @@ public class Reserve {
 	public void setPayment_date(Date payment_date) {
 		this.payment_date = payment_date;
 	}
-
-	public int getTicket_quantity() {
-		return ticket_quantity;
-	}
-
-	public void setTicket_quantity(int ticket_quantity) {
-		this.ticket_quantity = ticket_quantity;
-	}
-
+	
 	public String getHow_receive() {
 		return how_receive;
 	}
@@ -81,6 +66,13 @@ public class Reserve {
 	public void setHow_receive(String how_receive) {
 		this.how_receive = how_receive;
 	}
-
 	
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
 }
