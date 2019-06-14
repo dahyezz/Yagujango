@@ -23,15 +23,19 @@ var IMP = window.IMP;
 IMP.init('imp11074492');
 
 function cancle() {
-	
+		
+	var deleteparam = "delete";
+	var ticket_code = "${ticketcode }"
+	var count = "${count }"
 	var message = confirm("결제를 취소하시겠습니까?");
+	
 	if(message == true){
-		var deleteparam = $('#deleteseat').submit();
+// 		var deleteparam = $('#deleteseat').submit();
 		
 		$.ajax({
 			type: "POST",
-			data: deleteparam,
-			url: "/reserve/list",
+			data: {"deleteparam":deleteparam, "ticket_code":ticket_code, "count":count},
+			url: "/reserve/payment",
 			success: function (data) {
 			     window.close();
 			     
@@ -39,7 +43,7 @@ function cancle() {
 			   alert(error);
 			}
 		});
-
+		
 	} else {
 		return false;
 	}
