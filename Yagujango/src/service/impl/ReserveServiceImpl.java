@@ -176,13 +176,13 @@ public class ReserveServiceImpl implements ReserveService{
 			String stringdate = formatdate(matchdt);
 			stringdate = stringdate.substring(0,10);
 			stringdate = stringdate.replace("-", "");
-//			System.out.println("stringdate : " + stringdate);
+			System.out.println("stringdate : " + stringdate);
 			// - - - - - - - - - - - - - - - - - - - - -
 		
 			String receive = request.getParameter("receive");
 			String[] Arrayticket = request.getParameterValues("ticket_code"); // 내가고른 좌석이 여러개일 경우 티켓코드는 여러개 생성 -> 배열로 방아와야함
 			
-			for(int i=0; i < ticketcnt; i++) { 
+			for(int i=0; i < ticketcnt; i++) {
 				int userno = Integer.parseInt(memberno);
 				reserve.setTicket_code(Integer.parseInt(Arrayticket[i]));
 				reserve.setPayment(payment);
@@ -351,6 +351,10 @@ public class ReserveServiceImpl implements ReserveService{
 
 		String username = request.getParameter("username");
 //		System.out.println(username);
+		final String PAYMENT = request.getParameter("payment");
+		final String ACCOUNT_NAME = request.getParameter("account_number");
+		final String BANK = request.getParameter("bank");
+		final String PAY = request.getParameter("pay");
 		
 		//FROM 
 		final String FROM = "yagujango123@gmail.com";
@@ -361,9 +365,14 @@ public class ReserveServiceImpl implements ReserveService{
 		 
 		final String SUBJECT = "[(주)야구장고] " + username + "님, 예매가 완료되었습니다.";
 		
-		final String BODY = String.join(
+		final String BODY_CARD = String.join(
 				"<h5>안녕하세요. " + username + "님!<br>예매가 성공적으로 완료되었습니다.</h5>",
 				"<p>예매관련 정보와 예매 안내 사항은 야구장고 마이페이지를 참조하여주십시오.</p>");
+		final String BODY_PAY = String.join(
+				"<h5>안녕하세요. " + username + "님!<br>예매가 성공적으로 완료되었습니다.</h5>",
+				"<p>예매관련 정보와 예매 안내 사항은 야구장고 마이페이지를 참조하여주십시오.</p>",
+				"입금하실은행은" + BANK + " 계좌번호는" + ACCOUNT_NAME + "입니다.",
+				"총 결제금액은 " + PAY + "원 입니다.");
 		
 		Authenticator auth = new MailAuth("yagujango123@gmail.com", "1q2w3e!!");
 		
@@ -380,8 +389,11 @@ public class ReserveServiceImpl implements ReserveService{
 			msg.setFrom(new InternetAddress(FROM, FROMNAME));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
 			msg.setSubject(SUBJECT);
-			msg.setContent(BODY, "text/html;charset=utf-8");
-
+			if(PAYMENT.equals("무통장입금")) {
+				msg.setContent(BODY_PAY, "text/html;charset=utf-8");
+			} else {
+				msg.setContent(BODY_CARD, "text/html;charset=utf-8");
+			}
 			System.out.println("Sending...");
 
 			//메시지 보내기
