@@ -6,12 +6,18 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
-<link href="jquery.bxslider/jquery.bxslider.css" rel="stylesheet" />
-<script src="jquery.bxslider/jquery.bxslider.js"></script>
+<link href="/css/jquery.bxslider.min.css" rel="stylesheet" />
+<script src="/js/jquery.bxslider.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.sliderbox').bxslider();
+	$('.bxslider').bxSlider({
+		auto: true,
+		speed: 500,
+		pause: 10000,
+		mode: 'horizontal'
+// 		pager: true
+	});
 });
 </script>
 
@@ -70,20 +76,20 @@ div[class^="day_"] td {
 	margin: 10px 0 ;
 }
 
-/* .highlight { */
-/* 	width: 80%; */
-/* 	position: relative; */
-/* 	text-align: center; */
-/* 	display: block; */
-	
-/* } */
+.highlight { 
+	width: 80%; 
+ 	position: relative; 
+ 	text-align: center; 
+ 	display: block; 
+ 	margin: 20px auto;
+}
 
-/* .highlight p { */
-/* 	font-family: "Nanum Gothic", sans-serif; */
-/* 	font-weight: 700; */
-/* 	font-size: 20px; */
-/* 	text-align: left; */
-/* } */
+.highlight p { 
+ 	font-family: "Nanum Gothic", sans-serif; 
+ 	font-weight: 700;
+ 	font-size: 20px; 
+ 	text-align: left; 
+} 	
 
 /* .sliderbox { */
 /* 	width: 800px; */
@@ -259,11 +265,9 @@ div[class^="day_"] td {
 
 
 <br>
-<div class="highlight" class="sliderbox">
+<div class="highlight">
 	<p>전체 하이라이트</p>
-	<button>왼쪽</button>
-	<button>오른쪽</button>
-	<ul id="slider">
+	<ul class="bxslider">
 		<li><iframe title="[전체HL] '터커 3타점' KIA, 삼성을 제물로 3연패 탈출" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399366478?service=daum_sports"></iframe></li>
 		<li><iframe title="[전체HL] '좀처럼 깨지지 않았던 균형' 12회 연장 접전 끝에 무승부" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399304223?service=daum_sports"></iframe></li>
 		<li><iframe title="[전체HL] '김태균 쐐기포+정우람 세이브' 한화, 두산 꺾고 연패 탈출" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399304366?service=daum_sports"></iframe></li>
