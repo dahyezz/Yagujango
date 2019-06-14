@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.Board_1to1;
 import dto.Member;
@@ -28,17 +29,18 @@ public class MyOneToOneController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		List<Member> OneToOneList = new ArrayList<Member>();
+		List<Board_1to1> OneToOneList = new ArrayList<Board_1to1>();
 		
-		String userid = req.getParameter("userid");
-		String content = req.getParameter("content");
+		HttpSession session = req.getSession();
+
+		String userid = (String)session.getAttribute("userid");
 		
-		
-		
-		if( req.getSession().getAttribute("login") != null ) {
+//		System.out.println(userid); // test
+
+		if( req.getSession().getAttribute("userid") == userid ) {
 			
-			OneToOneList = memberService.getOneToOneList();
-		}
+			OneToOneList = memberService.getOneToOneList(userid);
+		} 
 		
 		req.setAttribute("OneToOneList", OneToOneList);
 		
@@ -47,7 +49,10 @@ public class MyOneToOneController extends HttpServlet {
 		req.setAttribute("untreatedList", untreatedList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/member/my1to1.jsp").forward(req, resp);
-	 
+		
+		
+		
+	
 	}
 
 } 

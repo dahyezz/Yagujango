@@ -8,6 +8,12 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
@@ -24,6 +30,26 @@ $(document).ready(function() {
 	//취소버튼 동작
 	$("#btnCancel").click(function() {
 		history.go(-1);
+	});
+	
+	$('#summernote').summernote({
+		width:1000,
+        height: 300,                 // set editor height
+        minHeight: 350,             // set minimum height of editor
+        maxHeight: 350,             // set maximum height of editor
+        focus: true,				 // set focus to editable area after initializing summernote
+		lang: 'ko-KR',
+		placeholder: '항목은 반드시 입력해주셔야 문의 접수가 가능합니다.<br>적어주신 정보는 문의 처리를 위한 용도로만 이용됩니다.',
+		toolbar: [
+	        ['style', ['style']],
+	        ['font', ['bold', 'italic', 'underline', 'clear']],
+	        ['fontname', ['fontname']],
+	        ['color', ['color']],
+	        ['para', ['ul', 'ol', 'paragraph']],
+	        ['height', ['height']],
+	        ['table', ['table']],
+	        ['help', ['help']]
+	    ]
 	});
 });
 
@@ -66,8 +92,8 @@ Body {
     position: relative;
     left: 1000px;
 	line-height: 40px;
-	font-size: 15px;
-	width: 100%; 
+	font-size: 15px; 
+	width: 1000px; 
 }
 
 
@@ -88,21 +114,17 @@ Body {
 <table class="t1">
 	<tr>
 		<td style="font-size: 45px;" rowspan="2"><h3 style="margin: 0 0 0 0;">1:1문의</h3></td>
-		<td style="font-size: 11px;"><h3 style="margin: 0 0 0 0; padding-top: 30px;">항목은 반드시 입력해주셔야 문의 접수가 가능합니다.</h3></td>
-	</tr>
-	<tr>	
-		<td style="font-size: 11px;"><h3 style="margin: 0 0 0 0;">적어주신 정보는 문의 처리를 위한 용도로만 이용됩니다.</h3></td>	
 	</tr>
 </table>
 
 
 			<table class="table 1">
 				<tr>
-					<th class="witer_info" style="font-size: 13px;">답변 받을 이메일</th>
+					<th class="witer_info" style="font-size: 13px;">이메일</th>
 					<th style="color: #0080ff; font-size: 12px;">(필수)</th>
 					<td>
 						<input type="text" name="email1" id="email1" class="box" class=""/>@
-						<input type="text" name="email2" id="email2" class="box" class="" disabled value="메일을 선택해주세요"/>
+						<input type="text" name="email2" id="email2" class="box"/>
 						<select name="emailSelection" class="emailSelection">
 							<option value="1" selected="selected">메일을 선택해주세요</option>
 							<option value="naver.com">naver.com</option>
@@ -117,27 +139,23 @@ Body {
 						</select>
 					</td>
 				</tr>
-			</table>	
-			
-			<hr>
-			
-			<table class="table 2">
-
+				
 				<tr>
 					<th class="witer_info" style="font-size: 13px;">제목</th>
 					<th style="color: #0080ff; font-size: 12px;">(필수)</th>
-					<td><input type="text" name="title" style="width:100%"/></td>
+					<td><input type="text" name="title" style="width:1000px"/></td>
 				</tr>
 				
 				<tr> 
 					<th class="witer_info" style="font-size: 13px;">내용</th>
 					<th style="color: #0080ff; font-size: 12px;">(필수)</th>
 					<td colspan="2">
-						<textarea id="content" name="content" rows="10" cols="100" ></textarea>
+						<textarea id="summernote" name="content"></textarea>
 					</td>
 				</tr>
-				 
-			</table>
+			</table>	
+			
+			<hr>
 		</form>
 	</div>
 	

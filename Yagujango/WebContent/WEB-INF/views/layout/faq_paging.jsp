@@ -6,39 +6,35 @@
 
 <style type="text/css">
 .pagingul {
-	text-align:center;
+   text-align:center;
 }
 .pagingul li {
-	display:inline;
-	vertical-align:middle;
+   display:inline;
+   vertical-align:middle;
 }
 .pagingul li a {
-	display:-moz-inline-stack;	/*FF2*/
-	display:inline-block;
-	vertical-align:top;
-	padding:4px;
-	margin-right:3px;
-	width:15px !important;
-	color:#000;
-	font:bold 12px tahoma;
-	border:1px solid #eee;
-	text-align:center;
-	text-decoration:none;
-	width:26px;
+   display:-moz-inline-stack;   /*FF2*/
+   display:inline-block;
+   vertical-align:top;
+   padding:4px;
+   margin-right:3px;
+   width:15px !important;
+   color:#000;
+   font:bold 12px tahoma;
+   text-align:center;
+   text-decoration:none;
+   width:26px;
 
 }
 .pagingul li .first {
-	width:30px !important;
+   width:30px !important;
 }
 .pagingul li a.now {
-	color:#FFF;
-	background-color:black;
-	border:1px solid black;
+   color:#0080ff;
+   
 }
 .pagingul li a:hover, .pagingul li a:focus {
-	color:#FFF;
-	border:1px solid black;
-	background-color:black;
+   color:#9baec8;
 }
 
 </style>
