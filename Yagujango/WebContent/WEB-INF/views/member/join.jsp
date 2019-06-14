@@ -6,6 +6,48 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
+<style type="text/css">
+.login-form{
+	background-color : #eeeff1;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+	height: 260px;
+	padding: 20px;
+	margin-top:150px;
+	margin-bottom:150px;
+}
+.text-field {
+  border: 15px solid #ffffff;
+  border-radius: 5px;
+  font-size: 15px;
+  margin: 10px 0 0 0;
+  width: 260px;
+  height: 15px;
+  margin-left:5px;
+
+}
+.btn-submit{
+  font-size: 15px;
+  background-color: #0080ff;
+  border-radius: 5px;
+  border: 10px solid #0080ff;
+  width: 260px;
+  height: 40px;
+  margin: 30px 0 40px 0;
+  margin-left: 20px;
+  
+/*   margin: 15px 0 25px 0; */
+}
+.login-info{
+	text-align:center;
+
+}
+
+
+</style>
+
 <script type="text/javascript">
 function inputCheck(){
 	
@@ -70,16 +112,10 @@ function inputIdCheck(){
 
 </script>
 
-<style type="text/css">
-th{
-	text-align: left;
-	font-size: 30px;
-}
-
-</style>
 
 <h1>회원가입</h1>
-<hr>
+
+<body>
 
 <form action="/member/join" method="post" name="joinForm" onsubmit="return inputCheck()">
 	<table>
@@ -174,5 +210,6 @@ th{
 	</tr>
 	</table>
 </form>
+</body>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

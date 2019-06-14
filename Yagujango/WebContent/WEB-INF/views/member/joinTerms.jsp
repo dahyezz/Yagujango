@@ -70,14 +70,16 @@ $(document).ready(function(){
 	overflow:auto;
 }
 .info1{
-	margin-left:500px;
+	margin-left:auto;
 }
 .info2{
-	margin-left:130px;
+	margin-left:auto;
+
 }
 .info3{
-	margin-left:300px;
-	margin-bottom:50px;
+	margin-left:auto;
+	margin-right:auto;
+
 }
 .btn-join{
 	margin-left:500px;
