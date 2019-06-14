@@ -121,7 +121,7 @@ a { text-decoration:none; color:#000000 }
 			<th><a href="/member/my1to1">내 1:1 문의 내역 확인</a></th>
 		</tr>
 		<tr>
-			<th><a href="/reserve/inform">회원 정보 수정</a></th>
+			<th><a href="/member/modify">회원 정보 수정</a></th>
 		</tr>
 	</table>
 </div>
