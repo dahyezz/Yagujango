@@ -15,6 +15,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
 import util.Paging;
@@ -49,9 +50,28 @@ public class MypageMainController extends HttpServlet {
 		Paging mypagepaging=memberService.getCurPage(req,reserve);
 		req.setAttribute("paging", mypagepaging);
 		
-		List<Reserve> reserveList=memberService.getReservecodeList(mypagepaging,reserve);
+		List reserveList=memberService.getReservecodeList(mypagepaging,reserve);
 		req.setAttribute("reservecodeList",reserveList);
+		System.out.println(reserveList);
 		
+		//Reserve 리스트 조회
+		List<Reserve> rserveList=new ArrayList();
+		
+//		for(int i=0; i<reserveList.size(); i++) {
+//			Reserve reserveSelect = memberService.getReserveList(reserveList.get(i));
+//			rserveList.add(reserveSelect);
+//		}
+//		System.out.println(reserveList);
+//		req.setAttribute("ticketList", reserveList);
+//		
+//		List<Ticket> ticketList=new ArrayList<Ticket>();
+//		
+//		for(int i=0; i<reserveList.size(); i++) {
+//			Ticket ticket = memberService.getTicketList(reserveList.get(i));
+//			ticketList.add(ticket);
+//		}
+//		System.out.println(ticketList);
+//		req.setAttribute("ticketList", ticketList);
 		//match 리스트
 //		List<Match> matchList = new ArrayList<Match>();
 //		

@@ -449,7 +449,9 @@ public class MemberDaoImpl implements MemberDao{
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				Reserve addReserve = new Reserve();
+
+				Reserve addReserve=new Reserve();
+				
 				addReserve.setReserve_code(rs.getString("reserve_code"));
 				addReserve.setTicket_code(rs.getInt("ticket_code"));
 				addReserve.setUserno(rs.getInt("userno"));
@@ -457,7 +459,7 @@ public class MemberDaoImpl implements MemberDao{
 				addReserve.setPayment_date(rs.getDate("payment_date"));
 				addReserve.setHow_receive(rs.getString("how_receive"));
 				addReserve.setBarcode(rs.getString("barcode"));
-				
+
 				list.add(addReserve);
 			}
 		} catch (SQLException e) {
