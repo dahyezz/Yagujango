@@ -431,9 +431,85 @@ public class MemberDaoImpl implements MemberDao{
 		return count;
 	}
 
+	@Override
+	public List<Reserve> selectReserveByUserno(Reserve reserve) {
+		
+		String sql="";
+		sql+="SELECT * FROM reserve"; 
+		sql+="  WHERE userno = ?";
+		
+		List<Reserve> list=new ArrayList();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				reserve.setReserve_code(rs.getString("reserve_code"));
+				reserve.setPayment(rs.getString("payment"));
+				reserve.setPayment_date(rs.getDate("payment_date"));
+				reserve.setHow_receive(rs.getString("how_receive"));
+				
+				list.add(reserve);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 
 	@Override
-	public Match selectMatchByUserno(Reserve reserveList) {
+	public List<Ticket> selectTicketByTicketcode(Reserve reserve) {
+		
+		String sql = "";
+		sql+="SELECT * FROM ticket"; 
+		sql+=" WHERE ticket_code = ?";
+		
+		List<Ticket> list=new ArrayList();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, reserve.getTicket_code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Ticket ticket=new Ticket();
+				
+				ticket.setTicket_code(rs.getInt("ticket_code"));
+				ticket.setMatch_code(rs.getInt("match_code"));
+				ticket.setSeat_code(rs.getInt("seat_code"));
+				
+				list.add(ticket);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Match> selectMatchByMatchcode(Ticket ticket) {
 		
 		String sql = "";
 		sql+="SELECT";
@@ -441,27 +517,27 @@ public class MemberDaoImpl implements MemberDao{
 		sql+=" to_char(match_date, 'yyyy/MM/dd HH24:MI') match_date,";
 		sql+=" hometeam_name, awayteam_name";
 		sql+=" FROM match"; 
-		sql+=" WHERE match_code IN ("; 
-		sql+="  SELECT match_code FROM ticket"; 
-		sql+="  WHERE ticket_code IN (";
-		sql+="   SELECT ticket_code FROM reserve";
-		sql+="   WHERE reserve_code = ?))";
+		sql+=" WHERE match_code = ?";
 		
-		Match match=new Match();
+		List<Match> list=new ArrayList();
 
 		try {
 			ps = conn.prepareStatement(sql);
 
-			ps.setString(1, reserveList.getReserve_code());
+			ps.setInt(1, ticket.getMatch_code());
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				Match match=new Match();
+				
 				match.setMatch_code(rs.getInt("match_code"));
 				match.setHometeam_code(rs.getInt("hometeam_code"));
 				match.setMatch_date(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(rs.getString("match_date")));
 				match.setHometeam_name(rs.getString("hometeam_name"));
 				match.setAwayteam_name(rs.getString("awayteam_name"));
+				
+				list.add(match);
 			}
 			
 		} catch (SQLException e) {
@@ -470,27 +546,22 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		}
 		
-		return match;
+		return list;
 	}
 
 	@Override
-	public List<Seat> selectSeatListByUserno(Reserve reserveList) {
+	public List<Seat> selectSeatBySeatcode(Ticket ticket) {
 		
 		String sql="";
-		sql+="SELECT seat_code, seat_block, seat_number, price";
-		sql+=" FROM seat";
-		sql+=" WHERE seat_code IN (";
-		sql+="  SELECT seat_code FROM ticket";
-		sql+="  WHERE ticket_code IN (";
-		sql+="   SELECT ticket_code FROM reserve";
-		sql+="   WHERE reserve_code = ?))";
+		sql+="SELECT * FROM seat";
+		sql+=" WHERE seat_code  = ?";
 		
 		List<Seat> list=new ArrayList();
 		
 		try {
 			ps=conn.prepareStatement(sql);
 			
-			ps.setString(1, reserveList.getReserve_code());
+			ps.setInt(1, ticket.getSeat_code());
 			
 			rs=ps.executeQuery();
 			
@@ -518,42 +589,69 @@ public class MemberDaoImpl implements MemberDao{
 
 		return list;
 	}
-
-
+	
 	@Override
-	public Stadium selectStadiumByUserno(Reserve reserve) {
+	public int selectCntSeatByReservecode(Reserve reserve) {
 		
 		String sql = "";
-		sql+="SELECT stadium_code, stadium_name FROM stadium"; 
-		sql+=" WHERE stadium_code IN ("; 
-		sql+="  SELECT hometeam_code FROM match";
-		sql+="  WHERE match_code IN (";
-		sql+="   SELECT match_code FROM ticket";
-		sql+="   WHERE ticket_code IN(";
-		sql+="    SELECT ticket_code FROM reserve"; 
-		sql+="    WHERE userno = ?";
-		sql+="    AND reserve_code = ?)))";
+		sql+="SELECT count(*) FROM";
+		sql+=" SELECT seat_code FROM seat"; 
+		sql+=" WHERE seat_code IN (";
+		sql+="  SELECT seat_code FROM ticket"; 
+		sql+="  WHERE ticket_code IN(";
+		sql+="   SELECT ticket_code FROM reserve"; 
+		sql+="   WHERE reserve_code = ?)))";
 		
-		Stadium stadium=new Stadium();
-		
+		int count = 0;
+
 		try {
 			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, reserve.getUserno());
-			ps.setString(2, reserve.getReserve_code());
+			ps.setString(1, reserve.getReserve_code());
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				stadium.setStadium_code(rs.getInt("stadium_code"));
-				stadium.setStadium_name(rs.getString("stadium_name"));
+				count=rs.getInt(1);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return stadium;
+		return count;
+	}
+
+	@Override
+	public List<Stadium> selectStadiumByStadiumcode(Match match) {
+		
+		String sql = "";
+		sql+="SELECT stadium_code, stadium_name";
+		sql+=" FROM stadium"; 
+		sql+=" WHERE stadium_code = ?";
+		
+		List<Stadium> list=new ArrayList();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, match.getHometeam_code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Stadium stadium=new Stadium();
+				
+				stadium.setStadium_code(rs.getInt("stadium_code"));
+				stadium.setStadium_name(rs.getString("stadium_name"));
+				
+				list.add(stadium);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	@Override

@@ -122,7 +122,7 @@ $(document).ready(function(){
 		<td>
 			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
 				<c:if test="${Istatus.index eq Mstatus.index }">
-				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd HH:mm"/></p>
+				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd HH:mm"/>
 				<input type="hidden" id="matchdate" value="${match.match_date }"/>
 				</c:if>
 			</c:forEach>
@@ -130,10 +130,11 @@ $(document).ready(function(){
 		<td></td>
 		<td>
 			<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
-				<c:if test="${Sstatus.index <= seatCountList[Istatus.index] }">
-					${s.seat_block }블럭 ${s.seat_number }석
+				<c:if test="${Istatus.index eq Sstatus.index }">
+					<c:forEach items="${seatListByreserve }" var="sr">
+					${sr[Sstatus.index].seat_block }블럭 ${sr[Sstatus.index].seat_number }석
+					</c:forEach>
 				</c:if>
-
 			</c:forEach>
 		</td>
 		<td><%-- <fmt:formatDate value="${cancledate}" pattern="yyyy/MM/dd HH:mm"/> --%>

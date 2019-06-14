@@ -46,18 +46,26 @@ public interface MemberDao {
 	//userno로 reserve_code를 리스트에 중복없이 저장
 	public List selectReservecodeByUserno(Paging mypagepaging,Reserve reserve);
 	
-	//reserve_code의 개수
+	//중복없는 reserve_code의 개수
 	public int selectCntReservecode(Reserve reserve);
 
-	//userno로 match 테이블 조회
-	public Match selectMatchByUserno(Reserve reserveList);
+	//reserve 테이블 조회
+	public List<Reserve> selectReserveByUserno(Reserve reserve);
 	
-	//userno로 seat 테이블 조회
-	public List<Seat> selectSeatListByUserno(Reserve reserveList);
+	//ticket 테이블 조회
+	public List<Ticket> selectTicketByTicketcode(Reserve reserve);
+	
+	//match 테이블 조회
+	public List<Match> selectMatchByMatchcode(Ticket ticket);
+	
+	//seat 테이블 조회
+	public List<Seat> selectSeatBySeatcode(Ticket ticket);
+	
+	//reserve_code별 매수 count
+	public int selectCntSeatByReservecode(Reserve reserve);
 		
-	//userno로 stadium 테이블 조회
-	public Stadium selectStadiumByUserno(Reserve reserve);
-
+	//stadium 테이블 조회
+	public List<Stadium> selectStadiumByStadiumcode(Match match);
 
 	//회원 정보 업데이트
 	public void updateMemberByUserid(Member member);
