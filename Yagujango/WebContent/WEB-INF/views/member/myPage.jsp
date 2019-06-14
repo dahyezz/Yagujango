@@ -113,11 +113,11 @@ $(document).ready(function(){
 	<tr>
 		<td><a href="/mypage/ticket">${i.reserve_code }</a></td>
 		<td>
-			<%-- <c:forEach items="${matchList }" var="m" varStatus="Mstatus">
+			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
 				<c:if test="${Istatus.index eq Mstatus.index }">
 				[2019 신한은행 MY CAR KBO 리그]<br>${m.hometeam_name } vs ${m.awayteam_name }
 				</c:if>
-			</c:forEach> --%>
+			</c:forEach>
 		</td>
 		<td>
 			<%-- <c:forEach items="${matchList }" var="m" varStatus="Mstatus">

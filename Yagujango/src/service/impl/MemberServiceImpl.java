@@ -194,21 +194,31 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<Match> getMatchList(Ticket ticket) {
+	public List<Match> getMatchList(List<Ticket> ticketList) {
 		
-		return memberDao.selectMatchByMatchcode(ticket);
+//		List<Match> matchList = new ArrayList<Match>();
+//		
+//		for(Ticket ticket : ticketList) {
+//			Match match = memberDao.selectMatchByMatchcode(ticket);
+//			
+//			matchList.add(match);
+//		}
+//		return matchList;
+		return null;
 	}
 
 	@Override
-	public List<Seat> getSeatList(Ticket ticket) {
+	public List<Seat> getSeatList(List<Ticket> ticket) {
 
-		return memberDao.selectSeatBySeatcode(ticket);
+//		return memberDao.selectSeatBySeatcode(ticket);
+		return null;
 	}
 
 	@Override
-	public List<Stadium> getStadiumList(Match match) {
+	public List<Stadium> getStadiumList(List<Match> match) {
 		
-		return memberDao.selectStadiumByStadiumcode(match);
+//		return memberDao.selectStadiumByStadiumcode(match);
+		return null;
 	}
 
 	@Override

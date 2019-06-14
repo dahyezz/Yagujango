@@ -58,17 +58,7 @@ public class Reserve {
 	public void setPayment_date(Date payment_date) {
 		this.payment_date = payment_date;
 	}
-
-	public String getBarcode() {
-		return barcode;
-	}
-
-
-
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
-	}
-
+	
 	public String getHow_receive() {
 		return how_receive;
 	}

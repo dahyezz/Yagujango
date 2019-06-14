@@ -124,24 +124,24 @@ public interface MemberService {
 	
 	/**
 	 * 	match 조회
-	 * @param reserve
+	 * @param ticketList
 	 * @return match list
 	 */
-	public List<Match> getMatchList(Ticket ticket);
+	public List<Match> getMatchList(List<Ticket> ticketList);
 	
 	/**
 	 * 	seat 리스트 조회
-	 * @param reserve
+	 * @param ticketList
 	 * @return seat list
 	 */
-	public List<Seat> getSeatList(Ticket ticket);
+	public List<Seat> getSeatList(List<Ticket> ticketList);
 	
 	/**
 	 * 	stadium 조회
-	 * @param reserve
+	 * @param matchList
 	 * @return stadium list
 	 */
-	public List<Stadium> getStadiumList(Match match);
+	public List<Stadium> getStadiumList(List<Match> matchList);
 	
 	/**
 	 * 회원 정보 수정
