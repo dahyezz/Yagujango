@@ -10,7 +10,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
-import util.MypagePaging;
+import util.Paging;
 
 public interface MemberService {
 
@@ -96,7 +96,7 @@ public interface MemberService {
 	 * @param mypagepaging
 	 * @return 조회 결과
 	 */
-	public List getReservecodeList(MypagePaging mypagepaging,Reserve reserve);
+	public List getReservecodeList(Paging mypagepaging,Reserve reserve);
 	
 	/**
 	 * 	curPage 파싱
@@ -104,21 +104,21 @@ public interface MemberService {
 	 * @return paging
 	 */
 
-	public MypagePaging getCurPage(HttpServletRequest req,Reserve reserve);
+	public Paging getCurPage(HttpServletRequest req,Reserve reserve);
 	
 	/**
 	 * 	userno별 match 조회
 	 * @param reserve
 	 * @return match
 	 */
-	public Match getMatchByUserno(Reserve reserve);
+	public Match getMatchByUserno(Reserve reserveList);
 	
 	/**
 	 * 	userno별 seat 리스트 조회
 	 * @param reserve
 	 * @return seat list
 	 */
-	public List<Seat> getSeatListByUserno(Reserve reserve);
+	public List<Seat> getSeatListByUserno(Reserve reserveList);
 	
 	/**
 	 * 	userno별 stadium 조회

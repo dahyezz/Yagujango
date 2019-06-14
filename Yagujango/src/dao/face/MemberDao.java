@@ -7,7 +7,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
-import util.MypagePaging;
+import util.Paging;
 
 public interface MemberDao {
 
@@ -42,17 +42,16 @@ public interface MemberDao {
 	public List<Member> OneToOneSelectAll();
 	
 	//userno로 reserve_code를 리스트에 중복없이 저장
-	public List selectReservecodeByUserno(MypagePaging mypagepaging,Reserve reserve);
+	public List selectReservecodeByUserno(Paging mypagepaging,Reserve reserve);
 	
 	//reserve_code의 개수
 	public int selectCntReservecode(Reserve reserve);
 
-	
 	//userno로 match 테이블 조회
-	public Match selectMatchByUserno(Reserve reserve);
+	public Match selectMatchByUserno(Reserve reserveList);
 	
 	//userno로 seat 테이블 조회
-	public List<Seat> selectSeatListByUserno(Reserve reserve);
+	public List<Seat> selectSeatListByUserno(Reserve reserveList);
 		
 	//userno로 stadium 테이블 조회
 	public Stadium selectStadiumByUserno(Reserve reserve);

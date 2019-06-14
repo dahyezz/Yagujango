@@ -16,7 +16,7 @@ import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
 import service.face.MemberService;
-import util.MypagePaging;
+import util.Paging;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -134,13 +134,19 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List getReservecodeList(MypagePaging mypagepaging, Reserve reserve) {
+	public List getReservecodeList(Paging mypagepaging, Reserve reserve) {
 		
 		return memberDao.selectReservecodeByUserno(mypagepaging,reserve);
+		
+//		List<Reserve> list =  memberDao.selectReservecodeByUserno(mypagepaging,reserve);
+//		for(Reserve e : list)
+//			System.out.println(e);
+//		
+//		return list;
 	}
 
 	@Override
-	public MypagePaging getCurPage(HttpServletRequest req,Reserve reserve) {
+	public Paging getCurPage(HttpServletRequest req,Reserve reserve) {
 
 		//전달 파라미터 curPage 파싱
 		String param=req.getParameter("curPage");
@@ -151,9 +157,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		//userno별 reserve_code 수
 		int totalCount=memberDao.selectCntReservecode(reserve);
-		
+		int listCount = 5;
+		int pageCount = 5;
+
 		//페이징 객체 생성
-		MypagePaging paging=new MypagePaging(totalCount,curPage);
+		Paging paging=new Paging(totalCount,curPage, listCount,pageCount);
 //		System.out.println(paging);
 		
 		return paging;
@@ -170,15 +178,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Match getMatchByUserno(Reserve reserve) {
+	public Match getMatchByUserno(Reserve reserveList) {
 		
-		return memberDao.selectMatchByUserno(reserve);
+		return memberDao.selectMatchByUserno(reserveList);
 	}
 
 	@Override
-	public List<Seat> getSeatListByUserno(Reserve reserve) {
+	public List<Seat> getSeatListByUserno(Reserve reserveList) {
 
-		return memberDao.selectSeatListByUserno(reserve);
+		return memberDao.selectSeatListByUserno(reserveList);
 	}
 
 	@Override
