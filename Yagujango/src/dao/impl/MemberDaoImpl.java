@@ -17,7 +17,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
-import util.MypagePaging;
+import util.Paging;
 
 public class MemberDaoImpl implements MemberDao{
 	
@@ -337,14 +337,15 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List selectReservecodeByUserno(MypagePaging mypagepaging, Reserve reserve) {
+	public List selectReservecodeByUserno(Paging mypagepaging, Reserve reserve) {
 		
 		String sql="";
 		sql+="SELECT * FROM ("; 
 		sql+=" SELECT rownum rnum, R.* FROM ("; 
-		sql+="  SELECT reserve_code FROM reserve";
+		sql+="  SELECT reserve_code, payment, payment_date, how_receive FROM reserve";
 		sql+="  WHERE userno = ?";
-		sql+="  GROUP BY reserve_code) R";
+		sql+="  GROUP BY reserve_code, payment, payment_date, how_receive) R";
+		sql+=" ORDER BY rnum";
 		sql+=" ) Rnum";
 		sql+=" WHERE rnum BETWEEN ? AND ?";
 		
@@ -360,9 +361,14 @@ public class MemberDaoImpl implements MemberDao{
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				reserve.setReserve_code(rs.getString("reserve_code"));
+				Reserve reserveList = new Reserve();
 				
-				list.add(reserve);
+				reserveList.setReserve_code(rs.getString("reserve_code"));
+				reserveList.setPayment(rs.getString("payment"));
+				reserveList.setPayment_date(rs.getDate("payment_date"));
+				reserveList.setHow_receive(rs.getString("how_receive"));
+				
+				list.add(reserveList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -416,7 +422,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
 	@Override
-	public Match selectMatchByUserno(Reserve reserve) {
+	public Match selectMatchByUserno(Reserve reserveList) {
 		
 		String sql = "";
 		sql+="SELECT";
@@ -427,18 +433,15 @@ public class MemberDaoImpl implements MemberDao{
 		sql+=" WHERE match_code IN ("; 
 		sql+="  SELECT match_code FROM ticket"; 
 		sql+="  WHERE ticket_code IN (";
-		sql+="   SELECT ticket_code FROM reserve"; 
-		sql+="   WHERE userno = ?";
-		sql+="   AND reserve_code = ?))";
+		sql+="   SELECT ticket_code FROM reserve";
+		sql+="   WHERE reserve_code = ?))";
 		
 		Match match=new Match();
 
-		
 		try {
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, reserve.getUserno());
-			ps.setString(2, reserve.getReserve_code());
+			ps.setString(1, reserveList.getReserve_code());
 			
 			rs = ps.executeQuery();
 			
@@ -460,7 +463,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<Seat> selectSeatListByUserno(Reserve reserve) {
+	public List<Seat> selectSeatListByUserno(Reserve reserveList) {
 		
 		String sql="";
 		sql+="SELECT seat_code, seat_block, seat_number, price";
@@ -469,21 +472,20 @@ public class MemberDaoImpl implements MemberDao{
 		sql+="  SELECT seat_code FROM ticket";
 		sql+="  WHERE ticket_code IN (";
 		sql+="   SELECT ticket_code FROM reserve";
-		sql+="   WHERE userno = ?";
-		sql+="   AND reserve_code = ?))";
+		sql+="   WHERE reserve_code = ?))";
 		
-		Seat seat=new Seat();
-		List list=new ArrayList();
+		List<Seat> list=new ArrayList();
 		
 		try {
 			ps=conn.prepareStatement(sql);
 			
-			ps.setInt(1, reserve.getUserno());
-			ps.setString(2, reserve.getReserve_code());
+			ps.setString(1, reserveList.getReserve_code());
 			
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
+				Seat seat=new Seat();
+				
 				seat.setSeat_code(rs.getInt("seat_code"));
 				seat.setSeat_block(rs.getString("seat_block"));
 				seat.setSeat_number(rs.getInt("seat_number"));
@@ -575,6 +577,8 @@ public class MemberDaoImpl implements MemberDao{
 		sql += " WHERE userid = ?";
 	
 		try {
+			ps = conn.prepareStatement(sql);
+			
 			ps.setString(1, member.getUserpw());
 			ps.setString(2, member.getUsernick());
 			ps.setString(3, member.getPhone());

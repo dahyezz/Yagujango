@@ -8,9 +8,22 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var matchdate=new Date($("#matchdate"));
+	var match = document.getElementById("matchdate").value;
+
+	console.log(match);
 	
-	matchdate;
+	var cancleDate=new Date(match);
+	console.log(cancleDate);
+// 	cancleDate.setHours(cancleDate.getHours()-3);
+// 	console.log(cancleDate);
+	
+	var nowdate = new Date();
+	console.log(nowdate.getHours()-3)
+	
+	var tDate = new Date('2018-07-10 12:30')
+	tDate.setHours(tDate.getHours()+6)
+	console.log(tDate)
+	console.log(tDate.toLocaleString());
 	
 });
 </script>
@@ -84,8 +97,8 @@ $(document).ready(function(){
 <span>상태를 클릭하면 취소여부와 예매 취소를 할수 있습니다.</span><br>
 
 <div class="reservation">
-<c:forEach items="${reservecodeList}" var="i">
-	<table>
+<table>
+<thead>
 	<tr>
 		<th>예매번호</th>
 		<th>티켓명</th>
@@ -95,19 +108,40 @@ $(document).ready(function(){
 		<th>취소가능일</th>
 		<th>상태</th>
 	</tr>
+</thead>
+<c:forEach items="${reservecodeList}" var="i" varStatus="Istatus">
 	<tr>
 		<td><a href="/mypage/ticket">${i.reserve_code }</a></td>
-
-		<td>[2019 신한은행 MY CAR KBO 리그] ${match.hometeam_name } vs ${match.awayteam_name }</td>
-		<td><p id="matchdate"><fmt:formatDate value="${match.match_date}" pattern="yyyy/MM/dd HH:mm"/></p></td>
-
+		<td>
+			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
+				<c:if test="${Istatus.index eq Mstatus.index }">
+				[2019 신한은행 MY CAR KBO 리그]<br>${m.hometeam_name } vs ${m.awayteam_name }
+				</c:if>
+			</c:forEach>
+		</td>
+		<td>
+			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
+				<c:if test="${Istatus.index eq Mstatus.index }">
+				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd HH:mm"/></p>
+				<input type="hidden" id="matchdate" value="${match.match_date }"/>
+				</c:if>
+			</c:forEach>
+		</td>
 		<td></td>
-		<td><%-- ${seat.block }블럭 ${seat.number }석 --%></td>
-		<td><fmt:formatDate value="${match.match_date}" pattern="yyyy/MM/dd HH:mm"/></td>
+		<td>
+			<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
+				<c:if test="${Sstatus.index <= seatCountList[Istatus.index] }">
+					${s.seat_block }블럭 ${s.seat_number }석
+				</c:if>
+
+			</c:forEach>
+		</td>
+		<td><%-- <fmt:formatDate value="${cancledate}" pattern="yyyy/MM/dd HH:mm"/> --%>
+			<!-- <input type="text" id="cancledate"/> --></td>
 		<td><a href="/mypage/ticket">취소가능</a></td>
 	</tr>
-	</table>
 </c:forEach>
+</table>
 </div>
 
 <c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />

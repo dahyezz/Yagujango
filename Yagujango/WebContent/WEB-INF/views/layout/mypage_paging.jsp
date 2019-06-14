@@ -3,8 +3,44 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="text-center">
-	<ul class="pagination pagination-sm">
+<style type="text/css">
+.pagingul {
+   text-align:center;
+}
+.pagingul li {
+   display:inline;
+   vertical-align:middle;
+}
+.pagingul li a {
+   display:-moz-inline-stack;   /*FF2*/
+   display:inline-block;
+   vertical-align:top;
+   padding:4px;
+   margin-right:3px;
+   width:15px !important;
+   color:#000;
+   font:bold 12px tahoma;
+   border:1px solid #eee;
+   text-align:center;
+   text-decoration:none;
+   width:26px;
+
+}
+.pagingul li .first {
+   width:30px !important;
+}
+.pagingul li a.now {
+   color:#0080ff;
+   
+}
+.pagingul li a:hover, .pagingul li a:focus {
+   color:#9baec8;
+}
+
+</style>
+
+<div class="pagingdiv">
+	<ul class="pagingul">
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
@@ -33,14 +69,14 @@
 	
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i}">
-			<li class="active">
-				<a href="/mypage/main?curPage=${i }">${i }</a>
+			<li>
+				<a class="now" href="/mypage/main?curPage=${i }">${i }</a>
 			</li>
 			</c:if>
 		
 			<c:if test="${paging.curPage ne i}">
 			<li>
-				<a href="/mypage/main?curPage=${i }">${i }</a>
+				<a class="now"href="/mypage/main?curPage=${i }">${i }</a>
 			</li>
 			</c:if>
 			
