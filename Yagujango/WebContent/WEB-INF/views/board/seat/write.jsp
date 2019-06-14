@@ -26,7 +26,7 @@ $(document).ready(function() {
             maxHeight: null,             // set maximum height of editor
             focus: true,				 // set focus to editable area after initializing summernote
 			lang: 'ko-KR',
-			placeholder: '마지막에 업로드하는 이미지가 미리보기 이미지로 등록됩니다.<br>부적절한 이미지 게시 시,글이 삭제는 등 불이익을 받을 수 있습니다.',
+			placeholder: '마지막에 업로드하는 이미지가 미리보기 이미지로 등록됩니다.<br>부적절한 이미지 게시 시, 글이 삭제는 등 불이익을 받을 수 있습니다.',
 			
 			toolbar: [
 		        ['style', ['style']],

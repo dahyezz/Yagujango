@@ -45,7 +45,7 @@
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a class="first" href="/board/free/list"><span>처음</span></a>
+			<a class="first" href="/board/seat/list"><span>처음</span></a>
 		</li>
 		</c:if>
 
@@ -59,7 +59,9 @@
 
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/board/free/list?curPage=${paging.curPage-1 }&name=${name}&keyword=${keyword}"><span>&laquo;</span></a>
+			<a href="/board/seat/list?curPage=${paging.curPage-1 }&name=${name}&keyword=${keyword}">
+			<span>&laquo;</span>
+			</a>
 	    </li>
 	    </c:if>
 
@@ -83,10 +85,10 @@
 			<c:if test="${paging.curPage ne i}">
 			<li>
 				<c:if test="${name eq null and keyword eq null}">
-					<a href="/board/free/list?curPage=${i }">${i }</a>
+					<a href="/board/seat/list?curPage=${i }">${i }</a>
 				</c:if>
 				<c:if test="${name ne null and keyword ne null}">
-					<a href="/board/free/list?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
+					<a href="/board/seat/list?curPage=${i }&name=${name}&keyword=${keyword}">${i }</a>
 				</c:if>
 			</li>
 			</c:if>
@@ -105,9 +107,9 @@
 
 		<c:if test="${paging.curPage ne paging.totalPage }">
 		<li class="disabled">
-			<a href="/board/free/list?curPage=${paging.curPage+1 }&name=${name}&keyword=${keyword}">
-			<span>&raquo;</span>
-		</a>
+			<a href="/board/seat/list?curPage=${paging.curPage+1 }&name=${name}&keyword=${keyword}">
+				<span>&raquo;</span>
+			</a>
 		</li>
 		</c:if>
 	</ul>
