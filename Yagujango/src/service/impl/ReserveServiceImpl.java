@@ -190,7 +190,7 @@ public class ReserveServiceImpl implements ReserveService{
 				reserve.setHow_receive(receive);
 
 				reserveDao.insertReserve(reserve, stringdate, match, userno);
-				
+			
 				//----- 바코드 생성 ------
 				//	receive 가 바코드발급일때
 				if(receive.equals("바코드발급")) {
@@ -420,7 +420,7 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Match> getThreeDaysMatchList(int i) {
 		
 		List<Match> matchList = reserveDao.selectThreeMatchList(3);
-		System.out.println(matchList.size());
+//		System.out.println(matchList.size());
 		
 		if(matchList.size()==15)
 			return matchList;
