@@ -18,6 +18,7 @@ import dto.Member;
 import dto.Reserve;
 import dto.Seat;
 import dto.Stadium;
+import dto.Ticket;
 import util.Paging;
 
 public class MemberDaoImpl implements MemberDao{
@@ -648,5 +649,92 @@ public class MemberDaoImpl implements MemberDao{
 		
 		
 		return my1to1view;
+	}
+	
+	@Override
+	public List<Ticket> selectTicketCodeByReservecode(String reserve_code) {
+		
+		String sql="";
+		sql += "SELECT ticket_code";
+		sql += " FROM reserve";
+		sql += " WHERE reserve_code = ?";
+
+		
+		List<Ticket> ticketList=new ArrayList<>();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, reserve_code);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				Ticket ticket = new Ticket();
+				
+				ticket.setTicket_code(rs.getInt("ticket_code"));
+				
+				ticketList.add(ticket);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return ticketList;
+	}
+	
+	@Override
+	public void deleteTicket(Ticket ticket) {
+		
+		String sql = "";
+		sql += "DELETE ticket";
+		sql += " WHERE ticket_code = ?";
+	
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, ticket.getTicket_code());
+			
+			ps.executeUpdate();
+  
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void deleteReserveByReserveCode(String reserve_code) {
+		
+		String sql = "";
+		sql += "DELETE reserve";
+		sql += " WHERE reserve_code = ?";
+	
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, reserve_code);
+			ps.executeUpdate();
+  
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
