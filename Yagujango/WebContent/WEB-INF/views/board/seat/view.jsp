@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="/WEB-INF/views/layout/header.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnDelete").click(function() {
@@ -72,11 +73,21 @@ $(document).ready(function() {
 		}
 	})
 	
-	
 });
 
+
 </script>
-<style type="text/css">						
+<style type="text/css">
+img {
+	transform-origin: top left; /* IE 10+, Firefox, etc. */
+	-webkit-transform-origin: top left; /* Chrome */
+	-ms-transform-origin: top left; /* IE 9 */
+}
+.rotate90 {
+	transform: rotate(90deg) translateY(-100%);
+	-webkit-transform: rotate(90deg) translateY(-100%);
+	-ms-transform: rotate(90deg) translateY(-100%);
+}						
 .button-center {
 	text-align: center;
 }
@@ -86,72 +97,60 @@ $(document).ready(function() {
 table{
 	width: 100%;
 	border-collapse: collapse;
-    text-align: center;
     line-height: 1.5;
 }
 .viewinfo {
 	background:#ccc;
 }
+table thead {
+	padding: 10px;
+    border-top: 2px solid #282c37;
+}			
+table tbody {
+	padding: 10px;
+    border-bottom: 2px solid #282c37;
+}	
+
+img {max-width: 100%;}
+.contentdiv{padding: 0 10% 0 10%;}
 </style>
 </head>
 <body>
-<div class ="container">
 <div class="tablediv">
 <table>
+<thead>
+	<tr>
+		<td style="width:33%;text-align:left;">&nbsp;&nbsp;${board.boardno }</td>
+		<td style="width:34%;">${board.stadium_name} ${board.seat_block }열 ${board.seat_number }번 좌석</td>
+		<td style="width:33%;text-align:right;"> 조회수 : ${board.hit}&nbsp;&nbsp;</td>
+	</tr>
+</thead>
 <tbody>
 	<tr>
-		<td class="viewinfo">글번호</td>
-		<td>${board.boardno }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">제목</td>
-		<td>${board.stadium_name} 구장 ${board.seat_block }열 ${board.seat_number }번 좌석</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">작성자</td>
-		<td>${board.writer }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">조회수</td>
-		<td>${board.hit }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">작성일</td>
-		<td>${board.writtendate }</td>
-	</tr>
-	<tr>
-		<td class="viewinfo">본문</td>
-	</tr>
-	<tr>
-		<td>${board.content }</td>
+		<td colspan="3" style="text-align:right;">
+		<fmt:formatDate value="${board.writtendate }" pattern="yyyy-MM-dd" />
+		&nbsp;&nbsp;${board.writer}</td>
 	</tr>
 </tbody>
 </table>
+<div class="contentdiv">
+${board.content }
+</div>
 
 
 <div class="button-center">	
 <button id="btnList" class="btn btn-primary">목록</button>
-<c:if test="${usernick eq board.writer && login eq true || usernick eq '관리자'}">
+<c:if test="${usernick eq board.writer && login eq true}">
 <button id="btnUpdate" class="btn btn-primary">수정</button>
+</c:if>
+<c:if test="${usernick eq board.writer && login eq true || usernick eq '관리자'}">
 <button id="btnDelete" class="btn btn-primary">삭제</button>
 </c:if>
 <br><br><br>
 </div>
-
-
 <hr>
-<div id="commentdiv">
-	<c:import url="/WEB-INF/views/layout/comment.jsp" />
-</div>
-<input type="text" id="commentcontent">
-<button type="button" id="btncommentinsert">작성</button>
-
-
-
 </div>
 
-
-</div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
 </html>

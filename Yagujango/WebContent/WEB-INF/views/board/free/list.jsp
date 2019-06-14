@@ -30,12 +30,12 @@ table thead {
     border-bottom: 3px solid #000;
 }
 table .notice {
-	background:#DDD;
+	background:#d9e1e8;
 }
 .search {
 	display:block;
 	text-align:center; 
-	background:#DDD;
+	background:#d9e1e8;
 	padding:0 0 0 35px;
 	font-size:18px;
 	color:#5e5e5e;
@@ -48,7 +48,9 @@ table .notice {
 .button-right{
 	text-align:right;
 }
-
+table .content:hover{
+	background: #D5D5D5;
+}
 </style>
 
 </head>
@@ -66,18 +68,23 @@ $(document).ready(function() {
 			$(this).text($(this).text().substr(0,length)+'...');
 		}
 	});
+// 현재 보고있는 태그 강조
+	var name ="${name}";
 	var keyword="${keyword}";
 	var number = 0;
 	$('.menu').each(function(){
-		if(keyword == $(this).text()){
-			$(this).attr("style","color:#01DF3A;");
-		}else{
-			number++;
-		}
-		if(number == 5){
-			$("#default").attr("style","color:#01DF3A;");
+		if(name == "tag" || name == ""){
+			if(keyword == $(this).text()){
+				$(this).attr("style","color:#0080ff;");
+			}else{
+				number++;
+			}
+			if(number == 5){
+				$("#default").attr("style","color:#0080ff;");
+			}
 		}
 	});
+//
 });
 
 //맨 위 체크박스 클릭시 모두 체크/해제
@@ -168,7 +175,7 @@ function checklist(){
 <tbody>
 <c:forEach items="${board_freelist}" var="i">
 	<c:if test="${i.tag eq '공지' }">
-		<tr class="notice">
+		<tr class="notice content">
 			<c:if test="${usernick eq '관리자'}"><td></td></c:if>
 			<td><a href="/board/free/list?name=tag&keyword=${i.tag}">공지</a></td>
 			<td><a href="/board/free/view?tag=${i.tag}&boardno=${i.boardno}"  >${i.title }</a></td>	
@@ -179,7 +186,7 @@ function checklist(){
 		<tr>
 	</c:if>
 	<c:if test="${i.tag ne '공지' }">
-		<tr>
+		<tr class="content">
 			<c:if test="${usernick eq '관리자'}">
 			<td><input name="rowCheck" type="checkbox" value="${i.boardno}" /></td>
 			</c:if>

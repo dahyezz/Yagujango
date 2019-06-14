@@ -10,6 +10,7 @@ import java.util.List;
 import dao.face.Board_SeatDao;
 import dbutil.DBConn;
 import dto.Board_Seat;
+import dto.Board_file;
 import util.Paging;
 
 
@@ -289,6 +290,64 @@ public class Board_SeatDaoImpl implements Board_SeatDao{
 			}
 		}
 		return boardno;
+	}
+
+	@Override
+	public void insertFile(Board_file board_file) {
+		String sql = "";
+		sql +="INSERT INTO board_seatfile(fileno,boardno,originname,storedname,filesize)";
+		sql +=" VALUES(board_seatfile_seq.nextval,?,?,?,?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_file.getBoardno());
+			ps.setString(2, board_file.getOriginname());
+			ps.setString(3, board_file.getStoredname());
+			ps.setInt(4, board_file.getFilesize());
+			ps.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void InsertwithFile(Board_Seat board_seat) {
+		String sql = "";
+		sql += "INSERT INTO board_seat(";
+		sql += " boardno, stadium_name,seat_block,seat_number,content,writer, hit,fileurl)" ;
+		sql += " VALUES (?,?,?,?,?,?,0,?)";
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board_seat.getBoardno());
+			ps.setString(2, board_seat.getStadium_name());
+			ps.setString(3, board_seat.getSeat_block());
+			ps.setInt(4, board_seat.getSeat_number());
+			ps.setString(5, board_seat.getContent());
+			ps.setString(6, board_seat.getWriter());
+			ps.setString(7, board_seat.getFileurl());
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

@@ -77,10 +77,14 @@ $(document).ready(function() {
 
 </script>
 <style type="text/css">	
+
 table thead {
 	padding: 10px;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-top: 2px solid #282c37;
+}			
+table tbody {
+	padding: 10px;
+    border-bottom: 2px solid #282c37;
 }					
 .button-center {
 	text-align: center;
@@ -139,7 +143,6 @@ img {
 	</tr>
 </thead>
 <tbody>
-
 	<tr>
 		<td colspan="3" style="text-align:right;">
 		<fmt:formatDate value="${board.writtendate }" pattern="yyyy-MM-dd" />
@@ -152,9 +155,10 @@ ${board.content }
 </div>
 <hr>
 <div class="button-center">	
-<button id="btnList" class="btn btn-primary">목록</button>&nbsp;
+<c:if test="${usernick eq board.writer && login eq true}">
+<button id="btnUpdate" class="btn btn-primary">수정</button>
+</c:if>
 <c:if test="${usernick eq board.writer && login eq true || usernick eq '관리자'}">
-<button id="btnUpdate" class="btn btn-primary">수정</button>&nbsp;
 <button id="btnDelete" class="btn btn-primary">삭제</button>
 </c:if>
 <br><br><br>

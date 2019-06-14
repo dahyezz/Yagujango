@@ -3,6 +3,7 @@ package dao.face;
 import java.util.List;
 
 import dto.Board_Seat;
+import dto.Board_file;
 import util.Paging;
 
 public interface Board_SeatDao {
@@ -22,5 +23,9 @@ public interface Board_SeatDao {
 	void update(Board_Seat board_seat);
 
 	int getboardno();
+
+	void insertFile(Board_file board_file);
+
+	void InsertwithFile(Board_Seat board_seat);
 
 }

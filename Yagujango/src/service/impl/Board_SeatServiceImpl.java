@@ -43,7 +43,9 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		
 		int totalCount = board_SeatDao.selectCntAll(paging);
 			
-		paging = new Paging(totalCount, curPage);
+		int listCount = 7;
+		int pageCount = 10;
+		paging = new Paging(totalCount, curPage, listCount,pageCount);
 		paging.setName(req.getParameter("name"));
 		paging.setKeyword(req.getParameter("keyword"));
 		
@@ -59,6 +61,8 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 	public void write(HttpServletRequest req) {
 		Board_Seat board_seat = new Board_Seat();
 		HttpSession session = req.getSession();
+	
+		
 		board_seat.setStadium_name(req.getParameter("stadium_name"));
 		board_seat.setSeat_block(req.getParameter("seat_block"));
 		String seat_param = req.getParameter("seat_number");
@@ -67,7 +71,17 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		board_seat.setContent(req.getParameter("content"));
 		board_seat.setWriter((String)session.getAttribute("usernick"));
 		board_seat.setFileurl(req.getParameter("fileurl"));
-		board_SeatDao.Insert(board_seat);
+		
+		
+		if(req.getParameter("boardno") == null) {
+			board_SeatDao.Insert(board_seat);
+		}else {
+			String boardno_param = req.getParameter("boardno");
+			int boardno = Integer.parseInt(boardno_param);
+			board_seat.setBoardno(boardno);
+			
+			board_SeatDao.InsertwithFile(board_seat);
+		}
 		
 		
 	}
@@ -183,8 +197,8 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		if(board_file.getOriginname() != null && 
 		board_file.getOriginname() != null &&
 		board_file.getFilesize() != 0) {
-			System.out.println(board_file);
-//			board_SeatDao.insertFile(board_file);
+//			System.out.println(board_file);
+			board_SeatDao.insertFile(board_file);
 		}
 		try {
 			resp.getWriter().print(obj);

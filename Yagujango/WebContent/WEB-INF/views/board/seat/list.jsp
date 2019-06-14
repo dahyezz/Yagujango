@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+a {text-decoration:none}
+a:visited ,a:link{color: black;}
+table .content:hover{
+	background: #D5D5D5;
+}
 .tablediv {
 	padding: 0 5% 0 5%;
 }
@@ -24,13 +29,13 @@ table thead {
     border-bottom: 3px solid #000;
 }
 
-.content {
+.title {
 	text-align:left;
 }
 .search {
 	display:block;
 	text-align:center; 
-	background:#CCC;
+	background:#d9e1e8;
 	padding:0 0 0 35px;
 	font-size:18px;
 	color:#5e5e5e;
@@ -39,6 +44,9 @@ table thead {
 	cursor:pointer;
 	box-sizing: content-box;
 	margin: 10px 0; !important
+}
+.button-right{
+	text-align : right;
 }
 
 </style>
@@ -116,7 +124,7 @@ function checklist(){
 		<c:if test="${usernick eq '관리자'}">
 		<th><input id="allCheck" type="checkbox" onclick="allChk(this);"/></th>
 		</c:if>
-		<th style="width: 10%;"></th>
+		<th style="width: 10%;">미리보기</th>
 		<th style="width: 45%;">제목</th>
 		<th style="width: 15%;">작성자</th>
 		<th style="width: 10%;">조회수</th>
@@ -126,7 +134,7 @@ function checklist(){
 <tbody>
 <c:forEach items="${board_seatlist}" var="i">
 	
-		<tr>
+		<tr class="content">
 			<c:if test="${usernick eq '관리자'}">
 			<td><input name="rowCheck" type="checkbox" value="${i.boardno}" /></td>
 			</c:if>
@@ -138,8 +146,8 @@ function checklist(){
 				<img src="http://localhost:8088/upload/default.jpg" style="width:100px;height:70px;"/>
 				</c:if>
 			</td>
-			<td class="content"><a href="/board/seat/view?boardno=${i.boardno}">
-									${i.stadium_name} 구장 ${i.seat_block }열 ${i.seat_number }번 좌석
+			<td class="title"><a href="/board/seat/view?boardno=${i.boardno}">
+									${i.stadium_name} ${i.seat_block }열 ${i.seat_number }번 좌석
 								</a></td>
 			<td>${i.writer }</td>
 			<td>${i.hit }</td>
@@ -154,19 +162,18 @@ function checklist(){
 </c:if>
 </div>
 <div class="paging">
-
-
+<c:import url="/WEB-INF/views/layout/seat_paging.jsp" />
+</div>
+<div class="button-right">
+<button id="btnWrite">글 쓰기</button>
 </div>
 <div class="search">
 <form action="/board/seat/list" method="get">
 		<input type="hidden" name="name" value="stadium_name">
 		<input type="text" name="keyword" placeholder="구장별로 검색하기" >
-	
 	 	<button>검색</button>
-	
 </form>
 </div>
-<button id="btnWrite">글 쓰기</button>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </body>
