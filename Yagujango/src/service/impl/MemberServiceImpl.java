@@ -3,6 +3,7 @@ package service.impl;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -180,9 +181,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<Ticket> getTicketList(Reserve reserve) {
-		 
-		return memberDao.selectTicketByTicketcode(reserve);
+	public List<Ticket> getTicketList(List<Reserve> reserveList) {
+		
+		List<Ticket> ticketList = new ArrayList<Ticket>();
+		
+		for(Reserve reserve : reserveList) {
+			Ticket ticket = memberDao.selectTicketByTicketcode(reserve);
+			
+			ticketList.add(ticket);
+		}
+		return ticketList;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public class Reserve {
 	private Date payment_date;
 	private String how_receive;
 	private String barcode;
-	
+
 	
 	@Override
 	public String toString() {
@@ -18,7 +18,7 @@ public class Reserve {
 				+ ", payment=" + payment + ", payment_date=" + payment_date + ", how_receive=" + how_receive + 
 				",barcode=" + barcode + "]";
 	}
-	
+
 	public String getReserve_code() {
 		return reserve_code;
 	}
@@ -58,7 +58,17 @@ public class Reserve {
 	public void setPayment_date(Date payment_date) {
 		this.payment_date = payment_date;
 	}
-	
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
 	public String getHow_receive() {
 		return how_receive;
 	}

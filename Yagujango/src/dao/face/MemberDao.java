@@ -53,7 +53,7 @@ public interface MemberDao {
 	public List<Reserve> selectReserveByUserno(Reserve reserve);
 	
 	//ticket 테이블 조회
-	public List<Ticket> selectTicketByTicketcode(Reserve reserve);
+	public Ticket selectTicketByTicketcode(Reserve reserve);
 	
 	//match 테이블 조회
 	public List<Match> selectMatchByMatchcode(Ticket ticket);

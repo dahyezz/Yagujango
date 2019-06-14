@@ -117,10 +117,10 @@ public interface MemberService {
 	
 	/**
 	 * 	ticket 조회
-	 * @param reserve
+	 * @param reserveList
 	 * @return ticket list
 	 */
-	public List<Ticket> getTicketList(Reserve reserve);
+	public List<Ticket> getTicketList(List<Reserve> reserveList);
 	
 	/**
 	 * 	match 조회

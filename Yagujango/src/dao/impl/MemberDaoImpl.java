@@ -435,10 +435,11 @@ public class MemberDaoImpl implements MemberDao{
 	public List<Reserve> selectReserveByUserno(Reserve reserve) {
 		
 		String sql="";
-		sql+="SELECT * FROM reserve"; 
-		sql+="  WHERE userno = ?";
+		sql += "SELECT reserve_code, ticket_code, userno, payment, payment_date, how_receive, barcode";
+		sql += " FROM reserve WHERE userno = ?";
+		sql += " ORDER BY payment_date";
 		
-		List<Reserve> list=new ArrayList();
+		List<Reserve> list = new ArrayList<>();
 		
 		try {
 			ps=conn.prepareStatement(sql);
@@ -448,6 +449,7 @@ public class MemberDaoImpl implements MemberDao{
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
+
 				Reserve addReserve=new Reserve();
 				
 				addReserve.setReserve_code(rs.getString("reserve_code"));
@@ -457,7 +459,7 @@ public class MemberDaoImpl implements MemberDao{
 				addReserve.setPayment_date(rs.getDate("payment_date"));
 				addReserve.setHow_receive(rs.getString("how_receive"));
 				addReserve.setBarcode(rs.getString("barcode"));
-				
+
 				list.add(addReserve);
 			}
 		} catch (SQLException e) {
@@ -475,13 +477,14 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<Ticket> selectTicketByTicketcode(Reserve reserve) {
+	public Ticket selectTicketByTicketcode(Reserve reserve) {
 		
 		String sql = "";
 		sql+="SELECT * FROM ticket"; 
 		sql+=" WHERE ticket_code = ?";
+		sql += " ORDER BY ticket_code";
 		
-		List<Ticket> list=new ArrayList();
+		Ticket ticket = new Ticket();
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -491,13 +494,10 @@ public class MemberDaoImpl implements MemberDao{
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				Ticket ticket=new Ticket();
-				
 				ticket.setTicket_code(rs.getInt("ticket_code"));
 				ticket.setMatch_code(rs.getInt("match_code"));
 				ticket.setSeat_code(rs.getInt("seat_code"));
 				
-				list.add(ticket);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -510,7 +510,7 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		}
 		
-		return list;
+		return ticket;
 	}
 
 	@Override
