@@ -69,6 +69,50 @@ $(document).ready(function(){
 	border:1px solid #ccc;
 	overflow:auto;
 }
+.info1{
+	margin-left:500px;
+}
+.info2{
+	margin-left:130px;
+}
+.info3{
+	margin-left:300px;
+	margin-bottom:50px;
+}
+.btn-join{
+	margin-left:500px;
+	background-color: #9baec8;
+	border:0;
+	color: white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding: 15px;
+}
+.btn-join:hover{
+    color:white;
+    background-color: #9baec8;
+    border: 1px solid #9baec8;
+}
+
+.btn-join2{
+	margin-left:30px;
+	background-color:  #0080ff;
+	border:0;
+	color:white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding: 15px;
+	
+}
+.btn-join2:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
+}
 
 /* #joinTerms, #terms1, #terms2, #terms3{
  	text-align: center;
@@ -83,12 +127,13 @@ span{
 
 <div id="joinTerms">
 
-<h1>회원가입</h1>
-<hr>
+<h1 class="info1">회원가입</h1>
 
-<p><input type="checkbox" id="allChk" name="allChk"/>
+
+<p><input type="checkbox" id="allChk" name="allChk" class="info2"/>
 <label for="allChk"><span><u>이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택),프로모션 안내메일 수신(선택)에 모두 동의합니다.</u></span></label></p>
 
+<div class="info3">
 <p><input type="checkbox" id="chk1" name="chk1"/>
 <label for="chk1"><span>야구장고 이용약관 동의 (필수)</span></label></p>
 
@@ -121,11 +166,12 @@ span{
 
 <p><input type="checkbox" id="chk4" name="chk4"/>
 <label for="chk4"><span>이벤트 및 프로모션 알림 메일 수신 (선택)</span></label></p>
-
-<button onclick="history.go(-1)">비동의</button>
-<button id="btnAgree">동의</button>
-
 </div>
+</div>
+
+<button onclick="history.go(-1)" class="btn btn-join">비동의</button>
+<button id="btnAgree" class="btn btn-join2">동의</button>
+
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
