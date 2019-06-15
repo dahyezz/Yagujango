@@ -24,6 +24,8 @@ function popup_personal(){
 .allfooter {
 	float: center;
 	width: 100%;
+	height: 189px;
+    background-color: #d9e1e8;
 	text-align: center;
 }
 .footername {
@@ -35,7 +37,7 @@ function popup_personal(){
 
 }
 .footername p {
-	color: #5050FF;
+	color: #0080ff;
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 800;
 	font-size: 30px;
@@ -51,7 +53,7 @@ function popup_personal(){
 }
 .policy a {
 	text-decoration: none;
-	color: #282828;
+	color: #282c37;
 	font-size: 14px;
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 600; 
@@ -68,6 +70,10 @@ function popup_personal(){
 	margin: 0;
 	padding: 0;
 }
+td,p{
+    color: #282c37;        
+}
+
 </style>
 
 <hr>

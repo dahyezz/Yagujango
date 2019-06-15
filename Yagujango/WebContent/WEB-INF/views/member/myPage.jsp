@@ -8,14 +8,12 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	InitializeStaticMenu();
 
 	var match_date = document.getElementById("matchdate").value;
 	console.log(match_date);
 	var cancle_date=parse(match_date);
 	console.log(cancle_date);
-
-	InitializeStaticMenu();
-	
 
 	
 	cancle_date.setHours(cancle_date.getHours()-3);
