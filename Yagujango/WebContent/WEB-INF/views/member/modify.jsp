@@ -152,7 +152,7 @@ a { text-decoration:none; color:#000000 }
 <div id="STATICMENU">
 	<table class="table statictable">
 		<tr>
-			<th><a href="/mypage/ticket" >예매 확인/취소</a></th>
+			<th><a href="/mypage/main" >예매 확인/취소</a></th>
 		</tr>
 		<tr>
 			<th><a href="/member/my1to1">내 1:1 문의 내역 확인</a></th>

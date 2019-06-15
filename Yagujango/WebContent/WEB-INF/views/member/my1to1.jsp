@@ -55,24 +55,24 @@ RefreshStaticMenu();
 }
 
 /* 네비게이션바 테이블 */
-table {
+#STATICMENU table {
 	border-collapse: collapse;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 	width:auto;
 }
-.table th, td{
+#STATICMENU .table th, td{
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
 }
-.table th:hover{
+#STATICMENU .table th:hover{
 	background: #D5D5D5;
 }
-.table th:first-child, td:first-child{
+#STATICMENU .table th:first-child, td:first-child{
  	border-left: 0;
 }
-.table th:last-child, td:last-child{
+#STATICMENU .table th:last-child, td:last-child{
  	border-right: 0;
 }
 /* 네비게이션바 테이블 */
@@ -114,7 +114,7 @@ a { text-decoration:none; color:#000000 }
 <div id="STATICMENU">
 	<table class="table statictable">
 		<tr>
-			<th><a href="/mypage/ticket" >예매 확인/취소</a></th>
+			<th><a href="/mypage/main" >예매 확인/취소</a></th>
 		</tr>
 		<tr>
 			<th><a href="/member/my1to1">내 1:1 문의 내역 확인</a></th>
