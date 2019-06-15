@@ -31,8 +31,48 @@ $(document).ready(function() {
 		$form.submit();
 		
 	});
+	
+	var match_date = document.getElementById("matchdate").value;
+	console.log(match_date);
+	var cancle_date = parse(match_date);
+
+	cancle_date.setHours(cancle_date.getHours()-3);
+	var cancle = getFormatDate(cancle_date);
+// 	console.log(cancle_date);
+
+	document.getElementById("cancledate").innerHTML += cancle;
+	
+	var now = new Date();
+// 	console.log(now)
+	if(cancle_date >= now)
+// 		console.log("취소 가능")
+		document.getElementById("canclepossible").innerHTML = "가능"
+	else
+// 		console.log("취소 불가")
+		document.getElementById("canclepossible").innerHTML = "불가"
+	
 
 });
+
+function parse(str){
+	var y = str.substr(0,4);
+	var m = str.substr(4,2);
+	var d = str.substr(6,2);
+	var h = str.substr(9,2);
+	var mi = str.substr(12,2);
+
+	return new Date(y,m-1,d,h,mi);
+	
+}
+
+function getFormatDate(cancle_date){
+
+	var hours = cancle_date.getHours();
+	var mi = cancle_date.getMinutes();
+
+	return hours + ':' + mi;
+	
+}
 
 
 
@@ -115,7 +155,7 @@ a { text-decoration:none; color:#000000 }
 <div id="STATICMENU">
 	<table class="table statictable">
 		<tr>
-			<th><a href="/mypage/ticket" >예매 확인/취소</a></th>
+			<th><a href="/mypage/main" >예매 확인/취소</a></th>
 		</tr>
 		<tr>
 			<th><a href="/member/my1to1">내 1:1 문의 내역 확인</a></th>
@@ -127,46 +167,141 @@ a { text-decoration:none; color:#000000 }
 </div>
 
 <div class="myticket">
-<h1>예매 확인/취소</h1>
+<h1>예매 상세 보기</h1>
 <hr>
 
 <p>예매 티켓 정보</p>
+
+<c:forEach items="${reserveList }" var="i">
+		<c:if test="${i.reserve_code eq reserve_code }">
+			<c:set value="${i.ticket_code }" var="ticketcode"/>
+		</c:if>
+</c:forEach>
+<c:forEach items="${ticketList }" var="i">
+		<c:if test="${i.ticket_code eq ticketcode }">
+			<c:set value="${i.match_code }" var="matchcode"/>
+		</c:if>
+</c:forEach>
+<c:forEach items="${matchList }" var="i">
+		<c:if test="${i.match_code eq matchcode }">
+			<c:set value="${i.hometeam_code }" var="hometeamcode"/>
+		</c:if>
+</c:forEach>	
+<c:forEach items="${ticketList }" var="i">
+		<c:if test="${i.match_code eq matchcode }">
+			<c:set value="${i.seat_code }" var="seatcode"/>
+		</c:if>
+</c:forEach>	
+
+
+
+<input type="hidden" name="ticket_code" />
 <table>
 	<tr>
 		<td>예매 번호</td>
-		<td></td>
+		<td>${reserve_code }</td>
 		<td>티켓명</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${matchList }" var="i">
+				<c:if test="${one=='1' && i.match_code == matchcode }">
+					[2019 신한은행 MY CAR KBO 리그]<br>${i.awayteam_name } vs ${i.hometeam_name }
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>
+		</td>
 	</tr>
 	<tr>
 		<td>관람일시</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${matchList }" var="i">
+				<c:if test="${one=='1' && i.match_code == matchcode }">
+					<fmt:formatDate value="${i.match_date }"  pattern="yyyy-MM-dd(E) HH:mm"/>
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>
+		</td>
 		<td>장소</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${stadiumList }" var="i">
+				<c:if test="${one=='1' && i.stadium_code == hometeamcode }">
+					${i.stadium_name }
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>		
+		</td>
 	</tr>
 	<tr>
 		<td>좌석</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${ticketList }" var="i" varStatus="tStatus">
+				<c:if test="${i.match_code eq matchcode }">
+					<c:forEach items="${seatList }" var="j" varStatus="sStatus">
+						<c:if test="${tStatus.index eq sStatus.index && i.seat_code eq j.seat_code }">
+							${j.seat_block }블럭 ${j.seat_number }석<br>
+						</c:if>
+					</c:forEach>
+					<c:set value="2" var="one" />				
+				</c:if>
+			</c:forEach>
+		</td>
 		<td>티켓 수령 방법</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${reserveList }" var="i">
+				<c:if test="${one=='1' && i.reserve_code == reserve_code }">
+					${i.how_receive }
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>
+		</td>
 	</tr>
 	<tr>
 		<td>취소 가능일</td>
-		<td></td>
+		<td id="cancledate">
+			<c:set value="1" var="one" />
+			<c:forEach items="${matchList }" var="i">
+				<c:if test="${one=='1' && i.match_code == matchcode }">
+					<fmt:formatDate var="matchdate" value="${i.match_date }"  pattern="yyyyMMdd HH:mm"/>
+					<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
+					<fmt:formatDate value="${i.match_date }"  pattern="yyyy-MM-dd "/>
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>
+		</td>
 		<td>취소 가능 여부</td>
-		<td></td>
+		<td id="canclepossible"></td>
 	</tr>
 	<tr>
 		<td>예매자</td>
-		<td></td>
+		<td>${member.username }</td>
 		<td>예매일</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${reserveList }" var="i">
+				<c:if test="${one=='1' && i.reserve_code == reserve_code }">
+					<fmt:formatDate value="${i.payment_date}" pattern="yyyy-MM-dd"/>
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>
+		</td>
 	</tr>
 	<tr>
 		<td>결제수단</td>
-		<td></td>
+		<td>
+			<c:set value="1" var="one" />
+			<c:forEach items="${reserveList }" var="i">
+				<c:if test="${one=='1' && i.reserve_code == reserve_code }">
+					${i.payment }
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>	
+		</td>
 		<td>현재상태</td>
-		<td></td>
+		<td>예매완료</td>
 	</tr>
 </table>
 
@@ -175,17 +310,69 @@ a { text-decoration:none; color:#000000 }
 	<tr>
 		<th>예매번호</th>
 		<th>티켓명</th>
-		<th>취소가능일</th>
-		<th>취소 가능 여부</th>
+		<th>관람일시</th>
+		<th>매수</th>
+		<th>취소 가능일</th>
 		<th>예매 취소</th>
 	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td><button id="cancleBtn" value="201906211061">취소</button></td>
-	</tr>
+	<c:set value="1" var="one" />
+	<c:forEach items="${reservecodeList }" var="i"	varStatus="Istatus">
+	
+	<!-- setting부분 -->
+	<c:forEach items="${reserveList }" var="j">
+		<c:if test="${i.reserve_code eq j.reserve_code }">
+			<c:set value="${j.ticket_code }" var="each_ticketcode"/>
+		</c:if>
+	</c:forEach>
+	<c:forEach items="${ticketList }" var="j">
+		<c:if test="${j.ticket_code eq each_ticketcode }">
+			<c:set value="${j.match_code }" var="each_matchcode"/>${each_matchcode }
+		</c:if>
+	</c:forEach>
+	
+		<tr>
+			<td><a href="/mypage/ticket?reserve_code=${i.reserve_code }">${i.reserve_code }</a></td>
+			<td>
+				<c:forEach items="${matchList }" var="m" varStatus="mStatus">
+					<c:if test="${Istatus.index eq mStatus.index }">
+						[2019 신한은행 MY CAR KBO 리그]<br>${m.hometeam_name } vs ${m.awayteam_name }
+					</c:if>
+				</c:forEach>
+			</td>
+			<td>
+				<c:set value="1" var="one" />
+				<c:forEach items="${matchList }" var="m">
+					<c:if test="${one=='1' && m.match_code == each_matchcode }">
+						<fmt:formatDate value="${m.match_date }"  pattern="yyyy-MM-dd(E) HH:mm"/>
+						<c:set value="2" var="one" />
+					</c:if>
+				</c:forEach>		
+			</td>
+			
+				<c:set value="0" var="count" />
+				<c:forEach items="${ticketList }" var="tc" varStatus="tcStatus">
+					<c:if test="${tc.ticket_code eq each_ticketcode }">
+						<c:set value="${tcStatus.index }" var="count"/>
+					</c:if>
+				</c:forEach>
+
+			<td>
+			</td>
+			<td id="cancledate">
+				<c:set value="1" var="one" />
+				<c:forEach items="${matchList }" var="m">
+					<c:if test="${one=='1' && m.match_code == each_matchcode }">
+						<fmt:formatDate var="matchdate" value="${m.match_date }"  pattern="yyyyMMdd HH:mm"/>
+						<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
+						<fmt:formatDate value="${m.match_date }"  pattern="yyyy-MM-dd "/>
+						<c:set value="2" var="one" />
+					</c:if>
+				</c:forEach>
+			</td>
+			<td><button id="cancleBtn" value="${i.reserve_code }">취소</button></td>
+		</tr>
+		<c:set value="2" var="one" />
+	</c:forEach>
 </table>
 
 <p>티켓 예매 내역</p>
