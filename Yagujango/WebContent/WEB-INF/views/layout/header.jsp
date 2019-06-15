@@ -153,8 +153,7 @@ body {
     <li><a href="/board/faq/faqlist">문의 게시판</a></li> 
     <li><a href="/mypage/main">마이페이지</a>
     	<ul>
-    		<li><a href="/mypage/main">마이페이지</a></li>
-    		<li><a href="/mypage/ticket">예매 상세 확인/취소</a></li>
+    		<li><a href="/mypage/main">예매 확인/취소</a></li>
     		<li><a href="/member/modify">회원 정보 수정</a></li>
 	    	<li><a href="/member/my1to1">나의 1:1 문의 내역</a></li>
       </ul>

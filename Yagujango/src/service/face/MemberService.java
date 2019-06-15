@@ -98,7 +98,7 @@ public interface MemberService {
 	 * @param mypagepaging
 	 * @return 조회 결과
 	 */
-	public List getReservecodeList(Paging mypagepaging,Reserve reserve);
+	public List<Reserve> getReservecodeList(Paging mypagepaging,Reserve reserve);
 	
 	/**
 	 * 	curPage 파싱

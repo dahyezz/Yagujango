@@ -50,6 +50,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return cnt;
@@ -84,6 +91,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}  finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return member;
@@ -111,6 +125,13 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return cnt;
@@ -138,6 +159,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return member; 
@@ -168,6 +196,13 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return cnt;
@@ -197,6 +232,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return member; 
@@ -256,6 +298,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return cnt;
@@ -284,6 +333,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return cnt;
@@ -348,7 +404,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List selectReservecodeByUserno(Paging mypagepaging, Reserve reserve) {
+	public List<Reserve> selectReservecodeByUserno(Paging mypagepaging, Reserve reserve) {
 		
 		String sql="";
 		sql+="SELECT * FROM ("; 
@@ -360,7 +416,7 @@ public class MemberDaoImpl implements MemberDao{
 		sql+=" ) Rnum";
 		sql+=" WHERE rnum BETWEEN ? AND ?";
 		
-		List list=new ArrayList();
+		List<Reserve> list=new ArrayList<>();
 		
 		try {
 			ps=conn.prepareStatement(sql);
@@ -438,6 +494,7 @@ public class MemberDaoImpl implements MemberDao{
 		sql += "SELECT reserve_code, ticket_code, userno, payment, payment_date, how_receive, barcode";
 		sql += " FROM reserve WHERE userno = ?";
 		sql += " ORDER BY ticket_code";
+
 		
 		List<Reserve> list = new ArrayList<>();
 		
@@ -477,27 +534,28 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public Ticket selectTicketByTicketcode(Reserve reserve) {
+	public List<Ticket> selectTicketByTicketcode(String ticket_code) {
 		
 		String sql = "";
 		sql += "SELECT * FROM ticket"; 
-		sql += " WHERE ticket_code = ?";
+		sql += " WHERE ticket_code IN (" + ticket_code + ")";
 		sql += " ORDER BY ticket_code";
 		
-		Ticket ticket = new Ticket();
+		List<Ticket> ticketList = new ArrayList<Ticket>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, reserve.getTicket_code());
-			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				Ticket ticket = new Ticket();
+				
 				ticket.setTicket_code(rs.getInt("ticket_code"));
 				ticket.setMatch_code(rs.getInt("match_code"));
 				ticket.setSeat_code(rs.getInt("seat_code"));
 				
+				ticketList.add(ticket);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -510,7 +568,7 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		}
 		
-		return ticket;
+		return ticketList;
 	}
 
 	@Override
@@ -547,6 +605,13 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return matchList;
@@ -616,6 +681,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return count;
@@ -648,6 +720,13 @@ public class MemberDaoImpl implements MemberDao{
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return list;

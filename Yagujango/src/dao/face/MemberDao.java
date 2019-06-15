@@ -44,7 +44,7 @@ public interface MemberDao {
 	public List<Board_1to1> OneToOneSelectAll(String userid);
 	
 	//userno로 reserve_code를 리스트에 중복없이 저장
-	public List selectReservecodeByUserno(Paging mypagepaging,Reserve reserve);
+	public List<Reserve> selectReservecodeByUserno(Paging mypagepaging,Reserve reserve);
 	
 	//중복없는 reserve_code의 개수
 	public int selectCntReservecode(Reserve reserve);
@@ -53,7 +53,7 @@ public interface MemberDao {
 	public List<Reserve> selectReserveByUserno(Reserve reserve);
 	
 	//ticket 테이블 조회
-	public Ticket selectTicketByTicketcode(Reserve reserve);
+	public List<Ticket> selectTicketByTicketcode(String ticket_code);
 	
 	//match 테이블 조회
 	public List<Match> selectMatchByMatchcode(String match_code);

@@ -137,7 +137,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List getReservecodeList(Paging mypagepaging, Reserve reserve) {
+	public List<Reserve> getReservecodeList(Paging mypagepaging, Reserve reserve) {
 		
 		return memberDao.selectReservecodeByUserno(mypagepaging,reserve);
 	}
@@ -183,14 +183,30 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Ticket> getTicketList(List<Reserve> reserveList) {
 		
-		List<Ticket> ticketList = new ArrayList<Ticket>();
+		String ticket_code = "";
 		
 		for(Reserve reserve : reserveList) {
-			Ticket ticket = memberDao.selectTicketByTicketcode(reserve);
-			
-			ticketList.add(ticket);
+			ticket_code += reserve.getTicket_code();
+			ticket_code += ",";
 		}
-		return ticketList;
+//		System.out.println(ticket_code);
+		if(ticket_code.charAt(ticket_code.length()-1) == ',') {
+			ticket_code = ticket_code.substring(0,ticket_code.length()-1);
+		}
+		
+		return memberDao.selectTicketByTicketcode(ticket_code);
+		
+//		List<Ticket> ticketList = new ArrayList<Ticket>();
+//		
+//		for(Reserve reserve : reserveList) {
+//			Ticket ticket = memberDao.selectTicketByTicketcode(reserve);
+//			
+//			ticketList.add(ticket);
+//		}
+//		
+////		for(Ticket ticket : ticketList)
+////			System.out.println(ticket);
+//		return ticketList;
 	}
 
 	@Override

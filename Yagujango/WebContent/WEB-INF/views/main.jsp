@@ -12,7 +12,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('.bxslider').bxSlider({
-		auto: true,
+// 		auto: true,
 		speed: 500,
 		pause: 10000,
 		mode: 'horizontal'
