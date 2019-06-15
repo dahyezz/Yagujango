@@ -73,12 +73,10 @@ public class MypageMainController extends HttpServlet {
 		//Seat 리스트 조회
 		List<Seat> seatList=memberService.getSeatList(ticketList);
 		req.setAttribute("seatList",seatList);
-		System.out.println(seatList);
 		
 		//매수 count
 		List<Integer> seatCntList=memberService.getCntSeatList(reservecodeList);
 		req.setAttribute("seatCntList",seatCntList);
-		System.out.println(seatCntList);
 		
 		//View JSP 지정하기
 		req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);

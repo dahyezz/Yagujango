@@ -157,6 +157,7 @@ body {
     <li><a href="/board/seat/list">좌석뷰 게시판</a></li>
     <li><a href="/board/free/list">자유 게시판</a></li>
     <li><a href="/board/faq/faqlist">문의 게시판</a></li> 
+    <c:if test="${login }">
     <li><a href="/mypage/main">마이페이지</a>
     	<ul>
     		<li><a href="/mypage/main">예매 확인/취소</a></li>
@@ -164,5 +165,15 @@ body {
 	    	<li><a href="/member/my1to1">나의 1:1 문의 내역</a></li>
       </ul>
     </li> 
+    </c:if>
+    <c:if test="${empty login }">
+    <li><a href="/member/login">마이페이지</a>
+    	<ul>
+    		<li><a href="/member/login">예매 확인/취소</a></li>
+    		<li><a href="/member/login">회원 정보 수정</a></li>
+	    	<li><a href="/member/login">나의 1:1 문의 내역</a></li>
+      </ul>
+    </li> 
+    </c:if>
   </ul>
 </div>

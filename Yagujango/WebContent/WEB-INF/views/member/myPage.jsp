@@ -24,7 +24,6 @@ $(document).ready(function(){
 	
 });
 
-
 function parse(str){
 	var y=str.substr(0,4);
 	var m=str.substr(4,2);
@@ -107,7 +106,7 @@ table {
 /* 네비게이션바 테이블 */
 
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none; color:#000000 }
+a { text-decoration:none; color:#0080ff; }
 
 .mypagemain {
 	margin: 0 auto 0 250px;
@@ -115,23 +114,30 @@ a { text-decoration:none; color:#000000 }
 
 .myteam div{	/* class가 myteam인 것의 하위요소 중 div요소만 선택 */
 	width:600px;
-	height:200px;
+	height:220px;
 }
 .myteam img{
-	width:150px;
-	height:150px;
-	margin-top:20px;
+	width:170px;
+	height:165px;
+	margin-top:30px;
+	margin-left:50px;
 }
-.userInfo table{
-	width:300px;
-	height:100px;
+.userInfo{
+	position: absolute;
+	left:530px;
+	top:310px;
+	color:white;
+	font-size:30px;
+	font-weight:bold;
 }
 .reservation table, th, td{
-	width:700px;
 	height:50px;
 	text-align: center;
 	border:1px solid #ccc;
 	border-collapse:collapse; /* 각각의 셀들의 테두리가 겹치는 부분을 하나의 선으로 합침 */
+}
+.reservation th{
+	background:#D9E1E8;
 }
 
 </style>
@@ -172,32 +178,28 @@ a { text-decoration:none; color:#000000 }
 </div>
 
 <span class="userInfo">
-	<table>
-	<tr>
-		<td>아이디 : </td>
-		<td>${userid }</td>
-	</tr>
-	<tr>
-		<td>닉네임 : </td>
-		<td>${usernick }</td>
-	</tr>
-	<tr>
-		<td>마이팀 : </td>
-		<td>
-			<c:if test="${myteam ne '0' }">${myteam }</c:if>
+	아이디 : ${userid }<br>
+	닉네임 : ${usernick }<br>
+	마이팀 : <c:if test="${myteam ne '0' }">${myteam }</c:if>
 			<c:if test="${myteam eq '0' }"><a href="/mypage/modify">설정하기</a></c:if>
-		</td>
-	</tr>
-	</table>
 </span>
+
+<div class="reservation" >
 
 <h3>예매 확인/취소</h3>
 <hr>
-<span>예매번호를 클릭하면 예매 상세내용을 확인 할 수 있습니다.</span><br>
-<span>상태를 클릭하면 취소여부와 예매 취소를 할수 있습니다.</span><br>
+<span>예매 별 <u style="color:#0080ff;" >예매번호</u>를 클릭하면 예매 상세내용을 확인 할 수 있습니다.</span><br>
+<span>예매 별 <u style="color:#0080ff;">상태</u>를 클릭하면 취소여부와 예매 취소를 할수 있습니다.</span><br><br>
 
-<div class="reservation">
 <table>
+<colgroup width="150px"></colgroup>
+<colgroup width="300px"></colgroup>
+<colgroup width="150px"></colgroup>
+<colgroup width="60px"></colgroup>
+<colgroup width="130px"></colgroup>
+<colgroup width="150px"></colgroup>
+<colgroup width="100px"></colgroup>
+
 <thead>
 	<tr>
 		<th>예매번호</th>
@@ -210,6 +212,20 @@ a { text-decoration:none; color:#000000 }
 	</tr>
 </thead>
 <c:forEach items="${reservecodeList}" var="i" varStatus="Istatus">
+
+	<!-- setting부분 -->
+ 	<c:forEach items="${reserveList }" var="j">
+		<c:if test="${i.reserve_code eq j.reserve_code }">
+			<c:set value="${j.ticket_code }" var="each_ticketcode"/>
+		</c:if>
+	</c:forEach>
+ 	<c:forEach items="${ticketList }" var="j">
+		<c:if test="${j.ticket_code eq each_ticketcode }">
+			<c:set value="${j.match_code }" var="each_matchcode"/>
+			<c:set value="${j.seat_code }" var="each_seatcode"/>
+		</c:if>
+	</c:forEach>
+	
 	<tr>
 		<td><a href="/mypage/ticket?reserve_code=${i.reserve_code }">${i.reserve_code }</a></td>
 		<td>
@@ -223,7 +239,6 @@ a { text-decoration:none; color:#000000 }
 			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
 				<c:if test="${Istatus.index eq Mstatus.index }">
 				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd(E) HH:mm"/>
-<%-- 				<input type="hidden" id="matchdate" value="${m.match_date }"/> --%>
 				</c:if>
 			</c:forEach>
 		</td>
@@ -235,35 +250,32 @@ a { text-decoration:none; color:#000000 }
 			</c:forEach>
 		</td>
 		<td>
-		<c:forEach items="${ticketList }" var="t" varStatus="Tstatus">
-<%-- 		<c:set var="nextMatchcode" value="${ticketList[Tstatus.index+1].match_code }"/> --%>
-<%--		<c:out value="${ nextMatchcode}"/> --%>
-<%--			<c:if test="${t.match_code eq nextMatchcode }"> --%>
-					<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
+			<c:forEach items="${ticketList }" var="t">
+				<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
 					<c:if test="${t.seat_code eq s.seat_code }">
-					${s.seat_block }블럭 ${s.seat_number }석
+ 						<c:if test="${s.seat_code == each_seatcode}">
+						${s.seat_block }블럭 ${s.seat_number }석<br>
+  						</c:if>
 					</c:if>
-					</c:forEach>
-<%-- 		</c:if> --%>
-		</c:forEach>
+				</c:forEach>
+ 			</c:forEach>
 		</td>
 		<td id="cancledate">
-			<c:set value="1" var="one"/>
 			<c:forEach items="${matchList }" var="m">
-				<c:if test="${one =='1' && m.match_code==matchcode}"> 
+				<c:if test="${m.match_code == each_matchcode}"> 
 					<fmt:formatDate var="matchdate" value="${m.match_date}" pattern="yyyyMMdd HH:mm" />
 					<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
 					<fmt:formatDate value="${m.match_date }" pattern="yyyy-MM-dd(E)" />
-					<c:set value="2" var="one" />
 				</c:if>
 			</c:forEach>
 		</td>
-		<td><a href="/mypage/ticket">취소가능</a></td>
+		<td><a href="/mypage/ticket?reserve_code=${i.reserve_code }">예매 완료</a></td>
 	</tr>
 </c:forEach>
 </table>
 </div>
 </div>
+
 <c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

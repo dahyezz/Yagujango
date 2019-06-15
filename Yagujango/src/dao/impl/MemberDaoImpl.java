@@ -411,7 +411,8 @@ public class MemberDaoImpl implements MemberDao{
 		sql+=" SELECT rownum rnum, R.* FROM ("; 
 		sql+="  SELECT reserve_code, payment, payment_date, how_receive FROM reserve";
 		sql+="  WHERE userno = ?";
-		sql+="  GROUP BY reserve_code, payment, payment_date, how_receive) R";
+		sql+="  GROUP BY reserve_code, payment, payment_date, how_receive";
+		sql+="  ORDER BY reserve_code) R";
 		sql+=" ORDER BY rnum";
 		sql+=" ) Rnum";
 		sql+=" WHERE rnum BETWEEN ? AND ?";
