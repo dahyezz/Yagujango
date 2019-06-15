@@ -50,9 +50,8 @@ public class MypageMainController extends HttpServlet {
 		Paging mypagepaging=memberService.getCurPage(req,reserve);
 		req.setAttribute("paging", mypagepaging);
 		
-		List reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
+		List<Reserve> reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
 		req.setAttribute("reservecodeList",reservecodeList);
-		System.out.println(reservecodeList);
 		
 		//Reserve 리스트 조회
 		List<Reserve> reserveList=memberService.getReserveList(reserve);
@@ -60,6 +59,7 @@ public class MypageMainController extends HttpServlet {
 		
 		//Ticket 리스트 조회
 		List<Ticket> ticketList=memberService.getTicketList(reserveList);
+		req.setAttribute("ticketList",ticketList);
 		
 		//Match 리스트 조회
 		List<Match> matchList=memberService.getMatchList(ticketList);
@@ -68,11 +68,12 @@ public class MypageMainController extends HttpServlet {
 		//Seat 리스트 조회
 		List<Seat> seatList=memberService.getSeatList(ticketList);
 		req.setAttribute("seatList",seatList);
+		System.out.println(seatList);
 		
-		//Stadium 리스트 조회
-		List<Stadium> stadiumList=memberService.getStadiumList(matchList);
-		req.setAttribute("stadiumList",stadiumList);
-		
+		//매수 count
+		List<Integer> seatCntList=memberService.getCntSeatList(reservecodeList);
+		req.setAttribute("seatCntList",seatCntList);
+		System.out.println(seatCntList);
 		
 		//View JSP 지정하기
 		req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);
