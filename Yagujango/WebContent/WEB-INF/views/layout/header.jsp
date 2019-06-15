@@ -38,6 +38,10 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
+#logo{
+    width: 40px;
+    height: 40px;
+}
 .headerDiv {
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 800;
@@ -55,7 +59,7 @@ body {
 }
 .zeta-menu-bar {
 	text-align: center;
-	background: #8C8C8C;
+	background:  #9baec8;
 	display: inline-block;
 	width: 100%;
  	position:relative;z-index:2
@@ -71,15 +75,16 @@ body {
 	width: 20%;
 }
 .zeta-menu li:hover { background: white; }
-.zeta-menu li:hover>a { color: black; }
+.zeta-menu li:hover>a { color:  #0080ff; }
 .zeta-menu a {
 	color: white;
+	font-family: "Nanum Gothic", sans-serif;
 	display: block;
 	padding: 10px 20px;
 	text-decoration: none;
 }
 .zeta-menu ul {
-	background: #eee;
+	background: #9baec8;
 	border: 1px solid silver;
 	display: none;
 	padding: 0;
@@ -90,9 +95,9 @@ body {
 	float: center;
 }
 .zeta-menu ul li { float: none; width: auto;}
-.zeta-menu ul li:hover { background: #ddd; }
-.zeta-menu ul li:hover a { color: black; }
-.zeta-menu ul a { color: black; }
+.zeta-menu ul li:hover { background: white; }
+.zeta-menu ul li:hover a { color: #0080ff; }
+.zeta-menu ul a { color: white; }
 .zeta-menu ul ul { left: 100%; top: 0; }
 .zeta-menu ul ul li {float:left; margin-right:10px;}
 
@@ -103,7 +108,7 @@ body {
 }
 .loginstatus a {
 	font-family: "Nanum Gothic", sans-serif;
-	color: #8c8c8c;
+	color: #282c37;
 	text-decoration: none !important;
 }
 
@@ -128,6 +133,7 @@ body {
 </div>
 
 <div class="headerDiv">
+	<img src="/img/main/logo.png" id="logo">
 	<a href="/main">야구장고</a>
 </div>
 

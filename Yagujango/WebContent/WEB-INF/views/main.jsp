@@ -23,10 +23,31 @@ $(document).ready(function() {
 
 <style type="text/css">
 
+.club{
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin: auto;
+}
+marquee{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin: auto;
+}
+#allstar{
+    margin-left: 5%;
+    margin-right: 5%;
+    width:90%;
+    height: 300px;
+    text-align: center;
+}
+
 .threematch {
-	width: 80%;
-	height: 200px;
-	margin: 30px 10px 0 10%;
+	width: 78%;
+	height: 280px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin: auto;
 }
 
 div[class^="day_"]{
@@ -43,17 +64,22 @@ div[class^="day_"] h5 {
 	font-size: 15px;
 	text-align: center;
 	margin: 10px 0 ;
+	color: #282c37;
 
 }
 div[class^="day_"] table {
 	text-align: center;
-	margin: auto;
+    background-color: #d9e1e8;
+    margin: auto;
+    height: 230px;
+    width: 250px;
 
 }
 
 div[class^="day_"] td {
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 400;
+	color: #282c37;
 }
 
 
@@ -64,16 +90,26 @@ div[class^="day_"] td {
 	width: 130px;
 	border: 1px solid #9baec8;
 	text-align: center;
-	margin: 0;
+	margin-top: 10px;
 	float: right;
 }
 
 .rank h5 {
+	color: #282c37;
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 700;
 	font-size: 15px;
 	text-align: center;
 	margin: 10px 0 ;
+}
+
+.img{
+    width: 15px;
+    height: 15px;
+}
+.img2{
+    width: 50px;
+    height: 50px;
 }
 
 .highlight { 
@@ -111,6 +147,22 @@ div[class^="day_"] td {
 /* } */
 
 </style>
+
+<div><img src="/img/main/allstar.png" id="allstar"></div>
+<div class="club">
+   <marquee width="83.5%" direction="right" behavior="slide" scrollamount="30">
+    <a href="#"><img src="/img/main/ki1.png"></a>
+    <a href="#"><img src="/img/main/do2.png"></a>
+    <a href="#"><img src="/img/main/lg2.png"></a>
+    <a href="#"><img src="/img/main/kt2.png"></a>
+    <a href="#"><img src="/img/main/han2.png"></a>
+    <a href="#"><img src="/img/main/sk1.png"></a>
+    <a href="#"><img src="/img/main/hi2.png"></a>
+    <a href="#"><img src="/img/main/nc2.png"></a>
+    <a href="#"><img src="/img/main/sam2.png"></a>
+    <a href="#"><img src="/img/main/ro2.png"></a>
+    </marquee>
+</div>
 
 <c:set var="now" value="<%=new java.util.Date() %>" /><!-- 오늘날짜 -->
 <c:set var="today"><fmt:formatDate value="${now }" pattern="yyyy/MM/dd"/></c:set>
@@ -168,27 +220,29 @@ div[class^="day_"] td {
 </table>
 </div>
 
-<div class="day_third">
-<c:set value="1" var="day"/>
-<table>
-<c:forEach items="${matchList }" var="i">
-	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set>
-	<c:if test="${checkdate  eq aftertomorrow}">
-		<c:if test="${day == '1' }">
-			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5>
-		</c:if>
-			<tr>
-				<td><fmt:formatDate value="${i.match_date }" pattern="HH:mm"/>
-				<td></td><td></td>
-				<td>${i.hometeam_name }</td>
-				<td>:</td>
-				<td>${i.awayteam_name }</td>
-			</tr>
-		<c:set value="2" var="day" /> 
-	</c:if>
-</c:forEach>
-</table>
-</div>
+<!-- <div class="day_third"> -->
+<%-- <c:set value="1" var="day"/> --%>
+<!-- <table> -->
+<%-- <c:forEach items="${matchList }" var="i"> --%>
+<%-- 	<c:if test="${i.match_code ne 0 }"> --%>
+<%-- 	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set> --%>
+<%-- 	<c:if test="${checkdate  eq aftertomorrow}"> --%>
+<%-- 		<c:if test="${day == '1' }"> --%>
+<%-- 			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5> --%>
+<%-- 		</c:if> --%>
+<!-- 			<tr> -->
+<%-- 				<td><fmt:formatDate value="${i.match_date }" pattern="HH:mm"/> --%>
+<!-- 				<td></td><td></td> -->
+<%-- 				<td>${i.hometeam_name }</td> --%>
+<!-- 				<td>:</td> -->
+<%-- 				<td>${i.awayteam_name }</td> --%>
+<!-- 			</tr> -->
+<%-- 		<c:set value="2" var="day" />  --%>
+<%-- 	</c:if> --%>
+<%-- 	</c:if> --%>
+<%-- </c:forEach> --%>
+<!-- </table> -->
+<!-- </div> -->
 
 <div class="day_fourth">
 <c:set value="1" var="day"/>
@@ -217,52 +271,57 @@ div[class^="day_"] td {
 	<table>
 		<tr>
 			<td>1</td>
+			<td><img src="/img/rank/sk.png"class="img"></td>
 			<td>SK</td>
 		</tr>
 		<tr>
 			<td>2</td>
+			<td><img src="/img/rank/do.png" class="img"></td>
 			<td>두산</td>
 		</tr>
 		<tr>
 			<td>3</td>
-			<td>LG</td>
-		</tr>
-		<tr>
-			<td>4</td>
-			<td>키움</td>
-		</tr>
-		<tr>
-			<td>5</td>
-			<td>NC</td>
-		</tr>
-		<tr>
-			<td>6</td>
-			<td>한화</td>
-		</tr>
-		<tr>
-			<td>6</td>
-			<td>삼성</td>
-		</tr>
-		<tr>
-			<td>8</td>
-			<td>KT</td>
-		</tr>
-		<tr>
-			<td>9</td>
-			<td>KIA</td>
-		</tr>
-		<tr>
-			<td>10</td>
+	        <td><img src="/img/rank/lg.png" class="img"></td>
+	        <td>LG</td>
+	     </tr>
+	     <tr>
+	        <td>4</td>
+	        <td><img src="/img/rank/hi.png" class="img"></td>
+	        <td>키움</td>
+	     </tr>
+	     <tr>
+	        <td>5</td>
+	        <td><img src="/img/rank/nc.png" class="img"></td>
+	        <td>NC</td>
+	     </tr>
+	     <tr>
+	        <td>6</td>
+	        <td><img src="/img/rank/han.png" class="img"></td>
+	        <td>한화</td>
+	     </tr>
+	     <tr>
+	        <td>6</td>
+	        <td><img src="/img/rank/sam.png" class="img"></td>
+	        <td>삼성</td>
+	     </tr>
+	     <tr>
+	        <td>8</td>
+	        <td><img src="/img/rank/kt.png" class="img"></td>
+	        <td>KT</td>
+	     </tr>
+	     <tr>
+	        <td>9</td>
+	        <td><img src="/img/rank/ki.png" class="img"></td>
+	        <td>KIA</td>
+	     </tr>
+	     <tr>
+	        <td>10</td>
+            <td><img src="/img/rank/ro.png" class="img"></td>
 			<td>롯데</td>
 		</tr>
 	</table>
 </div>
-
 </div>
-
-
-
-
 
 <br>
 <div class="highlight">

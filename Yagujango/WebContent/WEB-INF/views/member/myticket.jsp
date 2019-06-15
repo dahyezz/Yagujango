@@ -10,28 +10,7 @@
 $(document).ready(function() {
 	InitializeStaticMenu();
 	
-	$('#cancleBtn').click(function() {
-		
-		var reservecode = document.getElementById("cancleBtn");
-// 		console.log(reservecode.value);
-	
-		var reserve_code = reservecode.value;
-		
-		//전송 폼
-		var $form = $("<form>")
-				.attr("action", "/mypage/ticket")
-				.attr("method","POST")
-				.append(
-						$("<input>")
-							.attr("type","hidden")
-							.attr("name", "reserve_code")
-							.attr("value",reserve_code)
-				);
-		$(document.body).append($form);
-		$form.submit();
-		
-	});
-	
+
 	var match_date = document.getElementById("matchdate").value;
 	console.log(match_date);
 	var cancle_date = parse(match_date);
@@ -50,7 +29,7 @@ $(document).ready(function() {
 	else
 // 		console.log("취소 불가")
 		document.getElementById("canclepossible").innerHTML = "불가"
-	
+
 
 });
 
@@ -143,11 +122,38 @@ table {
 /* 네비게이션바 테이블 */
 
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none; color:#000000 }
+#STATICMENU a { text-decoration:none; color:#000000 }
 
 
 .myticket {
 	margin: 0 auto 0 250px;
+}
+
+#cancledate {
+	color: #0080ff;
+	font-size: 13px;
+}
+
+a {
+	color: #0080ff;
+}
+
+#cancleBtn{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:-4px;
+	border: 1px solid black;
+	background-color: rgba(0,0,0,0);
+	color: black;
+	padding: 5px;
+}
+
+#cancleBtn:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
 }
 
 </style>
@@ -201,7 +207,7 @@ a { text-decoration:none; color:#000000 }
 		<td>예매 번호</td>
 		<td>${reserve_code }</td>
 		<td>티켓명</td>
-		<td>
+		<td id="teamname">
 			<c:set value="1" var="one" />
 			<c:forEach items="${matchList }" var="i">
 				<c:if test="${one=='1' && i.match_code == matchcode }">
@@ -248,7 +254,7 @@ a { text-decoration:none; color:#000000 }
 				</c:if>
 			</c:forEach>
 		</td>
-		<td>티켓 수령 방법</td>
+		<td>티켓수령 방법</td>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${reserveList }" var="i">
@@ -267,7 +273,7 @@ a { text-decoration:none; color:#000000 }
 				<c:if test="${one=='1' && i.match_code == matchcode }">
 					<fmt:formatDate var="matchdate" value="${i.match_date }"  pattern="yyyyMMdd HH:mm"/>
 					<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
-					<fmt:formatDate value="${i.match_date }"  pattern="yyyy-MM-dd "/>
+					<fmt:formatDate value="${i.match_date }"  pattern="yyyy.MM.dd "/>
 					<c:set value="2" var="one" />
 				</c:if>
 			</c:forEach>
@@ -283,7 +289,7 @@ a { text-decoration:none; color:#000000 }
 			<c:set value="1" var="one" />
 			<c:forEach items="${reserveList }" var="i">
 				<c:if test="${one=='1' && i.reserve_code == reserve_code }">
-					<fmt:formatDate value="${i.payment_date}" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate value="${i.payment_date}" pattern="yyyy.MM.dd"/>
 					<c:set value="2" var="one" />
 				</c:if>
 			</c:forEach>
@@ -305,7 +311,8 @@ a { text-decoration:none; color:#000000 }
 	</tr>
 </table>
 
-<p>예매취소</p>
+<p>티켓 예매 내역</p>
+<p>예매한 내역이 확인이 안되실 경우 <a href="/board/1:1write">1:1 상담 문의</a>를 이용해주세요.</p>
 <table>
 	<tr>
 		<th>예매번호</th>
@@ -326,7 +333,7 @@ a { text-decoration:none; color:#000000 }
 	</c:forEach>
 	<c:forEach items="${ticketList }" var="j">
 		<c:if test="${j.ticket_code eq each_ticketcode }">
-			<c:set value="${j.match_code }" var="each_matchcode"/>${each_matchcode }
+			<c:set value="${j.match_code }" var="each_matchcode"/>
 		</c:if>
 	</c:forEach>
 	
@@ -343,7 +350,7 @@ a { text-decoration:none; color:#000000 }
 				<c:set value="1" var="one" />
 				<c:forEach items="${matchList }" var="m">
 					<c:if test="${one=='1' && m.match_code == each_matchcode }">
-						<fmt:formatDate value="${m.match_date }"  pattern="yyyy-MM-dd(E) HH:mm"/>
+						<fmt:formatDate value="${m.match_date }"  pattern="yyyy.MM.dd(E) HH:mm"/>
 						<c:set value="2" var="one" />
 					</c:if>
 				</c:forEach>		
@@ -357,6 +364,11 @@ a { text-decoration:none; color:#000000 }
 				</c:forEach>
 
 			<td>
+				<c:forEach items="${seatCntList }" var="s" varStatus="Sstatus">
+					<c:if test="${Istatus.index eq Sstatus.index }">
+					${s }장
+					</c:if>
+				</c:forEach>
 			</td>
 			<td id="cancledate">
 				<c:set value="1" var="one" />
@@ -364,36 +376,18 @@ a { text-decoration:none; color:#000000 }
 					<c:if test="${one=='1' && m.match_code == each_matchcode }">
 						<fmt:formatDate var="matchdate" value="${m.match_date }"  pattern="yyyyMMdd HH:mm"/>
 						<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
-						<fmt:formatDate value="${m.match_date }"  pattern="yyyy-MM-dd "/>
-						<c:set value="2" var="one" />
+						<fmt:formatDate value="${m.match_date }"  pattern="yyyy.MM.dd "/>
+<%-- 						<c:set value="2" var="one" /> --%>
 					</c:if>
 				</c:forEach>
 			</td>
-			<td><button id="cancleBtn" value="${i.reserve_code }">취소</button></td>
+			<td><a href="/mypage/cancle?reserve_code=${i.reserve_code }">취소</a></td>
 		</tr>
 		<c:set value="2" var="one" />
 	</c:forEach>
 </table>
 
-<p>티켓 예매 내역</p>
-<table>
-	<tr>
-		<th>예매번호</th>
-		<th>티켓명</th>
-		<th>관람일시</th>
-		<th>매수</th>
-		<th>좌석번호</th>
-		<th>상태</th>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>	
-</table>
+
 
 <br><br><br><br>
 </div>

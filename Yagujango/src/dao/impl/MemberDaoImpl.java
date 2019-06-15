@@ -913,4 +913,48 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		}
 	}
+	
+	@Override
+	public List<Reserve> selectReservecodeByUsernonotpaging(Reserve reserve) {
+
+		String sql="";
+		sql += "SELECT reserve_code, payment, to_char(payment_date,'yyyy-MM-dd hh24:mi') payment_date, how_receive FROM reserve";
+		sql += " WHERE userno = ?";
+		sql += " GROUP BY reserve_code, payment, payment_date, how_receive";
+		
+		List<Reserve> list=new ArrayList<>();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				Reserve reserveList = new Reserve();
+				
+				reserveList.setReserve_code(rs.getString("reserve_code"));
+				reserveList.setPayment(rs.getString("payment"));
+				reserveList.setPayment_date(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(rs.getString("payment_date")));
+				reserveList.setHow_receive(rs.getString("how_receive"));
+				
+				list.add(reserveList);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 }

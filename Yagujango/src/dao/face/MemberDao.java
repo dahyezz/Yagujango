@@ -82,4 +82,6 @@ public interface MemberDao {
 
 	public void deleteReserveByReserveCode(String reserve_code);
 
+	public List<Reserve> selectReservecodeByUsernonotpaging(Reserve reserve);
+
 }

@@ -1,7 +1,6 @@
 package controller.member;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,6 +27,11 @@ public class MypageTicketController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		로그인 되어있지 않으면 리다이렉트 
+		if( req.getSession().getAttribute("login") == null ) {
+			resp.sendRedirect("/main");
+			return;
+		}
 		
 		req.setCharacterEncoding("utf-8");
 		String reserve_code = req.getParameter("reserve_code");
@@ -48,7 +52,7 @@ public class MypageTicketController extends HttpServlet {
 		Paging mypagepaging=memberService.getCurPage(req,reserve);
 		req.setAttribute("paging", mypagepaging);
 		
-		List<Reserve> reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
+		List<Reserve> reservecodeList=memberService.getReservecodeListnotpaging(reserve);
 		req.setAttribute("reservecodeList",reservecodeList);
 		
 		// -----------------------------------------------------------------
@@ -64,36 +68,12 @@ public class MypageTicketController extends HttpServlet {
 		req.setAttribute("seatList", seatList);
 		req.setAttribute("matchList", matchList);
 		req.setAttribute("stadiumList", stadiumList);
-		
-		List<Integer> countList = new ArrayList<Integer>();
-		int count = 0;
-		
-		for(int i=0; i<reserveList.size()-1; i++) {
-			if(reserveList.get(i).getReserve_code().equals(reserveList.get(i+1).getReserve_code())) {
-				count++;
-			}
-			countList.add(count);
-			count = 0;
-		}
-		
-		for(Integer e : countList)
-			System.out.println(e);
+				
+		//매수 count
+		List<Integer> seatCntList=memberService.getCntSeatList(reservecodeList);
+		req.setAttribute("seatCntList",seatCntList);
 		
 		req.getRequestDispatcher("/WEB-INF/views/member/myticket.jsp").forward(req, resp);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// - - - reserve_code 파라미터 파싱 - - - 
-		
-		String reserve_code = req.getParameter("reserve_code");
-//		System.out.println(reserve_code);
-		// - - - - - - - - - - - - - - - - - - - -
-		
-		memberService.cancleMyTicket(reserve_code);
-		
-		resp.sendRedirect("/mypage/ticket");
-		
-	}
 }

@@ -308,5 +308,11 @@ public class MemberServiceImpl implements MemberService{
 		//reserve 테이블 삭제
 		memberDao.deleteReserveByReserveCode(reserve_code);
 	}
+	
+	@Override
+	public List<Reserve> getReservecodeListnotpaging(Reserve reserve) {
+		return memberDao.selectReservecodeByUsernonotpaging(reserve);
+	}
+	
 
 }

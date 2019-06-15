@@ -151,8 +151,8 @@ a { text-decoration:none; color:#000000 }
 
 #reserveBtn:hover{
     color:white;
-    background-color: skyblue;
-    border: 1px solid skyblue;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
 }
 
 #tobeBtn, #oldBtn {
