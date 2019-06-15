@@ -137,6 +137,13 @@ public interface MemberService {
 	public List<Seat> getSeatList(List<Ticket> ticketList);
 	
 	/**
+	 * 	reserve_code별 매수 count 리스트
+	 * @param reserve
+	 * @return 매수 리스트
+	 */
+	public List<Integer> getCntSeatList(List<Reserve> reserveList);
+	
+	/**
 	 * 	stadium 조회
 	 * @param matchList
 	 * @return stadium list

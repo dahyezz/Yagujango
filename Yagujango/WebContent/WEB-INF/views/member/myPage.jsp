@@ -8,27 +8,41 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+	var match_date = document.getElementById("matchdate").value;
+	console.log(match_date);
+	var cancle_date=parse(match_date);
+	console.log(cancle_date);
+
 	InitializeStaticMenu();
 	
-	var match = document.getElementById("matchdate").value;
 
-	console.log(match);
 	
-	var cancleDate=new Date(match);
-	console.log(cancleDate);
-// 	cancleDate.setHours(cancleDate.getHours()-3);
-// 	console.log(cancleDate);
+	cancle_date.setHours(cancle_date.getHours()-3);
+	var cancle=getFormatDate(cancle_date);
+	console.log(cancle);
 	
-	var nowdate = new Date();
-	console.log(nowdate.getHours()-3)
-	
-	var tDate = new Date('2018-07-10 12:30')
-	tDate.setHours(tDate.getHours()+6)
-	console.log(tDate)
-	console.log(tDate.toLocaleString());
+	document.getElementById("cancledate").innerHTML+=cancle;
 	
 });
 
+
+function parse(str){
+	var y=str.substr(0,4);
+	var m=str.substr(4,2);
+	var d=str.substr(6,2);
+	var h=str.substr(9,2);
+	var mi=str.substr(12,2);
+	
+	return new Date(y,m-1,d,h,mi);
+}
+
+function getFormatDate(cancle_date){
+	var hours=cancle_date.getHours();
+	var mi=cancle_date.getMinutes();
+	
+	return hours+':'+mi;
+}
 //////////////////////////네비게이션 바 //////////////////////////
 var stmnLEFT = 10; // 오른쪽 여백 
 var stmnGAP1 = 0; // 위쪽 여백 
@@ -55,6 +69,7 @@ function InitializeStaticMenu() {
 document.getElementById('STATICMENU').style.right = stmnLEFT + 'px';  //처음에 오른쪽에 위치. left로 바꿔도.
 document.getElementById('STATICMENU').style.top = document.body.scrollTop + stmnBASE + 'px'; 
 RefreshStaticMenu();
+
 }
 </script>
 
@@ -207,25 +222,44 @@ a { text-decoration:none; color:#000000 }
 			</c:forEach>
 		</td>
 		<td>
-			<%-- <c:forEach items="${matchList }" var="m" varStatus="Mstatus">
+			<c:forEach items="${matchList }" var="m" varStatus="Mstatus">
 				<c:if test="${Istatus.index eq Mstatus.index }">
-				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd HH:mm"/>
-				<input type="hidden" id="matchdate" value="${match.match_date }"/>
+				<fmt:formatDate value="${m.match_date}" pattern="yyyy-MM-dd(E) HH:mm"/>
+<%-- 				<input type="hidden" id="matchdate" value="${m.match_date }"/> --%>
 				</c:if>
-			</c:forEach> --%>
+			</c:forEach>
 		</td>
-		<td></td>
 		<td>
-			<%-- <c:forEach items="${seatList }" var="s" varStatus="Sstatus">
+			<c:forEach items="${seatCntList }" var="s" varStatus="Sstatus">
 				<c:if test="${Istatus.index eq Sstatus.index }">
-					<c:forEach items="${seatListByreserve }" var="sr">
-					${sr[Sstatus.index].seat_block }블럭 ${sr[Sstatus.index].seat_number }석
-					</c:forEach>
+				${s } 매
 				</c:if>
-			</c:forEach> --%>
+			</c:forEach>
 		</td>
-		<td><%-- <fmt:formatDate value="${cancledate}" pattern="yyyy/MM/dd HH:mm"/> --%>
-			<!-- <input type="text" id="cancledate"/> --></td>
+		<td>
+		<c:forEach items="${ticketList }" var="t" varStatus="Tstatus">
+<%-- 		<c:set var="nextMatchcode" value="${ticketList[Tstatus.index+1].match_code }"/> --%>
+<%--		<c:out value="${ nextMatchcode}"/> --%>
+<%--			<c:if test="${t.match_code eq nextMatchcode }"> --%>
+					<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
+					<c:if test="${t.seat_code eq s.seat_code }">
+					${s.seat_block }블럭 ${s.seat_number }석
+					</c:if>
+					</c:forEach>
+<%-- 		</c:if> --%>
+		</c:forEach>
+		</td>
+		<td id="cancledate">
+			<c:set value="1" var="one"/>
+			<c:forEach items="${matchList }" var="m">
+				<c:if test="${one =='1' && m.match_code==matchcode}"> 
+					<fmt:formatDate var="matchdate" value="${m.match_date}" pattern="yyyyMMdd HH:mm" />
+					<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
+					<fmt:formatDate value="${m.match_date }" pattern="yyyy-MM-dd(E)" />
+					<c:set value="2" var="one" />
+				</c:if>
+			</c:forEach>
+		</td>
 		<td><a href="/mypage/ticket">취소가능</a></td>
 	</tr>
 </c:forEach>

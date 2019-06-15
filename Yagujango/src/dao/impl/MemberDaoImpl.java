@@ -493,7 +493,8 @@ public class MemberDaoImpl implements MemberDao{
 		String sql="";
 		sql += "SELECT reserve_code, ticket_code, userno, payment, payment_date, how_receive, barcode";
 		sql += " FROM reserve WHERE userno = ?";
-		sql += " ORDER BY payment_date, ticket_code";
+		sql += " ORDER BY ticket_code";
+
 		
 		List<Reserve> list = new ArrayList<>();
 		
@@ -658,7 +659,7 @@ public class MemberDaoImpl implements MemberDao{
 	public int selectCntSeatByReservecode(Reserve reserve) {
 		
 		String sql = "";
-		sql+="SELECT count(*) FROM";
+		sql+="SELECT count(*) FROM (";
 		sql+=" SELECT seat_code FROM seat"; 
 		sql+=" WHERE seat_code IN (";
 		sql+="  SELECT seat_code FROM ticket"; 

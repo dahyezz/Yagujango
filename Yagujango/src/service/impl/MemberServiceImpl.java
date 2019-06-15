@@ -240,6 +240,20 @@ public class MemberServiceImpl implements MemberService{
 		
 		return seatList;
 	}
+	
+	@Override
+	public List<Integer> getCntSeatList(List<Reserve> reservecodeList) {
+		
+		List<Integer> seatCntList = new ArrayList<Integer>();
+		
+		for(Reserve reserve : reservecodeList) {
+			int seatCnt = memberDao.selectCntSeatByReservecode(reserve);
+			
+			seatCntList.add(seatCnt);
+		}
+		return seatCntList;
+
+	}
 
 	@Override
 	public List<Stadium> getStadiumList(List<Match> matchList) {
