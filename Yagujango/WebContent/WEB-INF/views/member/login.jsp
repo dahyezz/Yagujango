@@ -22,25 +22,25 @@
   border: 15px solid #ffffff;
   border-radius: 5px;
   font-size: 15px;
-  margin: 10px 0 0 0;
+  margin: 10px 0 0 5px;
   width: 260px;
   height: 15px;
-  margin-left:5px;
 
 }
 .btn-submit{
-  font-size: 15px;
+  font-size: 26px;
+  font-weight:bold;
+  color:white;
   background-color: #0080ff;
   border-radius: 5px;
   border: 10px solid #0080ff;
-  width: 260px;
-  height: 40px;
-  margin: 30px 0 40px 0;
-  margin-left: 20px;
+  width: 280px;
+  height: 57px;
+  margin: 0 0 30px 10px;
 }
 .login-info{
 	text-align:center;
-
+	font-weight:bold;
 }
 /* 하이퍼링크 밑줄 제거 */
 a { color: black; }
@@ -48,11 +48,11 @@ a { color: black; }
 </style>
 <script type="text/javascript">
 function idFindPopup(){
-	window.open('/member/idFind','아이디 찾기','width=300, height=300, left=600, top=200');
+	window.open('/member/idFind','아이디 찾기','width=350, height=300, left=600, top=200');
 }
 
 function pwFindPopup(){
-	window.open('/member/pwFind','비밀번호 찾기','width=300, height=300, left=600, top=200');
+	window.open('/member/pwFind','비밀번호 찾기','width=350, height=360, left=600, top=200');
 }
 </script>
 <p style="font-size:50px; font-weight:bold; margin-top:50px; margin-left:680px;">로그인</p>

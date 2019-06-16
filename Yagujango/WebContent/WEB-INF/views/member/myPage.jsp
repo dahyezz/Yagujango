@@ -136,7 +136,7 @@ table {
 .userInfo{
 	position: absolute;
 	left:530px;
-	top:310px;
+	top:360px;
 	color:white;
 	font-size:30px;
 	font-weight:bold;
@@ -201,7 +201,7 @@ a {
 	아이디 : ${userid }<br>
 	닉네임 : ${usernick }<br>
 	마이팀 : <c:if test="${myteam ne '0' }">${myteam }</c:if>
-			<c:if test="${myteam eq '0' }"><a href="/mypage/modify">설정하기</a></c:if>
+			<c:if test="${myteam eq '0' }"><a href="/member/modify">설정하기</a></c:if>
 </span>
 
 <div class="reservation" >
@@ -270,7 +270,6 @@ a {
 			</c:forEach>
 		</td>
 		<td>
-			<c:set value="1" var="one" />
 			<c:forEach items="${ticketList }" var="t" varStatus="tStatus">
 				<c:if test="${t.match_code eq each_matchcode }">
 				<c:forEach items="${seatList }" var="s" varStatus="Sstatus">

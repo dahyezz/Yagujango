@@ -6,48 +6,6 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
-<style type="text/css">
-.login-form{
-	background-color : #eeeff1;
-	border-radius: 5px;
-	margin-left: auto;
-	margin-right: auto;
-	width: 300px;
-	height: 260px;
-	padding: 20px;
-	margin-top:150px;
-	margin-bottom:150px;
-}
-.text-field {
-  border: 15px solid #ffffff;
-  border-radius: 5px;
-  font-size: 15px;
-  margin: 10px 0 0 0;
-  width: 260px;
-  height: 15px;
-  margin-left:5px;
-
-}
-.btn-submit{
-  font-size: 15px;
-  background-color: #0080ff;
-  border-radius: 5px;
-  border: 10px solid #0080ff;
-  width: 260px;
-  height: 40px;
-  margin: 30px 0 40px 0;
-  margin-left: 20px;
-  
-/*   margin: 15px 0 25px 0; */
-}
-.login-info{
-	text-align:center;
-
-}
-
-
-</style>
-
 <script type="text/javascript">
 function inputCheck(){
 	
@@ -101,7 +59,7 @@ function inputCheck(){
 
 function openIdCheck(){
 	window.name="parentForm";
-	window.open("/member/idOverlap","아이디 중복 확인","width=300, height=300, left=600, top=200");
+	window.open("/member/idOverlap","아이디 중복 확인","width=300, height=250, left=600, top=200");
 }
 
 //아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅
@@ -109,13 +67,57 @@ function openIdCheck(){
 function inputIdCheck(){
 	document.joinForm.idUncheck.value="idUncheck";
 }
-
 </script>
 
+<style type="text/css">
+.join{
+	margin: 0 5% 0 500px;
+}
+.join th{
+ 	font-weight:bold;
+ 	font-size:30px;
+ 	text-align:left;
+}
+.join input[type="text"], input[type="password"], input[type="Date"], input[type="email"], select{
+	width:450px;
+	height:35px;
+	border-radius: 5px;
+	border:1.5px solid #ccc;
+	font-size:20px;
+	padding-left:10px;
+}
+.join input[type="button"]{
+	margin-left:10px;
+	width:150px;
+	height:35px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:18px;
+	font-weight:bold;
+	border-radius: 5px;
+	cursor:pointer;
+}
 
-<h1>회원가입</h1>
+#btnJoin{
+	margin-left:200px;
+	width:150px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:20px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding: 15px;
+	cursor:pointer;
+}
 
-<body>
+</style>
+
+<div class="join">
+
+<h1 style="margin-left:200px;">회원가입</h1>
+<hr align="left" style="width:65%;">
 
 <form action="/member/join" method="post" name="joinForm" onsubmit="return inputCheck()">
 	<table>
@@ -132,22 +134,11 @@ function inputIdCheck(){
 	<tr><th>비밀번호</th></tr>
 	<tr>
 		<td><input type="password" name="userpw" /></td>
-		<td>
-		<img src="/img/pwLock.png" width="50px" height="50px">
-		<!--<c:choose>
-			<c:when test="${param.sel eq 1 }">1을 선택하셨습니다</c:when>
-			<c:when test="${param.sel eq 2 }">2을 선택하셨습니다</c:when>
-			<c:when test="${param.sel eq 3 }">3을 선택하셨습니다</c:when>
-		</c:choose> -->
-		</td>
 	</tr>	
 	
 	<tr><th>비밀번호확인</th></tr>
 	<tr>
 		<td><input type="password" name="userpwCheck" /></td>
-		<td>
-		<img src="/img/pwCheck.png" width="50px" height="50px"/>
-		</td>
 	</tr>
 	
 	<tr><th>닉네임</th></tr>
@@ -176,7 +167,7 @@ function inputIdCheck(){
 	</tr>
 	
 	<tr><th>핸드폰번호</th></tr>
-	<tr><td><span>"-"을 넣어서 입력해 주세요</span></td></tr>
+	<tr><td><span style="color:#0080ff;">* "-"을 넣어서 입력해 주세요</span></td></tr>
 	<tr>
 		<td><input type="text" name="phone" /></td>
 	</tr>
@@ -206,10 +197,11 @@ function inputIdCheck(){
 	</tr>
 	
 	<tr>
-		<td colspan="2"><input type="submit" value="회원가입"></td>
+		<td colspan="2"><input type="submit" id="btnJoin" value="회원가입"></td>
 	</tr>
 	</table>
 </form>
-</body>
+
+</div>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

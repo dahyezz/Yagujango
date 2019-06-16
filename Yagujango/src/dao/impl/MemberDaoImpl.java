@@ -409,9 +409,9 @@ public class MemberDaoImpl implements MemberDao{
 		String sql="";
 		sql+="SELECT * FROM ("; 
 		sql+=" SELECT rownum rnum, R.* FROM ("; 
-		sql+="  SELECT reserve_code, payment, payment_date, how_receive FROM reserve";
+		sql+="  SELECT reserve_code, payment, how_receive FROM reserve";
 		sql+="  WHERE userno = ?";
-		sql+="  GROUP BY reserve_code, payment, payment_date, how_receive";
+		sql+="  GROUP BY reserve_code, payment, how_receive";
 		sql+="  ORDER BY reserve_code) R";
 		sql+=" ORDER BY rnum";
 		sql+=" ) Rnum";
@@ -433,7 +433,7 @@ public class MemberDaoImpl implements MemberDao{
 				
 				reserveList.setReserve_code(rs.getString("reserve_code"));
 				reserveList.setPayment(rs.getString("payment"));
-				reserveList.setPayment_date(rs.getDate("payment_date"));
+//				reserveList.setPayment_date(rs.getDate("payment_date"));
 				reserveList.setHow_receive(rs.getString("how_receive"));
 				
 				list.add(reserveList);
