@@ -52,9 +52,8 @@ public class MypageTicketController extends HttpServlet {
 		Paging mypagepaging=memberService.getCurPage(req,reserve);
 		req.setAttribute("paging", mypagepaging);
 		
-		int term = 15;
 		
-		List<Reserve> reservecodeList=memberService.getReservecodeListByTerm(term, reserve);
+		List<Reserve> reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
 		req.setAttribute("reservecodeList",reservecodeList);
 		
 		// -----------------------------------------------------------------

@@ -79,7 +79,51 @@ document.getElementById('STATICMENU').style.right = stmnLEFT + 'px';  //처음�
 document.getElementById('STATICMENU').style.top = document.body.scrollTop + stmnBASE + 'px'; 
 RefreshStaticMenu();
 }
+
+
+var httpRequest = null;
+
+//httpRequest 객체 생성
+function getXMLHttpRequest(){
+ var httpRequest = null;
+
+ if(window.ActiveXObject){
+     try{
+         httpRequest = new ActiveXObject("Msxml2.XMLHTTP");    
+     } catch(e) {
+         try{
+             httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+         } catch (e2) { httpRequest = null; }
+     }
+ }
+ else if(window.XMLHttpRequest){
+     httpRequest = new window.XMLHttpRequest();
+ }
+ return httpRequest;    
+}
+
+function setTerm(){
+	var term = document.getElementById("term").value;
+
+	var param="term="+term;
+	httpRequest=getXMLHttpRequest();
+	httpRequest.onreadystatechange=callback;
+	httpRequest.open("GET","/mypage/ticket",true);
+	httpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	httpRequest.send(param);
+	
+}
+
+function callback(){
+	if(httpRequest.readyState==4){
+		var resultText=httpRequest.responseText;
+		
+		document.getElementById("selectterm").innerHTML=resultText;
+	}
+}
+
 </script>
+
 
 
 
@@ -310,11 +354,12 @@ a {
 
 <p>티켓 예매 내역</p>
 <p>예매한 내역이 확인이 안되실 경우 <a href="/board/1:1write">1:1 상담 문의</a>를 이용해주세요.</p>
-<p>기간별 조회
-<button>15일</button>
-<button>1개월</button>
-<button>2개월</button>
-<button>3개월</button>
+<!-- <p>기간별 조회 -->
+<!-- <button id="term" name="term" value="15" onclick="setTerm()">15일</button> -->
+<!-- <button id="term" name="term" value="30" onclick="setTerm()">1개월</button> -->
+<!-- <button id="term" name="term" value="60" onclick="setTerm()">2개월</button> -->
+<!-- <button id="term" name="term" value="90" onclick="setTerm()">3개월</button> -->
+<div id="selectterm">
 <table>
 	<tr>
 		<th>예매번호</th>
@@ -373,13 +418,11 @@ a {
 				</c:forEach>
 			</td>
 			<td id="cancledate">
-				<c:set value="1" var="one" />
 				<c:forEach items="${matchList }" var="m">
-					<c:if test="${one=='1' && m.match_code == each_matchcode }">
+					<c:if test="${m.match_code == each_matchcode }">
 						<fmt:formatDate var="matchdate" value="${m.match_date }"  pattern="yyyyMMdd HH:mm"/>
 						<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
 						<fmt:formatDate value="${m.match_date }"  pattern="yyyy.MM.dd "/>
-<%-- 						<c:set value="2" var="one" /> --%>
 					</c:if>
 				</c:forEach>
 			</td>
@@ -388,10 +431,9 @@ a {
 		<c:set value="2" var="one" />
 	</c:forEach>
 </table>
+</div>
 
 
-
-<br><br><br><br>
 </div>
 
 <c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />

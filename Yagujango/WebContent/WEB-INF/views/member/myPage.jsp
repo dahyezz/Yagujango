@@ -245,19 +245,20 @@ a { text-decoration:none; color:#0080ff; }
 		<td>
 			<c:forEach items="${seatCntList }" var="s" varStatus="Sstatus">
 				<c:if test="${Istatus.index eq Sstatus.index }">
-				${s } 매
+				${s }장
 				</c:if>
 			</c:forEach>
 		</td>
 		<td>
-			<c:forEach items="${ticketList }" var="t">
+			<c:set value="1" var="one" />
+			<c:forEach items="${ticketList }" var="t" varStatus="tStatus">
+				<c:if test="${t.match_code eq each_matchcode }">
 				<c:forEach items="${seatList }" var="s" varStatus="Sstatus">
-					<c:if test="${t.seat_code eq s.seat_code }">
- 						<c:if test="${s.seat_code == each_seatcode}">
+					<c:if test="${tStatus.index eq Sstatus.index && t.seat_code eq s.seat_code }">
 						${s.seat_block }블럭 ${s.seat_number }석<br>
-  						</c:if>
 					</c:if>
 				</c:forEach>
+				</c:if>
  			</c:forEach>
 		</td>
 		<td id="cancledate">
@@ -265,7 +266,7 @@ a { text-decoration:none; color:#0080ff; }
 				<c:if test="${m.match_code == each_matchcode}"> 
 					<fmt:formatDate var="matchdate" value="${m.match_date}" pattern="yyyyMMdd HH:mm" />
 					<input type="hidden" id="matchdate" name="matchdate" value="${matchdate }" />
-					<fmt:formatDate value="${m.match_date }" pattern="yyyy-MM-dd(E)" />
+					<fmt:formatDate value="${m.match_date }" pattern="yyyy-MM-dd" />
 				</c:if>
 			</c:forEach>
 		</td>

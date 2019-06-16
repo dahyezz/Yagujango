@@ -198,35 +198,12 @@ div[class^="day_"] td {
 </table>
 </div>
 
-<div class="day_second">
-<c:set value="1" var="day"/>
-<table>
-<c:forEach items="${matchList }" var="i">
-	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set>
-	<c:if test="${checkdate  eq tomorrow}">
-		<c:if test="${day == '1' }">
-			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5>
-		</c:if>
-			<tr>
-				<td><fmt:formatDate value="${i.match_date }" pattern="HH:mm"/>
-				<td></td><td></td>
-				<td>${i.hometeam_name }</td>
-				<td>:</td>
-				<td>${i.awayteam_name }</td>
-			</tr>
-		<c:set value="2" var="day" /> 
-	</c:if>
-</c:forEach>
-</table>
-</div>
-
-<!-- <div class="day_third"> -->
+<!-- <div class="day_second"> -->
 <%-- <c:set value="1" var="day"/> --%>
 <!-- <table> -->
 <%-- <c:forEach items="${matchList }" var="i"> --%>
-<%-- 	<c:if test="${i.match_code ne 0 }"> --%>
 <%-- 	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set> --%>
-<%-- 	<c:if test="${checkdate  eq aftertomorrow}"> --%>
+<%-- 	<c:if test="${checkdate  eq tomorrow}"> --%>
 <%-- 		<c:if test="${day == '1' }"> --%>
 <%-- 			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5> --%>
 <%-- 		</c:if> --%>
@@ -239,10 +216,33 @@ div[class^="day_"] td {
 <!-- 			</tr> -->
 <%-- 		<c:set value="2" var="day" />  --%>
 <%-- 	</c:if> --%>
-<%-- 	</c:if> --%>
 <%-- </c:forEach> --%>
 <!-- </table> -->
 <!-- </div> -->
+
+<div class="day_third">
+<c:set value="1" var="day"/>
+<table>
+<c:forEach items="${matchList }" var="i">
+	<c:if test="${i.match_code ne 0 }">
+	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set>
+	<c:if test="${checkdate  eq aftertomorrow}">
+		<c:if test="${day == '1' }">
+			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5>
+		</c:if>
+			<tr>
+				<td><fmt:formatDate value="${i.match_date }" pattern="HH:mm"/>
+				<td></td><td></td>
+				<td>${i.hometeam_name }</td>
+				<td>:</td>
+				<td>${i.awayteam_name }</td>
+			</tr>
+		<c:set value="2" var="day" /> 
+	</c:if>
+	</c:if>
+</c:forEach>
+</table>
+</div>
 
 <div class="day_fourth">
 <c:set value="1" var="day"/>

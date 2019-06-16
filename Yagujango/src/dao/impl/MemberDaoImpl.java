@@ -975,7 +975,7 @@ public class MemberDaoImpl implements MemberDao{
 		sql += "                ORDER BY match_date desc) R";
 		sql += "		 ORDER BY rnum";
 		sql += "		 ) Rnum";
-		sql += "WHERE rnum BETWEEN 0 AND 10";
+		sql += " WHERE rnum BETWEEN 0 AND 10";
 		
 		List<Reserve> list=new ArrayList<>();
 		
