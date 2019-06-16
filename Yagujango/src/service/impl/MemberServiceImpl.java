@@ -314,5 +314,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectReservecodeByUsernonotpaging(reserve);
 	}
 	
+	@Override
+	public List<Reserve> getReservecodeListByTerm(int term, Reserve reserve) {
+		return memberDao.selectReservecodeByTerm(term, reserve);
+	}
+	
 
 }

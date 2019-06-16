@@ -185,5 +185,7 @@ public interface MemberService {
 	 */
 	public List<Reserve> getReservecodeListnotpaging(Reserve reserve);
 
+	public List<Reserve> getReservecodeListByTerm(int term, Reserve reserve);
+
 
 }

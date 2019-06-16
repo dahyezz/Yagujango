@@ -148,19 +148,19 @@ div[class^="day_"] td {
 
 </style>
 
-<div><img src="/img/main/allstar.png" id="allstar"></div>
+<div><a href="https://www.koreabaseball.com/" target="_blank" ><img src="/img/main/allstar.png" id="allstar"></a></div>
 <div class="club">
    <marquee width="83.5%" direction="right" behavior="slide" scrollamount="30">
-    <a href="#"><img src="/img/main/ki1.png"></a>
-    <a href="#"><img src="/img/main/do2.png"></a>
-    <a href="#"><img src="/img/main/lg2.png"></a>
-    <a href="#"><img src="/img/main/kt2.png"></a>
-    <a href="#"><img src="/img/main/han2.png"></a>
-    <a href="#"><img src="/img/main/sk1.png"></a>
-    <a href="#"><img src="/img/main/hi2.png"></a>
-    <a href="#"><img src="/img/main/nc2.png"></a>
-    <a href="#"><img src="/img/main/sam2.png"></a>
-    <a href="#"><img src="/img/main/ro2.png"></a>
+    <a href="https://www.tigers.co.kr/mainSeasonOn.asp" target="_blank"><img src="/img/main/ki1.png"></a>
+    <a href="https://www.doosanbears.com/" target="_blank"><img src="/img/main/do2.png"></a>
+    <a href="https://www.lgtwins.com/service/html.ncd?view=/pc_twins/twins_main/twins_main" target="_blank"><img src="/img/main/lg2.png"></a>
+    <a href="http://www.ktwiz.co.kr/sports/site/baseball/main.do" target="_blank"><img src="/img/main/kt2.png"></a>
+    <a href="http://www.hanwhaeagles.co.kr/html/main/main.asp" target="_blank"><img src="/img/main/han2.png"></a>
+    <a href="http://www.skwyverns.com/Wyverns/main.asp" target="_blank"><img src="/img/main/sk1.png"></a>
+    <a href="http://www.heroesbaseball.co.kr/index.do" target="_blank"><img src="/img/main/hi2.png"></a>
+    <a href="http://www.ncdinos.com/main/index" target="_blank"><img src="/img/main/nc2.png"></a>
+    <a href="http://www.samsunglions.com/" target="_blank"><img src="/img/main/sam2.png"></a>
+    <a href="http://www.giantsclub.com/html/" target="_blank"><img src="/img/main/ro2.png"></a>
     </marquee>
 </div>
 

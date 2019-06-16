@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Yagujango</title>
 
+<link rel="shortcut icon" type="image/x-icon" href="/img/main/logo.png" />
+
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
