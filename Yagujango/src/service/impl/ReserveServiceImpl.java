@@ -236,6 +236,7 @@ public class ReserveServiceImpl implements ReserveService{
 			barcode.setBarHeight(80);
 			
 			File file = new File(context.getRealPath("barcode")+"/"+bar+".png");
+//			System.out.println(context.getRealPath("barcode"));
 
 			BarcodeImageHandler.savePNG(barcode, file);
 			

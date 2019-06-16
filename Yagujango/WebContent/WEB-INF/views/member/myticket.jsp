@@ -16,6 +16,7 @@ $(document).ready(function() {
 	var match_date = document.getElementsByName("matchdate");
 	var c = document.getElementsByName("cancledate");
 	var possible = document.getElementsByName("canclepossible");
+	var canclecode = document.getElementsByName("canclecode")
 	
 	var now = new Date();
 	
@@ -29,10 +30,16 @@ $(document).ready(function() {
 		c[i].innerHTML += cancle;
 		
 		
-		if(cancle_date >= now)
-			possible[i].innerHTML += "<a href='/mypage/cancle?reserve_code=${i.reserve_code }'>가능</a>"
-		else
+		if(cancle_date >= now){
+// 			canclecode[i].value;
+			console.log(canclecode)
+			possible[i].innerHTML += "<a href='/mypage/cancle?reserve_code="+canclecode[i].value+"'>취소</a>";
+// 			possible[i].innerHTML += "가능";
+		}	
+		else{
 			possible[i].innerHTML += "불가"
+		}
+			
 
 // 		if(cancle_date <= now)
 // 			document.getElementById("canclepossible").innerHTML = "가능"
@@ -73,7 +80,9 @@ function getFormatDate(cancle_date){
 	
 }
 
-
+function cancle(reservecode){
+	location.href="/mypage/cancle?reservecode="+reservecode;
+}
 
 //////////////////////////네비게이션 바 //////////////////////////
 var stmnLEFT = 10; // 오른쪽 여백 
@@ -101,6 +110,11 @@ function InitializeStaticMenu() {
 document.getElementById('STATICMENU').style.right = stmnLEFT + 'px';  //처음에 오른쪽에 위치. left로 바꿔도.
 document.getElementById('STATICMENU').style.top = document.body.scrollTop + stmnBASE + 'px'; 
 RefreshStaticMenu();
+}
+
+function getBarcode(barcode){
+	console.log(barcode);
+	window.open('/mypage/barcode','바코드','width=350, height=300, left=600, top=200');
 }
 
 </script>
@@ -316,7 +330,12 @@ td[name="cancledate"]{
 			<c:set value="1" var="one" />
 			<c:forEach items="${reserveList }" var="i">
 				<c:if test="${one=='1' && i.reserve_code == reserve_code }">
-					${i.how_receive }
+					<c:if test="${i.how_receive eq '바코드발급' }">
+						<a href="javascript:getBarcode(${i.barcode });">${i.how_receive }</a>
+					</c:if>
+					<c:if test="${i.how_receive eq '현장발권' }">
+						${i.how_receive }
+					</c:if>
 					<c:set value="2" var="one" />
 				</c:if>
 			</c:forEach>
@@ -336,7 +355,7 @@ td[name="cancledate"]{
 			</c:forEach>
 		</td>
 		<th>취소 가능 여부</th>
-		<td name="canclepossible"></td>
+		<td name="canclepossible"><input type="hidden" name="canclecode" value="${reserve_code }" /></td>
 	</tr>
 	<tr>
 		<th>예매자</th>
@@ -444,7 +463,8 @@ td[name="cancledate"]{
 					</c:if>
 				</c:forEach>
 			</td>
-			<td name="canclepossible"><a href="/mypage/cancle?reserve_code=${i.reserve_code }"></a></td>
+			<td name="canclepossible"><input type="hidden" name="canclecode" value="${i.reserve_code }" /></td>
+<%-- 			<td name="canclepossible"><input type="button" onclick="cancle(${i.reserve_code})" value="" /></td> --%>
 		</tr>
 		<c:set value="2" var="one" />
 	</c:forEach>

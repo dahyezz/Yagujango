@@ -307,6 +307,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		//ticket 테이블 삭제
 		for(Ticket e : ticketList) {
+//			System.out.println(e);
 			memberDao.deleteTicket(e);
 		}
 		

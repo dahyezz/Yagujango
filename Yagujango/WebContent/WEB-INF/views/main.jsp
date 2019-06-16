@@ -180,35 +180,12 @@ a{
 
 
 <div class="threematch">
-<div class="day_first">
-<c:set value="1" var="day"/>
-<table>
-	<c:forEach items="${matchList }" var="i">
-	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set>
-	<c:if test="${checkdate  eq today}">
-		<c:if test="${day == '1' }">
-			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5>
-		</c:if>
-			<tr>
-				<td><fmt:formatDate value="${i.match_date }" pattern="HH:mm"/>
-				<td></td><td></td>
-				<td>${i.hometeam_name }</td>
-				<td>:</td>
-				<td>${i.awayteam_name }</td>
-			</tr>
-		
-		<c:set value="2" var="day" /> 
-	</c:if>
-</c:forEach>
-</table>
-</div>
-
-<!-- <div class="day_second"> -->
+<!-- <div class="day_first"> -->
 <%-- <c:set value="1" var="day"/> --%>
 <!-- <table> -->
-<%-- <c:forEach items="${matchList }" var="i"> --%>
+<%-- 	<c:forEach items="${matchList }" var="i"> --%>
 <%-- 	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set> --%>
-<%-- 	<c:if test="${checkdate  eq tomorrow}"> --%>
+<%-- 	<c:if test="${checkdate  eq today}"> --%>
 <%-- 		<c:if test="${day == '1' }"> --%>
 <%-- 			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5> --%>
 <%-- 		</c:if> --%>
@@ -219,11 +196,34 @@ a{
 <!-- 				<td>:</td> -->
 <%-- 				<td>${i.awayteam_name }</td> --%>
 <!-- 			</tr> -->
+		
 <%-- 		<c:set value="2" var="day" />  --%>
 <%-- 	</c:if> --%>
 <%-- </c:forEach> --%>
 <!-- </table> -->
 <!-- </div> -->
+
+<div class="day_second">
+<c:set value="1" var="day"/>
+<table>
+<c:forEach items="${matchList }" var="i">
+	<c:set var="checkdate" ><fmt:formatDate value="${i.match_date }" pattern="yyyy/MM/dd" /></c:set>
+	<c:if test="${checkdate  eq tomorrow}">
+		<c:if test="${day == '1' }">
+			<h5><fmt:formatDate value="${i.match_date }" pattern="MM월 dd일 (E)"/></h5>
+		</c:if>
+			<tr>
+				<td><fmt:formatDate value="${i.match_date }" pattern="HH:mm"/>
+				<td></td><td></td>
+				<td>${i.hometeam_name }</td>
+				<td>:</td>
+				<td>${i.awayteam_name }</td>
+			</tr>
+		<c:set value="2" var="day" /> 
+	</c:if>
+</c:forEach>
+</table>
+</div>
 
 <div class="day_third">
 <c:set value="1" var="day"/>
@@ -301,18 +301,18 @@ a{
 	     </tr>
 	     <tr>
 	        <td>6</td>
-	        <td><img src="/img/rank/han.png" class="img"></td>
-	        <td>한화</td>
+	        <td><img src="/img/rank/kt.png" class="img"></td>
+	        <td>KT</td>
 	     </tr>
 	     <tr>
-	        <td>6</td>
+	        <td>7</td>
 	        <td><img src="/img/rank/sam.png" class="img"></td>
 	        <td>삼성</td>
 	     </tr>
 	     <tr>
 	        <td>8</td>
-	        <td><img src="/img/rank/kt.png" class="img"></td>
-	        <td>KT</td>
+	        <td><img src="/img/rank/han.png" class="img"></td>
+	        <td>한화</td>
 	     </tr>
 	     <tr>
 	        <td>9</td>
@@ -332,11 +332,11 @@ a{
 <div class="highlight">
 	<p>전체 하이라이트</p>
 	<ul class="bxslider">
-		<li><iframe title="[전체HL] '터커 3타점' KIA, 삼성을 제물로 3연패 탈출" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399366478?service=daum_sports"></iframe></li>
-		<li><iframe title="[전체HL] '좀처럼 깨지지 않았던 균형' 12회 연장 접전 끝에 무승부" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399304223?service=daum_sports"></iframe></li>
-		<li><iframe title="[전체HL] '김태균 쐐기포+정우람 세이브' 한화, 두산 꺾고 연패 탈출" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399304366?service=daum_sports"></iframe></li>
-		<li><iframe title="[전체HL] '김하성 맹타-불펜 호투' 키움, NC에 짜릿한 역전승 " width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399304293?service=daum_sports" ></iframe></li>
-		<li><iframe title="[전체HL] '21안타 폭발' SK, 압도적인 타력으로 KT 4연승 저지" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399302694?service=daum_sports" ></iframe></li>
+		<li><iframe title="[전체HL] 'KBO 최초 무안타 타자일순' 두산, LG 상대로 적시타 없이 승리" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399450482?service=daum_sports"></iframe></li>
+		<li><iframe title="[전체HL] '샌즈 3안타' 키움, 한화 꺾고 스윕 달성" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399450392?service=daum_sports"></iframe></li>
+		<li><iframe title="[전체HL] '나종덕 홈런-장시환 호투' 롯데, KIA에 2연승" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399450060?service=daum_sports"></iframe></li>
+		<li><iframe title="[전체HL] '강백호 결승타' KT, 삼성 이틀 연속 제압하며 6위 점프" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399449318?service=daum_sports"></iframe></li>
+		<li><iframe title="[전체HL] '문승원 호투+나주환 4타점' SK, NC 상대로 스윕 달성" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/399447538?service=daum_sports"></iframe></li>
 	</ul>
 	
 </div>
