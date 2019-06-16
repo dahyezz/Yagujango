@@ -15,7 +15,7 @@
 	width: 300px;
 	height: 260px;
 	padding: 20px;
-	margin-top:150px;
+	margin-top:50px;
 	margin-bottom:150px;
 }
 .text-field {
@@ -37,15 +37,13 @@
   height: 40px;
   margin: 30px 0 40px 0;
   margin-left: 20px;
-  
-/*   margin: 15px 0 25px 0; */
 }
 .login-info{
 	text-align:center;
 
 }
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none; color: black; }
+a { color: black; }
 
 </style>
 <script type="text/javascript">
@@ -56,7 +54,9 @@ function idFindPopup(){
 function pwFindPopup(){
 	window.open('/member/pwFind','비밀번호 찾기','width=300, height=300, left=600, top=200');
 }
-</script> 
+</script>
+<p style="font-size:50px; font-weight:bold; margin-top:50px; margin-left:680px;">로그인</p>
+
 <div class="login-form">
 <form action="/member/login" method="post">
 	<label><input type="text" name="userid" class="text-field" placeholder="아이디"/></label><br>
@@ -65,8 +65,8 @@ function pwFindPopup(){
 </form>
 
 <div class="login-info a">
-<a href="javascript:idFindPopup();">아이디 찾기  </a>
-<a href="javascript:pwFindPopup();">비밀번호 찾기 </a>
+<a href="javascript:idFindPopup();">아이디 찾기  </a>&nbsp;
+<a href="javascript:pwFindPopup();">비밀번호 찾기 </a>&nbsp;
 <a href="/member/joinTerms">회원가입</a>
 </div>
 </div>
