@@ -6,6 +6,13 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
+<!--bootstrap-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 <link href="/css/jquery.bxslider.min.css" rel="stylesheet" />
 <script src="/js/jquery.bxslider.min.js"></script>
 
@@ -28,20 +35,6 @@ $(document).ready(function() {
     margin-left: 5%;
     margin-right: 5%;
     margin: auto;
-}
-marquee{
-    margin-left: 5%;
-    margin-right: 5%;
-    margin: auto;
-    min-width: 1060px;
-    max-height: 83.5%;
-}
-#allstar{
-    margin-left: 5%;
-    margin-right: 5%;
-    width:90%;
-    height: 300px;
-    text-align: center;
 }
 
 .threematch {
@@ -129,30 +122,38 @@ div[class^="day_"] td {
  	text-align: left; 
 } 	
 
-/* .sliderbox { */
-/* 	width: 800px; */
-/* 	height: 450px; */
-/* 	overflow: hidden; */
-/* 	margin: 0 auto; */
-
-/* } */
-
-/* #slider { */
-/* 	padding: 0; */
-/* 	margin: 0; */
-/* 	list-style: none; */
-/* 	position: relative; */
-/* } */
-
-/* #slider li { */
-/* 	position: absolute; */
-/* } */
 
 </style>
 
-<div><a href="https://www.koreabaseball.com/" target="_blank" ><img src="/img/main/allstar.png" id="allstar"></a></div>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active"class="carousel">
+      <a href="https://allstar.koreabaseball.com/" target="_blank"><img src="/img/main/allstar1.png" class="d-block w-100" alt="..." ></a>
+    </div>
+    <div class="carousel-item">
+      <a href="https://allstar.koreabaseball.com/" target="_blank"><img src="/img/main/carousel2.png" class="d-block w-100" alt="..."class="carousel"></a>
+    </div>
+    <div class="carousel-item">
+      <img src="/img/main/carousel1.png" class="d-block w-100" alt="..."class="carousel">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
 <div class="club">
-   <marquee width="80%" direction="right" behavior="slide" scrollamount="30">
     <a href="https://www.tigers.co.kr/mainSeasonOn.asp" target="_blank"><img src="/img/main/ki1.png"></a>
     <a href="https://www.doosanbears.com/" target="_blank"><img src="/img/main/do2.png"></a>
     <a href="https://www.lgtwins.com/service/html.ncd?view=/pc_twins/twins_main/twins_main" target="_blank"><img src="/img/main/lg2.png"></a>
@@ -163,7 +164,6 @@ div[class^="day_"] td {
     <a href="http://www.ncdinos.com/main/index" target="_blank"><img src="/img/main/nc2.png"></a>
     <a href="http://www.samsunglions.com/" target="_blank"><img src="/img/main/sam2.png"></a>
     <a href="http://www.giantsclub.com/html/" target="_blank"><img src="/img/main/ro2.png"></a>
-    </marquee>
 </div>
 
 <c:set var="now" value="<%=new java.util.Date() %>" /><!-- 오늘날짜 -->
