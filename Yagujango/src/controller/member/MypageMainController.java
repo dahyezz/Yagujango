@@ -56,7 +56,12 @@ public class MypageMainController extends HttpServlet {
 		req.setAttribute("paging", mypagepaging);
 		
 		List<Reserve> reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
-		req.setAttribute("reservecodeList",reservecodeList);
+		req.setAttribute("reservecodeList",reservecodeList);	
+//		System.out.println(reservecodeList.size());
+		if(reservecodeList.size()==0) {
+			req.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(req, resp);
+			return;
+		}
 		
 		//Reserve 리스트 조회
 		List<Reserve> reserveList=memberService.getReserveList(reserve);
