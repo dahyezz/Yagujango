@@ -117,6 +117,7 @@ a { text-decoration:none; color: black; }
 	background-color: white;
 	border:0;
 	align:center;
+/* 	adfadf */
 }
 .boardview	{
 	border-collapse: collapse;
