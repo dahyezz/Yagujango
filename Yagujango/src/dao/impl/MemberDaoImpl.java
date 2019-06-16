@@ -451,6 +451,55 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return list;
 	}
+	
+	@Override
+	public List<Reserve> selectReservecodeByUsernonotpaging(Reserve reserve) {
+
+		String sql="";
+		sql+="SELECT * FROM ("; 
+		sql+=" SELECT rownum rnum, R.* FROM ("; 
+		sql+="  SELECT reserve_code, payment, how_receive FROM reserve";
+		sql+="  WHERE userno = ?";
+		sql+="  GROUP BY reserve_code, payment, how_receive";
+		sql+="  ORDER BY reserve_code) R";
+		sql+=" ORDER BY rnum desc";
+		sql+=" ) Rnum";
+//		sql+=" WHERE rnum BETWEEN ? AND ?";
+		
+		List<Reserve> list=new ArrayList<>();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+//			ps.setInt(2, mypagepaging.getStartNo());
+//			ps.setInt(3, mypagepaging.getEndNo());
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				Reserve reserveList = new Reserve();
+				
+				reserveList.setReserve_code(rs.getString("reserve_code"));
+				reserveList.setPayment(rs.getString("payment"));
+//				reserveList.setPayment_date(rs.getDate("payment_date"));
+				reserveList.setHow_receive(rs.getString("how_receive"));
+				
+				list.add(reserveList);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 
 	@Override
 	public int selectCntReservecode(Reserve reserve) {

@@ -177,5 +177,7 @@ public interface MemberService {
 	 */
 	public void cancleMyTicket(String reserve_code);
 
+	public List<Reserve> getReservecodeListnotpaging(Reserve reserve);
+
 
 }
