@@ -22,7 +22,7 @@ public class OneToOneWriteController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		if( req.getSession().getAttribute("login") == null ) {
-			resp.sendRedirect("/main");
+			resp.sendRedirect("/member/login");
 			return;
 		}
 		

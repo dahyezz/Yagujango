@@ -22,12 +22,9 @@ $(document).ready(function() {
 	document.getElementById("cancledate").innerHTML += cancle;
 	
 	var now = new Date();
-// 	console.log(now)
 	if(cancle_date >= now)
-// 		console.log("취소 가능")
 		document.getElementById("canclepossible").innerHTML = "가능"
 	else
-// 		console.log("취소 불가")
 		document.getElementById("canclepossible").innerHTML = "불가"
 
 
@@ -313,6 +310,11 @@ a {
 
 <p>티켓 예매 내역</p>
 <p>예매한 내역이 확인이 안되실 경우 <a href="/board/1:1write">1:1 상담 문의</a>를 이용해주세요.</p>
+<p>기간별 조회
+<button>15일</button>
+<button>1개월</button>
+<button>2개월</button>
+<button>3개월</button>
 <table>
 	<tr>
 		<th>예매번호</th>
@@ -391,5 +393,8 @@ a {
 
 <br><br><br><br>
 </div>
+
+<c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />
+
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

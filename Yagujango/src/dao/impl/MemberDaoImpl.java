@@ -958,4 +958,58 @@ public class MemberDaoImpl implements MemberDao{
 		
 		return list;
 	}
+	
+	@Override
+	public List<Reserve> selectReservecodeByTerm(int term, Reserve reserve) {
+		
+		String sql="";
+		sql += "SELECT reserve_code, to_char(match_date, 'yyyy-MM-dd hh24:mi') match_date FROM (";
+		sql += "          SELECT rownum rnum, R.* FROM (";
+		sql += "                SELECT reserve_code, match_date";
+		sql += "                FROM reserve A, ticket B, match C";
+        sql += "				WHERE userno = ?";
+        sql += "				AND A.ticket_code = B.ticket_code";
+		sql += "                AND B.match_code = C.match_code";
+		sql += "                AND match_date >= sysdate-?";
+		sql += "                GROUP BY reserve_code, match_date";
+		sql += "                ORDER BY match_date desc) R";
+		sql += "		 ORDER BY rnum";
+		sql += "		 ) Rnum";
+		sql += "WHERE rnum BETWEEN 0 AND 10";
+		
+		List<Reserve> list=new ArrayList<>();
+		
+		try {
+			ps=conn.prepareStatement(sql);
+			
+			ps.setInt(1, reserve.getUserno());
+			ps.setInt(2, term);
+
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				Reserve reserveList = new Reserve();
+				
+				reserveList.setReserve_code(rs.getString("reserve_code"));
+//				reserveList.setPayment(rs.getString("payment"));
+				reserveList.setPayment_date(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(rs.getString("match_date")));
+//				reserveList.setHow_receive(rs.getString("how_receive"));
+				
+				list.add(reserveList);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 }

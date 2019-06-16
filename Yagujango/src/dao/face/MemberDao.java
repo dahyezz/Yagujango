@@ -84,4 +84,6 @@ public interface MemberDao {
 
 	public List<Reserve> selectReservecodeByUsernonotpaging(Reserve reserve);
 
+	public List<Reserve> selectReservecodeByTerm(int term, Reserve reserve);
+
 }
