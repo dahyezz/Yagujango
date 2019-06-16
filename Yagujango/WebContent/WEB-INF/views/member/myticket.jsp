@@ -30,9 +30,9 @@ $(document).ready(function() {
 		
 		
 		if(cancle_date >= now)
-			possible[i].innerHTML = "가능"
+			possible[i].innerHTML += "<a href='/mypage/cancle?reserve_code=${i.reserve_code }'>가능</a>"
 		else
-			possible[i].innerHTML = "불가"
+			possible[i].innerHTML += "불가"
 
 // 		if(cancle_date <= now)
 // 			document.getElementById("canclepossible").innerHTML = "가능"
