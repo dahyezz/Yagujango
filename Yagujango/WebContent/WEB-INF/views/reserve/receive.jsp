@@ -256,7 +256,7 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
 
 var matchdate = new Date("${formatdate }");
 var canceldate = new Date("${formatdate }");
-canceldate.setDate(canceldate.getDate() + 7);
+canceldate.setHours(canceldate.getHours() - 3);
 console.log(canceldate.format("yyyy-MM-dd HH:mm"));
 document.getElementById('matchdate').innerHTML=matchdate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
 document.getElementById('canceldate').innerHTML=canceldate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
