@@ -117,6 +117,10 @@ body {
 	text-decoration: none !important;
 }
 
+a{
+	text-decoration: none !impotant;
+}
+
 </style>
 
 </head>

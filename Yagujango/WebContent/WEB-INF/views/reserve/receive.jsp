@@ -15,8 +15,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <!-- 폰트 -->
-<link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Gothic+A1:200,400|Jua|Nanum+Gothic&display=swap" rel="stylesheet">
 <script type="text/javascript">
 // window.onbeforeunload = function(e) {
 // // 	location.href="/main"
@@ -131,7 +131,7 @@ a { text-decoration:none }
 </head>
 <body style="background: #D5D5D5;">
 
-<h1 style="margin: 20px 0 0 20px;">티켓 예매</h1>
+<h1 style="margin: 20px 0 0 20px;  font-family: 'Do Hyeon', sans-serif; font-weight: 800;">티켓 예매</h1>
 <p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p><br>
 <hr>
 
@@ -256,7 +256,7 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
 
 var matchdate = new Date("${formatdate }");
 var canceldate = new Date("${formatdate }");
-canceldate.setDate(canceldate.getDate() + 7);
+canceldate.setHours(canceldate.getHours() - 3);
 console.log(canceldate.format("yyyy-MM-dd HH:mm"));
 document.getElementById('matchdate').innerHTML=matchdate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");
 document.getElementById('canceldate').innerHTML=canceldate.format("yyyy년 MM월 dd일 (E요일)<br>HH:mm");

@@ -31,7 +31,7 @@ function popup_personal(){
 .footername {
 	float: left;
 
- 	margin: 0 0 0 15%;
+ 	margin: 10px 0 0 15%;
 	width: 15%;
 	height: 150px;
 

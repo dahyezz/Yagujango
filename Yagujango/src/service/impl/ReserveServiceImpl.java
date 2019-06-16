@@ -355,6 +355,8 @@ public class ReserveServiceImpl implements ReserveService{
 		final String ACCOUNT_NAME = request.getParameter("account_number");
 		final String BANK = request.getParameter("bank");
 		final String PAY = request.getParameter("pay");
+		final String ticket = request.getParameter("ticket_code");
+		System.out.println(ticket);
 		
 		//FROM 
 		final String FROM = "yagujango123@gmail.com";

@@ -13,7 +13,7 @@ $(document).ready(function() {
 ////////////////////////// 네비게이션 바 //////////////////////////
 var stmnLEFT = 10; // 오른쪽 여백 
 var stmnGAP1 = 0; // 위쪽 여백 
-var stmnGAP2 = 200; // 스크롤시 브라우저 위쪽과 떨어지는 거리 
+var stmnGAP2 = 250; // 스크롤시 브라우저 위쪽과 떨어지는 거리 
 var stmnBASE = 200; // 스크롤 시작위치 
 var stmnActivateSpeed = 35; //스크롤을 인식하는 딜레이 (숫자가 클수록 느리게 인식)
 var stmnScrollSpeed = 20; //스크롤 속도 (클수록 느림)
@@ -65,7 +65,7 @@ table {
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
- 	width:auto%;
+ 	width:auto;
 }
 
 .th{
@@ -77,7 +77,7 @@ table {
 }
 .table th:first-child, td:first-child{
  	border-left: 0;
- 	 	background-color:#d9e1e8;
+ 	background-color:#d9e1e8;
 }
 .table th:last-child, td:last-child{
  	border-right: 0;
@@ -117,6 +117,13 @@ a { text-decoration:none; color: black; }
 	background-color: white;
 	border:0;
 	align:center;
+/* 	adfadf */
+}
+.boardview	{
+	border-collapse: collapse;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	width:80%;
 }
 
 </style>
@@ -176,7 +183,7 @@ $(document).ready(function() {
 <div class="wrap"></div>
 
 <div class="wrap">
-<table class="table table-bordered">
+<table class="table table-bordered boardview">
 <tbody>
 	<tr>
 		<td class="infok">NO.</td>

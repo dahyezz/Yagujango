@@ -6,6 +6,64 @@
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
+
+<style type="text/css">
+.join-form{
+	background-color : #eeeff1;
+ 	border-radius: 5px; 
+	margin-left: auto; 
+ 	margin-right: auto; 
+ 	width: 60%; 
+	text-align:center;
+ 	height: 500px; 
+/* 	padding: 20px; */
+ 	margin-top:50px; 
+ 	margin-bottom: 150px; 
+ 	padding: 5px 0 5px 0;
+}
+.body{
+	margin-top:50px;
+	margin-left:30px;
+	color:#eeeff1;
+	font-size:10pt;
+	margin-bottom:150px; 
+}
+.join{
+	margin-top:30px;
+	border-collapse:collapse;
+	font-size:20pt;
+	margin-left:auto;
+	margin-right:auto;
+}
+.join:th,td{
+	margin-top:10px;
+	padding-left:20px;
+	text-align:left;
+	background-position:left;
+	border-bottom:#eeeee solid 1px;	
+}
+.btn-join2{
+	margin-left:100px;
+	margin-right:50px;
+	margin-top:50px;
+	background-color:  #0080ff;
+	border:0;
+	color:white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding: 15px;
+	
+}
+.btn-join2:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
+}
+
+</style>
+
 <script type="text/javascript">
 function inputCheck(){
 	
@@ -119,10 +177,12 @@ function inputIdCheck(){
 <h1 style="margin-left:200px;">회원가입</h1>
 <hr align="left" style="width:65%;">
 
+<div class="join-form">
 <form action="/member/join" method="post" name="joinForm" onsubmit="return inputCheck()">
-	<table>
-	<tr><th>아이디</th></tr>
-	<tr>
+	<table class="join" >
+	<tr><th>아이디
+<!-- </tr> -->
+<!-- 	<tr> -->
 		<td><input type="text" name="userid" onkeydown="inputIdCheck()"/></td>
 			<!-- onkeydown이벤트 : 사용자가 중복체크를 하고 난 뒤 아이디 입력란에 사용 가능한 아이디를 지우고
 				새로운 아이디를 입력했을 경우 대처하기 위한 이벤트. 중복체크가 되지 않은것으로 처리 -->
@@ -131,33 +191,29 @@ function inputIdCheck(){
 			<!-- value가 idUnckeck이면 중복체크를 하지 않은것 -->
 	</tr>
 	
-	<tr><th>비밀번호</th></tr>
-	<tr>
+	<tr><th>비밀번호
 		<td><input type="password" name="userpw" /></td>
+
 	</tr>	
 	
-	<tr><th>비밀번호확인</th></tr>
-	<tr>
+	<tr><th>비밀번호확인
 		<td><input type="password" name="userpwCheck" /></td>
+
 	</tr>
 	
-	<tr><th>닉네임</th></tr>
-	<tr>
+	<tr><th>닉네임
 		<td><input type="text" name="usernick" /></td>
 	</tr>
 	
-	<tr><th>이름</th></tr>
-	<tr>
+	<tr><th>이름
 		<td><input type="text" name="username" /></td>
 	</tr>
 	
-	<tr><th>생년월일</th></tr>
-	<tr>
+	<tr><th>생년월일
 		<td><input type="Date" name="birth" /></td>
 	</tr>
 	
-	<tr><th>성별</th></tr>
-	<tr>
+	<tr><th>성별
 		<td>
 		<select name="gender">
 			<option value="M" selected>남자</option>
@@ -166,19 +222,19 @@ function inputIdCheck(){
 		</td>
 	</tr>
 	
+
 	<tr><th>핸드폰번호</th></tr>
 	<tr><td><span style="color:#0080ff;">* "-"을 넣어서 입력해 주세요</span></td></tr>
 	<tr>
 		<td><input type="text" name="phone" /></td>
+
 	</tr>
 	
-	<tr><th>이메일</th></tr>
-	<tr>
+	<tr><th>이메일
 		<td><input type="email" name="email" placeholder="@email.com"/></td>
 	</tr>
 	
-	<tr><th>마이팀</th></tr>
-	<tr>
+	<tr><th>마이팀
 		<td>
 		<select name="myteam">
 			<option value="0" selected>없음</option>
@@ -195,13 +251,18 @@ function inputIdCheck(){
 		</select>
 		</td>
 	</tr>
-	
 	<tr>
+
 		<td colspan="2"><input type="submit" id="btnJoin" value="회원가입"></td>
+
 	</tr>
 	</table>
+	
 </form>
 
+
 </div>
+
+
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
