@@ -65,7 +65,7 @@ table {
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
- 	width:auto%;
+ 	width:auto;
 }
 
 .th{
@@ -77,7 +77,7 @@ table {
 }
 .table th:first-child, td:first-child{
  	border-left: 0;
- 	 	background-color:#d9e1e8;
+ 	background-color:#d9e1e8;
 }
 .table th:last-child, td:last-child{
  	border-right: 0;
@@ -117,6 +117,12 @@ a { text-decoration:none; color: black; }
 	background-color: white;
 	border:0;
 	align:center;
+}
+.boardview	{
+	border-collapse: collapse;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	width:80%;
 }
 
 </style>
@@ -176,7 +182,7 @@ $(document).ready(function() {
 <div class="wrap"></div>
 
 <div class="wrap">
-<table class="table table-bordered">
+<table class="table table-bordered boardview">
 <tbody>
 	<tr>
 		<td class="infok">NO.</td>
