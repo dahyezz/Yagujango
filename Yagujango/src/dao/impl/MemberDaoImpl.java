@@ -462,7 +462,7 @@ public class MemberDaoImpl implements MemberDao{
 		sql+="  WHERE userno = ?";
 		sql+="  GROUP BY reserve_code, payment, how_receive";
 		sql+="  ORDER BY reserve_code) R";
-		sql+=" ORDER BY rnum desc";
+		sql+=" ORDER BY rnum";
 		sql+=" ) Rnum";
 //		sql+=" WHERE rnum BETWEEN ? AND ?";
 		

@@ -85,8 +85,8 @@ td,p{
 </div>
 
 <div class="policy">
-	<a href="" onclick="popup_terms()">이용약관</a><br>
-	<a href="" onclick="popup_personal()">개인정보취급방침</a><br>
+	<a href="javascript:popup_terms()">이용약관</a><br>
+	<a href="javascript:popup_personal()">개인정보취급방침</a><br>
 </div>
 
 <div class="info">
