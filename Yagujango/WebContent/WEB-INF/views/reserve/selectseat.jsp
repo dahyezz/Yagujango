@@ -13,7 +13,8 @@
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Gothic+A1:200,400|Jua|Nanum+Gothic&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
 var selectseat = [];
@@ -260,7 +261,7 @@ input[type=checkbox]:checked + label:before {
 </head>
 <body style="background: #D5D5D5">
 
-<h1 style="margin: 20px 0 0 20px;">티켓 예매</h1>
+<h1 style="margin: 20px 0 0 20px; font-family: 'Do Hyeon', sans-serif; font-weight: 800;">티켓 예매</h1>
 <p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p><br>
 <hr>
 
