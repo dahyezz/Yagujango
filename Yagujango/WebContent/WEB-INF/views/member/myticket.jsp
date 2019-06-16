@@ -15,6 +15,9 @@ $(document).ready(function() {
 // 	var match_date = document.getElementById("matchdate").value;
 	var match_date = document.getElementsByName("matchdate");
 	var c = document.getElementsByName("cancledate");
+	var possible = document.getElementsByName("canclepossible");
+	
+	var now = new Date();
 	
 	for(var i=0; i<match_date.length; i++){
 		var cancle_date = parse(match_date[i].value)
@@ -24,15 +27,30 @@ $(document).ready(function() {
 		var cancle = getFormatDate(cancle_date);
 		
 		c[i].innerHTML += cancle;
+		
+		
+		if(cancle_date >= now)
+			possible[i].innerHTML = "가능"
+		else
+			possible[i].innerHTML = "불가"
+
+// 		if(cancle_date <= now)
+// 			document.getElementById("canclepossible").innerHTML = "가능"
+// 		else
+// 			document.getElementById("canclepossible").innerHTML = "불가"
 	}
 	
-	var now = new Date();
-	if(cancle_date >= now)
-		document.getElementById("canclepossible").innerHTML = "가능"
-	else
-		document.getElementById("canclepossible").innerHTML = "불가"
-
-
+	
+	var possible = document.getElementsByName("canclepossible");
+	for(var i=0; i<possible.length; i++){
+	}	
+	
+// 	if(cancle_date >= now)
+// 		document.getElementById("canclepossible").innerHTML = "가능"
+// 	else
+// 		document.getElementById("canclepossible").innerHTML = "불가"
+	
+	
 });
 
 function parse(str){
@@ -318,7 +336,7 @@ td[name="cancledate"]{
 			</c:forEach>
 		</td>
 		<th>취소 가능 여부</th>
-		<td id="canclepossible"></td>
+		<td name="canclepossible"></td>
 	</tr>
 	<tr>
 		<th>예매자</th>
@@ -350,7 +368,7 @@ td[name="cancledate"]{
 	</tr>
 </table>
 </div>
-<br><br><br>
+<br>
 <div class="reserve2">
 <h3>티켓 예매 내역</h3>
 <p>예매한 내역이 확인이 안되실 경우 <a href="/board/1:1write">1:1 상담 문의</a>를 이용해주세요.</p>
@@ -426,17 +444,18 @@ td[name="cancledate"]{
 					</c:if>
 				</c:forEach>
 			</td>
-			<td><a href="/mypage/cancle?reserve_code=${i.reserve_code }">취소</a></td>
+			<td name="canclepossible"><a href="/mypage/cancle?reserve_code=${i.reserve_code }"></a></td>
 		</tr>
 		<c:set value="2" var="one" />
 	</c:forEach>
 </table>
 </div>
 </div>
+<br>
 
 </div>
 
-<c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />
+<%-- <c:import url="/WEB-INF/views/layout/mypage_paging.jsp" /> --%>
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

@@ -141,6 +141,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.selectReservecodeByUserno(mypagepaging,reserve);
 	}
+	
+	@Override
+	public List<Reserve> getReservecodeListnotpaging(Reserve reserve) {
+		return memberDao.selectReservecodeByUsernonotpaging(reserve);
+	}
 
 	@Override
 	public Paging getCurPage(HttpServletRequest req,Reserve reserve) {

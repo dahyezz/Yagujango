@@ -53,7 +53,7 @@ public class MypageTicketController extends HttpServlet {
 		req.setAttribute("paging", mypagepaging);
 		
 		
-		List<Reserve> reservecodeList=memberService.getReservecodeList(mypagepaging,reserve);
+		List<Reserve> reservecodeList=memberService.getReservecodeListnotpaging(reserve);
 		req.setAttribute("reservecodeList",reservecodeList);
 		
 		// -----------------------------------------------------------------
