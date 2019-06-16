@@ -15,6 +15,7 @@
 
 <!-- font url -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Gothic+A1:200,400|Jua|Nanum+Gothic&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -41,19 +42,20 @@ $(document).ready(function() {
 
 <style type="text/css">
 #logo{
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
 }
 .headerDiv {
-	font-family: "Nanum Gothic", sans-serif;
+	font-family: 'Do Hyeon', sans-serif;
 	font-weight: 800;
-	font-size: 40px;
+	font-size: 70px;
 	text-align: center;
-	margin: 20px;
+	margin: 20px 20px 20px 0;
 }
 .headerDiv a {
 	text-decoration: none !important;
-	color: #5050FF;
+	color:  #0080ff;
 }
 
 body { 
@@ -81,6 +83,7 @@ body {
 .zeta-menu a {
 	color: white;
 	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 400;
 	display: block;
 	padding: 10px 20px;
 	text-decoration: none;

@@ -2,14 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+<c:import url="/WEB-INF/views/layout/header.jsp" />
+
 <style type="text/css">
-a {text-decoration:none}
-a:visited ,a:link{color: black;}
+.wrap a {text-decoration:none}
+.wrap a:visited ,a:link{color: black;}
 table .content:hover{
 	background: #D5D5D5;
 }
@@ -49,10 +47,27 @@ table thead {
 	text-align : right;
 }
 
+#btnWrite {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:10%;
+	border: 1px solid black;
+	background-color: rgba(0,0,0,0);
+	color: black;
+	padding: 5px;
+
+}
+
+#btnWrite:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
+}
+
 </style>
-</head>
-<body>
-<c:import url="/WEB-INF/views/layout/header.jsp" />
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
@@ -167,14 +182,12 @@ function checklist(){
 <div class="button-right">
 <button id="btnWrite">글 쓰기</button>
 </div>
-<div class="search">
+<div class="search" >
 <form action="/board/seat/list" method="get">
 		<input type="hidden" name="name" value="stadium_name">
-		<input type="text" name="keyword" placeholder="구장별로 검색하기" >
-	 	<button>검색</button>
+		<input type="text" name="keyword" placeholder="구장별로 검색하기">
+	 	<button id="searchBtn"  style="vertical-align: middle;">검색</button>
 </form>
 </div>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>

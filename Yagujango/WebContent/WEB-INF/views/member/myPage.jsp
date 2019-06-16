@@ -10,18 +10,29 @@
 $(document).ready(function(){
 	InitializeStaticMenu();
 
-	var match_date = document.getElementById("matchdate").value;
-	console.log(match_date);
-	var cancle_date=parse(match_date);
-	console.log(cancle_date);
+// 	var match_date = document.getElementById("matchdate").value;
+// 	console.log(match_date);
+// 	var cancle_date=parse(match_date);
+// 	console.log(cancle_date);
 
 	
-	cancle_date.setHours(cancle_date.getHours()-3);
-	var cancle=getFormatDate(cancle_date);
-	console.log(cancle);
+// 	cancle_date.setHours(cancle_date.getHours()-3);
+// 	var cancle=getFormatDate(cancle_date);
+// 	console.log(cancle);
 	
-	document.getElementById("cancledate").innerHTML+=cancle;
+// 	document.getElementById("cancledate").innerHTML+=cancle;
+	var match_date = document.getElementsByName("matchdate");
+	var c = document.getElementsByName("cancledate");
 	
+	for(var i=0; i<match_date.length; i++){
+		var cancle_date = parse(match_date[i].value)
+// 		console.log(match_date[i].value)
+		
+		cancle_date.setHours(cancle_date.getHours()-3);
+		var cancle = getFormatDate(cancle_date);
+		
+		c[i].innerHTML += cancle;
+	}
 });
 
 function parse(str){
@@ -43,7 +54,7 @@ function getFormatDate(cancle_date){
 //////////////////////////네비게이션 바 //////////////////////////
 var stmnLEFT = 10; // 오른쪽 여백 
 var stmnGAP1 = 0; // 위쪽 여백 
-var stmnGAP2 = 200; // 스크롤시 브라우저 위쪽과 떨어지는 거리 
+var stmnGAP2 = 250; // 스크롤시 브라우저 위쪽과 떨어지는 거리 
 var stmnBASE = 200; // 스크롤 시작위치 
 var stmnActivateSpeed = 35; //스크롤을 인식하는 딜레이 (숫자가 클수록 느리게 인식)
 var stmnScrollSpeed = 20; //스크롤 속도 (클수록 느림)
@@ -106,10 +117,10 @@ table {
 /* 네비게이션바 테이블 */
 
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none; color:#0080ff; }
+#STATICMENU a { text-decoration:none; color:#000000; }
 
 .mypagemain {
-	margin: 0 auto 0 250px;
+	margin: 0 5% 0 250px;
 }
 
 .myteam div{	/* class가 myteam인 것의 하위요소 중 div요소만 선택 */
@@ -138,6 +149,15 @@ a { text-decoration:none; color:#0080ff; }
 }
 .reservation th{
 	background:#D9E1E8;
+}
+
+td[name="cancledate"]{
+	color: #0080ff;
+	font-size: 13px;
+}
+
+a {
+	color: #0080ff;
 }
 
 </style>
@@ -261,7 +281,7 @@ a { text-decoration:none; color:#0080ff; }
 				</c:if>
  			</c:forEach>
 		</td>
-		<td id="cancledate">
+		<td name="cancledate">
 			<c:forEach items="${matchList }" var="m">
 				<c:if test="${m.match_code == each_matchcode}"> 
 					<fmt:formatDate var="matchdate" value="${m.match_date}" pattern="yyyyMMdd HH:mm" />

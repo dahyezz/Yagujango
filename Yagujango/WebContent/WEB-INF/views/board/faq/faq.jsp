@@ -18,7 +18,8 @@ $(document).ready(function() {
 
 <style type="text/css">
 
-Body {
+
+.faqfull {
 	padding: 0 5% 0 5%;
 }
 
@@ -117,13 +118,29 @@ Body {
 
 }
 
+
 #btn1to1Write {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right:10%;
+	border: 1px solid black;
+	background-color: rgba(0,0,0,0);
+	color: black;
+	padding: 5px;
 	line-height: 38px;
 	font-size: 14px;
 	width: 100%; 
 	text-align:right;
+
 }
 
+#btn1to1Write:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
+}
 
 
 </style>
@@ -152,7 +169,7 @@ jQuery(function($){
 
 </script>
 
-
+<div class="faqfull">
 <table class="t1">
 	<tr>
 		<th style="font-size: 60px;">FAQ</th>
@@ -201,7 +218,7 @@ jQuery(function($){
 		</tr>
 
 </table>
- 
+</div>
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
 
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 <!-- include libraries(jQuery, bootstrap) -->
@@ -97,8 +91,7 @@ hr{
 
 
 </style>
-</head>
-<body>
+
 <div class="wrap">
 <h1>자유게시판</h1>
 <hr>
@@ -126,5 +119,3 @@ hr{
 </form>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>

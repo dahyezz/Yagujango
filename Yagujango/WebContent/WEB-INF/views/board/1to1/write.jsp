@@ -74,7 +74,7 @@ $(function(){
 </script>
 
 <style type="text/css">
-Body {
+.wrtierfull {
 	padding: 0 5% 0 5%;
 }
 
@@ -105,6 +105,8 @@ Body {
 }
 
 </style>
+
+<div class="wrtierfull">
 
 <div class="witer">
 	<div class="witerBody">
@@ -166,7 +168,7 @@ Body {
 	</div>
 </div>
  
-
+</div>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 

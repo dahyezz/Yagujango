@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <script type="text/javascript">
@@ -11,15 +12,19 @@ $(document).ready(function() {
 	InitializeStaticMenu();
 	
 
-	var match_date = document.getElementById("matchdate").value;
-	console.log(match_date);
-	var cancle_date = parse(match_date);
-
-	cancle_date.setHours(cancle_date.getHours()-3);
-	var cancle = getFormatDate(cancle_date);
-// 	console.log(cancle_date);
-
-	document.getElementById("cancledate").innerHTML += cancle;
+// 	var match_date = document.getElementById("matchdate").value;
+	var match_date = document.getElementsByName("matchdate");
+	var c = document.getElementsByName("cancledate");
+	
+	for(var i=0; i<match_date.length; i++){
+		var cancle_date = parse(match_date[i].value)
+// 		console.log(match_date[i].value)
+		
+		cancle_date.setHours(cancle_date.getHours()-3);
+		var cancle = getFormatDate(cancle_date);
+		
+		c[i].innerHTML += cancle;
+	}
 	
 	var now = new Date();
 	if(cancle_date >= now)
@@ -55,7 +60,7 @@ function getFormatDate(cancle_date){
 //////////////////////////네비게이션 바 //////////////////////////
 var stmnLEFT = 10; // 오른쪽 여백 
 var stmnGAP1 = 0; // 위쪽 여백 
-var stmnGAP2 = 200; // 스크롤시 브라우저 위쪽과 떨어지는 거리 
+var stmnGAP2 = 250; // 스크롤시 브라우저 위쪽과 떨어지는 거리 
 var stmnBASE = 200; // 스크롤 시작위치 
 var stmnActivateSpeed = 35; //스크롤을 인식하는 딜레이 (숫자가 클수록 느리게 인식)
 var stmnScrollSpeed = 20; //스크롤 속도 (클수록 느림)
@@ -80,54 +85,13 @@ document.getElementById('STATICMENU').style.top = document.body.scrollTop + stmn
 RefreshStaticMenu();
 }
 
-
-var httpRequest = null;
-
-//httpRequest 객체 생성
-function getXMLHttpRequest(){
- var httpRequest = null;
-
- if(window.ActiveXObject){
-     try{
-         httpRequest = new ActiveXObject("Msxml2.XMLHTTP");    
-     } catch(e) {
-         try{
-             httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-         } catch (e2) { httpRequest = null; }
-     }
- }
- else if(window.XMLHttpRequest){
-     httpRequest = new window.XMLHttpRequest();
- }
- return httpRequest;    
-}
-
-function setTerm(){
-	var term = document.getElementById("term").value;
-
-	var param="term="+term;
-	httpRequest=getXMLHttpRequest();
-	httpRequest.onreadystatechange=callback;
-	httpRequest.open("GET","/mypage/ticket",true);
-	httpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	httpRequest.send(param);
-	
-}
-
-function callback(){
-	if(httpRequest.readyState==4){
-		var resultText=httpRequest.responseText;
-		
-		document.getElementById("selectterm").innerHTML=resultText;
-	}
-}
-
 </script>
 
 
 
 
 <style type="text/css">
+
 /* 메뉴 네비게이션바 */
 #STATICMENU {
 	width: 200px;
@@ -167,7 +131,7 @@ table {
 
 
 .myticket {
-	margin: 0 auto 0 250px;
+	margin: 0 5% 0 250px;
 }
 
 #cancledate {
@@ -179,24 +143,49 @@ a {
 	color: #0080ff;
 }
 
-#cancleBtn{
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	margin-right:-4px;
-	border: 1px solid black;
-	background-color: rgba(0,0,0,0);
-	color: black;
-	padding: 5px;
+
+td[name="cancledate"]{
+	color: #0080ff;
+	font-size: 13px;
 }
 
-#cancleBtn:hover{
-    color:white;
-    background-color: #0080ff;
-    border: 1px solid #0080ff;
+.reserve1 th{
+	background:#D9E1E8;
 }
 
+.reserve2 th{
+	background:#D9E1E8;
+}
+
+
+.reserv1 th, td{
+	font-size: 15px;
+	text-align: center;
+	border:1px solid #ccc;
+	border-collapse:collapse; /* 각각의 셀들의 테두리가 겹치는 부분을 하나의 선으로 합침 */
+}
+
+.reserve1 table{
+	width: 100%;
+	font-family: "Nanum Gothic", sans-serif; 
+}
+
+.reserve2 table{
+	width: 100%;
+	font-family: "Nanum Gothic", sans-serif; 
+}
+
+.reserv2 th, td{
+	font-size: 13px;
+	text-align: center;
+	border:1px solid #ccc;
+	border-collapse:collapse; /* 각각의 셀들의 테두리가 겹치는 부분을 하나의 선으로 합침 */
+}
+
+.myticket h1 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-weight: 400;
+}
 </style>
 
 <div id="STATICMENU">
@@ -217,7 +206,7 @@ a {
 <h1>예매 상세 보기</h1>
 <hr>
 
-<p>예매 티켓 정보</p>
+<h3>예매 티켓 정보</h3>
 
 <c:forEach items="${reserveList }" var="i">
 		<c:if test="${i.reserve_code eq reserve_code }">
@@ -240,14 +229,13 @@ a {
 		</c:if>
 </c:forEach>	
 
-
-
+<div class="reserve1">
 <input type="hidden" name="ticket_code" />
 <table>
 	<tr>
-		<td>예매 번호</td>
+		<th>예매 번호</th>
 		<td>${reserve_code }</td>
-		<td>티켓명</td>
+		<th>티켓명</th>
 		<td id="teamname">
 			<c:set value="1" var="one" />
 			<c:forEach items="${matchList }" var="i">
@@ -259,7 +247,7 @@ a {
 		</td>
 	</tr>
 	<tr>
-		<td>관람일시</td>
+		<th>관람일시</th>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${matchList }" var="i">
@@ -269,7 +257,7 @@ a {
 				</c:if>
 			</c:forEach>
 		</td>
-		<td>장소</td>
+		<th>장소</th>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${stadiumList }" var="i">
@@ -281,7 +269,7 @@ a {
 		</td>
 	</tr>
 	<tr>
-		<td>좌석</td>
+		<th>좌석</th>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${ticketList }" var="i" varStatus="tStatus">
@@ -295,7 +283,7 @@ a {
 				</c:if>
 			</c:forEach>
 		</td>
-		<td>티켓수령 방법</td>
+		<th>티켓수령 방법</th>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${reserveList }" var="i">
@@ -307,8 +295,8 @@ a {
 		</td>
 	</tr>
 	<tr>
-		<td>취소 가능일</td>
-		<td id="cancledate">
+		<th>취소 가능일</th>
+		<td name="cancledate">
 			<c:set value="1" var="one" />
 			<c:forEach items="${matchList }" var="i">
 				<c:if test="${one=='1' && i.match_code == matchcode }">
@@ -319,13 +307,13 @@ a {
 				</c:if>
 			</c:forEach>
 		</td>
-		<td>취소 가능 여부</td>
+		<th>취소 가능 여부</th>
 		<td id="canclepossible"></td>
 	</tr>
 	<tr>
-		<td>예매자</td>
+		<th>예매자</th>
 		<td>${member.username }</td>
-		<td>예매일</td>
+		<th>예매일</th>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${reserveList }" var="i">
@@ -337,7 +325,7 @@ a {
 		</td>
 	</tr>
 	<tr>
-		<td>결제수단</td>
+		<th>결제수단</th>
 		<td>
 			<c:set value="1" var="one" />
 			<c:forEach items="${reserveList }" var="i">
@@ -347,12 +335,14 @@ a {
 				</c:if>
 			</c:forEach>	
 		</td>
-		<td>현재상태</td>
+		<th>현재상태</th>
 		<td>예매완료</td>
 	</tr>
 </table>
-
-<p>티켓 예매 내역</p>
+</div>
+<br><br><br>
+<div class="reserve2">
+<h3>티켓 예매 내역</h3>
 <p>예매한 내역이 확인이 안되실 경우 <a href="/board/1:1write">1:1 상담 문의</a>를 이용해주세요.</p>
 <!-- <p>기간별 조회 -->
 <!-- <button id="term" name="term" value="15" onclick="setTerm()">15일</button> -->
@@ -417,7 +407,7 @@ a {
 					</c:if>
 				</c:forEach>
 			</td>
-			<td id="cancledate">
+			<td name="cancledate">
 				<c:forEach items="${matchList }" var="m">
 					<c:if test="${m.match_code == each_matchcode }">
 						<fmt:formatDate var="matchdate" value="${m.match_date }"  pattern="yyyyMMdd HH:mm"/>
@@ -432,7 +422,7 @@ a {
 	</c:forEach>
 </table>
 </div>
-
+</div>
 
 </div>
 

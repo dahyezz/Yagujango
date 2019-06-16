@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -95,24 +90,43 @@ $(document).ready(function() {
 	padding:0 5% 0 5%;
 	border-collapse: collapse;
 }
-p{
+.wrap p{
 	color:blue;
 	font-weight:bold;
 }
 .button-right{text-align:right;}
-h1{
+.wrap h1{
 	color:#000;
 	font:bold 12px tahoma;
 	font-size: 32px;
 }
-hr{
+.wrap hr{
 	color: "black";
 	border-style: inset;
 	border-width: 1px;
 }
+
+.wrap button {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+/* 	margin-right:10%; */
+	border: 1px solid black;
+	background-color: rgba(0,0,0,0);
+	color: black;
+	padding: 5px;
+
+}
+
+.wrap button:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
+}
+
 </style>
-</head>
-<body>
+
 <div class="wrap">
 <h1>좌석 뷰 게시판</h1>
 <hr>
@@ -158,5 +172,3 @@ hr{
 </form>
 </div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>
