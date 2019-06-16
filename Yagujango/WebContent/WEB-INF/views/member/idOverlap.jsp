@@ -60,12 +60,12 @@ function callback(){
 		
 		if(resultText==0){
 			document.getElementById("result").innerHTML="사용할 수 없는 아이디입니다";
-			document.getElementById("cancelBtn").style.visibility='visible';
+			document.getElementById("cancleBtn").style.visibility='visible';
             document.getElementById("useBtn").style.visibility='hidden';
 		} else if(resultText==1){
 			document.getElementById("result").innerHTML="사용 가능한 아이디 입니다";
-			document.getElementById("cancelBtn").style.visibility='hidden';
-            document.getElementById("useBtn").style.visibility='visible';s
+			document.getElementById("cancleBtn").style.visibility='hidden';
+            document.getElementById("useBtn").style.visibility='visible';
 		}
 	}
 }
@@ -86,13 +86,62 @@ function sendIdValue(){
 }
 
 </script>
+
+<style type="text/css">
+.idOverlap{
+	background-color : #eeeff1;
+	margin:-7px;
+	padding:15px 0 30px 15px;
+}
+
+.idOverlap input[type="text"]{
+	width:260px;
+	height:30px;
+	border-radius: 5px;
+	border:1.5px solid #ccc;
+	font-size:20px;
+	padding-left:10px;
+}
+
+.idOverlap input[type="button"]{
+	margin:15px 0 20px 60px;
+	width:145px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:15px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding: 10px;
+	cursor:pointer;
+}
+
+#result{
+	height:40px;
+	font-weight:bold;
+	color:#0080ff;
+	text-align:center;
+}
+
+.idOverlap button{
+	margin:10px 0 0 20px;
+	width:100px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:15px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding: 10px;
+	cursor:pointer;
+}
+</style>
+
 </head>
 <body onload="getIdValue()"> <!-- 화면이 열리면 getIdValue() 호출 -->
 
-<div>
-	<h4>아이디 중복 체크</h4>
-	<hr>
-	
+<div class="idOverlap">
+
 	<form action="member/idOverlap" method="post" id="idCheck">
 		<input type="text" name="userid" id="userid"/>
 		<input type="button" value="아이디 중복 체크" onclick="idOverlap()"/>
@@ -101,7 +150,7 @@ function sendIdValue(){
 	<div id="result"></div>
 	
 	<button id="cancleBtn" onclick="window.close()">취소</button>
-	<button id="userBtn" onclick="sendIdValue()">사용하기</button>
+	<button id="useBtn" onclick="sendIdValue()">사용하기</button>
 </div>
 
 </body>

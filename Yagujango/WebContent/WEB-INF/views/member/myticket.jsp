@@ -436,7 +436,6 @@ td[name="cancledate"]{
 
 </div>
 
-<c:import url="/WEB-INF/views/layout/mypage_paging.jsp" />
-
+<c:import url="/WEB-INF/views/layout/myticket_paging.jsp" />
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
