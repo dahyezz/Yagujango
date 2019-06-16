@@ -2,11 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <script type="text/javascript">
@@ -114,8 +110,7 @@ table tbody {
 img {max-width: 100%;}
 .contentdiv{padding: 0 10% 0 10%;}
 </style>
-</head>
-<body>
+
 <div class="tablediv">
 <table>
 <thead>
@@ -152,5 +147,3 @@ ${board.content }
 </div>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>

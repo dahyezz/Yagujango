@@ -13,9 +13,10 @@
     background-color: #598cc8;
     font-size: 20px;
     padding: 12px 0 15px 20px;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 22px;
     margin: 0;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 .con {

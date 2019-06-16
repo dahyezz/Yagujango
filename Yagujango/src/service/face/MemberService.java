@@ -177,15 +177,5 @@ public interface MemberService {
 	 */
 	public void cancleMyTicket(String reserve_code);
 
-	/**
-	 * 페이징 처리 안한 예매코드리스트 가져오기
-	 * 
-	 * @param reserve
-	 * @return
-	 */
-	public List<Reserve> getReservecodeListnotpaging(Reserve reserve);
-
-	public List<Reserve> getReservecodeListByTerm(int term, Reserve reserve);
-
 
 }

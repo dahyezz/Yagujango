@@ -2,11 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 <script type="text/javascript">
 $(document).ready(function() {
@@ -126,8 +122,7 @@ img {
 	max-width: 100%;
 }
 </style>
-</head>
-<body>
+
 <div class ="wrap">
 
 <h1>자유게시판</h1>
@@ -189,5 +184,3 @@ style="height:50px; width:600px; resize: none;"></textarea>&nbsp;
 
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>

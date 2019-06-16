@@ -38,7 +38,7 @@ function popup_personal(){
 }
 .footername p {
 	color: #0080ff;
-	font-family: "Nanum Gothic", sans-serif;
+	font-family: 'Do Hyeon', sans-serif;
 	font-weight: 800;
 	font-size: 30px;
 	text-align: center;
@@ -69,6 +69,7 @@ function popup_personal(){
 .info p {
 	margin: 0;
 	padding: 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 td,p{
     color: #282c37;        

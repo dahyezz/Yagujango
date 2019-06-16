@@ -33,6 +33,8 @@ marquee{
     margin-left: 5%;
     margin-right: 5%;
     margin: auto;
+    min-width: 1060px;
+    max-height: 83.5%;
 }
 #allstar{
     margin-left: 5%;
@@ -150,7 +152,7 @@ div[class^="day_"] td {
 
 <div><a href="https://www.koreabaseball.com/" target="_blank" ><img src="/img/main/allstar.png" id="allstar"></a></div>
 <div class="club">
-   <marquee width="83.5%" direction="right" behavior="slide" scrollamount="30">
+   <marquee width="80%" direction="right" behavior="slide" scrollamount="30">
     <a href="https://www.tigers.co.kr/mainSeasonOn.asp" target="_blank"><img src="/img/main/ki1.png"></a>
     <a href="https://www.doosanbears.com/" target="_blank"><img src="/img/main/do2.png"></a>
     <a href="https://www.lgtwins.com/service/html.ncd?view=/pc_twins/twins_main/twins_main" target="_blank"><img src="/img/main/lg2.png"></a>
