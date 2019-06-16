@@ -55,30 +55,30 @@ RefreshStaticMenu();
 }
 
 /* 네비게이션바 테이블 */
-#STATICMENU table {
+table {
 	border-collapse: collapse;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 	width:auto;
 }
-#STATICMENU .table th, td{
+.table th, td{
  	border: 1px solid #ddd;
  	padding: 10px;
  	text-align:center;
 }
-#STATICMENU .table th:hover{
+.table th:hover{
 	background: #D5D5D5;
 }
-#STATICMENU .table th:first-child, td:first-child{
+.table th:first-child, td:first-child{
  	border-left: 0;
 }
-#STATICMENU .table th:last-child, td:last-child{
+.table th:last-child, td:last-child{
  	border-right: 0;
 }
 /* 네비게이션바 테이블 */
 
 /* 하이퍼링크 밑줄 제거 */
-a { text-decoration:none; color:#000000 }
+.a { text-decoration:none; color:#000000 }
 
 
 .OneToOneListBody{
@@ -107,7 +107,10 @@ a { text-decoration:none; color:#000000 }
 	background: #d9e1e8;
 }
 
-
+.wrap h1 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-weight: 400;
+}
 </style>
 
 

@@ -186,6 +186,16 @@ td[name="cancledate"]{
 	font-family: 'Do Hyeon', sans-serif;
 	font-weight: 400;
 }
+
+.myticket h3 p {
+	font-family: 'Gothic A1', sans-serif;
+}
+
+.reserve2 p{
+	float: right;
+	
+}
+
 </style>
 
 <div id="STATICMENU">

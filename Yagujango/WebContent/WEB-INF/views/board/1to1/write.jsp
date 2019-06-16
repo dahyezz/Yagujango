@@ -75,7 +75,7 @@ $(function(){
 
 <style type="text/css">
 .wrtierfull {
-	padding: 0 5% 0 5%;
+	margin: 0 5% 0 5%;
 }
 
 .witerBody {
@@ -83,17 +83,18 @@ $(function(){
     border-top: 3px solid #000000;
     border-bottom: 3px solid #000000;
     
-    padding-right: 162px;
-    padding-left: 155px;
+    padding-right: 10px;
+    padding-left: 10px;
     padding-top: 30px;
     padding-bottom: 30px;
 }
 .text-center { 
     position: relative;
-    left: 1000px;
+/*     left: 1000px; */
 	line-height: 40px;
 	font-size: 15px; 
-	width: 1000px; 
+/* 	width: 1000px;  */
+	float: right;
 }
 
 
@@ -104,6 +105,9 @@ $(function(){
 
 }
 
+a {
+	text-decoration: none;
+}
 </style>
 
 <div class="wrtierfull">

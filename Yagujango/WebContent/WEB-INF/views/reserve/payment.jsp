@@ -15,8 +15,8 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <!-- 폰트 -->
-<link href="https://fonts.googleapis.com/css?family=Electrolize|Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Gothic+A1:200,400|Jua|Nanum+Gothic&display=swap" rel="stylesheet">
 <script type="text/javascript">
 var popclose = false;
 var IMP = window.IMP;
@@ -67,6 +67,7 @@ function payment() {
 		
 		var email = document.getElementsByName("email");
 		var name = document.getElementsByName("username");
+		var pay = document.getElementsByName("pay");
 		console.log(email[0].value);
 		console.log(name[0].value);
 
@@ -77,7 +78,8 @@ function payment() {
 				pay_method : 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
 				name : '[2019 신한은행 MY CAR KBO 리그]',
-				amount : 100,
+				amount : pay[0].value,
+// 				amount : 100,
 				buyer_email : email[0].value,
 				buyer_name : name[0].value,
 				buyer_tel : '010-1234-5678',
@@ -232,7 +234,7 @@ a { text-decoration:none }
 
 
 
-<h1 style="margin: 20px 0 0 20px;">티켓 예매</h1>
+<h1 style="margin: 20px 0 0 20px;  font-family: 'Do Hyeon', sans-serif; font-weight: 800;">티켓 예매</h1>
 <p id="topbar">예매 > ${stadium.stadium_name } [${stadium.team_name }] > 예매하기</p><br>
 <hr>
 
@@ -267,7 +269,7 @@ a { text-decoration:none }
 		<input type="hidden" name="account_number" id="account_number" value="123456-00-789001"/>
 		<c:set var = "total" value ="0"/>
 		<c:forEach items="${seatinfo }" var="i" varStatus="status">
-		<c:set var = "total" value="${total + i.price }"/>
+		<c:set var = "total" value="${total + i.price }" />
 		</c:forEach>
 		<input type="hidden" name="pay" id="pay" value="${total }"/>
 	  	<label id='cash'><input type='radio' name='payment' id='cash' value='무통장입금'/>무통장 입금</label><p>

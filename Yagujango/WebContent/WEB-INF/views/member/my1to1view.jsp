@@ -115,7 +115,7 @@ hr{
 	border-width: 1px;
 }
 .wrap{
-	padding:0 5% 0 5%;
+	padding:0 5% 0 250px;
 	border-collapse: collapse;
 }
 .contentdiv{
