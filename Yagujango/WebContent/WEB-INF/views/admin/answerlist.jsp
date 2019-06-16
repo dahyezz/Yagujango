@@ -146,8 +146,6 @@ a { text-decoration:none; color: black; }
 
 
 <h1>답변완료목록</h1>
-<hr>
-
 <table class="table table-striped table-hover table-condensed answerlist">
 <thead>
 	<tr>
