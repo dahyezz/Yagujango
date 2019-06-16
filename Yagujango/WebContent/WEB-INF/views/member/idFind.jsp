@@ -11,46 +11,6 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<style type="text/css">
-.login-form{
-	background-color : #eeeff1;
-	border-radius: 5px;
-	margin-left: auto;
-	margin-right: auto;
-	width: 300px;
-	height: 260px;
-	padding: 20px;
-
-}
-.text-field {
-  border: 15px solid #ffffff;
-  border-radius: 5px;
-  font-size: 15px;
-  margin: 10px 0 0 0;
-  width: 260px;
-  height: 15px;
-  margin-left:5px;
-
-}
-.btn-submit{
-  font-size: 15px;
-  background-color: #0080ff;
-  border-radius: 5px;
-  border: 10px solid #0080ff;
-  width: 260px;
-  height: 40px;
-  margin: 30px 0 40px 0;
-  margin-left: 20px;
-  
-/*   margin: 15px 0 25px 0; */
-}
-.find{
-	text-align:center;
-	margin-top:50px;
-	margin-left:110px;
-
-}
-</style>
 <script type="text/javascript">
 
 var httpRequest = null;
@@ -103,20 +63,68 @@ function callback(){
 }
 </script>
 
+<style type="text/css">
+.idFind{
+	background-color : #eeeff1;
+	margin:-7px;
+	padding-top:15px;
+	padding-left:15px;
+}
+
+.idFind input[type="text"]{
+	width:300px;
+	height:30px;
+	border-radius: 5px;
+	border:1.5px solid #ccc;
+	font-size:20px;
+	padding-left:10px;
+}
+
+.idFind label{
+	width:300px;
+	height:30px;
+	font-size:20px;
+	padding-left:10px;
+	font-weight:bold;
+}
+
+.idFind input[type="button"]{
+	margin-left:100px;
+	width:110px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:15px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding: 15px;
+	cursor:pointer;
+}
+
+#result{
+	height:70px;
+	font-weight:bold;
+	color:#0080ff;
+	text-align:center;
+}
+</style>
+
 </head>
 <body>
-<div class="login-form">
+<div class="idFind">
+
 <form action="/member/idFind" method="post">
 	<label for="username">이름</label><br>
-	<input type="text" id="username" name="username" class="text-field" placeholder="이름"/><br>
+	<input type="text" id="username" name="username" placeholder="이름"/><br>
 	<label for="email">이메일</label><br>
-	<input type="text" id="email" name="email" class="text-field" placeholder="이메일@naver.com"/><br><br>
+	<input type="text" id="email" name="email" placeholder="@email.com"/><br><br>
 	
-	
-	<input type="button" class="find" value="아이디 찾기" onclick="idFind()"/>
+	<input type="button" value="아이디 찾기" onclick="idFind()"/>
 </form>
 <br>
+
 <div id="result"></div> 
+
 </div>
 </body>
 </html>

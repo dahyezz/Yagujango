@@ -130,15 +130,6 @@ table {
 a { text-decoration:none; color:#000000 }
 
 
-/* th{ */
-/* /* 	text-align: left; */ */
-/* /* 	font-size: 30px; */ */
-/* } */
-
-/* table { */
-/* 	text-align: center; */
-/* } */
-
 #notChange {
 	background-color: #ccc;
 }
@@ -146,6 +137,61 @@ a { text-decoration:none; color:#000000 }
 .modify {
 	margin: 0 auto 0 250px;
 }
+
+
+.modify td{
+ 	font-weight:bold;
+ 	font-size:20px;
+ 	text-align:left;
+}
+.modify input[type="text"], input[type="password"], input[type="Date"], input[type="email"], select{
+	width:450px;
+	height:35px;
+	border-radius: 5px;
+	border:1.5px solid #ccc;
+	font-size:20px;
+	padding-left:10px;
+}
+.modify input[type="button"]{
+	margin-left:10px;
+	width:150px;
+	height:35px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:18px;
+	font-weight:bold;
+	border-radius: 5px;
+	cursor:pointer;
+}
+
+#btnModify{
+	margin:20px 0 0 200px;
+	width:150px;
+	background-color:#0080ff;
+	border:#0080ff;
+	color:white;
+	font-size:20px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding: 15px;
+	cursor:pointer;
+}
+
+#leaveBtn{
+	margin:20px 0 0 175px;
+	width:100px;
+	height:50px;
+	background-color:#eeeff1;
+	border:#0080ff;
+	color:black;
+	font-size:15px;
+	font-weight:bold;
+	border-radius: 5px;
+	padding: 15px;
+	cursor:pointer;
+}
+
 </style>
 
 
@@ -225,10 +271,9 @@ a { text-decoration:none; color:#000000 }
 			</select></td>
 		</tr>
 	</table>
-	<input type="submit" value="회원정보수정">
+	<input type="submit" id="btnModify" value="회원정보수정">
+	<input type="button" id="leaveBtn" value="회원탈퇴">
 </form>
-
-<input type="button" id="leaveBtn" value="회원탈퇴">
 </div>
 
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
