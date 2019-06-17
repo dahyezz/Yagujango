@@ -73,7 +73,7 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 		board_seat.setFileurl(req.getParameter("fileurl"));
 		
 		
-		if(req.getParameter("boardno") == null) {
+		if(req.getParameter("boardno") == "0" || req.getParameter("boardno") == null || req.getParameter("boardno") == "") {
 			board_SeatDao.Insert(board_seat);
 		}else {
 			String boardno_param = req.getParameter("boardno");
@@ -88,7 +88,7 @@ public class Board_SeatServiceImpl implements Board_SeatService{
 	@Override
 	public void uploadfile(HttpServletRequest req, HttpServletResponse resp) {
 		Board_file board_file = new Board_file();
-		String url = "http://localhost:8088/upload/";
+		String url = "http://192.168.30.61:8088/upload/";
 		resp.setCharacterEncoding("utf-8");
 		JsonObject obj = new JsonObject();
 		int boardno = 0;

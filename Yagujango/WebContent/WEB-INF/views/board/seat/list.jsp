@@ -115,7 +115,7 @@ function checklist(){
 		//</form>을 body에 추가한다
 		//
 		$f = ($("<form>")
-				.attr("action", "/board/free/listdelete")
+				.attr("action", "/board/seat/listdelete")
 				.attr("method", "get")
 			).append(
 			$("<input>")
@@ -158,7 +158,7 @@ function checklist(){
 				<img src="${i.fileurl}" style="width:100px;height:70px;"/>
 				</c:if>
 				<c:if test="${i.fileurl eq null }">
-				<img src="http://localhost:8088/upload/default.jpg" style="width:100px;height:70px;"/>
+				<img src="http://192.168.30.61:8088/upload/default.jpg" style="width:100px;height:70px;"/>
 				</c:if>
 			</td>
 			<td class="title"><a href="/board/seat/view?boardno=${i.boardno}">

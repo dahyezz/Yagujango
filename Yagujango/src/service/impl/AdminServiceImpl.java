@@ -53,7 +53,7 @@ public class AdminServiceImpl implements AdminService{
 		//����¡ ��ü ����
 		Paging paging = new Paging(totalCount, curPage);
 		paging.setKeyword(keyword);
-		System.out.println(paging);
+//		System.out.println(paging);
 		
 		return paging;	
 	}

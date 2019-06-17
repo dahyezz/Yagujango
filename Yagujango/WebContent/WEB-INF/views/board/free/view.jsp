@@ -168,7 +168,7 @@ ${board.content }
 
 <c:if test="${login ne true }">
 <div class="commentinsertdiv">
-<textarea id="commentcontent" placeholder="로그인이 필요합니다."
+<textarea id="commentcontent" readonly="readonly" placeholder="로그인이 필요합니다."
 	style="height:50px; width:600px; resize: none;"></textarea>
 </div>
 </c:if>
