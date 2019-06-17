@@ -55,7 +55,7 @@ function selectSeat(matchcode){
 		console.log("로그인 아님")
 		location.href=("/member/login");
 	} else {
-		window.open("http://localhost:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=650");
+		window.open("http://192.168.30.61:8088/reserve/seat?match_code="+matchcode,"예매", "width=1000, height=650");
 	}
 	
 }

@@ -15,6 +15,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+    $("#stadium_name option[value='${board.stadium_name}']").attr("selected", true);
+    $("#seat_block select option[value='${board.seat_block}']").attr("selected", true);
+    $("#seat_number option[value='${board.seat_number}']").attr("selected", true);
+    
     $('#summernote').summernote({
             height: 300,                 // set editor height
             minHeight: 300,             // set minimum height of editor
@@ -41,9 +46,6 @@ $(document).ready(function() {
 			 
     });
     
-    $("select option[value='${board.stadium_name}']").attr("selected", true);
-    $("select option[value='${board.seat_block}']").attr("selected", true);
-    $("select option[value='${board.seat_number}']").attr("selected", true);
 });
 function sendFile(file, editor) {
 	// 파일 전송을 위한 폼생성
@@ -54,7 +56,7 @@ function sendFile(file, editor) {
         data : data,
         dataType: "json",
         type : "POST",
-        url : "/board/free/fileupload",
+        url : "/board/seat/fileupload",
         cache : false,
         contentType : false,
         enctype: 'multipart/form-data',
@@ -68,46 +70,83 @@ function sendFile(file, editor) {
     });
 }
 </script>
+<style type="text/css">
+.wrap{
+	padding:0 5% 0 5%;
+	border-collapse: collapse;
+}
 
-<form action="/board/free/update" method="post">
+.button-right{text-align:right;}
+.wrap h1{
+	color:#000;
+	font:bold 12px tahoma;
+	font-size: 32px;
+}
+.wrap hr{
+	color: "black";
+	border-style: inset;
+	border-width: 1px;
+}
 
-<table class="table table-bordered">
-<tr><td class="info">아이디</td><td>${userid }</td></tr>
-<tr><td class="info">구장명</td><td>
-						<select name="stadium_name">
-							<option value="광주 KIA챔피언스필드">광주 KIA챔피언스필드</option>
-							<option value="수원 케이티위즈파크">수원 케이티위즈파크</option>
-							<option value="잠실">잠실</option>
-							<option value="창원NC파크">창원NC파크</option>
-							<option value="인천SK 행복드림">인천SK 행복드림</option>
-							<option value="부산 사직">부산 사직</option>
-							<option value="대구 삼성라이온즈파크">대구 삼성라이온즈파크</option>
-							<option value="고척스카이돔">고척스카이돔</option>
-							<option value="한화생명 EaglesPark">한화생명 EaglesPark</option>
+.wrap button {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+/* 	margin-right:10%; */
+	border: 1px solid black;
+	background-color: rgba(0,0,0,0);
+	color: black;
+	padding: 5px;
+
+}
+
+.wrap button:hover{
+    color:white;
+    background-color: #0080ff;
+    border: 1px solid #0080ff;
+}
+
+</style>
+<div class="wrap">
+<form action="/board/seat/update" method="post">
+<table>
+<tr><td>구장명</td><td></td><td>
+						<select id="stadium_name" name="stadium_name">
+							<option>광주 KIA챔피언스필드</option>
+							<option>수원 케이티위즈파크</option>
+							<option>잠실</option>
+							<option>창원NC파크</option>
+							<option>인천SK 행복드림</option>
+							<option>부산 사직</option>
+							<option>대구 삼성라이온즈파크</option>
+							<option>고척스카이돔</option>
+							<option>한화생명 EaglesPark</option>
 						</select>
 					</td></tr>
-<tr><td class="info">블록</td><td>
-						<select name="seat_block">
-							<option value="A">A</option>
-							<option value="B">B</option>
-							<option value="C">C</option>
-							<option value="D">D</option>
-							<option value="E">E</option>
+<tr><td>블럭</td><td></td><td>
+						<select id="seat_block"name="seat_block">
+							<option>A</option>
+							<option>B</option>
+							<option>C</option>
+							<option>D</option>
+							<option>E</option>
 						</select>
 					</td></tr>
-<tr><td class="info">좌석번호</td><td>
-						<select name="seat_number">
+<tr><td>좌석번호</td><td></td><td>
+						<select id="seat_number"name="seat_number">
 							<c:forEach begin="1" end="100" var="i">
-								<option value="${i}">${i}</option>
+								<option>${i}</option>
 							</c:forEach>
 						</select>
 					</td></tr>
-<tr><td colspan="2">
-	<textarea name="content" id="summernote" >${board.content }</textarea>
-</td></tr>
 </table>
-<input type="text" style="display: none;" id="boardno" name="boardno" value="${board.boardno}"/>
+<textarea name="content" id="summernote" >${board.content}</textarea>
+<div class ="button-right">
 <button>수정</button>
-</form>
+</div>
+<input type="text" style="display: none;" id="boardno" name="boardno" value="${board.boardno}"/>
 
+</form>
+</div>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

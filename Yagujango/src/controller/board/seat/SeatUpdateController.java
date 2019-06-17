@@ -35,6 +35,6 @@ public class SeatUpdateController extends HttpServlet {
 		
 		board_SeatService.update(req);
 		
-		resp.sendRedirect("/board/seat/view?boardno="+req.getParameter("boardno"));
+		resp.sendRedirect("/board/seat/list");
 	}
 }
